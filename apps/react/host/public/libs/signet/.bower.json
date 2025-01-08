@@ -1,0 +1,14 @@
+{
+  "name": "signet",
+  "homepage": "https://github.com/HubSpot/signet",
+  "version": "0.4.8",
+  "_release": "0.4.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.8",
+    "commit": "0a923185a40d30270aa4b87b83bff08fce2d52df"
+  },
+  "_source": "https://github.com/HubSpot/signet.git",
+  "_target": "0.4.8",
+  "_originalSource": "signet"
+}

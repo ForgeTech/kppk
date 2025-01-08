@@ -1,0 +1,13 @@
+{
+  "data_protection": "Datenschutz",
+  "home": "Startseite",
+  "manual": "Anleitung",
+  "calculation": "Berechnung",
+  "calculation_start": "Berechnung Starten",
+  "imprint": "Impressum",
+  "version": "Version",
+  "login": "Anmelden",
+  "logout": "Abmelden",
+  "app_error": "KRITISCHER_FEHLER: Andwendung wurde beendet!",
+  "app_stopped": "Anwendung wurde erfolgreich beendet!"
+}

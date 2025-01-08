@@ -1,0 +1,11 @@
+{
+  "btn-update-label": "Auf aktuelle Version updaten",
+  "btn-confirm-update-label": "Fortfahren",
+  "btn-confirm-update-tooltip": "Bestätigen Sie das sie mit dem Update auf die aktuelle Version fortfahren wollen",
+  "btn-update-tooltip": "Startet sie das Pdv-Portal Update",
+  "modal_btn-cancel-update-label": "Abbrechen'",
+  "modal_btn-cancel-update-tooltip": "Vorgang abbrechen ohne die aktuelle PDV-Portal Version zu installieren",
+  "modal_btn-update-label": "Fortfahren",
+  "modal-content": "Es ist eine PDVßPortal Aktualisierung (Version: {{ version }}) verfügbar! Sichern sie alle Ihre Eingaben bevor sie mit der installation 'Fortfahren'",
+  "modal-headline": "PDV-Portal Aktualisierung verfügbar"
+}
