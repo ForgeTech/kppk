@@ -1,0 +1,36 @@
+{
+  "name": "fg-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/fg-lib/src",
+  "prefix": "fg-lib",
+  "projectType": "library",
+  "tags": ["angular", "library"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/fg-lib/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/fg-lib/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/fg-lib/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/fg-lib/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
