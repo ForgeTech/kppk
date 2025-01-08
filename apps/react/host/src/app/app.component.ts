@@ -12,7 +12,13 @@ import { RouterModule } from '@angular/router';
       <li><a routerLink="react_view_home">ReactViewHome</a></li>
       <li><a routerLink="react_view_calc">ReactViewCalc</a></li>
     </ul>
-    <router-outlet></router-outlet>`,
+    <section class="content">
+      <router-outlet/>
+    </section>
+    <section class="print">
+      <router-outlet name="print"/>
+    </section>
+  `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })

@@ -14,7 +14,16 @@ const config: ModuleFederationConfig = {
    * declare module 'my-external-remote';
    *
    */
-  remotes: ['react_view_login', 'react_view_home', 'react_view_calc'],
+  remotes: [
+    'react_view_login',
+    'react_view_home',
+    'react_view_calc'
+  ],
+  additionalShared: [ 
+    ['@angular/core', { eager: true }],
+    ['@angular/core/primitives/signals', { eager: true }],
+    ['@angular/core/primitives/event-dispatch', { eager: true }]
+  ],
 };
 
 /**
