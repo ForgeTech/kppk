@@ -1,0 +1,255 @@
+import { AuthCookieFgAuthLocal, ContextFgAuthLocal, ContextFgAuthLocalParser } from "./fg-auth-local.machine.types";
+import { DoneActorEvent, ErrorActorEvent } from "xstate";
+import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@fg-kppk/fg-base";
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Spy, provideAutoSpy } from 'jest-auto-spies';
+
+import { FgAuthLocalService } from './fg-auth-local.service';
+import { HttpClient } from "@angular/common/http";
+import { LoggerTestingModule } from 'ngx-logger/testing';
+import { TestBed } from "@angular/core/testing";
+import { ZodError } from "zod";
+import { environment } from "apps/fg-react-demo/src/environments/environment";
+import { FgImmutableService } from "../../service/fg-immutable.service";
+
+describe('FgAuthLocalMachine', () => {
+  let $service: FgAuthLocalService;
+  let $immer: FgImmutableService;
+  let $immer_produce_mock: any;
+  let $cookie_mock: Spy<FgStorageNgxCookieService>;
+  let $http: any;
+  let $http_controller: HttpTestingController;
+  let $log_mock: any;
+  let context: ContextFgAuthLocal;
+  let auth_cookie_admin: AuthCookieFgAuthLocal;
+  let auth_cookie_invalid: any;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [
+        LoggerTestingModule,
+        HttpClientTestingModule
+      ],
+      providers: [
+        FgAuthLocalService,
+        FgImmutableService,
+        provideAutoSpy(FgStorageNgxCookieService),
+        { provide: FG_ENVIRONMENT, useValue: environment },
+      ],
+    });
+    $service = TestBed.inject(FgAuthLocalService);
+
+    $http = TestBed.inject(HttpClient);
+    $http_controller = TestBed.inject(HttpTestingController);
+
+    $immer = TestBed.inject(FgImmutableService);
+    $immer_produce_mock = jest.spyOn($immer, 'produce');
+    // $log_mock = TestBed.inject(NGXLogger);
+    $cookie_mock = TestBed.inject(FgStorageNgxCookieService) as Spy<FgStorageNgxCookieService>;
+    $cookie_mock.getItem.mockReset();
+
+    context = ContextFgAuthLocalParser.parse({});
+    auth_cookie_admin = {
+      token: "_8qcckJzybYauxZwiVlYMl7dEpUXyhbcVKPTAGKP4-k=",
+      userSalt: "SA6hckAvHJVZYo8jlaao9QGn2X2Zfrmlxz19ilXg3xE=",
+      sharedSalt: "5C7VHcmgj4HAUu8IVD3emCls17HtGz53/8OhHtk3xBE=",
+      profile: {
+        active: true,
+        admin: true,
+        cookieLifeTime: '2d',
+        email: 'test-user@test.com',
+        username: 'Test_User_1'
+      }
+    };
+    auth_cookie_invalid = {
+      invalid: 'invalid'
+    };
+  });
+  afterEach(async () => {
+    jest.resetAllMocks();
+  });
+
+  describe('METHODE: ContextFgAuthLocalParserParser', () => {
+    it('validated default values', () => {
+      expect(context.auth_cookie).toBe(undefined);
+      expect(context.authCookieStorageKey).toBe('fg-auth-local-cookie');
+      expect(context.error).toBe(undefined);
+      expect(context.path).toBe('./auth-local/');
+      expect(context.salt).toBe(undefined);
+      expect(context.saltFilename).toBe('salt.json');
+    })
+  })
+
+    describe('METHODE: send_authorized_event_to', () => {
+      it('CHECK: returns \'fg.auth.local.event.authorized\' event', () => {
+        context.auth_cookie = auth_cookie_admin;
+        expect( $service.send_authorized_event_to({ context }).type ).toBe('fg.auth.local.event.authorized');
+      }); 
+      it('THROWS if authCookie on context is undefined', () => {
+        context.auth_cookie = false;
+        // CAUTION: If testing if methoed throws error and it's not working read
+        // https://stackoverflow.com/a/66109855/1622564
+        expect( () => $service.send_authorized_event_to({ context }) ).toThrow(ZodError);
+      });
+    });
+
+    describe('METHODE: send_unauthorized_event_to', () => {
+      it('CHECK: returns \'fg.auth.local.event.unauthorized\' event', () => {
+        expect( $service.send_unauthorized_event_to({ context }).type ).toBe('fg.auth.local.event.unauthorized');
+      });  
+    });
+
+    describe('METHODE: escalate_auth_local_key_error', () => {
+      it('THROWS \'fg-auth-local-key-error\' if auth-local key-file is unable to load', () => {
+        // CAUTION: If testing if methoed throws error and it's not working read
+        // https://stackoverflow.com/a/66109855/1622564
+        expect( () => $service.escalate_auth_local_key_error({ context }) ).toThrow(Error);
+      });
+    });
+
+    describe('METHODE: assign_auth_cookie', () => {
+      let event: DoneActorEvent;
+      beforeEach(async () => {
+        event = {
+          type: 'xstate.done.actor.test',
+          output: auth_cookie_admin
+        };
+      })
+      it('CHECK: result context is frozen object (IMMER.JS)', () => {
+        const result = $service.assign_auth_cookie({ context, event });
+        expect(Object.isFrozen(result)).toBe(true);
+        expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+      });
+      it('CHECK: if auth-cookie from event is set on context', () => {
+        const result = $service.assign_auth_cookie({ context, event });
+        expect(result.auth_cookie).toStrictEqual(event.output);
+      });
+    });
+
+    // describe('METHODE: assign_auth_key', () => {
+    //   let event: DoneActorEvent;
+    //   beforeEach(async () => {
+    //     event = {
+    //       type: 'xstate.done.actor.test',
+    //       output: 'auth-key'
+    //     };
+    //   })
+    //   it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    //     const result = $service.assign_auth_key({ context, event });
+    //     expect(Object.isFrozen(result)).toBe(true);
+    //     expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+    //   });
+    //   it('CHECK: if auth-key from event is set on context', () => {
+    //     const result = $service.assign_auth_key({ context, event });
+    //     expect(result.salt).toStrictEqual(event.output);
+    //   });
+    // });
+    
+    describe('METHODE: assign_authorization_error', () => {
+      let event: ErrorActorEvent;
+      beforeEach(async () => {
+        event = {
+          type: 'xstate.error.actor.test',
+          error: new Error('test-error-authorization')
+        }
+      })
+      it('CHECK: result context is frozen object (IMMER.JS)', () => {
+        const result = $service.assign_authorization_error({ context, event });
+        expect(Object.isFrozen(result)).toBe(true);
+        expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+      });
+      it('CHECK: assigns error message from event to context', () => {
+        const result = $service.assign_authorization_error({ context, event });
+        expect(result.error).toBe((event.error as Error).message)
+      });
+    });
+
+    describe('METHODE: assign_clear_authorization_error', () => {
+      it('CHECK: result context is frozen object (IMMER.JS)', () => {
+        const result = $service.assign_clear_authorization_error({ context });
+        expect(Object.isFrozen(result)).toBe(true);
+        expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+      });
+      it('CHECK: removes error message from context', () => {
+        context.error = 'has-error';
+        const result = $service.assign_clear_authorization_error({ context });
+        expect(result.error).toBe(undefined);
+      });
+    });
+
+    describe('METHODE: assign_clear_auth_cookie', () => {
+      it('CHECK: result context is frozen object (IMMER.JS)', () => {
+        const result = $service.assign_clear_auth_cookie({ context });
+        expect(Object.isFrozen(result)).toBe(true);
+        expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+      });
+      it('CHECK: removes authCookie from context', () => {
+        context.auth_cookie = auth_cookie_admin;
+        const result = $service.assign_clear_auth_cookie({ context });
+        expect(result.auth_cookie).toBe(false);
+      });
+    });
+
+    describe('METHODE: assign_revoke_authorization_error', () => {
+      let event: ErrorActorEvent;
+      beforeEach(async () => {
+        event = {
+          type: 'xstate.error.actor.test',
+          error: new Error('test-error-revoke-error')
+        }
+      })
+      it('CHECK: result context is frozen object (IMMER.JS)', () => {
+        const result = $service.assign_revoke_authorization_error({ context, event });
+        expect(Object.isFrozen(result)).toBe(true);
+        expect($immer_produce_mock).toHaveBeenCalledTimes(1);
+      });
+      it('CHECK: assigns error message from event to context', () => {
+        const result = $service.assign_revoke_authorization_error({ context, event });
+        expect(result.error).toBe((event.error as Error).message)
+      });
+    });
+
+    describe('METHODE: escalate_auth_load_cookie_error', () => {
+      it('THROWS \'fg-auth-load-cookie-error\' on auth-cookie unable to load ', () => {
+        // CAUTION: If testing if methoed throws error and it's not working read
+        // https://stackoverflow.com/a/66109855/1622564
+        expect( () => $service.escalate_auth_load_cookie_error({ context }) ).toThrow(Error);
+      });
+    });
+
+    describe('METHODE: guard_has_auth_cookie', () => {
+      it('CHECK: returns true', () => {
+        context.auth_cookie = auth_cookie_admin;
+        expect( $service.guard_has_auth_cookie( { context } )).toBe(true);
+      });
+      it('CHECK: returns false', () => {
+        context.auth_cookie = false;
+        expect( $service.guard_has_auth_cookie( { context } )).toBe(false);
+      });
+    });
+
+    // describe('METHODE: actor_load_auth_cookie', () => {
+    //   it('CHECK: returns valid cookie from context.authCookieStorageKey', ( done ) => {
+    //     const input = { context };
+    //     $cookie_mock.getItem.mockReturnValue(of(auth_cookie_admin));
+    //     $service.actor_load_auth_cookie( { input } ).subscribe({
+    //       next: result => {
+    //         expect( result ).toStrictEqual(auth_cookie_admin);
+    //         expect($cookie_mock.getItem).toHaveBeenCalledWith(context.authCookieStorageKey);
+    //         expect($cookie_mock.getItem).toHaveBeenCalledTimes(1);
+    //         done();
+    //       },
+    //     })
+    //   });
+    //   it('CHECK: THROWS on invalid cookie from context.authCookieStorageKey', ( done ) => {
+    //     const input = { context };
+    //     $cookie_mock.getItem.mockReturnValue(of({ auth_cookie_invalid }));
+    //     $service.actor_load_auth_cookie( { input } ).subscribe({
+    //       error: ( error ) => {
+    //         expect( error.message ).toBe('error_actor_load_auth_cookie_invalid');
+    //         done();
+    //       }
+    //     });
+    //   });
+    // });
+});
