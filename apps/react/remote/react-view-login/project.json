@@ -1,0 +1,177 @@
+{
+  "name": "react_view_login",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "kppk-react",
+  "sourceRoot": "apps/react/remote/react-view-login/src",
+  "tags": ["kppk-react", "module-federation", "mf-remote"],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/react/remote/react-view-login/browser",
+        "index": "apps/react/remote/react-view-login/src/index.html",
+        "main": "apps/react/remote/react-view-login/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/react/remote/react-view-login/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/react/remote/react-view-login/public"
+          }
+        ],
+        "styles": ["apps/react/remote/react-view-login/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/react/remote/react-view-login/webpack.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/react/remote/react-view-login/webpack.prod.config.ts"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "options": {
+        "port": 3001,
+        "publicHost": "http://localhost:3001"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "react_view_login:build:production"
+        },
+        "development": {
+          "buildTarget": "react_view_login:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "react_view_login:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/react/remote/react-view-login/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "react_view_login:build",
+        "port": 3001,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "react_view_login:build:development"
+        },
+        "production": {
+          "buildTarget": "react_view_login:build:production"
+        }
+      }
+    },
+    "server": {
+      "dependsOn": ["build"],
+      "executor": "@nx/angular:webpack-server",
+      "options": {
+        "outputPath": "dist/apps/react/remote/react-view-login/server",
+        "main": "apps/react/remote/react-view-login/src/server.ts",
+        "tsConfig": "apps/react/remote/react-view-login/tsconfig.server.json",
+        "inlineStyleLanguage": "scss",
+        "customWebpackConfig": {
+          "path": "apps/react/remote/react-view-login/webpack.server.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "react_view_login:build:development",
+          "serverTarget": "react_view_login:server:development"
+        },
+        "production": {
+          "browserTarget": "react_view_login:build:production",
+          "serverTarget": "react_view_login:server:production"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 3001
+      }
+    },
+    "prerender": {
+      "executor": "@angular-devkit/build-angular:prerender",
+      "options": {
+        "routes": ["/"]
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "react_view_login:build:development",
+          "serverTarget": "react_view_login:server:development"
+        },
+        "production": {
+          "browserTarget": "react_view_login:build:production",
+          "serverTarget": "react_view_login:server:production"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "static-server": {
+      "dependsOn": ["build", "server"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "PORT=3001 node dist/apps/react/remote/react-view-login/server/main.js"
+      }
+    }
+  }
+}

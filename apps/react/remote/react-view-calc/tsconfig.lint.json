@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2020"
+  },
+  "include": [
+    "src/main.ts",
+    "src/remote-entry/entry.routes.ts",
+    "webpack.config.ts",
+    "webpack.prod.config.ts"
+  ]
+}

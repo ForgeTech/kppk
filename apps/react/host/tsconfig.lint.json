@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2020"
+  },
+  "include": ["src/main.ts", "webpack.config.ts", "webpack.prod.config.ts"]
+}
