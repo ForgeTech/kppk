@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { FgCommonModule, FgComponentBaseComponent } from '@fg-kppk/fg-base';
+import { FgCommonModule, FgComponentBaseComponent } from '@kppk/fg-lib';
 
 /**
  * KppkReactFooterComponent -

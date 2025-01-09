@@ -1,4 +1,4 @@
-import { FgBaseService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { assign, fromPromise, setup } from 'xstate';
 import { FgImmutableService } from '../../service/fg-immutable.service';

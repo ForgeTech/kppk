@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { FgBaseService, FgImmutableService } from "@fg-kppk/fg-base";
+import { FgBaseService, FgImmutableService } from "@kppk/fg-lib";
 import { REACT_ADMIN_TOOLBOX_V1, ReactAdminToolbarV1Context } from "./react-admin-toolbar.machine";
 import { assign } from "lodash-es";
 import { Actor, ActorSystem, raise, sendParent } from "xstate";

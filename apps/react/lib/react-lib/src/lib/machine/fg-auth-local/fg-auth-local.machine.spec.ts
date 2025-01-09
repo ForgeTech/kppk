@@ -1,6 +1,6 @@
 import { AuthCookieFgAuthLocal, ContextFgAuthLocal, ContextFgAuthLocalParser } from "./fg-auth-local.machine.types";
 import { DoneActorEvent, ErrorActorEvent } from "xstate";
-import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@fg-kppk/fg-base";
+import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Spy, provideAutoSpy } from 'jest-auto-spies';
 

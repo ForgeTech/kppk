@@ -4,7 +4,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 import { provideTranslocoScope } from '@jsverse/transloco';
 
-import { FgCommonModule } from '@fg-kppk/fg-base';
+import { FgCommonModule } from '@kppk/fg-lib';
 
 import { snackTypes } from '../../service/fg-user-notification.service';
 // import { IconDirective } from '../../directives/icon.directive';

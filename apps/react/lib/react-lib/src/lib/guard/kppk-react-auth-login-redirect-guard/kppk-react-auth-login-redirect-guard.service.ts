@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ROUTES_ENUM } from '../../app.routes';
 import { KppkReactComponentBaseService } from '../../base/xstate-base/kppk-react-component-base.service';
-import { FgBaseService, FgComponentBaseService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgComponentBaseService } from '@kppk/fg-lib';
 
 /**
  * KppkReactLoginRedirectGuard -

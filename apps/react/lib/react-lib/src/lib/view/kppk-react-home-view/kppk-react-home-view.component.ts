@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect } from '@angular/core';
-import { FgCommonModule } from '@fg-kppk/fg-base';
+import { FgCommonModule } from '@kppk/fg-lib';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';

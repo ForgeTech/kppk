@@ -1,5 +1,5 @@
 import { computed, effect, inject } from '@angular/core';
-import { FgComponentBaseComponent } from '@fg-kppk/fg-base';
+import { FgComponentBaseComponent } from '@kppk/fg-lib';
 
 import { KppkReactComponentBaseService } from './kppk-react-component-base.service';
 import { FgXstateService } from '../../service/fg-xstate.service';

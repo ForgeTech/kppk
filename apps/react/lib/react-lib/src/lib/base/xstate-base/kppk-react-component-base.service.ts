@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FgComponentBaseService } from '@fg-kppk/fg-base';
+import { FgComponentBaseService } from '@kppk/fg-lib';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SnapshotFrom } from 'xstate';
 import { Observable, distinctUntilChanged, filter, from, map, of, shareReplay, startWith, switchMap } from 'rxjs';

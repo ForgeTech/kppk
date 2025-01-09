@@ -1,7 +1,7 @@
 import { Actor, ActorRefFrom, EventFromLogic, SnapshotFrom, setup } from "xstate";
 import { REACT_INIT_LOAD_FROM_REMOTE, REACT_INIT_OUTPUT_DATA, react_init_context_parser, react_init_output_parser } from "./react-init.types";
 import { AppConfigInterface } from "../../interface/app.config.interface";
-import { FgEnvironmentConfigInterface } from "@fg-kppk/fg-base";
+import { FgEnvironmentConfigInterface } from "@kppk/fg-lib";
 
 export type ReactAppInitV1Snapshot = SnapshotFrom<typeof PWA_REACT_APP_INIT_V1>;
 export type ReactAppInitV1Event = EventFromLogic<typeof PWA_REACT_APP_INIT_V1>;

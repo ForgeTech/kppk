@@ -2,7 +2,7 @@ import { filter, map, of, throttleTime } from 'rxjs';
 import { ApplicationRef, Injectable, OnDestroy, inject } from '@angular/core';
 import { createActor, createMachine, forwardTo, fromEventObservable, setup } from 'xstate';
 import { AppConfigInterface } from './../../interface/app.config.interface';
-import { FgBaseService, FgEnvironmentConfigInterface, FgEnvironmentService, FgImmutableService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgEnvironmentConfigInterface, FgEnvironmentService, FgImmutableService } from '@kppk/fg-lib';
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { FgSpinnerService } from '../fg-spinner/fg-spinner.service';
 import { FgAuthLocalService } from '../fg-auth-local/fg-auth-local.service';

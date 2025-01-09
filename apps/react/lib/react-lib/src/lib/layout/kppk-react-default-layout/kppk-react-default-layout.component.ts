@@ -5,7 +5,15 @@ import { Portal, PortalModule } from '@angular/cdk/portal';
 import { Subject, Observable, combineLatest, merge } from 'rxjs';
 import { ViewportScrollPosition } from '@angular/cdk/scrolling';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
-import { FgCommonModule, FgComponentBaseComponent, FgLayoutBaseEvent, FgLayoutDefaultComponent, FgLayoutDrawerComponent, FgLayoutDrawerEvent, FgSwUpdateBannerComponent } from '@fg-kppk/fg-base';
+import { 
+  FgCommonModule,
+  FgComponentBaseComponent,
+  FgLayoutBaseEvent,
+  FgLayoutDefaultComponent,
+  FgLayoutDrawerComponent,
+  FgLayoutDrawerEvent,
+  FgSwUpdateBannerComponent 
+} from '@kppk/fg-lib';
 import { MatCardModule } from '@angular/material/card';
 import { FgComponentBaseEvent } from '../../base/xstate-base/fg-component-base.event';
 import { KppkReactFooterComponent } from './component/kppk-react-footer/kppk-react-footer.component';

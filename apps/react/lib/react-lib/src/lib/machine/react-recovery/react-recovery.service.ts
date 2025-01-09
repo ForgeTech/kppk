@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { FgBaseService, FgStorageLocalforageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageLocalforageService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { createActor } from 'xstate';
 import { FG_REACT_PWA_RECOVERY_V1, } from './react-recovery.machine';

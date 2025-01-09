@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
-import { FgCommonModule } from '@fg-kppk/fg-base';
+import { FgCommonModule } from '@kppk/fg-lib';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';

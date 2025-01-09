@@ -1,4 +1,4 @@
-import { FgCommonModule, FgEvent, FgLanguageSwitchComponent, FgLayoutDrawerEvent, FgPwaInstallComponent, FgPwaInstallService } from '@fg-kppk/fg-base';
+import { FgCommonModule, FgEvent, FgLanguageSwitchComponent, FgLayoutDrawerEvent, FgPwaInstallComponent, FgPwaInstallService } from '@kppk/fg-lib';
 import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject } from '@angular/core';
 import { KppkReactBaseComponent } from 'apps/fg-react-demo/src/app/base/xstate-base/kppk-react-base.component';

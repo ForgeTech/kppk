@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { FgBaseService, FgStorageLocalforageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageLocalforageService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { createActor } from 'xstate';
 import { REACT_DATA_IMPORTER_MACHINE, } from './react-data-importer.machine';

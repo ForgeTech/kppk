@@ -3,8 +3,8 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 
 import { Subject } from 'rxjs';
-import { FgBaseService } from '@fg-kppk/fg-base';
-import { FgEventService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
+import { FgEventService } from '@kppk/fg-lib';
 import { FgUserNotificationService, snackTypes } from './fg-user-notification.service';
 import { TranslocoService } from '@jsverse/transloco';
 

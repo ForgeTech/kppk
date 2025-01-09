@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { translation_key } from '@fg-kppk/fg-base';
+import { translation_key } from '@kppk/fg-lib';
 
 /**
  * RoseActionService -

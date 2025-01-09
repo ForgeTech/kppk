@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, computed, inject } from '@angular/core';
-import { FgCommonModule, FgLayoutDrawerOpenDrawerButtonComponent, FgMaterialModule } from '@fg-kppk/fg-base';
+import { FgCommonModule, FgLayoutDrawerOpenDrawerButtonComponent, FgMaterialModule } from '@kppk/fg-lib';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';

@@ -1,4 +1,4 @@
-import { FgBaseService, FgStorageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { assign, createActor, fromPromise } from 'xstate';
 import { PWA_REACT_APP_INIT_V1, ReactAppInitV1Context } from './react-init.machine';

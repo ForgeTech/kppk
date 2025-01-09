@@ -3,8 +3,8 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 
 import { Subject, switchMap } from 'rxjs';
-import { FgBaseService } from '@fg-kppk/fg-base';
-import { FgEventService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
+import { FgEventService } from '@kppk/fg-lib';
 import { UserNotificationService, snackTypes } from '@agrardata-pdv-workspace/pdv-shared';
 import { TranslocoService } from '@jsverse/transloco';
 

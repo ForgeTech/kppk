@@ -4,7 +4,7 @@ import { FgSpinnerService } from "./fg-spinner.service";
 import { ZodError } from "zod";
 import { FgImmutableService } from "../../service/fg-immutable.service";
 import { environment } from "apps/fg-react-demo/src/environments/environment";
-import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@fg-kppk/fg-base";
+import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
 import { LoggerTestingModule } from "ngx-logger/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { provideAutoSpy } from "jest-auto-spies";

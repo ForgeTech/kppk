@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FgComponentBaseComponent } from '@fg-kppk/fg-base';
+import { FgComponentBaseComponent } from '@kppk/fg-lib';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';

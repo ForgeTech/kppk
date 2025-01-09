@@ -7,7 +7,7 @@ import { REACT_VIEW_CALCULATION_MACHINE_V4, react_view_calculation_v1_context_pa
 
 import { REACT_ADMIN_TOOLBOX_V1, ReactAdminToolbarV1Context } from "../react-admin-toolbar/react-admin-toolbar.machine";
 import { AppConfigInterface } from "../../interface/app.config.interface";
-import { FgEnvironmentConfigInterface } from "@fg-kppk/fg-base";
+import { FgEnvironmentConfigInterface } from "@kppk/fg-lib";
 import { REACT_VIEW_CALCULATION_CONTEXT } from "../../types/kppk-react-calculation.types";
 
 export type ReactAppRunningV2Snapshot = SnapshotFrom<typeof FG_REACT_RUNNING_V2>;

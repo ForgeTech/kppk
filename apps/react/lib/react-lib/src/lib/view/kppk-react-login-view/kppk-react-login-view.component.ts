@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed } from '@angular/core';
-import { FgCommonModule, FgLanguageSwitchComponent, FgMaterialModule, FgMessageBoxComponent, FgPwaInstallComponent } from '@fg-kppk/fg-base';
-import { FgLayoutDefaultComponent } from '@fg-kppk/fg-base';
+import { FgCommonModule, FgLanguageSwitchComponent, FgMaterialModule, FgMessageBoxComponent, FgPwaInstallComponent } from '@kppk/fg-lib';
+import { FgLayoutDefaultComponent } from '@kppk/fg-lib';
 import { RouterModule } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';

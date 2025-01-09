@@ -1,5 +1,5 @@
 
-import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { ActorRefFrom, createMachine, EventFromLogic, fromCallback, fromPromise, setup, SnapshotFrom, } from 'xstate';
 import { FG_AUTH_LOCAL_V1, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';

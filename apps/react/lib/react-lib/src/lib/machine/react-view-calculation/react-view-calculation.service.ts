@@ -1,4 +1,4 @@
-import { FgBaseService, FgStorageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { assign, fromPromise, raise } from 'xstate';
 import { 

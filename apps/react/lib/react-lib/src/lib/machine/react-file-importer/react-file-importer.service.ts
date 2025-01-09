@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { FgBaseService } from "@fg-kppk/fg-base";
+import { FgBaseService } from "@kppk/fg-lib";
 import { REACT_FILE_IMPORTER_V1 } from "./react-file-importer.machine";
 import { ActorSystem, assign, fromPromise } from "xstate";
 import { FgImmutableService } from "../../service/fg-immutable.service";

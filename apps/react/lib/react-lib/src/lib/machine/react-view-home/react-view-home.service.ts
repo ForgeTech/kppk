@@ -1,4 +1,4 @@
-import { FgBaseService, FgStorageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { assign } from 'xstate';
 import { REACT_VIEW_HOME_MACHINE_V1, ReactViewHomeV1Context, } from './react-view-home.machine';

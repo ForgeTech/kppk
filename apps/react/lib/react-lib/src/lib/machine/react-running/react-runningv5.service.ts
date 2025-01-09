@@ -1,4 +1,4 @@
-import { FgBaseService, FgEnvironmentConfigInterface } from '@fg-kppk/fg-base';
+import { FgBaseService, FgEnvironmentConfigInterface } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';

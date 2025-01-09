@@ -7,7 +7,7 @@ import {
 } from 'immer';
 import { NGXLogger } from 'ngx-logger';
 import { merge, cloneDeep } from 'lodash-es';
-import { FgBaseService, FgEventService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgEventService } from '@kppk/fg-lib';
 
 /**
  * FgImmutableConfig -

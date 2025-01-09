@@ -1,6 +1,6 @@
 import { AuthCookieFgAuthLocalParser, FgAuthLocalContext, ContextFgAuthLocalParser, EventFgAuthLocalAuthorizedParser, EventFgAuthLocalLoginParser, EventFgAuthLocalUnauthorizedParser, SaltFileContentFgAuthLocalParser } from './fg-auth-local.machine.types';
 import { BehaviorSubject, catchError, map, firstValueFrom, tap } from 'rxjs';
-import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { ActorRefFrom, EventFromLogic, SnapshotFrom, assign, fromPromise, sendParent } from 'xstate';
 import { FG_AUTH_LOCAL_V1, FgAuthLocalV1Context, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { FgCommonModule, FgMaterialModule } from '@fg-kppk/fg-base';
+import { FgCommonModule, FgMaterialModule } from '@kppk/fg-lib';
 import { RouterModule } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactDefaultLayoutComponent } from 'apps/fg-react-demo/src/app/layout/kppk-react-default-layout/kppk-react-default-layout.component';

@@ -19,7 +19,7 @@ import {
   ProgressItemFgSpinner,
 } from './fg-spinner.machine.types';
 import { FgImmutableService } from '../../service/fg-immutable.service';
-import { FgBaseService, object_apply_values_of_shared_keys } from '@fg-kppk/fg-base';
+import { FgBaseService, object_apply_values_of_shared_keys } from '@kppk/fg-lib';
 import { FgXstateService } from '../../service/fg-xstate.service';
 
 @Injectable({

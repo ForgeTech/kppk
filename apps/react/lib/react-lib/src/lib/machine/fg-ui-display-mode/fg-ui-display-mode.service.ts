@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { FgImmutableService } from '../../service/fg-immutable.service';
-import { FgBaseService, FgStorageLocalforageService } from '@fg-kppk/fg-base';
+import { FgBaseService, FgStorageLocalforageService } from '@kppk/fg-lib';
 import { FG_UI_DISPLAY_MODE_V1 } from '../fg-ui-display-mode/fg-ui-display-mode.machine';
 import { BehaviorSubject } from 'rxjs';
 import { createActor } from 'xstate';

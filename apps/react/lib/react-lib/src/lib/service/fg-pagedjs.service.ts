@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { FgBaseService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
 //@ts-ignore
 import { Previewer } from 'pagedjs';
 

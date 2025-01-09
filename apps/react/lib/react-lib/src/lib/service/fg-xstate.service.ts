@@ -1,6 +1,6 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 
-import { FgBaseService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
 import { createBrowserInspector } from '@statelyai/inspect';
 
 /**

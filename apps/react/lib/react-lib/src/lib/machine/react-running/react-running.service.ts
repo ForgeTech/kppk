@@ -1,4 +1,4 @@
-import { FgBaseService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { FG_REACT_RUNNING_V2, ReactAppRunningV2Context, } from './react-running.machine';
 import { FgImmutableService } from '../../service/fg-immutable.service';
