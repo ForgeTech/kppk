@@ -1,9 +1,8 @@
-import {  Component, signal, ViewEncapsulation } from '@angular/core';
+import {  Component, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PlaceholderComponent } from '@forgetech/fg-lib';
 
 @Component({
-  imports: [RouterModule, PlaceholderComponent],
+  imports: [RouterModule],
   selector: 'kppk-react-root',
   template: `
     <ul class="remote-menu">

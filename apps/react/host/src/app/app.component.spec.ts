@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { PlaceholderComponent  } from '@forgetech/fg-lib'
+import { PlaceholderComponent  } from './component/placeholder.component'
 import { Router, RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
