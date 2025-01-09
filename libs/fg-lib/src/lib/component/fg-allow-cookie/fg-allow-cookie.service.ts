@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
@@ -22,6 +22,10 @@ import { FgTimeStringService } from '../../service/fg-timestring/fg-timestring.s
   providedIn: 'root',
 })
 export class FgAllowCookieService extends FgBaseService {
+  protected $time = inject(FgTimeStringService);
+  protected $snackbar = inject(MatSnackBar);
+  protected $cookie = inject(FgStorageNgxCookieService);
+
   protected SNACKBAR_REF: MatSnackBarRef<FgAllowCookieComponent> | undefined;
   /** Key for the cookie to set when user allowed use of tracking cookies */
   protected ALLOW_COOKIE_KEY = 'fg-allow-cookies';
@@ -39,16 +43,7 @@ export class FgAllowCookieService extends FgBaseService {
     return this.COOKIE_ALLOWED$.asObservable();
   }
   /** CONSTRUCTOR */
-  constructor(
-    /** Hold reference component base service */
-    protected override $event: FgEventService,
-    protected override $log: NGXLogger,
-    protected $time: FgTimeStringService,
-    /** Hold reference to angular-material dialog-utils */
-    protected $snackbar: MatSnackBar,
-    /** Hold reference to cookie storage service */
-    protected $cookie: FgStorageNgxCookieService /** (Optional) Enable angular analytics tracking */ // @Optional() protected $tracking: Angulartics2GoogleAnalytics
-  ) {
+  constructor() {
     super()
     // Register event for when application should display cookie-warning
     this.subscribe(

@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -19,22 +19,12 @@ import { NGXLogger } from 'ngx-logger';
  */
 @Injectable({ providedIn: 'root' })
 export class FgViewBaseService extends FgBaseService {
-  /** CONSTRUCTOR */
-  constructor(
-    public $component: FgComponentBaseService,
-    public $router: Router,
-    // public $routerTranslation: FgTranslateRouterService,
-    public $location: Location,
-    // public $allowCookies: FgAllowCookieService,
-    public event: FgViewBaseEvent,
-    public $activeView: FgActiveViewService,
-    public $activeRoute: FgActiveRouteService,
-    /**  (Optional) Provide event service */
-    protected override $event: FgEventService,
-    public $canUnload: FgCanUnloadService,
-    /** (Optional) Provide logger service */
-    @Optional() protected override $log: NGXLogger
-  ) {
-    super();
-  }
+  protected $component = inject(FgComponentBaseService);
+  protected $router = inject(Router);
+  protected $location = inject(Location);
+  protected event = inject(FgViewBaseEvent);
+  protected $activeView = inject(FgActiveViewService);
+  protected $activeRoute = inject(FgActiveRouteService);
+  protected $canUnload = inject(FgCanUnloadService);
+
 }

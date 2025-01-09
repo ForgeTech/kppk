@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FgAllowCookieEvent } from './fg-allow-cookie.event';
 import { TranslocoModule, provideTranslocoScope } from '@jsverse/transloco';
-import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgEvent } from '../../service/fg-event/fg-event.class';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { CommonModule } from '@angular/common';
@@ -24,24 +23,18 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [provideTranslocoScope('fgac')],
 })
 export class FgAllowCookieComponent extends FgComponentBaseComponent {
-  // public COOKIES_ROUTE = this.COOKIES_ROUTE;
-  /** CONSTRUCTOR */
-  constructor(
-    
-    private snackBar: MatSnackBar,
-  ) {
-   super();
-  }
+  private $snackbar = inject(MatSnackBar);
+
   /** Methode to be called when user rejects use of cookies */
   onReject($event: Event) {
     $event.preventDefault();
     this.emitEvent(new FgEvent(FgAllowCookieEvent.REJECT_COOKIES, this));
-    this.snackBar.dismiss();
+    this.$snackbar.dismiss();
   }
   /** Methode to be called when user accepts use of cookies */
   onAccept($event: Event) {
     $event.preventDefault();
     this.emitEvent(new FgEvent(FgAllowCookieEvent.ACCEPT_COOKIES, this));
-    this.snackBar.dismiss();
+    this.$snackbar.dismiss();
   }
 }
