@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import {
   MatSelectChange,
   MatSelectModule,
 } from '@angular/material/select';
 import { provideTranslocoScope } from '@jsverse/transloco';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
-import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgCommonModule } from '../../module/fg-common/fg-common.module';
 import { FgEnvironmentService } from '../../service/fg-environment/fg-environment.service';
 import { FgLanguageSwitchEvent } from './fg-language-switch.event';
@@ -23,6 +22,8 @@ import { FgLanguageSwitchEvent } from './fg-language-switch.event';
   providers: [provideTranslocoScope('fgls')],
 })
 export class FgLanguageSwitchComponent extends FgComponentBaseComponent {
+  protected $env = inject(FgEnvironmentService, { optional: true });
+
   /** OVERRIDE Pass language-string to be selected */
   @Input() selectedLang = '';
   /**
@@ -39,10 +40,7 @@ export class FgLanguageSwitchComponent extends FgComponentBaseComponent {
    */
   @Input() color = 'primary';
   /** CONSTRUCTOR */
-  constructor(
-    
-    @Optional() protected $env: FgEnvironmentService,
-  ) {
+  constructor() {
    super();
     // Set  default values from environment if available
     if (this.$env) {

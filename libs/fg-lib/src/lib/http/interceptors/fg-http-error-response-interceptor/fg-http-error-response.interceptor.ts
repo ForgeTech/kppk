@@ -1,11 +1,9 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FgBaseService } from '../../../base/fg-base.service';
 import { FgEnvironmentService } from '../../../service/fg-environment/fg-environment.service';
-import { NGXLogger } from 'ngx-logger';
-import { FgEventService } from '../../../service/fg-event/fg-event.service';
 import { FgHttpErrorResponseEvent } from './fg-http-error-response.event';
 
 /**
@@ -16,17 +14,7 @@ import { FgHttpErrorResponseEvent } from './fg-http-error-response.event';
  */
 @Injectable()
 export class FgHttpErrorResponseInterceptor extends FgBaseService implements HttpInterceptor {
-  /** CONSTRUCTOR */
-  constructor(
-    /** Provide environment service */
-    protected $env: FgEnvironmentService,
-    /** (Optional) Provide logger service */
-    
-    /**  (Optional) Provide event service */
-
-  ) {
-    super()
-  }
+  protected $env = inject(FgEnvironmentService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next

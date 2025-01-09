@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewContainerRef, inject } from '@angular/core';
 import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { FgAuthService } from '../../service/fg-auth/fg-auth.service';
@@ -22,14 +22,9 @@ import { FgAuthTokenInterface } from '../../service/fg-auth/fg-auth.abstract.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLoginLogoutButton extends FgComponentBaseComponent {
-  /** CONSTRUCTOR */
-  constructor(
-    public override $component: FgComponentBaseService,
-    public $viewContainerRef: ViewContainerRef,
-    public $auth: FgAuthService
-  ) {
-   super();
-  }
+  protected $viewContainerRef = inject(ViewContainerRef);
+  protected $auth = inject(FgAuthService);
+
   /** Methode used to dispatch event for opening layout-drawer */
   public triggerScrollTo(isAuthorized: FgAuthTokenInterface | false) {
     this.$component.$log.debug('IS_AUTHORIZED_BUTTON: ', isAuthorized);

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FgEnvironmentConfigInterface } from '../../interface/fg-environment.config.interface';
 import { FG_ENVIRONMENT } from '../../token/fg-environment.token';
 /**
@@ -17,9 +17,11 @@ class BaseEnvironment implements FgEnvironmentConfigInterface<any> {}
   providedIn: 'root',
 })
 export class FgEnvironmentService extends BaseEnvironment {
+  protected environment = inject<BaseEnvironment>(FG_ENVIRONMENT);
   /** CONSTRUCTOR */
-  constructor(@Inject(FG_ENVIRONMENT) environment: BaseEnvironment) {
+  constructor() {
+
     super();
-    Object.assign(this, environment);
+    Object.assign(this, this.environment);
   }
 }

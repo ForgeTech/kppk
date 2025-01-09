@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { FgLayoutDrawerEvent } from '../fg-layout-drawer/fg-layout-drawer.event';
@@ -19,12 +19,10 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLayoutDrawerCloseDrawerButtonComponent extends FgComponentBaseComponent {
+  override $component = inject(FgComponentBaseService);
+
   /** Allows to define the target layout of the open-drawer event (default: undefined)  */
   @Input() public target: undefined | string = undefined;
-  /** CONSTRUCTOR */
-  constructor(public override $component: FgComponentBaseService) {
-   super();
-  }
   /** Methode used to trigger the dispatch of close drawer event */
   public triggerDrawerOpen(event: Event) {
     event.preventDefault();

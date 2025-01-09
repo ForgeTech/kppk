@@ -1,8 +1,7 @@
-import { Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { NGXLogger } from 'ngx-logger';
 import { FgAuthErrorLogoutInterceptorEvent } from './fg-auth-error-logout.interceptor.event';
 import { FgEventService } from '../../../service/fg-event/fg-event.service';
 import { FgBaseService } from '../../../base/fg-base.service';
@@ -18,15 +17,6 @@ const FG_AUTH_ERROR_LOGOUT_INTERCEPTOR_ADDITIONAL_ERROR_CHECK_METHODE_TOKEN = ne
  */
 @Injectable()
 export class FgAuthErrorLogoutInterceptor extends FgBaseService implements HttpInterceptor {
-  /** CONSTRUCTOR */
-  constructor(
-    /** (Optional) Provide logger service */
-    
-    /**  (Optional) Provide event service */
-    @Optional() protected override $event: FgEventService
-  ) {
-    super()
-  }
   /**
    * Methode called when http-request ist intercepted - checking if there is and
    * http error/status-code of 401 Unauthorized attached, if so tries to logout-user

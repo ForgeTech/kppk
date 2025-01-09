@@ -1,9 +1,7 @@
-import { Injectable, ApplicationRef, Optional, Inject, InjectionToken } from '@angular/core';
+import { Injectable, ApplicationRef, inject } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgBaseService } from '../../base/fg-base.service';
-import { NGXLogger } from 'ngx-logger';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
 import { boundMethod } from 'autobind-decorator';
 
@@ -23,6 +21,10 @@ export enum PREFERED_COLOR_SCHEME {
   providedIn: 'root',
 })
 export class FgPrefersColorSchemeService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+  protected $match = inject(MediaMatcher);
+  protected $appRef = inject(ApplicationRef);
+
   /** Hold global window-reference when available */
   protected WINDOW?: Window;
   /** Subject to hold the value detected from the prefers-color-scheme media-queries or false, if it cannot be detected */
@@ -34,14 +36,7 @@ export class FgPrefersColorSchemeService extends FgBaseService {
   /** Hold the value detected from the prefers-color-scheme media-queries or false, if it cannot be detected */
   public preferedColorScheme: PREFERED_COLOR_SCHEME = PREFERED_COLOR_SCHEME.noPreference;
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide global native service */
-    protected $global: FgGlobalService,
-    /** Provides MediaMatcher allowing to detect changes on media-queries */
-    protected $match: MediaMatcher,
-    /** Provide angular application-reference service */
-    protected $appRef: ApplicationRef,
-  ) {
+  constructor() {
     super()
     // In Browser detect initial value and setup change-detection
     if (this.$global.isBrowser) {

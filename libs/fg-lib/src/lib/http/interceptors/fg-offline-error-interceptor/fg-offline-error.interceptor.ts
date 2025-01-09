@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -14,8 +14,10 @@ import { FgEvent } from '../../../service/fg-event/fg-event.class';
  */
 @Injectable()
 export class FgOfflineErrorInterceptor implements HttpInterceptor {
-  /** CONSTRUCTOR */
-  constructor(private $event: FgEventService, private events: FgOfflineErrorInterceptorEvent, private $log: NGXLogger) {}
+  protected $event = inject(FgEventService);
+  protected events = inject(FgOfflineErrorInterceptorEvent);
+  protected $log = inject(NGXLogger);
+
   /**
    * Methode called when http-request ist intercepted - checking if there is and
    * http error/status-code of 502 Bad Gateway attached

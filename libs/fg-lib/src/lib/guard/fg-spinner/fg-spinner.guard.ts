@@ -1,9 +1,7 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { FgEventService } from '../../service/fg-event/fg-event.service';
 import { filter, take, takeUntil } from 'rxjs/operators';
-import { NGXLogger } from 'ngx-logger';
 import { FgBaseService } from '../../base/fg-base.service';
 import { FgSpinnerGuardEvent } from './fg-spinnerguard.event';
 
@@ -11,14 +9,8 @@ import { FgSpinnerGuardEvent } from './fg-spinnerguard.event';
   providedIn: 'root',
 })
 export class FgSpinnerGuard extends FgBaseService  {
-  /** CONSTRUCTOR */
-  constructor(
-    public $router: Router,
+  protected $router = inject(Router);
 
-    @Optional() protected override $log: NGXLogger
-  ) {
-    super()
-  }
   canActivate(): boolean | Observable<boolean> {
     this.initSpinner();
     return true;

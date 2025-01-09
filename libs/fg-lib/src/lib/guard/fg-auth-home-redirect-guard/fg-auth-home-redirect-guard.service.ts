@@ -1,12 +1,17 @@
 import { Router } from '@angular/router';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FgBaseService } from '../../base/fg-base.service';
 import { FgEventService } from '../../service/fg-event/fg-event.service';
 import { NGXLogger } from 'ngx-logger';
-import { FG_ROUTING_HOME_PATH } from '../../token/fg-routing.token';
 import { FgAuthService } from '../../service/fg-auth/fg-auth.service';
+
+/**
+ * Injection-Token used to provide the path to 'home' view
+ */
+export const FG_ROUTING_HOME_PATH = new InjectionToken<string>('');
+
 
 /**
  * FgAuthHomeRedirectGuard -
@@ -16,16 +21,10 @@ import { FgAuthService } from '../../service/fg-auth/fg-auth.service';
   providedIn: 'root',
 })
 export class FgAuthHomeRedirectGuard extends FgBaseService  {
-  /** CONSTRUCTOR */
-  constructor(
-    protected $router: Router,
-    protected $auth: FgAuthService,
+  protected $router = inject(Router);
+  protected $auth = inject(FgAuthService);
+  protected fgRoutingHomePath = inject(FG_ROUTING_HOME_PATH);
 
-    
-    @Inject(FG_ROUTING_HOME_PATH) protected fgRoutingHomePath: string
-  ) {
-    super()
-  }
   /** Checks if called route can be activated by current navigation-request */
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
     const canActivate$: Observable<boolean> = this.$auth.getStoredAuthData().pipe(

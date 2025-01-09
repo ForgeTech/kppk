@@ -1,4 +1,4 @@
-import { Injectable, Inject, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ReplaySubject, Observable, BehaviorSubject, Subject } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
@@ -11,6 +11,9 @@ import { FgBaseService } from '../../base';
  */
 @Injectable({ providedIn: 'root' })
 export class FgLazyloadService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+  protected $document = inject(DOCUMENT);
+
   /** Holds an object containing key-value pairs of { libraryPath: LibraryObservable } */
   protected _LOADED_LIBS: { [url: string]: BehaviorSubject<any> } = {};
   /** Streams updated list of loaded libraries */
@@ -18,15 +21,6 @@ export class FgLazyloadService extends FgBaseService {
   /** Provide access to observable containing references to all loaded-libraries observables */
   get loadedLibs(): Observable<{ [url: string]: BehaviorSubject<any> }> {
     return this._LOADED_LIBS$.asObservable();
-  }
-  /** CONSTRUCTOR */
-  constructor(
-    /** Provide global object service */
-    public $global: FgGlobalService,
-    /** Provide browser document instance */
-    @Inject(DOCUMENT) protected document: any,
-  ) {
-    super()
   }
   /**
    * Methode loads 3rd-party javascript-library and
@@ -53,7 +47,7 @@ export class FgLazyloadService extends FgBaseService {
       // If library couldn't be found on global-scope, load library by attaching a script-tag
       // to document, containing
       else {
-        const script = this.document.createElement('script');
+        const script = this.$document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;
         script.onload = () => {
@@ -63,7 +57,7 @@ export class FgLazyloadService extends FgBaseService {
           this.$log.error('FgLazyloadService: ERROR loading script: ', url);
           this.$log.error(error);
         };
-        this.document.body.appendChild(script);
+        this.$document.body.appendChild(script);
       }
     }
     // Return Subject dispatching loaded library as Observable()

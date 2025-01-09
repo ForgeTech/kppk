@@ -1,9 +1,7 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject, Observable, take } from 'rxjs';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgClipboardServiceEvent } from './fg-clipboard-service.event';
 import { FgBaseService } from '../../base/fg-base.service';
-import { NGXLogger } from 'ngx-logger';
 import { Clipboard, CDK_COPY_TO_CLIPBOARD_CONFIG, CdkCopyToClipboardConfig, PendingCopy } from '@angular/cdk/clipboard';
 
 export interface CopySuccessInterface {
@@ -18,6 +16,8 @@ export interface CopySuccessInterface {
  */
 @Injectable({ providedIn: 'root' })
 export class FgClipboardService extends FgBaseService {
+  protected $clipboard = inject(Clipboard);
+
   public NUMBER_OF_ATTEMPTS = 3;
   /** Streams the result of the items copied to clipboard*/
   public copiedText$ = new Subject<CopySuccessInterface>();
@@ -25,30 +25,21 @@ export class FgClipboardService extends FgBaseService {
   public copySuccess$ = new Subject<boolean>();
 
   /** CONSTRUCTOR */
-  constructor(
-    /** Provides angular material cdk clipboard service */
-    protected $clipboard: Clipboard,
+  constructor() {
+    const clipboardConfig = inject<CdkCopyToClipboardConfig>(CDK_COPY_TO_CLIPBOARD_CONFIG, { optional: true });
 
-    @Optional() @Inject(CDK_COPY_TO_CLIPBOARD_CONFIG) clipboardConfig: CdkCopyToClipboardConfig
-  ) {
     super()
     if (clipboardConfig) {
       this.NUMBER_OF_ATTEMPTS = clipboardConfig.attempts || this.NUMBER_OF_ATTEMPTS;
     }
     /** Dispatch copied event on new item published on copied */
     this.subscribe(this.copiedText$, copied => {
-      console.log('DISPATCH');
-      console.log(FgClipboardServiceEvent.COPIED);
-      console.log(copied);
       this.$event.emitEvent(new FgClipboardServiceEvent(FgClipboardServiceEvent.COPIED, this, copied));
     });
     this.subscribe(this.copySuccess$, success => {
-      // console.log('DISPATCH')
       if (success) {
-        console.log(FgClipboardServiceEvent.SUCCESS);
         this.$event.emitEvent(new FgClipboardServiceEvent(FgClipboardServiceEvent.SUCCESS, this, true));
       } else {
-        console.log(FgClipboardServiceEvent.ERROR);
         this.$event.emitEvent(new FgClipboardServiceEvent(FgClipboardServiceEvent.ERROR, this, false));
       }
     });
@@ -60,12 +51,8 @@ export class FgClipboardService extends FgBaseService {
   public copy(text: string, message?: string, type?: string): Observable<boolean> {
     const result = this.$clipboard.copy(text);
     if (result) {
-      // console.log('>>>>>>>COPPIEDDDD');
-      // console.log(message);
       this.copiedText$.next({ text, message, type });
       this.copySuccess$.next(true);
-    } else {
-      // this.copyLong(text, message);
     }
     return this.copySuccess$.asObservable().pipe(take(1));
   }

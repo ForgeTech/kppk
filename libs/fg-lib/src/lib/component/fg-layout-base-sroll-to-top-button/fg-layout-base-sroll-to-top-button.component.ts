@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, inject } from '@angular/core';
 import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { FgLayoutBaseEventOptionsInterface } from '../fg-layout-base/fg-layout-base-event-options.interface';
@@ -18,6 +18,8 @@ import { FgCommonModule } from '../../module/fg-common/fg-common.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLayoutBaseScrollToButtonComponent extends FgComponentBaseComponent {
+  protected $viewContainerRef = inject(ViewContainerRef);
+
   /** Allows to define the target layout of the scroll-to-top event (default: undefined)  */
   @Input() public name: undefined | string = undefined;
   /** Allows to define the position to scroll to on y-axis (default: undefined)  */
@@ -26,10 +28,6 @@ export class FgLayoutBaseScrollToButtonComponent extends FgComponentBaseComponen
   @Input() public left: undefined | number = undefined;
   /** Allows to modify scolling behaviour (default: auto)  */
   @Input() public behaviour: 'smooth' | 'auto' = 'auto';
-  /** CONSTRUCTOR */
-  constructor(public override $component: FgComponentBaseService, public $viewContainerRef: ViewContainerRef) {
-   super();
-  }
   /** Methode used to dispatch event for opening layout-drawer */
   public triggerScrollTo(event: Event) {
     event.preventDefault();

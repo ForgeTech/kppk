@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Observable, of, iif } from 'rxjs';
 import { map, bufferCount, switchMap, delay, startWith } from 'rxjs/operators';
 import { FgSWUpdateBannerTranslationKeys } from './fg-sw-update-banner.translation.keys';
@@ -34,6 +34,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   providers: [provideTranslocoScope('fgswu')],
 })
 export class FgSwUpdateBannerComponent extends FgComponentBaseComponent {
+  protected $keys = inject(FgSWUpdateBannerTranslationKeys);
+  protected $dialog = inject(MatDialog);
+  protected $sw = inject(FgSWUpdateService);
+
   /**
    * If set to true, instead of activating the update directly an
    * modal window containing conformation-dialog is displayed
@@ -80,15 +84,6 @@ export class FgSwUpdateBannerComponent extends FgComponentBaseComponent {
       return values[0] === true && values[1] === false;
     }),
   );
-  /** CONSTRUCTOR */
-  constructor(
-    public override $component: FgComponentBaseService,
-    public $keys: FgSWUpdateBannerTranslationKeys,
-    protected $dialog: MatDialog,
-    protected $sw: FgSWUpdateService,
-  ) {
-    super();
-  }
   /** Allows opening a confirmation-modal to confirm update activation */
   public openModal(event: Event) {
     this.$dialog.open(FgSwUpdateModalComponent, this.options);

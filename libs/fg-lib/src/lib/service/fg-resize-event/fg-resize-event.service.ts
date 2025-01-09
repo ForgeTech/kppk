@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { ElementRef, Injectable, Renderer2, RendererFactory2, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { Observable, Subject } from 'rxjs';
 import { FgBaseService } from '../../base/fg-base.service';
@@ -15,6 +15,10 @@ import { FgResizeEvent } from './fg-resize-event.event';
   providedIn: 'root',
 })
 export class FgResizeEventService extends FgBaseService {
+  $global = inject(FgGlobalService);
+  override $event = inject(FgEventService);
+  override $log = inject(NGXLogger);
+
   /** Hold global window-reference when available */
   protected WINDOW: Window;
   /** Hold last resize change-data */
@@ -35,7 +39,7 @@ export class FgResizeEventService extends FgBaseService {
   /** Listen to appearence of window resize-event */
   public verticalResize$: Observable<FgResizeEvent> = this.RESIZE_EVENT$.asObservable();
   /** CONSTRUCTOR */
-  constructor(public $global: FgGlobalService, public override $event: FgEventService, public override $log: NGXLogger) {
+  constructor() {
     super()
     if (this.$global.isBrowser) {
       this.WINDOW = this.$global.nativeGlobal<Window>();

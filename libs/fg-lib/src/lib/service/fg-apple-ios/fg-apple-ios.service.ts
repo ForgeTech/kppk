@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import { FgBaseService } from '../../base';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import * as IOS_VERSIONS from './fg-apple-ios-tyes.const';
 
 /** Turn const values imported to type-module to be processed */
@@ -24,6 +22,8 @@ export type AppleIosType = AppleIosTypeModule[keyof AppleIosTypeModule];
   providedIn: 'root',
 })
 export class FgAppleIosService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+
   /**
    * Reference to a browsers global window-instance
    * NOTE: Will only be initialized when service is used
@@ -31,9 +31,7 @@ export class FgAppleIosService extends FgBaseService {
    */
   protected WINDOW: Window | undefined;
   /** CONSTRUCTOR */
-  constructor(
-    public $global: FgGlobalService,
-  ) {
+  constructor() {
     super()
     if (this.$global.isBrowser) {
       this.WINDOW = this.$global.nativeGlobal<Window>();

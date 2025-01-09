@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import { Observable, shareReplay, Subject } from 'rxjs';
 import { FgBaseService } from '../../base/fg-base.service';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgOrientationChangeEvent } from './fg-orientation-change.event';
 import { boundMethod } from 'autobind-decorator';
-import { FgEvent } from '../fg-event/fg-event.class';
-import { FgDetectDeviceTypeUserAgentEvent } from '../fg-detect-device-user-agent/fg-detect-device-user-agent.event';
 import { FgDetectDeviceTypeUserAgentService } from '../fg-detect-device-user-agent/fg-detect-device-user-agent.service';
 import { DeviceInfo } from 'ngx-device-detector';
 
@@ -34,6 +30,9 @@ export interface FgOrientationChangeInterface {
   providedIn: 'root',
 })
 export class FgOrientationChangeService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+  protected $device = inject(FgDetectDeviceTypeUserAgentService);
+
   /** Hold global window-reference when available */
   protected WINDOW?: Window;
   /** Subject to stream window orientation */
@@ -41,11 +40,10 @@ export class FgOrientationChangeService extends FgBaseService {
   /** Listen to appearence of window resize-event */
   public orientation$: Observable<FgOrientationChangeInterface> = this.ORIENTATION$.asObservable().pipe(shareReplay(1));
   /** CONSTRUCTOR */
-  constructor(
-    protected $global: FgGlobalService,
-    protected $device: FgDetectDeviceTypeUserAgentService,
-  ) {
+  constructor() {
     super()
+    const $device = this.$device;
+
     if (this.$global.isBrowser) {
       this.WINDOW = this.$global.nativeGlobal<Window>();
       if (this.WINDOW.screen.orientation) {

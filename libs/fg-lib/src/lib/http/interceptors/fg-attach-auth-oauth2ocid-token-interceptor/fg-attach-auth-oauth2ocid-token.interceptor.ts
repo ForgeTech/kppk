@@ -1,11 +1,8 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { FgEventService } from '../../../service/fg-event/fg-event.service';
-import { NGXLogger } from 'ngx-logger';
 import { FgBaseService } from '../../../base/fg-base.service';
-import { FgAuthEvent } from '../../../service/fg-auth/fg-auth.event';
 import { OAuthStorage } from 'angular-oauth2-oidc';
 
 /**
@@ -18,17 +15,9 @@ import { OAuthStorage } from 'angular-oauth2-oidc';
   providedIn: 'root',
 })
 export class FgOAuth2OICDTokenInterceptor extends FgBaseService implements HttpInterceptor {
+  private authStorage = inject(OAuthStorage);
+
   protected token: string | false = false;
-  /** CONSTRUCTOR */
-  constructor(
-    private authStorage: OAuthStorage,
-    /** (Optional) Provide logger service */
-    
-    /**  (Optional) Provide event service */
-    @Optional() protected override $event: FgEventService
-  ) {
-    super()
-  }
   /** Interception Methode, that will be called on an Http-Request */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Check cookie-storage for user authentification-token

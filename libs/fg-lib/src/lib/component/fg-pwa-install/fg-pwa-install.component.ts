@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { Component, ChangeDetectionStrategy, Input, SimpleChanges } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, SimpleChanges, inject } from '@angular/core';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgPwaInstallService } from '../../service/fg-pwa-install/fg-pwa-install.service';
@@ -24,17 +24,14 @@ import { MatIconModule } from '@angular/material/icon';
   providers: [provideTranslocoScope('fgpwai')],
 })
 export class FgPwaInstallComponent extends FgComponentBaseComponent {
+  protected $pwa = inject(FgPwaInstallService);
+
   @Input() forceVisible = false;
   @Input() color = 'primary';
   /** Observable signaling if a pwa install-promt was received and deferred for use with install-component */
   public pwaInstallAvailable$ = new BehaviorSubject<boolean | 'installing'>(false);
   /** CONSTRUCTOR */
-  constructor(
-    /** Inject component base-service */
-    
-    /** Inject class containing pwa-install component events */
-    protected $pwa: FgPwaInstallService,
-  ) {
+  constructor() {
    super();
     this.subscribe(this.$pwa.pwaDeferredPromtAvailable$, available => {
       this.$component.$log.warn('INSTALL-COMPONENT: BEFORE INSTALL PROMT');

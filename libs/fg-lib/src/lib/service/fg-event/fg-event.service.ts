@@ -1,5 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { FgBaseLogService } from '../../base/fg-base-log.service';
 import { FgBaseEvent } from '../../base/fg-base.event';
@@ -16,6 +15,8 @@ import { FgEvent, FgLiveCycleEvent } from './fg-event.class';
  */
 @Injectable({ providedIn: 'root' })
 export class FgEventService extends FgBaseLogService {
+  protected $env = inject(FgEnvironmentService);
+
   protected loglevel: FgNgxLoggerMethodeType = 'debug';
   /**
    * The observable subject used to push events
@@ -36,11 +37,7 @@ export class FgEventService extends FgBaseLogService {
   /**
    * CONSTRUCTOR
    */
-  constructor(
-    /** Instance of Forge Log-Service */
-    protected $env: FgEnvironmentService,
-    
-  ) {
+  constructor() {
     super();
 
     this.EVENT_SIGNATURES_TO_LOG = [];

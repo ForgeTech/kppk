@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { ElementRef, Injectable, Renderer2, RendererFactory2, inject } from '@angular/core';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
 
 /**
@@ -11,11 +11,14 @@ import { FgGlobalService } from '../../module/fg-global/fg-global.service';
   providedIn: 'root',
 })
 export class FgRendererService {
+  protected $global = inject(FgGlobalService);
+  protected $renderer = inject(RendererFactory2);
+
   /** Reference to render-instance */
   public renderer: Renderer2;
   /** CONSTRUCTOR */
-  constructor(public $global: FgGlobalService, protected _renderer: RendererFactory2) {
-    this.renderer = _renderer.createRenderer(null, null);
+  constructor() {
+    this.renderer =  this.$renderer.createRenderer(null, null);
   }
   /** Add class to html-tag */
   addHTMLClass(classToAdd: string): void {

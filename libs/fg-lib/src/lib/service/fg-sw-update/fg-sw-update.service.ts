@@ -1,14 +1,13 @@
-import { ApplicationRef, Injectable, Optional, InjectionToken, Inject } from '@angular/core';
+import { ApplicationRef, Injectable, InjectionToken, inject } from '@angular/core';
 import { SwUpdate, VersionDetectedEvent, VersionReadyEvent } from '@angular/service-worker';
 import { timer, Subscription, Subject, BehaviorSubject, filter, takeUntil, map, shareReplay } from 'rxjs';
 // import { FgSWUpdateActivatedEvent, FgSWUpdateAvailableEvent } from './fg-sw-update.event';
-import { NGXLogger } from 'ngx-logger';
+
 import { Observable } from 'rxjs';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
 import { FgSWUpdateEvent } from './fg-sw-update.event';
 import { FgEvent } from '../fg-event/fg-event.class';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgBaseService } from '../../base/fg-base.service';
 
 /** Constant defined for injection-token providing numeric value for check for service-worker-update interval*/
@@ -30,6 +29,13 @@ export const CONFIG_DELAY_RELOAD_VALUE = new InjectionToken<number>('number');
   providedIn: 'root',
 })
 export class FgSWUpdateService extends FgBaseService {
+  protected $appRef = inject(ApplicationRef);
+  protected $swUpdate = inject(SwUpdate);
+  protected $global = inject(FgGlobalService);
+  protected $env = inject(FgEnvironmentService, { optional: true });
+  protected configUpdateIntervalValue = inject(CONFIG_UPDATE_INTERVAL_VALUE, { optional: true });
+  protected configDelayReloadValue = inject(CONFIG_DELAY_RELOAD_VALUE, { optional: true });
+
   /** Hold global window-object when service runs in browser environment */
   protected WINDOW: Window | undefined;
   protected ACTIVATE_UPDATE$ = new Subject<true>();
@@ -58,26 +64,7 @@ export class FgSWUpdateService extends FgBaseService {
   /** Subscription to the Observables checking for sw-updates */
   protected CHECK_UPDATE$$: Subscription | undefined;
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide angular application-reference service */
-    protected $appRef: ApplicationRef,
-    /** Provide angular service-worker-update service*/
-    protected $swUpdate: SwUpdate,
-    /** Provide application global-object service */
-    protected $global: FgGlobalService,
-    /** Provide value for UPDATE_CHECK_INTERVAL via environment-service */
-    @Optional() protected $env: FgEnvironmentService,
-    /**
-     * Provide value for UPDATE_CHECK_INTERVAL vie angular DI
-     * CAUTION! This value overrides values from envirement-service
-     */
-    @Optional() @Inject(CONFIG_UPDATE_INTERVAL_VALUE) protected configUpdateIntervalValue: number,
-    /**
-     * Provide value for DELAY_RELOAD vie angular DI
-     * CAUTION! This value overrides values from envirement-service
-     */
-    @Optional() @Inject(CONFIG_DELAY_RELOAD_VALUE) protected configDelayReloadValue: number
-  ) {
+  constructor() {
     super()
     if (this.$global.isBrowser) {
       // Set global window-object

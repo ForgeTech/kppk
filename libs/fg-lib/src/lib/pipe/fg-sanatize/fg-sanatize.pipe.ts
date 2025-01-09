@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -13,8 +13,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   name: 'sanatize',
 })
 export class FgSanatize implements PipeTransform {
-  /** CONSTRUCTOR */
-  constructor(private sanitizer: DomSanitizer) {}
+  private sanitizer = inject(DomSanitizer);
+
   /**
    * Transform typescript enum-objects into an array that can
    * be iterated with ngFor-directive

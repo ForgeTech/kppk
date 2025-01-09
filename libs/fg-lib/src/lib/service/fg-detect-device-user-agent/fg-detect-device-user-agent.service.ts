@@ -1,12 +1,14 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Observable, shareReplay, startWith, Subject } from 'rxjs';
-import { FgEventService } from '../fg-event/fg-event.service';
+import { Injectable, InjectionToken, inject } from '@angular/core';
+import { shareReplay, startWith, Subject } from 'rxjs';
 import { FgDetectDeviceTypeUserAgentEvent } from './fg-detect-device-user-agent.event';
 import { DeviceDetectorService, DeviceInfo } from 'ngx-device-detector';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
-import { NGXLogger } from 'ngx-logger';
 import { FgBaseService } from '../../base/fg-base.service';
-import { REQUEST } from '../../token/fg-request-response.token';
+
+
+export const REQUEST = new InjectionToken<Request>('REQUEST');
+export const RESPONSE = new InjectionToken<Response>('RESPONSE');
+
 
 /**
  * FgDetectDeviceTypeUserAgentService -
@@ -21,20 +23,19 @@ import { REQUEST } from '../../token/fg-request-response.token';
   providedIn: 'root',
 })
 export class FgDetectDeviceTypeUserAgentService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+  protected $detect = inject(DeviceDetectorService);
+  protected request = inject<Request>(REQUEST, { optional: true });
+
   /** Used to push current device-info state */
   protected DEVICE_INFO$ = new Subject<DeviceInfo>();
   /** Provides access to detected device-info */
   public readonly deviceInfo$ = this.DEVICE_INFO$.asObservable().pipe(startWith(this.detect()), shareReplay(1));
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide global object for node/browser */
-    protected $global: FgGlobalService,
-    /** Provides device detection service */
-    protected $detect: DeviceDetectorService,    
-    /** (Optional) Required to provide user-agent in node/express environment */
-    @Optional() @Inject(REQUEST) protected request: Request
-  ) {
+  constructor() {
     super()
+    const request = this.request;
+
     if (this.$global.isBrowser) {
       this?.$log.info('FgDetectDeviceTypeUserAgentService: Runs in browser!');
     } else {

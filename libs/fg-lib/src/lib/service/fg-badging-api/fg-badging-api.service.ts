@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
@@ -21,6 +21,12 @@ import { FgEvent } from '../fg-event/fg-event.class';
   providedIn: 'root',
 })
 export class FgBadgingApiService {
+  protected $title = inject(Title);
+  protected $global = inject(FgGlobalService);
+  protected $router = inject(Router, { optional: true });
+  protected $event = inject(FgEventService, { optional: true });
+  protected $log = inject(NGXLogger, { optional: true });
+
   /** Hold browsers global window- or serviceworkers self-object, only when run in browser */
   protected WINDOW_OR_SELF: any;
   /** Observable flaging if a badge is currently set, and if so provides set values */
@@ -38,33 +44,22 @@ export class FgBadgingApiService {
   /** Flag indicating if browser supports none-experimental client-badge-api */
   public readonly supportCLientBadgeAPI: boolean = false;
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide angular title-service */
-    public $title: Title,
-    /** Provide logging-service */
-    public $global: FgGlobalService,
-    /** Provide angular-router if it's available in project */
-    @Optional() public $router: Router,
-    /** Provide event-bridge if available in project */
-    @Optional() public $event: FgEventService,
-    /** Provide logging-service */
-    @Optional() public $log: NGXLogger
-  ) {
+  constructor() {
     if (this.$global.isBrowser) {
       this.WINDOW_OR_SELF = this.$global.nativeGlobal();
       // Check if the previous API surface is supported.
       if ('ExperimentalBadge' in window) {
-        this.$log.debug('SUPPORT BADGING V1');
+        this.$log?.debug('SUPPORT BADGING V1');
         this.supportClientBadgeExperimentalAPIV1 = true;
       }
       // Check if the API is supported.
       if ('setExperimentalAppBadge' in navigator) {
-        this.$log.debug('SUPPORT BADGING V2');
+        this.$log?.debug('SUPPORT BADGING V2');
         this.supportClientBadgeExperimentalAPIV2 = true;
       }
       // Check if none-experimental badgeing support is available
       if ('setClientBadge' in this.WINDOW_OR_SELF.navigator && 'clearClientBadge' in this.WINDOW_OR_SELF.navigator) {
-        this.$log.debug('SUPPORT BADGING API');
+        this.$log?.debug('SUPPORT BADGING API');
         this.supportCLientBadgeAPI = true;
       }
       /** Check if router-service is available in project */
@@ -82,9 +77,9 @@ export class FgBadgingApiService {
         // If event-service is available dispatch set/clear-badge-events
         this.badgeSet$.subscribe(badge => {
           if (badge !== false) {
-            this.$event.emitEvent(new FgEvent(FgBadgingApiEvent.SET, this, this.badge));
+            this.$event?.emitEvent(new FgEvent(FgBadgingApiEvent.SET, this, this.badge));
           } else {
-            this.$event.emitEvent(new FgEvent(FgBadgingApiEvent.CLEARED, this, this.badge));
+            this.$event?.emitEvent(new FgEvent(FgBadgingApiEvent.CLEARED, this, this.badge));
           }
         });
       }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { FgEventService } from '../fg-event/fg-event.service';
 import { FgEvent } from './../fg-event/fg-event.class';
@@ -13,6 +13,9 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class FgNavigationHistoryService {
+  protected $router = inject(Router);
+  protected $event = inject(FgEventService);
+
   /** Holds the number of navigation-end events to collect until dropping oldest */
   protected _navigationHistoryItemCount = 15;
   /** Return count of allowed navigation-items */
@@ -42,12 +45,7 @@ export class FgNavigationHistoryService {
     return this._historyUpdates$.asObservable();
   }
   /** CONSTRUCTOR */
-  constructor(
-    /** Reference to angular router */
-    protected $router: Router,
-    /** Reference to event-service */
-    protected $event: FgEventService
-  ) {
+  constructor() {
     // Subscribe to routers navigationEnd events and collect them
     this.$router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {

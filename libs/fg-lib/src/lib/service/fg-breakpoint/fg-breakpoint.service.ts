@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
 import { debounceTime, distinctUntilChanged, shareReplay } from 'rxjs/operators';
 import { FgBreakpointInterface } from './fg-breakpoint.interface';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { FgEventService } from '../fg-event/fg-event.service';
@@ -41,6 +41,9 @@ export enum BreakpointEnum {
  */
 @Injectable({ providedIn: 'root' })
 export class FgBreakpointService extends FgBaseService {
+  protected $breakpointObserver = inject(BreakpointObserver);
+  protected $mediaMatcher = inject(MediaMatcher);
+
   /**
    * Array to contain the Media-Queries to match.
    * Contains all angular-material breakpoints by
@@ -80,12 +83,7 @@ export class FgBreakpointService extends FgBaseService {
   /** Holds the subscribtion to the breakpoint-observer */
   protected breakpointObserver$$: Subscription | false = false;
   /** CONSTRUCTOR */
-  constructor(
-    /** Provides angular material cdk breakpoint observer */
-    protected $breakpointObserver: BreakpointObserver,
-    /** Provides angular material cdk media matcher */
-    protected $mediaMatcher: MediaMatcher,
-  ) {
+  constructor() {
     super()
     this.setBreakpointObserver();
     /** Dispatch breakpoint detected event */

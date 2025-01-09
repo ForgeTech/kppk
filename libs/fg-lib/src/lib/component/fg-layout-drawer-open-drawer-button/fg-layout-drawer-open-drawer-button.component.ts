@@ -1,5 +1,5 @@
 import { ComponentPortal, ComponentType, TemplatePortal } from '@angular/cdk/portal';
-import { Component, Input, TemplateRef, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgLayoutDrawerOpenDrawerOptionsInterface } from '../fg-layout-drawer/fg-layout-drawer-open-drawer-options.interface';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
@@ -21,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLayoutDrawerOpenDrawerButtonComponent extends FgComponentBaseComponent {
+  protected $viewContainerRef = inject(ViewContainerRef);
+
   /** Allows to change the direction from which the navigation is opened from
    * (default: 'start')
    */
@@ -33,10 +35,6 @@ export class FgLayoutDrawerOpenDrawerButtonComponent extends FgComponentBaseComp
   @Input() public hasBackdrop = true;
   /** Allows to pass the component- or template-reference that should be displayed */
   @Input() public viewRef: ComponentType<any> | TemplateRef<any> | undefined = undefined;
-  /** CONSTRUCTOR */
-  constructor(public override $component: FgComponentBaseService, public $viewContainerRef: ViewContainerRef) {
-   super();
-  }
   /** Methode used to trigger the dispatch of open drawer event */
   public triggerDrawerOpen(event: Event) {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FgModalTranslationKeys } from './fg-modal.keys';
@@ -20,6 +20,11 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatToolbarModule, MatIconModule],
 })
 export class FgModalComponent extends FgComponentBaseComponent {
+  modalRef = inject<MatDialogRef<any>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+  override $component = inject(FgComponentBaseService);
+  $modalKeys = inject(FgModalTranslationKeys);
+
   /**
    * The color that should be used for input-labels -
    * it's set to accent color for dark-theme instead
@@ -27,16 +32,7 @@ export class FgModalComponent extends FgComponentBaseComponent {
    */
   public inputThemeColor: string;
   /** CONSTRUCTOR */
-  constructor(
-    /** Reference to this modal-dialog */
-    public modalRef: MatDialogRef<any>,
-    /** Injects reference to modal data passed when opening modal-window */
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    /** Reference to component base-service */
-    public override $component: FgComponentBaseService,
-    /** Translation-Keys for modal */
-    public $modalKeys: FgModalTranslationKeys
-  ) {
+  constructor() {
    super();
     this.inputThemeColor = 'accent';
   }

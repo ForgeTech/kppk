@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { FgSWUpdateTranslationKeys } from './fg-sw-update.translation.keys';
@@ -23,17 +23,13 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [provideTranslocoScope('fgswu')],
 })
 export class FgSwUpdateButtonComponent extends FgComponentBaseComponent {
+  protected $keys = inject(FgSWUpdateTranslationKeys);
+  protected $sw = inject(FgSWUpdateService);
+
   /** Observable signaling if a sw-update is available */
   public swUpdateAvailable$ = new BehaviorSubject(true) as BehaviorSubject<boolean | 'updating'>;
   /** CONSTRUCTOR */
-  constructor(
-    /** Inject component base-service */
-    public override $component: FgComponentBaseService,
-    /** Inject pwa install-component translation-file */
-    public $keys: FgSWUpdateTranslationKeys,
-    /** Inject class containing pwa-install component events */
-    protected $sw: FgSWUpdateService,
-  ) {
+  constructor() {
    super();
     // Subscribe to an update becoming available
     this.subscribe(

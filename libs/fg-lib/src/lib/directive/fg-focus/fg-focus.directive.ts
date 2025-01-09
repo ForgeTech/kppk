@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, inject } from '@angular/core';
 import { FgGlobalService } from '../../module/fg-global/fg-global.service';
 import { FgRendererService } from '../../service/fg-renderer/fg-renderer.service';
 /**
@@ -12,6 +12,10 @@ import { FgRendererService } from '../../service/fg-renderer/fg-renderer.service
   host: { '[attr.fgFocus]': 'fgFocus ? true : false' },
 })
 export class FgFocusDirective implements AfterViewInit {
+  protected el = inject(ElementRef);
+  protected $global = inject(FgGlobalService);
+  protected $renderer = inject(FgRendererService);
+
   /** Hold focus-state */
   protected FOCUS: boolean = true;
   /** Map directive-attribute input */
@@ -27,10 +31,6 @@ export class FgFocusDirective implements AfterViewInit {
   @Input('fgFocusDelay') public focusDelay: number = 500;
   /** Map directive-attribute input */
   @Input('fgFocusIndex') public focusIndex: number = 0;
-  /** CONSTRUCTOR */
-  public constructor(protected el: ElementRef, protected $global: FgGlobalService, protected $renderer: FgRendererService) {
-    // console.log('FOCUS-DIRECTIVE');
-  }
   /** Makes sure element was created */
   public ngAfterViewInit() {
     // Only in browser

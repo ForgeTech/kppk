@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { FgLayoutBaseComponent } from '../fg-layout-base/fg-layout-base.component';
 import { FgComponentBaseService } from '../../base';
@@ -19,6 +19,8 @@ import { FgCommonModule } from '../../module/fg-common/fg-common.module';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLayoutDrawerComponent extends FgLayoutBaseComponent {
+  override $component = inject(FgComponentBaseService);
+
   protected ACTIVE_DRAWER: any;
   /** Holds the component to be displayed within the active drawer portal */
   public drawerContent$: Subject<Portal<any> | undefined> = new Subject();
@@ -27,7 +29,7 @@ export class FgLayoutDrawerComponent extends FgLayoutBaseComponent {
   /** Reference to angular material sidenav-container */
   @ViewChild('container') container: MatDrawerContainer | undefined;
   /** CONSTRUCTOR */
-  constructor(public override $component: FgComponentBaseService) {
+  constructor() {
    super();
     // Get observable for open-navigation event
     const openNavigationEvent$ = this.$component.$event.event$.pipe(
