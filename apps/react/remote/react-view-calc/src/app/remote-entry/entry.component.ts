@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({
-  imports: [CommonModule, NxWelcomeComponent],
-  selector: 'kppk-react-react_view_calc-entry',
-  template: `<kppk-react-nx-welcome></kppk-react-nx-welcome>`,
+  imports: [CommonModule],
+  selector: 'kppk-react-view-calculation',
+  template: `<div>CALCULATION</div>`,
 })
 export class RemoteEntryComponent {}
