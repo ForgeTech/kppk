@@ -1,16 +1,17 @@
 
-import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@fg-kppk/fg-base';
+import { FgBaseService } from '@forgetech/fg-lib';
 import { Injectable, inject } from '@angular/core';
-import { ActorRefFrom, createMachine, EventFromLogic, fromCallback, fromPromise, setup, SnapshotFrom, } from 'xstate';
+import { ActorRefFrom, EventFromLogic, setup, SnapshotFrom, } from 'xstate';
 import { FG_AUTH_LOCAL_V1, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { HMAC } from 'crypto-es/lib/core';
 import { SHA256Algo } from 'crypto-es/lib/sha256';
-import Base64 from 'crypto-js/enc-base64';
+import { Base64 } from 'crypto-es/lib/enc-base64';
 import { AuthCookieFgAuthLocalParser, ContextFgAuthLocalParser, EventFgAuthLocalAuthorizedParser, EventFgAuthLocalLoginParser, EventFgAuthLocalUnauthorizedParser, FgAuthLocalContext, SaltFileContentFgAuthLocalParser } from './fg-auth-local.machine.types';
 import { catchError, firstValueFrom, map, tap } from 'rxjs';
 import { CookieOptions } from 'ngx-cookie';
+import { FgStorageNgxCookieService, FgTimeStringService } from '@forgetech/fg-lib';
 
 export type FgAuthLocalActorRef = ActorRefFrom<typeof FG_AUTH_LOCAL_V1>;
 export type FgAuthLocalV1Snapshot = SnapshotFrom<typeof FG_AUTH_LOCAL_V1>;
@@ -263,7 +264,7 @@ export class FgAuthLocalV3Service extends FgBaseService {
   public get_machine() {
     return setup({
       types: {
-        context: {} as {},
+        context: {} as FgAuthLocalContext,
         events: {} as
           | { type: "fg.auth.local.event.login" }
           | { type: "fg.auth.local.event.logout" }
@@ -271,7 +272,7 @@ export class FgAuthLocalV3Service extends FgBaseService {
       },
   
     }).createMachine({
-      context: {},
+      context: ContextFgAuthLocalParser.parse({}),
       id: "FG_AUTH_LOCAL_V3",
       type: "parallel",
       states: {
