@@ -11,10 +11,10 @@
     "react-host:build:production": "nx run react-host:build --configuration=production --parallel=true",
     "react-host:build:development": "nx run react-host:build --configuration=development --parallel=true",
    
-    "react-host:serve": "nx run react-host:serve --configuration=development --parallel=true --hmr=true ",
-    "react-host:serve:login": "nx run react-host:serve --configuration=development --devRemotes=react_view_login --parallel=true --hmr=true",
-    "react-host:serve:home": "nx run react-host:serve --configuration=development --devRemotes=fg-react_view_home --parallel=true --hmr=true",
-    "react-host:serve:calc": "nx run react-host:serve --configuration=development --devRemotes=react_view_calc --parallel=true --hmr=true",
+    "react-host:serve": "nx run react-host:serve --configuration=development",
+    "react-host:serve:login": "nx run react-host:serve --configuration=development --devRemotes=react_view_login --parallel=true",
+    "react-host:serve:home": "nx run react-host:serve --configuration=development --devRemotes=react_view_home --parallel=true",
+    "react-host:serve:calc": "nx run react-host:serve --configuration=development --devRemotes=react_view_calc --parallel=true",
     "start": "npm run react-host:serve"
   },
   "private": true,
