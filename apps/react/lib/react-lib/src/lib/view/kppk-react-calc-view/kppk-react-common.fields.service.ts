@@ -7,7 +7,8 @@ import { KppkReactFieldsUtils } from "./kppk-react-fields-utils.service";
 @Injectable({
     providedIn: 'root',
   })
-  export class KppkReactCommonFields extends FgBaseService { 
+  export class KppkReactCommonFields extends FgBaseService {
+    protected $translate = inject(TranslocoService);
     protected $utils = inject(KppkReactFieldsUtils);
     
     public fields: FormlyFieldConfig[] = [
@@ -64,11 +65,5 @@ import { KppkReactFieldsUtils } from "./kppk-react-fields-utils.service";
         }
       },
     ];
-
-    constructor(
-        protected $translate: TranslocoService
-    ) {
-        super()
-    }
 
   }

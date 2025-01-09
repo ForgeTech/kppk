@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import {
   enableMapSet,
   enablePatches,
@@ -35,6 +35,8 @@ export const FG_IMMUTABLE_CONFIG = new InjectionToken<any>('');
   providedIn: 'root',
 })
 export class FgImmutableService extends FgBaseService {
+  protected CONFIG = inject<FgImmutableConfig>(FG_IMMUTABLE_CONFIG, { optional: true });
+
   /** Stores immer's freeze methode */
   protected freezeMeth = freeze;
   /** Instance of immer configured to autofreeze objects produced */
@@ -56,13 +58,10 @@ export class FgImmutableService extends FgBaseService {
     return cloneDeep(merge(target, source)) as T & I;
   }
   // CONSTRUCTOR
-  constructor(
-    // (OPTIONAL) Provide configuration token for immutable-service 
-    @Optional()
-    @Inject(FG_IMMUTABLE_CONFIG)
-    protected CONFIG: FgImmutableConfig,
-  ) {
+  constructor() {
     super();
+    const CONFIG = this.CONFIG;
+
     if (CONFIG === null) {
       /** Enable all immer plugins */
       enableMapSet();

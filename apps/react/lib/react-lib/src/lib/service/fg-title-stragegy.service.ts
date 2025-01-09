@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 
 import { Title } from '@angular/platform-browser';
 import { RouterStateSnapshot, TitleStrategy } from '@angular/router';
@@ -11,13 +11,13 @@ import { Subject, SubscriptionLike, combineLatest, map, of, switchMap } from 'rx
   providedIn: 'root',
 })
 export class FgPublicTitleStragegyService extends TitleStrategy implements OnDestroy {
+  protected $title = inject(Title);
+  protected $translate = inject(TranslocoService);
+
   protected count = 1;
   protected UPDATE_TITLE$ = new Subject<RouterStateSnapshot>();
   protected UPDATE_TITLE$$: SubscriptionLike;
-  constructor(
-    private readonly $title: Title,
-    private readonly $translate: TranslocoService,
-  ) {
+  constructor() {
     super();
     const generalTranslation$ = this.$translate.langChanges$.pipe(
       switchMap(lang => this.$translate.selectTranslation('general'.concat('/', lang))),

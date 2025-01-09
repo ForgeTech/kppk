@@ -26,13 +26,13 @@ import { FgXstateService } from '../../service/fg-xstate.service';
   providedIn: 'root',
 })
 export class FgSpinnerService extends FgBaseService {
+  protected $xstate = inject(FgXstateService);
+
   public machine;
   // public actor;
   // public state$;
   protected $immer = inject(FgImmutableService);
-  constructor(
-    protected $xstate: FgXstateService
-  ) {
+  constructor() {
     super();
     this.machine = this.get_machine();
   }

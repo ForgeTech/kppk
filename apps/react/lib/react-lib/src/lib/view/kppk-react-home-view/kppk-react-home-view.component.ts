@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, inject } from '@angular/core';
 import { FgCommonModule } from '@kppk/fg-lib';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
@@ -32,11 +32,11 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
   ]
 })
 export class KppkReactHomeViewComponent extends KppkReactBaseComponent {
+  protected $active_route = inject(ActivatedRoute);
+  protected $dialog = inject(MatDialog);
+
   protected start_calculation_dialog: undefined | MatDialogRef<any, any>;
-  constructor(
-    protected $active_route: ActivatedRoute,
-    protected $dialog: MatDialog,
-  ) {
+  constructor() {
     super()
     // this.$active_route.queryParams.subscribe( values => {
     //   this.$component.$log.warn('3>>>>>>>>>>>PARAMS>>>>>>>>');

@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, inject } from '@angular/core';
 
 import { NGXLogger } from 'ngx-logger';
 
@@ -12,22 +12,12 @@ import { TranslocoService } from '@jsverse/transloco';
   providedIn: 'root',
 })
 export class PdvPublicGlobalError extends FgBaseService implements ErrorHandler {
+  protected $notification = inject(UserNotificationService);
+  protected $translate = inject(TranslocoService);
+  
   protected ERROR$ = new Subject<any>();
   public readonly error$ = this.ERROR$.asObservable();
 
-  constructor(
-    protected $notification: UserNotificationService,
-    public override $event: FgEventService,
-    public override $log: NGXLogger,
-    public $translate: TranslocoService,
-  ) {
-    super($event, $log);
-    // this.$translate.langChanges$
-    //   .pipe(switchMap(lang => this.$translate.selectTranslation('general'.concat('/', lang))))
-    //   .subscribe(translation => {
-    //     this.$translate.setTranslation(translation, this.$translate.getActiveLang());
-    //   });
-  }
 
   handleError(error: any) {
     this.$log.error('Error from global error handler');

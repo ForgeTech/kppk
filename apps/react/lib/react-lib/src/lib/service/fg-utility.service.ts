@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({ providedIn: 'root' })
 export class UtilityService {
-  public constructor(
-    private $translate: TranslocoService) {}
+  protected $translate = inject(TranslocoService);
 
   public translateEnum(enumObject: object, prefix = 'missing') {
     const object: { [key: string]: string } = { ...enumObject };

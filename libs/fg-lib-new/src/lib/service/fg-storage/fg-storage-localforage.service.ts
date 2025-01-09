@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import * as LocalForage from 'localforage';
 import { FgStorageService } from './fg-storage.service';
 import { catchError, from, map, Observable, of, switchMap, tap } from 'rxjs';
@@ -29,6 +29,9 @@ export interface FgStorageLocalforageServiceInstanceMapInterface {
   providedIn: 'root',
 })
 export class FgStorageLocalforageService extends FgStorageService {
+  protected $log = inject(NGXLogger, { optional: true });
+  protected FgLocalforageStorageOptions = inject<LocalForageOptions>(FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS, { optional: true });
+
   /**
    * Default values used for configuration of StorageService.
    * Can be overwritten/extended bei using FG_LOCALFORAGE_STORAGE_SERVIC_OPTIONS
@@ -63,14 +66,7 @@ export class FgStorageLocalforageService extends FgStorageService {
   }
 
   /** CONSTRUCTOR */
-  constructor(
-    /** Provides reference to ngx-cookie service */
-    @Optional() protected $log: NGXLogger,
-    /** Optional Injection-Token to overwrite/extend ngx-cookie default options */
-    @Optional()
-    @Inject(FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS)
-    protected FgLocalforageStorageOptions: LocalForageOptions
-  ) {
+  constructor() {
     super();
     // Use optional value from FG_STORAGE_NGXCOOKIE_SERVIC_OPTIONS injection-token
     if (this.FgLocalforageStorageOptions) {

@@ -13,16 +13,16 @@ import { InternalFgSpinnerResetTimeout } from '../fg-spinner/fg-spinner.machine.
   providedIn: 'root',
 })
 export class ReactDataImporterService extends FgBaseService {
+  protected $xstate = inject(FgXstateService);
+  protected $immer = inject(FgImmutableService);
+  protected $storage = inject(FgStorageLocalforageService);
+
   public machine;
   public actor;
   public state$;
 
-  protected $immer = inject(FgImmutableService);
-  protected $storage = inject(FgStorageLocalforageService);
 
-  constructor(
-    protected $xstate: FgXstateService
-  ) {
+  constructor() {
     super();
     this.machine = REACT_DATA_IMPORTER_MACHINE.provide({
       actions: {

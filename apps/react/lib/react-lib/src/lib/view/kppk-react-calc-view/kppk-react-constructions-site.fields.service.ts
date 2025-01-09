@@ -33,6 +33,7 @@ export enum HEAT_SUPPLY_CALCULATION_TYPE_ENUM {
   providedIn: 'root',
 })
 export class KppkReactConstructionSiteFields extends FgBaseService {
+  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
 
   protected power_supply_calculation_type_enum = POWER_SUPPLY_CALCULATION_TYPE_ENUM;
@@ -743,11 +744,5 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
       ]
     }
   ]};
-
-  constructor(
-    protected $translate: TranslocoService
-  ){
-    super();
-  }
 
 }

@@ -36,6 +36,7 @@ import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
   providers:  [provideTranslocoScope( 'general', 'calc' )]
 })
 export class KppkReactMaterialsMaterialRowComponent {
+  protected $component = inject(KppkReactComponentBaseService);
   protected $utils = inject(KppkReactFieldsUtils);
   protected $translate = inject(TranslocoService);
 
@@ -252,13 +253,6 @@ export class KppkReactMaterialsMaterialRowComponent {
       }]
     }
   ];
-
-
-  constructor(
-    protected $component: KppkReactComponentBaseService
-  ) {
-
-  }
 
   protected emit_model_change( event: any ) {
     if( this.form.valid ) {

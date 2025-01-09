@@ -32,7 +32,8 @@ export enum EXCAVATION_PIT_SECURITY_METHODE_ENUM {
 @Injectable({
   providedIn: 'root',
 })
-export class KppkReactExcavationPitFields extends FgBaseService { 
+export class KppkReactExcavationPitFields extends FgBaseService {
+  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
 
   protected jet_blasting_process_cylinder_shape_enum = JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM;
@@ -748,10 +749,4 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     },
 
   ];
-
-  constructor(
-    protected $translate: TranslocoService
-  ){
-    super();
-  }
 }

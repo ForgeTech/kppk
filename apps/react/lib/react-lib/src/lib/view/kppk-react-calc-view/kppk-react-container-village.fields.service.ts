@@ -9,7 +9,9 @@ import { KppkReactConstructionSiteFields } from "./kppk-react-constructions-site
 @Injectable({
   providedIn: 'root',
 })
-export class KppkReactContainerVillageFields extends FgBaseService { 
+export class KppkReactContainerVillageFields extends FgBaseService {
+  protected $construction_site = inject(KppkReactConstructionSiteFields);
+  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
 
   public container_village_settings_fields: FormlyFieldConfig[] = [
@@ -400,12 +402,5 @@ export class KppkReactContainerVillageFields extends FgBaseService {
       ]
     }
   ];
-
-  constructor(
-    protected $construction_site: KppkReactConstructionSiteFields,
-    protected $translate: TranslocoService
-  ){
-    super();
-  }
 
 }

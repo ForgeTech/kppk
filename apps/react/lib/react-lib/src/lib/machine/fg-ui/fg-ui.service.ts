@@ -12,6 +12,8 @@ import { FgXstateService } from '../../service/fg-xstate.service';
   providedIn: 'root',
 })
 export class FgUiService extends FgBaseService{
+  protected $xstate = inject(FgXstateService);
+
   public machine;
   public actor;
   public state$;
@@ -19,9 +21,7 @@ export class FgUiService extends FgBaseService{
   protected $immer = inject(FgImmutableService);
   protected $storage = inject(FgStorageLocalforageService);
 
-  constructor(
-    protected $xstate: FgXstateService
-  ) {
+  constructor() {
     super();
     this.machine = FG_UI_MACHINE_V2.provide({
   

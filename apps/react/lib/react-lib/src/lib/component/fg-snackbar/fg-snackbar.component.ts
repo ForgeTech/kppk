@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
@@ -19,9 +19,10 @@ import { snackTypes } from '../../service/fg-user-notification.service';
   imports: [FgCommonModule],
 })
 export class FgSnackbarComponent implements OnInit {
+  public data = inject(MAT_SNACK_BAR_DATA);
+
   public barType = snackTypes;
   public iconColor = '';
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {}
 
   ngOnInit(): void {
     const st = this.data.snackType;

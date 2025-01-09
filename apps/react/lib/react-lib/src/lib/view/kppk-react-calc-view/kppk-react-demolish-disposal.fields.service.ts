@@ -8,7 +8,8 @@ import { KppkReactFieldsUtils } from "./kppk-react-fields-utils.service";
 @Injectable({
   providedIn: 'root',
 })
-export class KppkReactDemolishDisposalFields extends FgBaseService { 
+export class KppkReactDemolishDisposalFields extends FgBaseService {
+  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
   
   protected container_select_options = () => { return [
@@ -1228,13 +1229,5 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroup: this.demolish_disposal_fields_insulation
     }
   ];
-  
- 
-
-  constructor(
-    protected $translate: TranslocoService
-  ){
-    super();
-  }
 
 }

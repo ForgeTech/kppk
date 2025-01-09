@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -26,12 +26,14 @@ export interface snackBarCfg {
   providedIn: 'root',
 })
 export class FgUserNotificationService {
-  constructor(private snackBar: MatSnackBar, private readonly zone: NgZone) {}
+  protected $snackbar = inject(MatSnackBar);
+  protected $zone = inject(NgZone);
 
-  async notify(snackCfg: snackBarCfg): Promise<number> {
+
+  public async notify(snackCfg: snackBarCfg): Promise<number> {
     const notificationToken = new Date().valueOf();
     this.zone.run(() => {
-      const snackBar = this.snackBar.openFromComponent(FgSnackbarComponent, {
+      const snackBar = this.$snackbar.openFromComponent(FgSnackbarComponent, {
         duration: snackCfg.duration ? snackCfg.duration : 4000,
         panelClass: snackCfg.panelClass ? ['tailwind-snack', snackCfg.panelClass] : ['tailwind-snack'],
         data: {
@@ -49,7 +51,7 @@ export class FgUserNotificationService {
     return notificationToken;
   }
 
-  dismiss() {
-    this.snackBar.dismiss();
+  public dismiss() {
+    this.$snackbar.dismiss();
   }
 }

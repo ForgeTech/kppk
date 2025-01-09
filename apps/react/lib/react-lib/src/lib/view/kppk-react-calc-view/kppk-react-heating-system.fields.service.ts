@@ -10,7 +10,9 @@ import { FormlySelectOption } from "@ngx-formly/core/select";
 @Injectable({
     providedIn: 'root',
   })
-  export class KppkReactHeatingSystemFields extends FgBaseService { 
+  export class KppkReactHeatingSystemFields extends FgBaseService {
+    protected $translate = inject(TranslocoService);
+    protected $base = inject(KppkReactComponentBaseService);
     protected $utils = inject(KppkReactFieldsUtils);
 
     protected heating_system_settings: FormlyFieldConfig[] = [
@@ -150,12 +152,5 @@ import { FormlySelectOption } from "@ngx-formly/core/select";
         ]
       },
     ];
-
-    constructor(
-        protected $translate: TranslocoService,
-        protected $base: KppkReactComponentBaseService
-    ) {
-        super()
-    }
 
   }
