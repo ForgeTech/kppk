@@ -1,0 +1,14 @@
+
+.fg_spinner_modal_backdrop {
+    background-color: rgba(255, 255, 255);
+  // background-color: red;
+}
+.fg_spinner_modal_panal {
+  .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+      background-color: transparent !important;
+      box-shadow: none;
+    }
+  }
+
+}

@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.md { 
+  mat-card-content {
+      column-count: 2;
+      column-gap: 40px;
+  }
+}
+
+table td {
+  border: 1px solid black;
+  padding: 5px;
+}

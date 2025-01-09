@@ -1,0 +1,54 @@
+<!-- <pre>{{ results() | json }}</pre> -->
+<ng-container *transloco="let t;">
+<div class="flex flex-col lg:grid lg:grid-cols-6 lg:gap-4">
+  <div class="col-span-6 overflow-auto lg:col-span-3">
+    <kppk-react-results-material-table [results]="materials_s()" />
+  </div>
+  <div class="graph-materials relative col-span-6 lg:col-span-3">
+    <!-- [view]="view"
+    [scheme]="colorScheme"
+      [legendPosition]="legendPosition"
+    [schemeType]="schemeType" 
+          [gradient]="gradient"
+          (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+      [yAxisLabel]="yAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [legendPosition]="legendPosition"
+      -->
+      <ngx-charts-bar-horizontal-2d
+        [results]="result_chart_s()"
+        [customColors]="custom_colors"
+        [xAxis]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisTickFormatting]="axis_kgco2_formatting"
+        [xAxis]="true"
+        [yAxis]="true"
+        [legend]="false"
+        [groupPadding]="4"
+      >
+        <ng-template #tooltipTemplate let-model="model">
+          <!-- <pre>{{ model | json }}</pre> -->
+          <div class="flex flex-col items-center justify-center p-4">
+              <span class="text-base">{{ model.series }}</span>
+              <span class="text-sm">{{ model.name }}</span>
+              <span class="text-xs">{{ model.value | number:'1.2-2' }} kgCO₂</span>
+          </div>
+        </ng-template>
+      </ngx-charts-bar-horizontal-2d>
+      <table class="table-legend absolute right-[18px] top-[10px]">
+        <tr class="text-xs" [ngStyle]="{'background-color': $colors.concrete}">
+          <td>GWP</td>
+        <tr>
+        <tr class="text-xs" [ngStyle]="{'background-color': $colors.concrete_oeko}">
+          <td>GWP Öko</td>
+        <tr>
+        <tr class="text-xs" [ngStyle]="{'background-color': $colors.transport }">
+          <td>CO₂ Transport</td>
+        <tr>
+      </table>
+  </div> 
+</div>
+</ng-container>

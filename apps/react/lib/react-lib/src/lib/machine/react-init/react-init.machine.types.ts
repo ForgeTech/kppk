@@ -25,16 +25,16 @@ export const AuthCookieFgAuthLocalParser = z.object({
 export type AuthCookieFgAuthLocal = z.infer<typeof AuthCookieFgAuthLocalParser>;
 
 export const ContextFgAuthLocalParser = z.object({
-  auth_cookie: AuthCookieFgAuthLocalParser.optional(),
-  auth_cookie_storage_key: z.string().default('fg-auth-local-cookie'),
+  authCookie: AuthCookieFgAuthLocalParser.or(z.literal(false)).default(false),
+  authCookieStorageKey: z.string().default('fg-auth-local-cookie'),
   error: z.string().optional(),
   salt: z.string().optional(),
-  salt_filename: z.string().default('salt.json'),
+  saltFilename: z.string().default('salt.json'),
   path: z.string().default('./auth-local/'),
   // token: z.string().optional(),
 });
 
-export type FgAuthLocalContext = z.infer<typeof ContextFgAuthLocalParser>;
+export type ContextFgAuthLocal = z.infer<typeof ContextFgAuthLocalParser>;
 
 export const CredentialsFgAuthLocalParser = z.object({
   user: z.string(),
@@ -54,15 +54,15 @@ export const EventFgAuthLocalLogoutParser = z.object({
 export type EventFgAuthLocalLogout = z.infer<typeof EventFgAuthLocalLogoutParser>;
 
 export const EventFgAuthLocalAuthorizedParser = z.object({
-  type: z.literal('fg.auth.local.emitted.authorized'),
+  type: z.literal('fg.auth.local.event.authorized'),
   payload: z.object({
-    auth_cookie: AuthCookieFgAuthLocalParser,
+    authCookie: AuthCookieFgAuthLocalParser,
   }),
 });
 export type EventFgAuthLocalAuthorized = z.infer<typeof EventFgAuthLocalAuthorizedParser>;
 
 export const EventFgAuthLocalUnauthorizedParser = z.object({
-  type: z.literal('fg.auth.local.emitted.unauthorized'),
+  type: z.literal('fg.auth.local.event.unauthorized'),
 });
 export type EventFgAuthLocalUnauthorized = z.infer<typeof EventFgAuthLocalUnauthorizedParser>;
 

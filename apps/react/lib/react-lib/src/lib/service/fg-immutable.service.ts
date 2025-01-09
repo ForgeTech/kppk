@@ -1,7 +1,13 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { enableMapSet, enablePatches, freeze, Immer } from 'immer';
+import {
+  enableMapSet,
+  enablePatches,
+  freeze,
+  Immer,
+} from 'immer';
+import { NGXLogger } from 'ngx-logger';
 import { merge, cloneDeep } from 'lodash-es';
-import { FgBaseService } from '@kppk/fg-lib-new';
+import { FgBaseService, FgEventService } from '@fg-kppk/fg-base';
 
 /**
  * FgImmutableConfig -
@@ -16,7 +22,7 @@ export interface FgImmutableConfig {
 }
 
 /** Provide configuration for immerJs Plugins */
-export const FG_IMMUTABLE_CONFIG = new InjectionToken<FgImmutableConfig>('');
+export const FG_IMMUTABLE_CONFIG = new InjectionToken<any>('');
 
 /**
  * FgImmutableService -
@@ -51,10 +57,10 @@ export class FgImmutableService extends FgBaseService {
   }
   // CONSTRUCTOR
   constructor(
-    // (OPTIONAL) Provide configuration token for immutable-service
+    // (OPTIONAL) Provide configuration token for immutable-service 
     @Optional()
     @Inject(FG_IMMUTABLE_CONFIG)
-    protected CONFIG: FgImmutableConfig
+    protected CONFIG: FgImmutableConfig,
   ) {
     super();
     if (CONFIG === null) {
