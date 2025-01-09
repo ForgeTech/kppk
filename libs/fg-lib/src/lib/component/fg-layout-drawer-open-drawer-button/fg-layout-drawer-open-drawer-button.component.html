@@ -1,0 +1,8 @@
+<div (click)="triggerDrawerOpen($event)">
+  <div #ref><ng-content></ng-content></div>
+  <ng-container *ngIf="ref.children.length === 0 && !ref.textContent">
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+</div>

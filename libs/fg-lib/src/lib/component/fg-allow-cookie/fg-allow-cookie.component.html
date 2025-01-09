@@ -1,0 +1,31 @@
+<ng-container *transloco="let t">
+  <mat-card>
+    <div class="message overflow-auto">
+      <p>
+        <span
+          data-cy="fgac-text-warning-message"
+          [innerHTML]="t('fgac.warning-massage')"></span>
+        <!-- routerLink="{{ COOKIES_ROUTE }}" -->
+        <!-- <a
+          data-cy="fgac-link-read-more"
+          routerLink="/test" [innerHTML]="t('fgac.read-more')">
+        </a> -->
+      </p>
+    </div>
+    <div
+      class="flex justify-end"
+      data-cy="fgac-btn-reject">
+      <!-- <button
+        mat-button
+        (click)="onReject($event)" [innerHTML]="t('fgac.reject-cookie-use')">
+      </button> -->
+      <button
+        [fgFocus]="true"
+        mat-raised-button
+        color="primary"
+        (click)="onAccept($event)"
+        data-cy="fgac-btn-accept"
+        [innerHTML]="t('fgac.accept-cookie-use')"></button>
+    </div>
+  </mat-card>
+</ng-container>

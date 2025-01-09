@@ -1,0 +1,9 @@
+<h3 class="rose-step-system-headline">
+  <div class="headline-checkbox">
+    <ng-container #fieldComponent></ng-container>
+  </div>
+  <div class="headline-text {{ formControl.value === false ? 'disabled' : '' }}">
+    <!-- [ngClass]="{ 'disabled': formControl.value === false }" -->
+    {{ to?.headline }}
+  </div>
+</h3>

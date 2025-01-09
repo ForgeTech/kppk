@@ -1,0 +1,38 @@
+<mat-expansion-panel
+  *ngIf="!(breakPoint$ | async); else desktopLayout"
+  [expanded]="to.expanded ? true : false"
+  [disabled]="to.disabled ? true : false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <h3 class="panel-title">
+        {{ to.label }}
+        <span
+          *ngIf="value$ | async"
+          class="panel-description"
+          >({{ value$ | async }} {{ to.unit }})</span
+        >
+      </h3>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <ng-container #fieldComponent></ng-container>
+</mat-expansion-panel>
+<ng-template #desktopLayout>
+  <div fxLayout="column">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center">
+      <h3 class="panel-title">
+        {{ to.label }}
+        <span
+          *ngIf="value$ | async"
+          class="panel-description">
+          ({{ value$ | async }} {{ to.unit }})
+          <!-- <fg-form-validation-icon [entity]="formControl"></fg-form-validation-icon> -->
+        </span>
+      </h3>
+    </div>
+    <div>
+      <ng-container #fieldComponent></ng-container>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,28 @@
+<ng-container *transloco="let t; read: 'fgls'">
+  <mat-select
+    [value]="selectedLang"
+    (selectionChange)="onSelctionChange($event)"
+    class="fg-language-switch">
+    <mat-select-trigger>
+      <ng-container>
+          <div class="fg-language-switch-lang-name text-center relative">
+            <img class="fg-language-switch-flag-icon absolute w-[25px] top-[4px]" src="{{ iconUrl + selectedLang }}.svg" />
+            {{ t(this.selectedLang) }}
+          </div>
+      </ng-container>
+    </mat-select-trigger>
+    <mat-option
+      [value]="language"
+      *ngFor="let language of availableLangs">
+      <div #option><ng-content [option]></ng-content></div>
+      <ng-container *ngIf="option.children.length === 0 && !option.textContent">
+        <img
+          class="fg-language-switch-flag-icon inline-block w-[25px] mr-2"
+          src="{{ iconUrl + language }}.svg" />
+        <span class="fg-language-switch-lang-name">
+          {{ t(language) }}
+        </span>
+      </ng-container>
+    </mat-option>
+  </mat-select>
+</ng-container>

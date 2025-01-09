@@ -1,0 +1,4 @@
+<span (click)="triggerScrollTo($event)">
+  <span #ref><ng-content></ng-content></span>
+  <ng-container *ngIf="ref.children.length === 0 && !ref.textContent"> SCROLL TO TOP </ng-container>
+</span>

@@ -1,0 +1,9 @@
+.unit-multiply-field-wrapper {
+  width: 100%;
+  border: 1px solid green;
+  .field,
+  .multiply {
+    display: inline-block;
+    margin: 15px 10px;
+  }
+}

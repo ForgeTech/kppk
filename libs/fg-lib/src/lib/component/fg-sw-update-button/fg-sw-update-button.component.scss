@@ -1,0 +1,26 @@
+@import './../../styles/fg-mat-colors.scss';
+
+button.btn-update-sw {
+  width: 100%;
+  border: none;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.rotate {
+  animation: rotate 1s linear infinite;
+}

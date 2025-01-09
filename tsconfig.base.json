@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kppk/fg-lib": ["libs/fg-lib/src/index.ts"],
       "@kppk/fg-lib-new": ["libs/fg-lib-new/src/index.ts"],
       "@kppk/react-lib": ["apps/react/lib/react-lib/src/index.ts"],
       "react_view_calc/Routes": [

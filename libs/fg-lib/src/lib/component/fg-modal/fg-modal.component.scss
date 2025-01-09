@@ -1,0 +1,16 @@
+.modal-header {
+  position: relative;
+}
+.modal-btn-close {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  .mat-icon {
+    position: relative;
+    left: 0px;
+  }
+}
+.modal-content {
+  padding: 25px;
+  background-color: white;;
+}

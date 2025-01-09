@@ -1,0 +1,32 @@
+<ng-container *rxLet="$auth.isAuthorized$; let isAuthorized">
+  <span (click)="triggerScrollTo(isAuthorized)">
+    <ng-container *ngIf="isAuthorized; else loginBtn">
+      <div #logout>
+        <ng-content [logout]></ng-content>
+      </div>
+      <ng-container *ngIf="logout.children.length === 0 && !logout.textContent">
+        <button
+          class="logout-btn"
+          mat-icon-button
+          aria-label=""
+          color="warn">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </ng-container>
+    </ng-container>
+    <ng-template #loginBtn>
+      <div #login>
+        <ng-content [login]></ng-content>
+      </div>
+      <ng-container *ngIf="login.children.length === 0 && !login.textContent">
+        <button
+          class="login-btn"
+          mat-icon-button
+          aria-label=""
+          color="success">
+          <mat-icon>login</mat-icon>
+        </button>
+      </ng-container>
+    </ng-template>
+  </span>
+</ng-container>
