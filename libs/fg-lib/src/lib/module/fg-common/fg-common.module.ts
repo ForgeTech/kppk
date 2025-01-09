@@ -6,7 +6,14 @@ import { RxPush } from '@rx-angular/template/push';
 import { RxFor } from '@rx-angular/template/for';
 import { RxUnpatch } from '@rx-angular/template/unpatch';
 
-const module = [CommonModule, TranslocoModule, RxLet, RxPush, RxFor, RxUnpatch];
+const module = [
+  CommonModule,
+  TranslocoModule,
+  RxLet,
+  RxPush,
+  RxFor,
+  RxUnpatch
+];
 
 @NgModule({
   imports: module,
