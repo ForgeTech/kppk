@@ -6,7 +6,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'fg-lib-placeholder',
+  selector: 'kppk-react-placeholder',
   imports: [CommonModule],
   template: `
   <div class="flex h-full flex-row items-center justify-center border border-solid border-red-800 bg-stone-200">
