@@ -18,12 +18,12 @@ export class FgBaseService implements OnDestroy {
 
   /** (Optional) Provide logger service */
   protected $log = inject(NGXLogger);
-  
+
   constructor() {
-    this?.$log.info('SERVICE: ', this.className, 'created!');  
+    this?.$log.info('SERVICE: ', this.className, 'created!');
   }
-  
+
   public ngOnDestroy(): void {
-    this?.$log.info('SERVICE: ', this.className, 'destoryed!');  
+    this?.$log.info('SERVICE: ', this.className, 'destoryed!');
   }
 }

@@ -17,7 +17,10 @@ export class FgTimeStringService extends FgBaseService {
    * for example transform( '1m', 'ms')
    * returns 60 000 as numeric value
    */
-  public transform(timestring: string, resultUnit: TIMESTRING.ReturnUnit = 'ms'): number {
+  public transform(
+    timestring: string,
+    resultUnit: TIMESTRING.ReturnUnit = 'ms'
+  ): number {
     return TIMESTRING.default(timestring, resultUnit);
   }
   /** CONSTRUCTOR */

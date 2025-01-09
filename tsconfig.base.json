@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@forgetech/fg-lib": ["libs/fg-lib/src/index.ts"],
+      "@kppk/fg-lib-new": ["libs/fg-lib-new/src/index.ts"],
       "@kppk/react-lib": ["apps/react/lib/react-lib/src/index.ts"],
       "react_view_calc/Routes": [
         "apps/react/remote/react-view-calc/src/app/remote-entry/entry.routes.ts"

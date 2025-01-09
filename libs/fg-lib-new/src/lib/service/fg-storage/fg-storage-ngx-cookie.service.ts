@@ -8,7 +8,8 @@ import { NGXLogger } from 'ngx-logger';
  * Injection-Token used to overwrite/extend FgStorageNgxCookieService
  * default configuration
  */
-export const FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS = new InjectionToken<CookieOptions>('FgNgxCookieStorageServiceOptions');
+export const FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS =
+  new InjectionToken<CookieOptions>('FgNgxCookieStorageServiceOptions');
 /**
  * Key holding FgStorageNgxCookieService storage configuration
  */
@@ -63,16 +64,22 @@ export class FgStorageNgxCookieService extends FgStorageService {
     /** Provides reference to ngx-cookie service */
     @Optional() protected $log: NGXLogger,
     /** Optional Injection-Token to overwrite/extend ngx-cookie default options */
-    @Optional() @Inject(FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS) protected FgStorageNgxCookieServiceOptions: CookieOptions
+    @Optional()
+    @Inject(FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS)
+    protected FgStorageNgxCookieServiceOptions: CookieOptions
   ) {
     super();
     // Use optional value from FG_STORAGE_NGXCOOKIE_SERVIC_OPTIONS injection-token
     if (this.FgStorageNgxCookieServiceOptions) {
-      this.OPTIONS = Object.assign(this.OPTIONS, this.FgStorageNgxCookieServiceOptions);
+      this.OPTIONS = Object.assign(
+        this.OPTIONS,
+        this.FgStorageNgxCookieServiceOptions
+      );
     }
-    this.getItem(FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY).subscribe(value => {
+    this.getItem(FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY).subscribe((value) => {
       if (value) {
-        this.STORAGE_MAP = value as FgStorageNgxCookieServiceStorageMapInterface;
+        this.STORAGE_MAP =
+          value as FgStorageNgxCookieServiceStorageMapInterface;
       }
     });
   }
@@ -131,8 +138,18 @@ export class FgStorageNgxCookieService extends FgStorageService {
    * @param options
    * @returns
    */
-  public setItem<T>(key: string, value: string | object, options?: CookieOptions, storageKey?: string): Observable<T | false>;
-  public setItem(key: string, value: string | object, options?: CookieOptions, storageKey?: string): Observable<any | false> {
+  public setItem<T>(
+    key: string,
+    value: string | object,
+    options?: CookieOptions,
+    storageKey?: string
+  ): Observable<T | false>;
+  public setItem(
+    key: string,
+    value: string | object,
+    options?: CookieOptions,
+    storageKey?: string
+  ): Observable<any | false> {
     storageKey = storageKey ? storageKey : '';
     const optionsToApply = this.mergeOptions(options);
     const keyToApply = this.getStorageKey(key, storageKey);
@@ -143,7 +160,9 @@ export class FgStorageNgxCookieService extends FgStorageService {
         this.$cookie.put(keyToApply, value, optionsToApply);
       }
     } catch (error) {
-      this.$log?.error(`ERROR: FgStorageNgxCookie: setItem-methode for key: ${key} failed with: ${error}!`);
+      this.$log?.error(
+        `ERROR: FgStorageNgxCookie: setItem-methode for key: ${key} failed with: ${error}!`
+      );
       return of(false);
     }
     if (storageKey) {
@@ -189,7 +208,10 @@ export class FgStorageNgxCookieService extends FgStorageService {
    * the storageMap property to being able to do that manually after
    * bulk removals
    */
-  protected removeItemNoStorageMapupdate(key: string, storageKey?: string): Observable<boolean> {
+  protected removeItemNoStorageMapupdate(
+    key: string,
+    storageKey?: string
+  ): Observable<boolean> {
     try {
       const keyToApply = this.getStorageKey(key, storageKey);
       this.$cookie.remove(keyToApply);
@@ -216,7 +238,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
   public clear(storageKey?: string): Observable<boolean> {
     try {
       if (storageKey && this.STORAGE_MAP[storageKey]) {
-        this.STORAGE_MAP[storageKey].forEach(key => {
+        this.STORAGE_MAP[storageKey].forEach((key) => {
           this.removeItemNoStorageMapupdate(key, storageKey);
         });
         delete this.STORAGE_MAP[storageKey];
@@ -238,7 +260,10 @@ export class FgStorageNgxCookieService extends FgStorageService {
   /** Methode is implemented to satisfy fg-storage-service abstract-lass but isn't needed for
    * fg-storage-ngx-cookie service
    */
-  public addStorage(storageKey: string, options?: CookieOptions): Observable<boolean> {
+  public addStorage(
+    storageKey: string,
+    options?: CookieOptions
+  ): Observable<boolean> {
     this.$log?.debug(
       `DEBUG: FgStorageNgxCookie: addStorage-methode for storageKey: ${storageKey} 
        doesn't really do anything as it's not required to create storage-instances for 

@@ -8,7 +8,8 @@ import { NGXLogger } from 'ngx-logger';
  * Injection-Token used to overwrite/extend FgStorageNgxCookieService
  * default configuration
  */
-export const FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS = new InjectionToken<LocalForageOptions>('');
+export const FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS =
+  new InjectionToken<LocalForageOptions>('');
 /** Key holding FgStorageLocalforageService storage configuration */
 export const FG_LOCALFORAGE_STORAGE_MAP_KEY = 'FG_LOCALFORAGE_STORAGE_MAP';
 /** Interface for storage options map available on localforage storage service  */
@@ -54,7 +55,8 @@ export class FgStorageLocalforageService extends FgStorageService {
   /** Holds instance of Localforage storage-provider */
   protected _STORAGE: LocalForage;
   /** Holds instance of Localforage storage-provider */
-  protected _STORAGE_INSTANCES_MAP: FgStorageLocalforageServiceInstanceMapInterface = {};
+  protected _STORAGE_INSTANCES_MAP: FgStorageLocalforageServiceInstanceMapInterface =
+    {};
   /** GETTER for _STORAGE_INSTANCES_MAP */
   get storageInstanceMap(): FgStorageLocalforageServiceInstanceMapInterface {
     return this._STORAGE_INSTANCES_MAP;
@@ -65,12 +67,17 @@ export class FgStorageLocalforageService extends FgStorageService {
     /** Provides reference to ngx-cookie service */
     @Optional() protected $log: NGXLogger,
     /** Optional Injection-Token to overwrite/extend ngx-cookie default options */
-    @Optional() @Inject(FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS) protected FgLocalforageStorageOptions: LocalForageOptions
+    @Optional()
+    @Inject(FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS)
+    protected FgLocalforageStorageOptions: LocalForageOptions
   ) {
     super();
     // Use optional value from FG_STORAGE_NGXCOOKIE_SERVIC_OPTIONS injection-token
     if (this.FgLocalforageStorageOptions) {
-      this.OPTIONS = Object.assign(this.OPTIONS, this.FgLocalforageStorageOptions);
+      this.OPTIONS = Object.assign(
+        this.OPTIONS,
+        this.FgLocalforageStorageOptions
+      );
     }
     this._STORAGE = LocalForage.createInstance(this.OPTIONS);
   }
@@ -79,11 +86,11 @@ export class FgStorageLocalforageService extends FgStorageService {
     const instanceToReturn$: Observable<LocalForage> = of(
       keyToApply ? this._STORAGE : this._STORAGE_INSTANCES_MAP[keyToApply]
     ).pipe(
-      switchMap(instanceToReturn => {
+      switchMap((instanceToReturn) => {
         return instanceToReturn
           ? of(instanceToReturn)
           : this.addToStorageMap(keyToApply).pipe(
-              tap(success => {
+              tap((success) => {
                 if (success === false)
                   this.$log?.debug(
                     `DEBUG: FgStorageLocalforageService: Receiving storage-instance
@@ -92,13 +99,20 @@ export class FgStorageLocalforageService extends FgStorageService {
                       `
                   );
               }),
-              map(success => (success ? this._STORAGE_INSTANCES_MAP[keyToApply] : this._STORAGE))
+              map((success) =>
+                success
+                  ? this._STORAGE_INSTANCES_MAP[keyToApply]
+                  : this._STORAGE
+              )
             );
       })
     );
     return instanceToReturn$;
   }
-  protected mergeOptions(storageKey: string, options?: LocalForageOptions): LocalForageOptions {
+  protected mergeOptions(
+    storageKey: string,
+    options?: LocalForageOptions
+  ): LocalForageOptions {
     let optionsToApply = Object.assign({}, this.OPTIONS);
     optionsToApply = Object.assign(optionsToApply, options);
     optionsToApply.storeName = storageKey;
@@ -107,22 +121,29 @@ export class FgStorageLocalforageService extends FgStorageService {
   /**
    * Adds a storage-instance and options to according storage-maps
    */
-  protected addToStorageMap(storageKey: string, options?: LocalForageOptions): Observable<boolean> {
+  protected addToStorageMap(
+    storageKey: string,
+    options?: LocalForageOptions
+  ): Observable<boolean> {
     return of({ storageKey, options }).pipe(
-      switchMap(values => {
+      switchMap((values) => {
         const { storageKey, options } = values;
         // if instance for given name already exists do nothing
         if (Object.keys(this._STORAGE_MAP).indexOf(storageKey) === -1) {
           const optionsToApply = this.mergeOptions(storageKey, options);
           this._STORAGE_MAP[storageKey] = optionsToApply;
-          this._STORAGE_INSTANCES_MAP[storageKey] = LocalForage.createInstance(optionsToApply);
+          this._STORAGE_INSTANCES_MAP[storageKey] =
+            LocalForage.createInstance(optionsToApply);
         }
-        return this.setItem(FG_LOCALFORAGE_STORAGE_MAP_KEY, this._STORAGE_MAP).pipe(
+        return this.setItem(
+          FG_LOCALFORAGE_STORAGE_MAP_KEY,
+          this._STORAGE_MAP
+        ).pipe(
           // If setItem fails it returns 'false' to forward otherwise map to 'true'
-          map(value => (value === false ? value : true))
+          map((value) => (value === false ? value : true))
         );
       }),
-      catchError(error => {
+      catchError((error) => {
         this.$log?.error(
           `ERROR: FgStorageLocalforageService: Creating storage-instance for 
             storageKey ${storageKey} failed with error ${error}
@@ -143,14 +164,24 @@ export class FgStorageLocalforageService extends FgStorageService {
     this.setItem<any>(FG_LOCALFORAGE_STORAGE_MAP_KEY, this._STORAGE_MAP);
   }
   /** Methode to store the item passed under provided key into storage */
-  public setItem<T>(key: string, value: any, options?: LocalForageOptions, storageKey?: string): Observable<T | false>;
-  public setItem(key: string, value: any, options?: LocalForageOptions, storageKey?: string): Observable<any | false> {
+  public setItem<T>(
+    key: string,
+    value: any,
+    options?: LocalForageOptions,
+    storageKey?: string
+  ): Observable<T | false>;
+  public setItem(
+    key: string,
+    value: any,
+    options?: LocalForageOptions,
+    storageKey?: string
+  ): Observable<any | false> {
     storageKey = storageKey ? storageKey : '';
     // return from( this.getStorageInstance( storageKey ).setItem( key, value ) );
     return this.getStorageInstance(storageKey).pipe(
-      switchMap(storage => {
+      switchMap((storage) => {
         return from(storage.setItem(key, value)).pipe(
-          catchError(error => {
+          catchError((error) => {
             // LOG ERROR
             return of(false);
           })
@@ -162,9 +193,9 @@ export class FgStorageLocalforageService extends FgStorageService {
   public getItem<T>(key: string, storageKey?: string): Observable<T | false>;
   public getItem(key: string, storageKey?: string): Observable<any | false> {
     return this.getStorageInstance(storageKey).pipe(
-      switchMap(storage => {
+      switchMap((storage) => {
         return from(storage.getItem(key)).pipe(
-          catchError(error => {
+          catchError((error) => {
             // LOG ERROR
             return of(false);
           })
@@ -177,10 +208,10 @@ export class FgStorageLocalforageService extends FgStorageService {
    */
   public clear(storageKey?: string): Observable<boolean> {
     return this.getStorageInstance(storageKey).pipe(
-      switchMap(storage => {
+      switchMap((storage) => {
         return from(storage.clear()).pipe(
-          map(ignore => true),
-          catchError(error => {
+          map((ignore) => true),
+          catchError((error) => {
             // LOG ERROR
             return of(false);
           })
@@ -191,18 +222,21 @@ export class FgStorageLocalforageService extends FgStorageService {
   /** Methode to clear the storage of all data */
   public removeItem(key: string, storageKey: string = ''): Observable<boolean> {
     return this.getStorageInstance(storageKey).pipe(
-      switchMap(storage => {
+      switchMap((storage) => {
         return from(storage.removeItem(key));
       }),
-      map(ignore => true),
-      catchError(error => {
+      map((ignore) => true),
+      catchError((error) => {
         // LOG ERROR
         return of(false);
       })
     );
   }
   /** Methode to create and configure a new storage-instance */
-  public addStorage(storageKey: string, options?: LocalForageOptions): Observable<boolean> {
+  public addStorage(
+    storageKey: string,
+    options?: LocalForageOptions
+  ): Observable<boolean> {
     return this.addToStorageMap(storageKey, options);
   }
 }

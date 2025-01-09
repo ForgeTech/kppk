@@ -1,8 +1,8 @@
 export default {
-  displayName: 'fg-lib',
+  displayName: 'fg-lib-new',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/libs/fg-lib',
+  coverageDirectory: '../../coverage/libs/fg-lib-new',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

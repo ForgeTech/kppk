@@ -11,9 +11,16 @@ import { Observable } from 'rxjs';
 })
 export abstract class FgStorageService {
   /** Methode to store the item passed under provided key into storage */
-  public abstract setItem<T>(key: string, value: unknown, ...args: any[]): Observable<T | false>;
+  public abstract setItem<T>(
+    key: string,
+    value: unknown,
+    ...args: any[]
+  ): Observable<T | false>;
   /** Methode to return the item with passed key from storage */
-  public abstract getItem<T>(key: string, ...args: any[]): Observable<T | false>;
+  public abstract getItem<T>(
+    key: string,
+    ...args: any[]
+  ): Observable<T | false>;
   /** Methode to remove item with passed key from storage */
   public abstract removeItem(key: string, ...args: any[]): Observable<boolean>;
   /** Methode to clear the storage of all data, or if
