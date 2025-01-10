@@ -1,7 +1,7 @@
 import { AuthCookieFgAuthLocal, ContextFgAuthLocal, ContextFgAuthLocalParser } from "./fg-auth-local.machine.types";
 import { DoneActorEvent, ErrorActorEvent } from "xstate";
 import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { Spy, provideAutoSpy } from 'jest-auto-spies';
 
 import { FgAuthLocalService } from './fg-auth-local.service';
@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { TestBed } from "@angular/core/testing";
 import { ZodError } from "zod";
-import { environment } from "apps/fg-react-demo/src/environments/environment";
+import { environment } from "./apps/react/host/src/environments/environment";
 import { FgImmutableService } from "../../service/fg-immutable.service";
 
 describe('FgAuthLocalMachine', () => {
@@ -19,7 +19,7 @@ describe('FgAuthLocalMachine', () => {
   let $cookie_mock: Spy<FgStorageNgxCookieService>;
   let $http: any;
   let $http_controller: HttpTestingController;
-  let $log_mock: any;
+  // let $log_mock: any;
   let context: ContextFgAuthLocal;
   let auth_cookie_admin: AuthCookieFgAuthLocal;
   let auth_cookie_invalid: any;
@@ -28,12 +28,12 @@ describe('FgAuthLocalMachine', () => {
     TestBed.configureTestingModule({
       imports: [
         LoggerTestingModule,
-        HttpClientTestingModule
       ],
       providers: [
         FgAuthLocalService,
         FgImmutableService,
         provideAutoSpy(FgStorageNgxCookieService),
+        provideHttpClientTesting(),
         { provide: FG_ENVIRONMENT, useValue: environment },
       ],
     });
@@ -72,11 +72,11 @@ describe('FgAuthLocalMachine', () => {
   describe('METHODE: ContextFgAuthLocalParserParser', () => {
     it('validated default values', () => {
       expect(context.auth_cookie).toBe(undefined);
-      expect(context.authCookieStorageKey).toBe('fg-auth-local-cookie');
+      expect(context.auth_cookie_storage_key).toBe('fg-auth-local-cookie');
       expect(context.error).toBe(undefined);
       expect(context.path).toBe('./auth-local/');
       expect(context.salt).toBe(undefined);
-      expect(context.saltFilename).toBe('salt.json');
+      expect(context.salt_filename).toBe('salt.json');
     })
   })
 
@@ -86,7 +86,7 @@ describe('FgAuthLocalMachine', () => {
         expect( $service.send_authorized_event_to({ context }).type ).toBe('fg.auth.local.event.authorized');
       }); 
       it('THROWS if authCookie on context is undefined', () => {
-        context.auth_cookie = false;
+        context.auth_cookie = undefined;
         // CAUTION: If testing if methoed throws error and it's not working read
         // https://stackoverflow.com/a/66109855/1622564
         expect( () => $service.send_authorized_event_to({ context }) ).toThrow(ZodError);
@@ -112,6 +112,7 @@ describe('FgAuthLocalMachine', () => {
       beforeEach(async () => {
         event = {
           type: 'xstate.done.actor.test',
+          actorId: '',
           output: auth_cookie_admin
         };
       })
@@ -150,6 +151,7 @@ describe('FgAuthLocalMachine', () => {
       beforeEach(async () => {
         event = {
           type: 'xstate.error.actor.test',
+          actorId: '',
           error: new Error('test-error-authorization')
         }
       })
@@ -195,6 +197,7 @@ describe('FgAuthLocalMachine', () => {
       beforeEach(async () => {
         event = {
           type: 'xstate.error.actor.test',
+          actorId: '',
           error: new Error('test-error-revoke-error')
         }
       })
@@ -213,7 +216,7 @@ describe('FgAuthLocalMachine', () => {
       it('THROWS \'fg-auth-load-cookie-error\' on auth-cookie unable to load ', () => {
         // CAUTION: If testing if methoed throws error and it's not working read
         // https://stackoverflow.com/a/66109855/1622564
-        expect( () => $service.escalate_auth_load_cookie_error({ context }) ).toThrow(Error);
+        expect( () => $service.escalate_auth_load_cookie_error({ context, event }) ).toThrow(Error);
       });
     });
 
@@ -223,7 +226,7 @@ describe('FgAuthLocalMachine', () => {
         expect( $service.guard_has_auth_cookie( { context } )).toBe(true);
       });
       it('CHECK: returns false', () => {
-        context.auth_cookie = false;
+        context.auth_cookie = undefined;
         expect( $service.guard_has_auth_cookie( { context } )).toBe(false);
       });
     });

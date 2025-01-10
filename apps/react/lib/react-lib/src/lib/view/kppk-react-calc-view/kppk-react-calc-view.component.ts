@@ -74,7 +74,7 @@ export class KppkReactCalcViewComponent extends KppkReactBaseComponent {
   protected form_construction_site = new FormGroup({});
   protected fields_construction_site = this.$fields_construction.fields();
   protected form_construction_site_model_s = computed( () => {
-    let result = this.state_react_view_calculation_s()?.context.calculation?.form_construction_site.value;
+    const result = this.state_react_view_calculation_s()?.context.calculation?.form_construction_site.value;
     // result.exact_energy_usage = []
     return result;
   })
@@ -125,7 +125,7 @@ export class KppkReactCalcViewComponent extends KppkReactBaseComponent {
   });
 
   protected results_s = computed(() => {
-    let result = this.state_react_view_calculation_s()?.context?.calculation;
+    const result = this.state_react_view_calculation_s()?.context?.calculation;
     return result;
   });
 

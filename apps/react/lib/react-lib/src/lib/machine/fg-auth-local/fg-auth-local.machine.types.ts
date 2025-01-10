@@ -34,7 +34,7 @@ export const ContextFgAuthLocalParser = z.object({
   // token: z.string().optional(),
 });
 
-export type FgAuthLocalContext = z.infer<typeof ContextFgAuthLocalParser>;
+export type ContextFgAuthLocal = z.infer<typeof ContextFgAuthLocalParser>;
 
 export const CredentialsFgAuthLocalParser = z.object({
   user: z.string(),

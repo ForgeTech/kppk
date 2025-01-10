@@ -1,16 +1,14 @@
-import { AuthCookieFgAuthLocalParser, FgAuthLocalContext, ContextFgAuthLocalParser, EventFgAuthLocalAuthorizedParser, EventFgAuthLocalLoginParser, EventFgAuthLocalUnauthorizedParser, SaltFileContentFgAuthLocalParser } from './fg-auth-local.machine.types';
-import { BehaviorSubject, catchError, map, firstValueFrom, tap } from 'rxjs';
+import { AuthCookieFgAuthLocalParser, ContextFgAuthLocalParser, EventFgAuthLocalAuthorizedParser, EventFgAuthLocalLoginParser, EventFgAuthLocalUnauthorizedParser, SaltFileContentFgAuthLocalParser, ContextFgAuthLocal } from './fg-auth-local.machine.types';
+import { catchError, map, firstValueFrom, tap } from 'rxjs';
 import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@kppk/fg-lib';
 import { Injectable, inject } from '@angular/core';
 import { ActorRefFrom, EventFromLogic, SnapshotFrom, assign, fromPromise, sendParent } from 'xstate';
-import { FG_AUTH_LOCAL_V1, FgAuthLocalV1Context, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';
+import { FG_AUTH_LOCAL_V1, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { HMAC } from 'crypto-es/lib/hmac';
 import { SHA256Algo } from 'crypto-es/lib/sha256';
 import { CookieOptions } from 'ngx-cookie';
-import { z } from 'zod';
-import { FgXstateService } from '../../service/fg-xstate.service';
 import Base64 from 'crypto-js/enc-base64';
 
 export type FgAuthLocalActorRef = ActorRefFrom<typeof FG_AUTH_LOCAL_V1>;
@@ -102,7 +100,7 @@ export class FgAuthLocalService extends FgBaseService {
   public send_authorized_event_to = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
     const result = EventFgAuthLocalAuthorizedParser.parse({
       type: 'fg.auth.local.emitted.authorized',
@@ -116,7 +114,7 @@ export class FgAuthLocalService extends FgBaseService {
   public send_unauthorized_event_to = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
     return EventFgAuthLocalUnauthorizedParser.parse({
       type: 'fg.auth.local.emitted.unauthorized'
@@ -127,7 +125,7 @@ export class FgAuthLocalService extends FgBaseService {
   public escalate_auth_local_key_error = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
     throw new Error('fg-auth-local-key-error');
   };
@@ -136,12 +134,13 @@ export class FgAuthLocalService extends FgBaseService {
     context,
     event,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
     event: any;
   }) => {
     const auth_cookie = AuthCookieFgAuthLocalParser.optional().parse(event.output);
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.auth_cookie = auth_cookie;
+      return draft;
     })
   };
 
@@ -149,11 +148,11 @@ export class FgAuthLocalService extends FgBaseService {
     context,
     event,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
     event: any;
   }) => {
     const event_output = SaltFileContentFgAuthLocalParser.parse(event.output);
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.salt = event_output.publicSalt;
     })
   };
@@ -162,10 +161,10 @@ export class FgAuthLocalService extends FgBaseService {
     context,
     event
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
     event: any;
   }) => {
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.error = (event.error as Error).message;
     });
   };
@@ -173,9 +172,9 @@ export class FgAuthLocalService extends FgBaseService {
   public assign_clear_authorization_error = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.error = undefined;
     });
   };
@@ -183,9 +182,9 @@ export class FgAuthLocalService extends FgBaseService {
   public assign_clear_auth_cookie = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.auth_cookie = undefined;
     });
   };
@@ -194,10 +193,10 @@ export class FgAuthLocalService extends FgBaseService {
     context,
     event
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
     event: any
   }) => {
-    return this.$immer.produce( context, draft => {
+    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
       draft.error = (event.error as Error).message;
     });
   }; 
@@ -206,7 +205,7 @@ export class FgAuthLocalService extends FgBaseService {
     context,
     event,
   }: {
-    context: FgAuthLocalContext,
+    context: ContextFgAuthLocal,
     event: any
   }) => {
     // console.log( '<<<<<<<<<<<<ERROR>>>>>>>>>>>>' );
@@ -218,7 +217,7 @@ export class FgAuthLocalService extends FgBaseService {
   public guard_has_auth_cookie = ({
     context,
   }: {
-    context: FgAuthLocalContext;
+    context: ContextFgAuthLocal;
   }) => {
     return context.auth_cookie ? true : false;
   };
