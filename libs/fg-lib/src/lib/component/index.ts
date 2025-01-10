@@ -14,7 +14,7 @@ import { FgLayoutDrawerEvent } from './fg-layout-drawer/fg-layout-drawer.event';
 import { FgLayoutDrawerOpenDrawerButtonComponent } from './fg-layout-drawer-open-drawer-button/fg-layout-drawer-open-drawer-button.component';
 import { FgLayoutDrawerCloseDrawerButtonComponent } from './fg-layout-drawer-close-drawer-button/fg-layout-drawer-close-drawer-button.component';
 import { FgLayoutDrawerOpenDrawerOptionsInterface } from './fg-layout-drawer/fg-layout-drawer-open-drawer-options.interface';
-// import { FgMessageBoxComponent } from './fg-message-box/fg-message-box.component';
+import { FgMessageBoxComponent } from './fg-message-box/fg-message-box.component';
 import { FgPwaInstallComponent } from './fg-pwa-install/fg-pwa-install.component';
 import { FgPwaInstallEvent } from './fg-pwa-install/fg-pwa-install.event';
 import { FgLoginLogoutButton } from './fg-login-logout-button/fg-login-logout.component';
@@ -60,7 +60,7 @@ export {
   FgLayoutDrawerCloseDrawerButtonComponent,
   FgLayoutDrawerOpenDrawerOptionsInterface,
   FgLoginLogoutButton,
-  // FgMessageBoxComponent,
+  FgMessageBoxComponent,
   FgPwaInstallComponent,
   FgPwaInstallEvent,
   FgModalComponent,
