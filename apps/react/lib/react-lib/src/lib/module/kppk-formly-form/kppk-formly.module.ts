@@ -3,7 +3,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { FormlyConfig, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 // import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 // import { InputMaskModule } from '@ngneat/input-mask';
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FgMaterialFormsModule } from '@kppk/fg-lib';
@@ -13,7 +13,7 @@ import { FgFormlyFieldNumberDigitInputComponent } from '@kppk/fg-lib';
 import { FgFormlyFieldDigitTypeAccessor } from '@kppk/fg-lib';
 import { FgFormlyFieldFile } from '@kppk/fg-lib';
 import { FgFormlyWrapperSectionH3Component, FgFormlyWrapperSectionH4Component  } from '@kppk/fg-lib';
-import { FgArrayTypeComponent } from '@kppk/fg-lib';
+// import { FgArrayTypeComponent } from '@kppk/fg-lib';
 import { MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {FormlyMatDatepickerModule} from '@ngx-formly/material/datepicker';
@@ -144,15 +144,16 @@ export function isWindowPartTypeValidator(control: AbstractControl) {
   ],
 })
 export class KppkFormlyModule {
+  protected $translate = inject(TranslocoService);
+  protected $log = inject(NGXLogger);
+  protected $config = inject(FormlyConfig);
+
 //CONSTRUCTOR
-constructor(
-    public $translate: TranslocoService, 
-    public $log: NGXLogger, 
-    public $config: FormlyConfig,
-) {
+constructor() {
+
     this.$log.info('FG_FORMLY_MODULE_LOADED');
-    $config.addValidatorMessage('required', this.formly_validation_message_error_required);
-    $config.addValidatorMessage('isWindowPartType', this.formly_validation_message_is_window_part_type);
+    this.$config.addValidatorMessage('required', this.formly_validation_message_error_required);
+    this.$config.addValidatorMessage('isWindowPartType', this.formly_validation_message_is_window_part_type);
   }
 
   public formly_validation_message_error_required = (err: any) => {

@@ -47,6 +47,9 @@ import { KppkReactResultsComponent } from './kppk-react-results/kppk-react-resul
   ]
 })
 export class KppkReactCalcViewComponent extends KppkReactBaseComponent {
+  protected $fb = inject(FormBuilder);
+  protected $active_route = inject(ActivatedRoute);
+
 
   protected $fields_common = inject(KppkReactCommonFields);
   protected form_common = new FormGroup({});
@@ -283,10 +286,7 @@ export class KppkReactCalcViewComponent extends KppkReactBaseComponent {
   //   })
   // ) 
 
-  constructor(
-    protected $fb: FormBuilder,
-    protected $active_route: ActivatedRoute,
-  ) {
+  constructor() {
     super();
     // Update form_step_select with machine context values
     effect( () => {

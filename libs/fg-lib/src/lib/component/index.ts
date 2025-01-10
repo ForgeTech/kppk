@@ -14,7 +14,7 @@ import { FgLayoutDrawerEvent } from './fg-layout-drawer/fg-layout-drawer.event';
 import { FgLayoutDrawerOpenDrawerButtonComponent } from './fg-layout-drawer-open-drawer-button/fg-layout-drawer-open-drawer-button.component';
 import { FgLayoutDrawerCloseDrawerButtonComponent } from './fg-layout-drawer-close-drawer-button/fg-layout-drawer-close-drawer-button.component';
 import { FgLayoutDrawerOpenDrawerOptionsInterface } from './fg-layout-drawer/fg-layout-drawer-open-drawer-options.interface';
-import { FgMessageBoxComponent } from './fg-message-box/fg-message-box.component';
+// import { FgMessageBoxComponent } from './fg-message-box/fg-message-box.component';
 import { FgPwaInstallComponent } from './fg-pwa-install/fg-pwa-install.component';
 import { FgPwaInstallEvent } from './fg-pwa-install/fg-pwa-install.event';
 import { FgLoginLogoutButton } from './fg-login-logout-button/fg-login-logout.component';
@@ -27,7 +27,7 @@ import { FgFormlyFieldNumberDigitInputComponent } from './formly/fg-formly-field
 import { FgFormlyFieldDigitTypeAccessor } from './formly/fg-formly-field-digit-type/fg-formly-filed-digit-type-accessor.directive';
 import { FgFormlyFieldFile } from './formly/fg-formly-field-file-type/fg-formly-field-fiel-type.component';
 import { FgFileValueAccessor } from './formly/fg-formly-field-file-type/fg-file-value-accessor.directive';
-import { FgArrayTypeComponent } from './formly/fg-formly-array-type/fg-formly-array-type';
+// import { FgArrayTypeComponent } from './formly/fg-formly-array-type/fg-formly-array-type';
 import { FgFormlyWrapperSectionH3Component } from './formly/fg-formly-wrapper-section-h3/fg-formly-wrapper-section-h3.component';
 import { FgFormlyWrapperSectionH4Component } from './formly/fg-formly-wrapper-section-h4/fg-formly-wrapper-section-h4.component';
 
@@ -35,7 +35,7 @@ export {
   FgFormlyWrapperSectionH3Component,
   FgFormlyWrapperSectionH4Component,
   // FgFormValidationIconComponent,
-  FgArrayTypeComponent,
+  // FgArrayTypeComponent,
   FgFormlyFieldFile,
   FgFileValueAccessor,
   FgSwUpdateBannerComponent,
@@ -60,7 +60,7 @@ export {
   FgLayoutDrawerCloseDrawerButtonComponent,
   FgLayoutDrawerOpenDrawerOptionsInterface,
   FgLoginLogoutButton,
-  FgMessageBoxComponent,
+  // FgMessageBoxComponent,
   FgPwaInstallComponent,
   FgPwaInstallEvent,
   FgModalComponent,

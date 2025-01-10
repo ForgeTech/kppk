@@ -8,8 +8,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FgFileValueAccessor } from '../../component';
 
 @NgModule({
-  declarations: [FgFileValueAccessor],
   imports: [
+    FgFileValueAccessor,
     FgCommonModule,
     FormlyModule,
     FormlyMaterialModule,
