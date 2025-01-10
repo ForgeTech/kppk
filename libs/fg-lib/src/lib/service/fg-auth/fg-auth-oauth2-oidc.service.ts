@@ -1,4 +1,4 @@
-import { catchError, filter, map, shareReplay, switchMap, takeUntil, tap, throttleTime } from 'rxjs/operators';
+import { catchError, map, shareReplay, switchMap, takeUntil, tap, throttleTime } from 'rxjs/operators';
 import {
   FgAuthAbstractService,
   FgAuthChangePasswordInterface,
@@ -6,11 +6,9 @@ import {
   FgAuthUserInterface,
 } from './fg-auth.abstract.service';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { FgTimeStringService } from '../fg-timestring/fg-timestring.service';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import { from, merge, Observable, of } from 'rxjs';
 import { AuthConfig, OAuthService, AUTH_CONFIG, OAuthErrorEvent } from 'angular-oauth2-oidc';
 
@@ -34,18 +32,16 @@ export class FgAuthOAuth2OIDCService extends FgAuthAbstractService<
   FgAuthTokenInterface,
   FgAuthChangePasswordInterface
 > {
+  protected $time = inject(FgTimeStringService);
+  protected $oauth2 = inject(OAuthService);
+  protected $storage = inject(FgStorageService);
+  protected $env = inject(FgEnvironmentService, { optional: true });
+
   protected refreshIsSetup: boolean = false;
   /** CONSTRUCTOR */
-  constructor(
-    protected $time: FgTimeStringService,
-    protected $oauth2: OAuthService,
-    /** Provide storage service */
-    protected $storage: FgStorageService,
-    /** Provide oauth2 configuration */
-    @Inject(AUTH_CONFIG) authConfig: AuthConfig,    
-    /** (Optional) Provide envirement service */
-    @Optional() protected $env: FgEnvironmentService
-  ) {
+  constructor() {
+    const authConfig = inject<AuthConfig>(AUTH_CONFIG);
+
     super()
     if (!authConfig) {
       this.$log.error('ERROR: FgAuthOAuth2OIDCService: No AUTH_CONFIG token provided for configuration!');

@@ -1,5 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import {
   FgAuthChangePasswordInterface,
   FgAuthTokenInterface,
@@ -10,7 +9,6 @@ import {
 import { map, Observable, of } from 'rxjs';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { FgAuthAbstractService } from './fg-auth.abstract.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
 import { FgStorageNgxCookieService } from '../fg-storage/fg-storage-ngx-cookie.service';
 
@@ -26,20 +24,16 @@ export class FgAuthService extends FgAuthAbstractService<
   FgAuthTokenInterface,
   FgAuthChangePasswordInterface
 > {
+  protected $cookie = inject(FgStorageNgxCookieService);
+  protected $storage = inject(FgStorageService);
+  protected $env = inject(FgEnvironmentService, { optional: true });
+
   /** Holds user credentials if provided by environment file */
   protected credentials: FgAuthUserInterface | false = false;
   /** Holds user token if provided by environment file */
   protected token: FgAuthTokenInterface | false = false;
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide cookie service */
-    public $cookie: FgStorageNgxCookieService,
-    /** Provide storage service */
-    public $storage: FgStorageService,
-
-    /** (Optional) Provide envirement service */
-    @Optional() protected $env: FgEnvironmentService
-  ) {
+  constructor() {
     super()
     // super($cookie, $storage, $event, $log );
     if (this?.$env?.development?.enabled && this?.$env?.development?.authorize) {

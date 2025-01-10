@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Optional, Inject } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { FgStorageService } from './fg-storage.service';
 import { Observable, of } from 'rxjs';
 import { CookieService, CookieOptions } from 'ngx-cookie';
@@ -27,6 +27,10 @@ export interface FgStorageNgxCookieServiceStorageMapInterface {
   providedIn: 'root',
 })
 export class FgStorageNgxCookieService extends FgStorageService {
+  protected $cookie = inject(CookieService);
+  protected $log = inject(NGXLogger, { optional: true });
+  protected FgStorageNgxCookieServiceOptions = inject<CookieOptions>(FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS, { optional: true });
+
   /**
    * Default values used for configuration of StorageService.
    * Can be overwritten/extended bei using FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS
@@ -57,14 +61,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
     return this.STORAGE_MAP;
   }
   /** CONSTRUCTOR */
-  constructor(
-    /** Provides reference to ngx-cookie service */
-    protected $cookie: CookieService,
-    /** Provides reference to ngx-cookie service */
-    @Optional() protected $log: NGXLogger,
-    /** Optional Injection-Token to overwrite/extend ngx-cookie default options */
-    @Optional() @Inject(FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS) protected FgStorageNgxCookieServiceOptions: CookieOptions
-  ) {
+  constructor() {
     super();
     // Use optional value from FG_STORAGE_NGXCOOKIE_SERVIC_OPTIONS injection-token
     if (this.FgStorageNgxCookieServiceOptions) {

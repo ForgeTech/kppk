@@ -10,13 +10,11 @@ import {
   FG_AUTH_CREDENTIALS_STORAGE_KEY,
 } from './fg-auth.abstract.service';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { FgTimeStringService } from '../fg-timestring/fg-timestring.service';
 import { HmacSHA256 } from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Optional } from '@angular/core';
-import { NGXLogger } from 'ngx-logger';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import Base64 from 'crypto-js/enc-base64';
 import { FgStorageNgxCookieService } from '../fg-storage/fg-storage-ngx-cookie.service';
@@ -49,6 +47,12 @@ export class FgAuthLocalService extends FgAuthAbstractService<
   FgAuthTokenInterface,
   FgAuthChangePasswordInterface
 > {
+  protected $time = inject(FgTimeStringService);
+  protected $http = inject(HttpClient);
+  protected $cookie = inject(FgStorageNgxCookieService);
+  protected $storage = inject(FgStorageService);
+  protected $env = inject(FgEnvironmentService, { optional: true });
+
   /** PATH TO auth local files */
   protected PATH = './assets/auth-local/users/';
   /** PATH TO auth local key files */
@@ -57,20 +61,7 @@ export class FgAuthLocalService extends FgAuthAbstractService<
   protected SALT$: Observable<string>;
 
   /** CONSTRUCTOR */
-  constructor(
-    protected $time: FgTimeStringService,
-    /** Provide http-client service */
-    protected $http: HttpClient,
-    /** Provide storage service */
-    protected $cookie: FgStorageNgxCookieService,
-    /** Provide storage service */
-    protected $storage: FgStorageService,
-    // protected override $cookie: FgStorageNgxCookieService,
-    // /** Provide storage service */
-    // protected override $storage: FgStorageService,    
-    /** (Optional) Provide envirement service */
-    @Optional() protected $env: FgEnvironmentService
-  ) {
+  constructor() {
     super()
     // super($cookie, $storage, $event, $log );
 

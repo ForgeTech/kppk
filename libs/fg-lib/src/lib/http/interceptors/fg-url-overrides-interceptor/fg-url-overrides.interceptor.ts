@@ -1,9 +1,7 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { FgEventService } from '../../../service/fg-event/fg-event.service';
-import { NGXLogger } from 'ngx-logger';
 import { FgBaseService } from '../../../base/fg-base.service';
 import { FgEnvironmentService } from '../../../service/fg-environment/fg-environment.service';
 
@@ -16,17 +14,7 @@ import { FgEnvironmentService } from '../../../service/fg-environment/fg-environ
   providedIn: 'root',
 })
 export class FgUrlOverridesInterceptor extends FgBaseService implements HttpInterceptor {
-  /** CONSTRUCTOR */
-  constructor(
-    /** Provide environment service */
-    protected $env: FgEnvironmentService,
-    /** (Optional) Provide logger service */
-    
-    /**  (Optional) Provide event service */
-    @Optional() protected override $event: FgEventService
-  ) {
-    super()
-  }
+  protected $env = inject(FgEnvironmentService);
   /** Interception Methode, that will be called on an Http-Request */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Check cookie-storage for user authentification-token

@@ -1,13 +1,14 @@
 import { ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { FgAuthService } from '../../service/fg-auth/fg-auth.service';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FgBaseService } from '../../base/fg-base.service';
-import { FgEventService } from '../../service/fg-event/fg-event.service';
-import { NGXLogger } from 'ngx-logger';
-import { FG_ROUTING_LOGIN_PATH } from '../../token/fg-routing.token';
 
+/**
+ * Injection-Token used to provide the path to 'login' view
+ */
+export const FG_ROUTING_LOGIN_PATH = new InjectionToken<string>('');
 /**
  * FgAuthLoginRedirectGuard -
  * Does redirect to login route if there is no auth-token available.
@@ -16,17 +17,11 @@ import { FG_ROUTING_LOGIN_PATH } from '../../token/fg-routing.token';
   providedIn: 'root',
 })
 export class FgAuthLoginRedirectGuard extends FgBaseService  {
-  /** CONSTRUCTOR */
-  constructor(
-    protected $router: Router,
-    protected $auth: FgAuthService,
-    protected activeRoute: ActivatedRoute,
-    @Inject(FG_ROUTING_LOGIN_PATH) protected loginPath: string,
+  protected $router = inject(Router);
+  protected $auth = inject(FgAuthService);
+  protected activeRoute = inject(ActivatedRoute);
+  protected loginPath = inject(FG_ROUTING_LOGIN_PATH);
 
-    @Optional() protected override $log: NGXLogger
-  ) {
-    super()
-  }
   /** Checks if called route can be activated by current navigation-request */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const canActivate$: Observable<boolean> = this.$auth.getStoredAuthData().pipe(

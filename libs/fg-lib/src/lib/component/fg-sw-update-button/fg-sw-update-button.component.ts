@@ -4,7 +4,6 @@ import { filter } from 'rxjs/operators';
 import { FgSWUpdateTranslationKeys } from './fg-sw-update.translation.keys';
 import { FgSWUpdateService } from '../../service/fg-sw-update/fg-sw-update.service';
 import { TranslocoModule, provideTranslocoScope } from '@jsverse/transloco';
-import { FgComponentBaseService } from '../../base/fg-component-base.service';
 import { FgComponentBaseComponent } from '../../base/fg-component-base.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';

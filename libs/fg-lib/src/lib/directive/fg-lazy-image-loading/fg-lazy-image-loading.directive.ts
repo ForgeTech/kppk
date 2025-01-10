@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FgGlobalService } from 'src/app/modules/fg-global/fg-global.service';
+import { Directive, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { FgGlobalService } from '../../module';
 
 /**
  * FgLazyImageLoadingDirective -
@@ -11,6 +11,8 @@ import { FgGlobalService } from 'src/app/modules/fg-global/fg-global.service';
  */
 @Directive({ selector: 'img' })
 export class FgLazyImageLoadingDirective implements OnChanges {
+  protected $global = inject(FgGlobalService);
+
   /** Allows input of desired value for lazy-attribute */
   @Input() public lazy: boolean = true;
   /** Hold the set value for loading-property */
@@ -18,7 +20,7 @@ export class FgLazyImageLoadingDirective implements OnChanges {
   /** Hold native image-element */
   protected imageElement: HTMLImageElement;
   // CONSTRUCTOR
-  constructor(protected $global: FgGlobalService, { nativeElement }: ElementRef<HTMLImageElement>) {
+  constructor() {
     // Only check for 'loading'-support in browser
     if (this.$global.isBrowser) {
       this.imageElement = nativeElement;

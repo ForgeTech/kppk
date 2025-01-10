@@ -1,12 +1,12 @@
-import { Injectable, Optional, Inject, InjectionToken } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { SwPush } from '@angular/service-worker';
 import { NGXLogger } from 'ngx-logger';
 import { FgEventService } from '../fg-event/fg-event.service';
-import { FgGlobalService } from '../../../../modules/fg-global/fg-global.service';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
 import { Observable, from } from 'rxjs';
-import { FgEvent } from '../../class/fg-event.class';
 import { FgSWPushEvent } from './fg-sw-push.event';
+import { FgGlobalService } from '../../module';
+import { FgEvent } from '../fg-event/fg-event.class';
 
 /** Inject-Token Provider for for service-worker push-service public-key */
 export const CONFIG_SW_PUSH_SERVER_PUBLIC_KEY = new InjectionToken<{ serverPublicKey: string }>(null);
@@ -18,12 +18,21 @@ export const CONFIG_SW_PUSH_SERVER_PUBLIC_KEY = new InjectionToken<{ serverPubli
   providedIn: 'root',
 })
 export class FgSwPushService {
+  protected $global = inject(FgGlobalService);
+  protected $push = inject(SwPush);
+  protected $log = inject(NGXLogger);
+  protected $env = inject(FgEnvironmentService, { optional: true });
+  protected $event = inject(FgEventService, { optional: true });
+  protected configSwPushServerPublicKey = inject<{
+    serverPublicKey: string;
+}>(CONFIG_SW_PUSH_SERVER_PUBLIC_KEY, { optional: true });
+
   /** Holds the window-object in case angular is run in browser-environment */
   protected WINDOW: Window;
   /** The interval in ms, after which the service-worker update-check is performed */
-  protected SW_PUSH_SERVER_PUBLIC_KEY: { serverPublicKey };
+  protected SW_PUSH_SERVER_PUBLIC_KEY: { serverPublicKey: string };
   /** Returns value of SW_PUSH_SERVER_PUBLIC_KEY */
-  get swPushServerPublicKey(): { serverPublicKey } {
+  get swPushServerPublicKey(): { serverPublicKey: string } {
     return this.SW_PUSH_SERVER_PUBLIC_KEY;
   }
   /** The interval in ms, after which the service-worker update-check is performed */
@@ -41,23 +50,7 @@ export class FgSwPushService {
     return this.$push.messages;
   }
   /** CONSTRUCTOR */
-  constructor(
-    /** Provide application global-object service */
-    protected $global: FgGlobalService,
-    /** Provide angular service-worker push-service */
-    protected $push: SwPush,
-    /** Provide application event-bridge service */
-    protected $log: NGXLogger,
-    /** Provide value for UPDATE_CHECK_INTERVAL via environment-service */
-    @Optional() protected $env: FgEnvironmentService,
-    /** Provide application event-bridge service */
-    @Optional() protected $event: FgEventService,
-    /**
-     * Provide value for CONFIG_SW_PUSH_SERVER_PUBLIC_KEY vie angular DI
-     * CAUTION! This value overrides values from envirement-service
-     */
-    @Optional() @Inject(CONFIG_SW_PUSH_SERVER_PUBLIC_KEY) protected configSwPushServerPublicKey: { serverPublicKey }
-  ) {
+  constructor() {
     this.$log.info('PUSH-SERVICE:', this.$push.isEnabled);
     if (this.$global.isBrowser && this.$push.isEnabled) {
       this.WINDOW = this.$global.nativeGlobal<Window>();

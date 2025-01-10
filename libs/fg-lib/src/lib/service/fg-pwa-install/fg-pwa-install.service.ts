@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FgPwaInstallEvent } from './fg-pwa-install.event';
 import { NGXLogger } from 'ngx-logger';
@@ -48,6 +48,8 @@ interface BeforeInstallPromptEvent extends Event {
  */
 @Injectable({ providedIn: 'root' })
 export class FgPwaInstallService extends FgBaseService {
+  protected $global = inject(FgGlobalService);
+
   /** Observable signaling if a pwa install-promt was received and deferred for use with install-component */
   public pwaDeferredPromtAvailable$ = new BehaviorSubject(true);
   /**
@@ -59,10 +61,7 @@ export class FgPwaInstallService extends FgBaseService {
   /** Hold global window-object */
   protected WINDOW: Window | undefined;
   /** CONSTRUCTOR */
-  constructor(
-    // Provide global object service
-    public $global: FgGlobalService,
-  ) {
+  constructor() {
     super()
 
     if (this.$global.isBrowser) {

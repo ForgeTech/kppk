@@ -1,13 +1,11 @@
-import { Injectable, Optional } from '@angular/core';
-import { Subject, BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router, Route } from '@angular/router';
-import { FgEventService } from '../fg-event/fg-event.service';
 import { FgNavigateBackEvent } from './fg-navigate-back.event';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { FgEvent } from '../fg-event/fg-event.class';
 import { FgBaseService } from '../../base';
-import { NGXLogger } from 'ngx-logger';
 
 /** Key used to persist back-navigation history to cookie */
 export const BACK_NAVIGATION_KEY: string = 'back_navigation_history_cookie';
@@ -20,6 +18,9 @@ export const BACK_NAVIGATION_KEY: string = 'back_navigation_history_cookie';
   providedIn: 'root',
 })
 export class FgNavigateBackService extends FgBaseService {
+  protected $router = inject(Router);
+  protected $storage = inject(FgStorageService);
+
   /** Holds possible default-route - that is used if there is no previous route-available, if false
    * defaults to reloading the current-page */
   public navigationBackDefaultRoute: string | undefined;
@@ -45,11 +46,7 @@ export class FgNavigateBackService extends FgBaseService {
   /** Flags if navigating-back is currently possible */
   public navigationBackAvailable$ = new BehaviorSubject(this.NAVIGATION_BACK_AVAILABLE);
   /** CONSTRUCTOR */
-  constructor(
-    public $router: Router,
-    /** Provides reference to storage service */
-    public $storage: FgStorageService,
-  ) {
+  constructor() {
     super()
     // Check if there is a valid navigation-back cookie set, use it to continue
     // previous naviate-back history

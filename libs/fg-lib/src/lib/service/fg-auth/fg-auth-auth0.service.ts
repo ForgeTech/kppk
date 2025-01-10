@@ -1,13 +1,12 @@
 import { Observable, of, from, throwError, Subject } from 'rxjs';
-import { Injectable, InjectionToken, Inject } from '@angular/core';
+import { Injectable, InjectionToken, inject } from '@angular/core';
 import { FgAuthAbstractService, FgAuthTokenInterface, FgAuthUserInterface } from './fg-auth.abstract.service';
-import createAuth0Client from '@auth0/auth0-spa-js';
+import { createAuth0Client } from '@auth0/auth0-spa-js';
 import { Auth0Client, Auth0ClientOptions, RedirectLoginResult, RedirectLoginOptions } from '@auth0/auth0-spa-js/';
 import { shareReplay, catchError, concatMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { Location } from '@angular/common';
-import { NGXLogger } from 'ngx-logger';
 
 /** Inject-Token Provider for auth0 public-key */
 export const CONFIG_AUTH_AUTH0_SPA_JS_CLIENT_OPTIONS = new InjectionToken<Auth0ClientOptions>('');
@@ -24,6 +23,11 @@ export const STORAGE_KEY_AUTH0_SPA_REDIRECT_URL = 'fg-auth0-spa-redirect-url';
   providedIn: 'root',
 })
 export class FgAuthAuth0Service extends FgAuthAbstractService {
+  protected $router = inject(Router);
+  protected $storage = inject(FgStorageService);
+  protected $location = inject(Location);
+  protected configAuth0SpaJsClientOptions = inject<Auth0ClientOptions>(CONFIG_AUTH_AUTH0_SPA_JS_CLIENT_OPTIONS);
+
   /** Holds auth0-client after successful initialization */
   protected AUTH0_CLIENT$: Observable<Auth0Client>;
   /** Holds auth0-client options from $env or injector */
@@ -37,18 +41,10 @@ export class FgAuthAuth0Service extends FgAuthAbstractService {
   /** Streams current user-profile */
   protected USER_PROFILE$: Subject<any> = new Subject();
   /** CONSTRUCTOR */
-  constructor(
-    public $router: Router,
-    public $storage: FgStorageService,
-    public $location: Location,
-    /**
-     * Provide value for CONFIG_AUTH_AUTH0_SPA_JS_CLIENT_OPTIONS vie angular DI
-     * CAUTION! This value overrides values from envirement-service
-     */
-    @Inject(CONFIG_AUTH_AUTH0_SPA_JS_CLIENT_OPTIONS) protected configAuth0SpaJsClientOptions: Auth0ClientOptions,
-  
-  ) {
+  constructor() {
     super()
+    const configAuth0SpaJsClientOptions = this.configAuth0SpaJsClientOptions;
+
     // Set auth0 client-options for auth0 authentification service
     this.AUTH0_CLIENT_OPTIONS = configAuth0SpaJsClientOptions;
     // Initialize Auth0Client-Observable
