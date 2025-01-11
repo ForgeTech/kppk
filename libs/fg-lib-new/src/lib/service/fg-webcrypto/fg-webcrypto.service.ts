@@ -32,12 +32,12 @@ export class FgWebcryptoService {
     const WARNING_NATIVE_WEB_API_CRYPTO_OVERWRITTEN = `Warning: Native 'WebAPI Crypto' implementation available, but has been overwritten using 'CRYPTO' InjectionToken!`;
     // Check for 'subtle' because angular ssr/testing implementation of
     // 'DOCUMENT' provides {} for 'crypto'
-    if( this.$document.defaultView?.crypto.subtle && !this.$crypto ) {
+    if( this.$document.defaultView?.crypto?.subtle && !this.$crypto ) {
       this.crypto = this.$document.defaultView.crypto;
     }
     else if( this.$crypto ) {
       this.crypto = this.$crypto;
-      if(this.$document.defaultView?.crypto) {
+      if(this.$document.defaultView?.crypto?.subtle) {
         console.warn(WARNING_NATIVE_WEB_API_CRYPTO_OVERWRITTEN);
       }
     } else {
