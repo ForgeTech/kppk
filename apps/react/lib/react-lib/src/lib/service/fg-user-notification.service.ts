@@ -32,7 +32,7 @@ export class FgUserNotificationService {
 
   public async notify(snackCfg: snackBarCfg): Promise<number> {
     const notificationToken = new Date().valueOf();
-    this.zone.run(() => {
+    this.$zone.run(() => {
       const snackBar = this.$snackbar.openFromComponent(FgSnackbarComponent, {
         duration: snackCfg.duration ? snackCfg.duration : 4000,
         panelClass: snackCfg.panelClass ? ['tailwind-snack', snackCfg.panelClass] : ['tailwind-snack'],
