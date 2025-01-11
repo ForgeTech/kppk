@@ -1,6 +1,6 @@
 import { NgxLoggerLevel } from 'ngx-logger';
 
-import localforage from 'localforage';
+// import localforage from 'localforage';
 import { PREFERED_COLOR_SCHEME } from '@kppk/fg-lib';
 import { FgEnvironmentConfigInterface } from '@kppk/fg-lib';
 import { AppConfigInterface } from '../interface';
@@ -75,7 +75,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
   },
   storage: {
     name: 'Fg-Localforage-IndexDB',
-    driver: localforage.WEBSQL,
+    // driver: localforage.WEBSQL,
     storeName: 'FgBaseApp',
   },
   i18n: {

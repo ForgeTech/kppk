@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { translation_key } from '@kppk/fg-lib';
 
 /**
  * RoseActionService -
@@ -9,8 +8,6 @@ import { translation_key } from '@kppk/fg-lib';
   providedIn: 'root'
 })
 export class RoseNavigationKeysService {
-  public readonly CLOSE_NAVIGATION_MENUITEM = translation_key( 'menuitem-close-navigation' );
-  public readonly GO_TO_LOGIN_MENUITEM = translation_key( 'menuitem-go-to-login' );
-  /** CONSTRUCTOR */
-  constructor() { }
+  public readonly CLOSE_NAVIGATION_MENUITEM = 'menuitem-close-navigation';
+  public readonly GO_TO_LOGIN_MENUITEM = 'menuitem-go-to-login';
 }

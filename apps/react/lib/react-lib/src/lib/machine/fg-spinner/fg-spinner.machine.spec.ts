@@ -3,34 +3,39 @@ import { ContextFgSpinner, ContextFgSpinnerParser, EventFgSpinnerGetContextSendT
 import { FgSpinnerService } from "./fg-spinner.service";
 import { ZodError } from "zod";
 import { FgImmutableService } from "../../service/fg-immutable.service";
-import { environment } from "apps/fg-react-demo/src/environments/environment";
+import { environment } from "./../../testing/environment";
 import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
 import { LoggerTestingModule } from "ngx-logger/testing";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideAutoSpy } from "jest-auto-spies";
+import { NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from "ngx-logger";
+import { provideHttpClient } from "@angular/common/http";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
 describe('SERVICE: FgSpinnerService', () => {
   let service: FgSpinnerService;
   let context: ContextFgSpinner;
-  TestBed.configureTestingModule({
-    imports: [
-      LoggerTestingModule,
-      HttpClientTestingModule
-    ],
-    providers: [
-      FgSpinnerService,
-      FgImmutableService,
-      provideAutoSpy(FgStorageNgxCookieService),
-      { provide: FG_ENVIRONMENT, useValue: environment },
-    ],
-  });
-
+  
   beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [
+        LoggerTestingModule,
+      ],
+      providers: [
+        FgSpinnerService,
+        FgImmutableService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideAutoSpy(FgStorageNgxCookieService),
+        { provide: FG_ENVIRONMENT, useValue: environment },
+        { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
+      ],
+    });
     service = TestBed.inject(FgSpinnerService);
     context = ContextFgSpinnerParser.parse({});
   });
 
-  afterEach(async () => {});
+  // afterEach(async () => {});
 
   describe('METHODE: ContextFgSpinnerParser', () => {
     it('validated default values', () => {
@@ -109,7 +114,7 @@ describe('SERVICE: FgSpinnerService', () => {
       });
     });
 
-    afterEach(async () => {});
+    // afterEach(async () => {});
 
     it('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = service.assign_set_progress({ context, event });
@@ -338,12 +343,12 @@ describe('SERVICE: FgSpinnerService', () => {
   });
 
   describe('METHODE: guard_delay_timeout_is_not_zero', () => {
-    it('CHECK: returns true', () => {
-      expect( service.guard_delay_timeout_is_not_zero( { context } )).toBe(true);
-    });
     it('CHECK: returns false', () => {
-      context.delay_timeout = 0;
       expect( service.guard_delay_timeout_is_not_zero( { context } )).toBe(false);
+    });
+    it('CHECK: returns true', () => {
+      context.delay_timeout = 200;
+      expect( service.guard_delay_timeout_is_not_zero( { context } )).toBe(true);
     });
   });
 
@@ -387,7 +392,7 @@ describe('SERVICE: FgSpinnerService', () => {
 
   describe('METHODE: delay_timeout', () => {
     it('CHECK: returns value from context', () => {
-      expect( service.delay_timeout( { context } )).toBe(5000);
+      expect( service.delay_timeout( { context } )).toBe(0);
       context.delay_timeout = 111;
       expect( service.delay_timeout( { context } )).toBe(111);
     })

@@ -1,310 +1,263 @@
-import { AuthCookieFgAuthLocalParser, ContextFgAuthLocalParser, EventFgAuthLocalAuthorizedParser, EventFgAuthLocalLoginParser, EventFgAuthLocalUnauthorizedParser, SaltFileContentFgAuthLocalParser, ContextFgAuthLocal } from './fg-auth-local.machine.types';
-import { catchError, map, firstValueFrom, tap } from 'rxjs';
-import { FgBaseService, FgStorageNgxCookieService, FgTimeStringService } from '@kppk/fg-lib';
+import { 
+  ContextFgAuthLocal,
+  ContextFgAuthLocalParser,
+  EventFgAuthLocalAuthorized,
+  EventFgAuthLocalLogin,
+  EventFgAuthLocalLogout,
+  EventFgAuthLocalStop,
+  EventFgAuthLocalUnauthorized,
+} from './fg-auth-local.machine.types';
 import { Injectable, inject } from '@angular/core';
-import { ActorRefFrom, EventFromLogic, SnapshotFrom, assign, fromPromise, sendParent } from 'xstate';
-import { FG_AUTH_LOCAL_V1, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';
-import { HttpClient } from '@angular/common/http';
-import { FgImmutableService } from '../../service/fg-immutable.service';
-import { HMAC } from 'crypto-es/lib/hmac';
-import { SHA256Algo } from 'crypto-es/lib/sha256';
-import { CookieOptions } from 'ngx-cookie';
-import Base64 from 'crypto-js/enc-base64';
+import { 
+  AnyEventObject,
+  assign,
+  fromPromise,
+  sendParent,
+  setup 
+} from 'xstate';
+import { FgBaseService } from '@kppk/fg-lib-new';
+import { FgAuthLocalMethodeService } from './fg-auth-local-methode.service';
+import { parent_context_event_input } from "../machine.utils";
 
-export type FgAuthLocalActorRef = ActorRefFrom<typeof FG_AUTH_LOCAL_V1>;
-export type FgAuthLocalV1Snapshot = SnapshotFrom<typeof FG_AUTH_LOCAL_V1>;
-export type FgAuthLocalV1Event = EventFromLogic<typeof FG_AUTH_LOCAL_V1>;
-export type FgAuthLocalV1Actor = typeof FG_AUTH_LOCAL_V1;
-
+export type FgAuthLocalV1Params = { context: ContextFgAuthLocal, event: AnyEventObject};
 
 @Injectable({
   providedIn: 'root',
 })
 export class FgAuthLocalService extends FgBaseService {
-  public machine;
-  // public machine_parent;
-  // public actor;
-  // public state$;
-
-  protected $immer = inject(FgImmutableService);
-  protected $cookie = inject(FgStorageNgxCookieService);
-  protected $http = inject(HttpClient);
-  protected $time = inject(FgTimeStringService);
   
-  constructor(
-    // protected $xstate: FgXstateService
-  ) {
-    super();
-    // this.machine = FG_AUTH_LOCAL_V1.provide({
-    //   actions: {
-    //     // send_authorized_event_to: sendParent(({ context, event, system }) => {
-    //     //   return { type: 'fg.auth.local.unauthorized', context };
-    //     // }),
-    //     // send_unauthorized_event_to: sendParent(({ context, event, system }) => {
-    //     //   return { type: 'fg.auth.local.unauthorized', context };
-    //     // }),
-    //     escalate_auth_local_key_error: this.escalate_auth_load_cookie_error,
-    //     assign_auth_cookie: assign(this.assign_auth_cookie),
-    //     assign_auth_key: assign(this.assign_auth_key),
-    //     assign_authorization_error: assign(this.assign_authorization_error),
-    //     assign_clear_authorization_error: assign(this.assign_clear_authorization_error),
-    //     assign_clear_auth_cookie: assign(this.assign_clear_auth_cookie),
-    //     assign_revoke_authorization_error: assign(this.assign_revoke_authorization_error),
-    //     escalate_auth_load_cookie_error: this.escalate_auth_load_cookie_error,
-    //   },
-    //   guards: {
-    //     guard_has_auth_cookie: this.guard_has_auth_cookie
-    //   },
-    //   actors: {
-    //     actor_load_auth_local_key: fromPromise(this.actor_load_auth_local_key),
-    //     actor_load_auth_cookie: fromPromise(this.actor_load_auth_cookie),
-    //     actor_revoke_authorization: fromPromise(this.actor_revoke_authorization),
-    //     actor_authorization: fromPromise(this.actor_authorization)
-    //   },
-    // });
+  protected $methode = inject(FgAuthLocalMethodeService);
+  public machine = this.get_machine();
 
-    this.machine = FG_AUTH_LOCAL_V1.provide({
+  protected get_machine() {
+    return setup({
+        types: {
+        input: {} as Partial<ContextFgAuthLocal>,
+        context: {} as ContextFgAuthLocal,
+        events: {} as EventFgAuthLocalLogin
+          | EventFgAuthLocalLogout
+          | EventFgAuthLocalAuthorized
+          | EventFgAuthLocalUnauthorized
+          | EventFgAuthLocalStop
+      },
       actions: {
-        send_authorized_event_to: sendParent(this.send_authorized_event_to),
-        send_unauthorized_event_to: sendParent(this.send_unauthorized_event_to),
-        escalate_auth_local_key_error: this.escalate_auth_load_cookie_error,
-        assign_auth_cookie: assign(this.assign_auth_cookie),
-        assign_auth_key: assign(this.assign_auth_key),
-        assign_authorization_error: assign(this.assign_authorization_error),
-        assign_clear_authorization_error: assign(this.assign_clear_authorization_error),
-        assign_clear_auth_cookie: assign(this.assign_clear_auth_cookie),
-        assign_revoke_authorization_error: assign(this.assign_revoke_authorization_error),
-        escalate_auth_load_cookie_error: this.escalate_auth_load_cookie_error,
+        send_authorized_event_to: sendParent(this.$methode.send_authorized_event_to),
+        send_unauthorized_event_to: sendParent(this.$methode.send_unauthorized_event_to),
+        escalate_auth_local_key_error: this.$methode.escalate_auth_load_cookie_error,
+        assign_auth_cookie: assign(this.$methode.assign_auth_cookie),
+        assign_auth_key: assign(this.$methode.assign_auth_key),
+        assign_authorization_error: assign(this.$methode.assign_authorization_error),
+        assign_clear_authorization_error: assign(this.$methode.assign_clear_authorization_error),
+        assign_clear_auth_cookie: assign(this.$methode.assign_clear_auth_cookie),
+        assign_revoke_authorization_error: assign(this.$methode.assign_revoke_authorization_error),
+        escalate_auth_load_cookie_error: this.$methode.escalate_auth_load_cookie_error,
       },
       guards: {
-        guard_has_auth_cookie: this.guard_has_auth_cookie
+        guard_has_auth_cookie: this.$methode.guard_has_auth_cookie
       },
       actors: {
-        actor_load_auth_local_key: fromPromise(this.actor_load_auth_local_key),
-        actor_load_auth_cookie: fromPromise(this.actor_load_auth_cookie),
-        actor_revoke_authorization: fromPromise(this.actor_revoke_authorization),
-        actor_authorization: fromPromise(this.actor_authorization)
+        actor_load_auth_local_key: fromPromise(this.$methode.actor_load_auth_local_key),
+        actor_load_auth_cookie: fromPromise(this.$methode.actor_load_auth_cookie),
+        actor_revoke_authorization: fromPromise(this.$methode.actor_revoke_authorization),
+        actor_authorization: fromPromise(this.$methode.actor_authorization)
+      },
+    }).createMachine({
+      context: ( { input }: { input: any} ) => {
+        return ContextFgAuthLocalParser.parse( input || {})
+      },
+      id: "FG_AUTH_LOCAL_V1",
+      type: "parallel",
+      states: {
+        STATE: {
+          initial: "INITIALIZE",
+          on: {
+            "fg.auth.local.event.stop": {
+              target: "#FG_AUTH_LOCAL_V1.STATE.DONE",
+            },
+          },
+          states: {
+            INITIALIZE: {
+              type: "parallel",
+              onDone: [
+                {
+                  target: "AUTHORIZED",
+                  guard: {
+                    type: "guard_has_auth_cookie",
+                  },
+                },
+                {
+                  target: "UNAUTHORIZED",
+                },
+              ],
+              states: {
+                AUTH_LOCAL_KEY: {
+                  initial: "LOAD_AUTH_KEY",
+                  states: {
+                    LOAD_AUTH_KEY: {
+                      invoke: {
+                        id: "actor_load_auth_key",
+                        input: parent_context_event_input,
+                        onDone: {
+                          target: "SUCCESS",
+                          actions: {
+                            type: "assign_auth_key",
+                          },
+                        },
+                        onError: {
+                          target:
+                            "#FG_AUTH_LOCAL_V1.STATE.FAILURE",
+                        },
+                        src: "actor_load_auth_local_key",
+                      },
+                    },
+                    SUCCESS: {
+                      type: "final",
+                    },
+                  },
+                },
+                AUTH_COOKIE: {
+                  initial: "LOAD_AUTH_COOKIE",
+                  states: {
+                    LOAD_AUTH_COOKIE: {
+                      invoke: {
+                        id: "actor_load_auth_cookie",
+                        input: parent_context_event_input,
+                        onDone: [
+                          {
+                            target: "SUCCESS",
+                            actions: {
+                              type: "assign_auth_cookie",
+                            },
+                          },
+                        ],
+                        onError: {
+                          target: "SUCCESS",
+                          actions: {
+                            type: "escalate_auth_load_cookie_error",
+                          },
+                        },
+                        src: "actor_load_auth_cookie",
+                      },
+                    },
+                    SUCCESS: {
+                      type: "final",
+                    },
+                  },
+                },
+              },
+            },
+            AUTHORIZED: {
+              initial: "PENDING",
+              onDone: {
+                target: "UNAUTHORIZED",
+              },
+              entry: {
+                type: "send_authorized_event_to",
+              },
+              states: {
+                PENDING: {
+                  on: {
+                    "fg.auth.local.event.logout": {
+                      target: "REVOKE_AUTHORIZATION",
+                    },
+                  },
+                },
+                REVOKE_AUTHORIZATION: {
+                  invoke: {
+                    id: "actor_revoke_authorization",
+                    input: parent_context_event_input,
+                    onDone: {
+                      target: "SUCCESS",
+                      actions: {
+                        type: "assign_clear_auth_cookie",
+                      },
+                    },
+                    onError: {
+                      target: "ERROR",
+                      actions: {
+                        type: "assign_revoke_authorization_error",
+                      },
+                    },
+                    src: "actor_revoke_authorization",
+                  },
+                },
+                SUCCESS: {
+                  type: "final",
+                },
+                ERROR: {
+                  on: {
+                    "fg.auth.local.event.logout": {
+                      target: "REVOKE_AUTHORIZATION",
+                      actions: {
+                        type: "assign_clear_authorization_error",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            UNAUTHORIZED: {
+              initial: "PENDING",
+              onDone: {
+                target: "AUTHORIZED",
+              },
+              entry: {
+                type: "send_unauthorized_event_to",
+              },
+              states: {
+                PENDING: {
+                  on: {
+                    "fg.auth.local.event.login": {
+                      target: "AUTHORIZATION",
+                    },
+                  },
+                },
+                AUTHORIZATION: {
+                  invoke: {
+                    id: "actor_authorization",
+                    input: parent_context_event_input,
+                    onDone: {
+                      target: "SUCCESS",
+                      actions: {
+                        type: "assign_auth_cookie",
+                      },
+                    },
+                    onError: {
+                      target: "ERROR",
+                      actions: {
+                        type: "assign_authorization_error",
+                      },
+                    },
+                    src: "actor_authorization",
+                  },
+                },
+                SUCCESS: {
+                  type: "final",
+                },
+                ERROR: {
+                  on: {
+                    "fg.auth.local.event.login": {
+                      target: "AUTHORIZATION",
+                      actions: {
+                        type: "assign_clear_authorization_error",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            DONE: {
+              type: "final",
+            },
+            FAILURE: {
+              type: "final",
+              entry: {
+                type: "escalate_auth_local_key_error",
+              },
+            },
+          },
+        },
       },
     });
   }
-
-  protected createHashValidForPathUrl(toHash: string, salt: string): string {
-    const hash = HMAC.create(SHA256Algo, salt).finalize(toHash);
-    return Base64.stringify(hash)
-      .split('+')
-      .join('-')
-      .split('/')
-      .join('_');
-  }
-
-  public send_authorized_event_to = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    const result = EventFgAuthLocalAuthorizedParser.parse({
-      type: 'fg.auth.local.emitted.authorized',
-      payload: {
-        auth_cookie: context.auth_cookie
-      }
-    });
-    return result;
-  };
-
-  public send_unauthorized_event_to = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    return EventFgAuthLocalUnauthorizedParser.parse({
-      type: 'fg.auth.local.emitted.unauthorized'
-    });
-
-  };
-
-  public escalate_auth_local_key_error = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    throw new Error('fg-auth-local-key-error');
-  };
-
-  public assign_auth_cookie = ({
-    context,
-    event,
-  }: {
-    context: ContextFgAuthLocal;
-    event: any;
-  }) => {
-    const auth_cookie = AuthCookieFgAuthLocalParser.optional().parse(event.output);
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.auth_cookie = auth_cookie;
-      return draft;
-    })
-  };
-
-  public assign_auth_key = ({
-    context,
-    event,
-  }: {
-    context: ContextFgAuthLocal;
-    event: any;
-  }) => {
-    const event_output = SaltFileContentFgAuthLocalParser.parse(event.output);
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.salt = event_output.publicSalt;
-    })
-  };
-
-  public assign_authorization_error = ({
-    context,
-    event
-  }: {
-    context: ContextFgAuthLocal;
-    event: any;
-  }) => {
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.error = (event.error as Error).message;
-    });
-  };
-
-  public assign_clear_authorization_error = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.error = undefined;
-    });
-  };
-
-  public assign_clear_auth_cookie = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.auth_cookie = undefined;
-    });
-  };
-
-  public assign_revoke_authorization_error = ({
-    context,
-    event
-  }: {
-    context: ContextFgAuthLocal;
-    event: any
-  }) => {
-    return this.$immer.produce<ContextFgAuthLocal>( context, draft => {
-      draft.error = (event.error as Error).message;
-    });
-  }; 
-
-  public escalate_auth_load_cookie_error = ({
-    context,
-    event,
-  }: {
-    context: ContextFgAuthLocal,
-    event: any
-  }) => {
-    // console.log( '<<<<<<<<<<<<ERROR>>>>>>>>>>>>' );
-    // console.log( context );
-    // console.log( event );
-    throw new Error('error_fg_auth_load_cookie_error');
-  };
-
-  public guard_has_auth_cookie = ({
-    context,
-  }: {
-    context: ContextFgAuthLocal;
-  }) => {
-    return context.auth_cookie ? true : false;
-  };
-
-  public actor_load_auth_local_key = async ({
-    input,
-  }: {
-    input: FgAuthLocalV1ParentInput;
-  }) => {
-    // ContextFgAuthLocalParser.parse(input.context);
-    const url = input.context.path.concat(input.context.salt_filename);
-    const public_salt = await firstValueFrom(this.$http.get(url).pipe( 
-      catchError( error => { throw new Error('error_actor_load_auth_local_key_not_found')}),
-      map( result => { 
-        SaltFileContentFgAuthLocalParser.parse(result) 
-        return result;
-      }),
-      catchError( error => { { throw new Error('error_actor_load_auth_local_key_invalid: ' + error?.message,)}}),
-    ));
-    return public_salt;
-  };
-
-  public actor_load_auth_cookie = async ({
-    input,
-  }: {
-    input: FgAuthLocalV1ParentInput;
-  }) => {
-    return firstValueFrom(this.$cookie.getItem(input.context.auth_cookie_storage_key).pipe( 
-      catchError( error => { throw new Error('error_actor_load_auth_cookie_failed')}),
-      map(result => {
-        const auth_cookie = result ? result : undefined;
-        AuthCookieFgAuthLocalParser.optional().parse(auth_cookie);
-        return auth_cookie;
-      }),
-      catchError( error => { throw new Error('error_actor_load_auth_cookie_invalid')}),
-    ));
-  };
-
-  public actor_revoke_authorization = async ({
-    input,
-  }: {
-    input: FgAuthLocalV1ParentInput;
-  }) => {
-    const result = await firstValueFrom(this.$cookie.removeItem(input.context.auth_cookie_storage_key).pipe(
-      catchError( error => { throw new Error('error_actor_revoke_authorization_failed')}),
-    ));
-    return result;
-  };
-  
-  public actor_authorization = async ({
-    input,
-  }: {
-    input: FgAuthLocalV1ParentInput;
-  }) => {
-    const context = ContextFgAuthLocalParser.parse(input.context);
-    const event = EventFgAuthLocalLoginParser.parse(input.event);
-    let filename: string;
-    if(context.salt) {
-      filename = this.createHashValidForPathUrl( event.payload.user + event.payload.password, context.salt ).concat('.json');
-    } else {
-      throw new Error('error_actor_authorization_passed_salt_invalid');
-    }
-    const result = await firstValueFrom( this.$http.get(input.context.path + filename).pipe( 
-      catchError( error => { throw new Error('error_actor_authorization_not_found')}),
-      map( value => {
-        const result = AuthCookieFgAuthLocalParser.parse(value);
-        return result;
-      }),
-      tap( value => {
-        // Set auth_cookie in browser
-        const options: CookieOptions = {
-          expires: this.$time.getCookieExpirationDate(
-            value.profile.cookieLifeTime
-          ),
-        };
-        this.$cookie.setItem(
-          context.auth_cookie_storage_key,
-          value,
-          options
-        );
-      }),
-      catchError( error => { 
-         throw new Error('error_actor_authorization_invalid')
-      }),
-    ));
-    return result;
-  };
-
-
 }

@@ -1,19 +1,22 @@
 import { AuthCookieFgAuthLocal, ContextFgAuthLocal, ContextFgAuthLocalParser } from "./fg-auth-local.machine.types";
-import { DoneActorEvent, ErrorActorEvent } from "xstate";
+import { AnyEventObject, DoneActorEvent, ErrorActorEvent } from "xstate";
 import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { Spy, provideAutoSpy } from 'jest-auto-spies';
 
-import { FgAuthLocalService } from './fg-auth-local.service';
-import { HttpClient } from "@angular/common/http";
+import { FgAuthLocalMethodeService } from './fg-auth-local-methode.service';
+import { HttpClient, provideHttpClient } from "@angular/common/http";
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { TestBed } from "@angular/core/testing";
 import { ZodError } from "zod";
-import { environment } from "./apps/react/host/src/environments/environment";
+import { environment } from "../../testing/environment";
 import { FgImmutableService } from "../../service/fg-immutable.service";
+import { NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from "ngx-logger";
+import { CRYPTO, FgWebcryptoService } from "@kppk/fg-lib-new";
+import * as crypto from "crypto";
 
 describe('FgAuthLocalMachine', () => {
-  let $service: FgAuthLocalService;
+  let $service: FgAuthLocalMethodeService;
   let $immer: FgImmutableService;
   let $immer_produce_mock: any;
   let $cookie_mock: Spy<FgStorageNgxCookieService>;
@@ -21,6 +24,7 @@ describe('FgAuthLocalMachine', () => {
   let $http_controller: HttpTestingController;
   // let $log_mock: any;
   let context: ContextFgAuthLocal;
+  let event: AnyEventObject = { type: 'MockEvent' };
   let auth_cookie_admin: AuthCookieFgAuthLocal;
   let auth_cookie_invalid: any;
 
@@ -30,14 +34,18 @@ describe('FgAuthLocalMachine', () => {
         LoggerTestingModule,
       ],
       providers: [
-        FgAuthLocalService,
+        FgAuthLocalMethodeService,
+        FgWebcryptoService,
         FgImmutableService,
         provideAutoSpy(FgStorageNgxCookieService),
+        provideHttpClient(),
         provideHttpClientTesting(),
+        { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
         { provide: FG_ENVIRONMENT, useValue: environment },
+        { provide: CRYPTO, useValue: crypto }
       ],
     });
-    $service = TestBed.inject(FgAuthLocalService);
+    $service = TestBed.inject(FgAuthLocalMethodeService);
 
     $http = TestBed.inject(HttpClient);
     $http_controller = TestBed.inject(HttpTestingController);
@@ -83,19 +91,19 @@ describe('FgAuthLocalMachine', () => {
     describe('METHODE: send_authorized_event_to', () => {
       it('CHECK: returns \'fg.auth.local.event.authorized\' event', () => {
         context.auth_cookie = auth_cookie_admin;
-        expect( $service.send_authorized_event_to({ context }).type ).toBe('fg.auth.local.event.authorized');
+        expect( $service.send_authorized_event_to({ context, event }).type ).toBe('fg.auth.local.event.authorized');
       }); 
       it('THROWS if authCookie on context is undefined', () => {
         context.auth_cookie = undefined;
         // CAUTION: If testing if methoed throws error and it's not working read
         // https://stackoverflow.com/a/66109855/1622564
-        expect( () => $service.send_authorized_event_to({ context }) ).toThrow(ZodError);
+        expect( () => $service.send_authorized_event_to({ context, event }) ).toThrow(ZodError);
       });
     });
 
     describe('METHODE: send_unauthorized_event_to', () => {
       it('CHECK: returns \'fg.auth.local.event.unauthorized\' event', () => {
-        expect( $service.send_unauthorized_event_to({ context }).type ).toBe('fg.auth.local.event.unauthorized');
+        expect( $service.send_unauthorized_event_to({ context, event }).type ).toBe('fg.auth.local.event.unauthorized');
       });  
     });
 
@@ -103,7 +111,7 @@ describe('FgAuthLocalMachine', () => {
       it('THROWS \'fg-auth-local-key-error\' if auth-local key-file is unable to load', () => {
         // CAUTION: If testing if methoed throws error and it's not working read
         // https://stackoverflow.com/a/66109855/1622564
-        expect( () => $service.escalate_auth_local_key_error({ context }) ).toThrow(Error);
+        expect( () => $service.escalate_auth_local_key_error({ context, event }) ).toThrow(Error);
       });
     });
 
@@ -168,27 +176,27 @@ describe('FgAuthLocalMachine', () => {
 
     describe('METHODE: assign_clear_authorization_error', () => {
       it('CHECK: result context is frozen object (IMMER.JS)', () => {
-        const result = $service.assign_clear_authorization_error({ context });
+        const result = $service.assign_clear_authorization_error({ context, event });
         expect(Object.isFrozen(result)).toBe(true);
         expect($immer_produce_mock).toHaveBeenCalledTimes(1);
       });
       it('CHECK: removes error message from context', () => {
         context.error = 'has-error';
-        const result = $service.assign_clear_authorization_error({ context });
+        const result = $service.assign_clear_authorization_error({ context, event });
         expect(result.error).toBe(undefined);
       });
     });
 
     describe('METHODE: assign_clear_auth_cookie', () => {
       it('CHECK: result context is frozen object (IMMER.JS)', () => {
-        const result = $service.assign_clear_auth_cookie({ context });
+        const result = $service.assign_clear_auth_cookie({ context, event });
         expect(Object.isFrozen(result)).toBe(true);
         expect($immer_produce_mock).toHaveBeenCalledTimes(1);
       });
       it('CHECK: removes authCookie from context', () => {
         context.auth_cookie = auth_cookie_admin;
-        const result = $service.assign_clear_auth_cookie({ context });
-        expect(result.auth_cookie).toBe(false);
+        const result = $service.assign_clear_auth_cookie({ context, event });
+        expect(result.auth_cookie).toBe(undefined);
       });
     });
 
@@ -223,17 +231,17 @@ describe('FgAuthLocalMachine', () => {
     describe('METHODE: guard_has_auth_cookie', () => {
       it('CHECK: returns true', () => {
         context.auth_cookie = auth_cookie_admin;
-        expect( $service.guard_has_auth_cookie( { context } )).toBe(true);
+        expect( $service.guard_has_auth_cookie( { context, event } )).toBe(true);
       });
       it('CHECK: returns false', () => {
         context.auth_cookie = undefined;
-        expect( $service.guard_has_auth_cookie( { context } )).toBe(false);
+        expect( $service.guard_has_auth_cookie( { context, event } )).toBe(false);
       });
     });
 
     // describe('METHODE: actor_load_auth_cookie', () => {
     //   it('CHECK: returns valid cookie from context.authCookieStorageKey', ( done ) => {
-    //     const input = { context };
+    //     const input = { context, event };
     //     $cookie_mock.getItem.mockReturnValue(of(auth_cookie_admin));
     //     $service.actor_load_auth_cookie( { input } ).subscribe({
     //       next: result => {
@@ -245,7 +253,7 @@ describe('FgAuthLocalMachine', () => {
     //     })
     //   });
     //   it('CHECK: THROWS on invalid cookie from context.authCookieStorageKey', ( done ) => {
-    //     const input = { context };
+    //     const input = { context, event };
     //     $cookie_mock.getItem.mockReturnValue(of({ auth_cookie_invalid }));
     //     $service.actor_load_auth_cookie( { input } ).subscribe({
     //       error: ( error ) => {

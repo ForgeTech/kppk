@@ -6,7 +6,6 @@ import {
   Immer,
 } from 'immer';
 import { NGXLogger } from 'ngx-logger';
-import { merge, cloneDeep } from 'lodash-es';
 import { FgBaseService, FgEventService } from '@kppk/fg-lib';
 
 /**
@@ -44,19 +43,19 @@ export class FgImmutableService extends FgBaseService {
   /** Instance of immer configured to not freeze objects produced */
   public produceNoFreeze;
   /** Merges and deep-clones passed object */
-  public clone<T>(target: T, freeze: boolean = true): T {
-    if (freeze) {
-      return this.freezeMeth(cloneDeep(target)) as T;
-    }
-    return cloneDeep(target) as T;
-  }
-  // Merges and deep-clones passed object
-  public merge<T, I>(target: T, source: I, freeze: boolean = true): T & I {
-    if (freeze) {
-      return this.freezeMeth(cloneDeep(merge(target, source)) as T & I);
-    }
-    return cloneDeep(merge(target, source)) as T & I;
-  }
+  // public clone<T>(target: T, freeze: boolean = true): T {
+  //   if (freeze) {
+  //     return this.freezeMeth(cloneDeep(target)) as T;
+  //   }
+  //   return cloneDeep(target) as T;
+  // }
+  // // Merges and deep-clones passed object
+  // public merge<T, I>(target: T, source: I, freeze: boolean = true): T & I {
+  //   if (freeze) {
+  //     return this.freezeMeth(cloneDeep(merge(target, source)) as T & I);
+  //   }
+  //   return cloneDeep(merge(target, source)) as T & I;
+  // }
   // CONSTRUCTOR
   constructor() {
     super();

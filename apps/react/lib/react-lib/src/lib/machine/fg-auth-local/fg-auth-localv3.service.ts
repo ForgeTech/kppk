@@ -5,9 +5,7 @@ import { ActorRefFrom, EventFromLogic, setup, SnapshotFrom, } from 'xstate';
 import { FG_AUTH_LOCAL_V1, FgAuthLocalV1ParentInput, } from './fg-auth-local.machine';
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
-import { HMAC } from 'crypto-es/lib/core';
-import { SHA256Algo } from 'crypto-es/lib/sha256';
-import Base64 from 'crypto-js/enc-base64';
+import CryptoES from 'crypto-es';
 import { AuthCookieFgAuthLocalParser,
   ContextFgAuthLocalParser,
   EventFgAuthLocalAuthorizedParser,
@@ -26,23 +24,16 @@ export type FgAuthLocalV3Actor = typeof FG_AUTH_LOCAL_V1;
   providedIn: 'root',
 })
 export class FgAuthLocalV3Service extends FgBaseService {
-  public machine;
   protected $immer = inject(FgImmutableService);
   protected $cookie = inject(FgStorageNgxCookieService);
   protected $http = inject(HttpClient);
   protected $time = inject(FgTimeStringService);
+  public machine = this.get_machine();
   
-  constructor(
-    // protected $xstate: FgXstateService
-  ) {
-    super();
-
-    this.machine = this.get_machine()
-  }
 
   public createHashValidForPathUrl = (toHash: string, salt: string): string => {
-    const hash = HMAC.create(SHA256Algo, salt).finalize(toHash);
-    return Base64.stringify(hash)
+    const hash = CryptoES.HmacSHA256(toHash, salt)
+    return hash.toString(CryptoES.enc.Base64)
       .split('+')
       .join('-')
       .split('/')
@@ -269,7 +260,7 @@ export class FgAuthLocalV3Service extends FgBaseService {
       },
   
     }).createMachine({
-      context: {},
+      context: ContextFgAuthLocalParser.parse({}),
       id: "FG_AUTH_LOCAL_V3",
       type: "parallel",
       states: {

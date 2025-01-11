@@ -54,7 +54,7 @@ export const EventFgAuthLocalLogoutParser = z.object({
 export type EventFgAuthLocalLogout = z.infer<typeof EventFgAuthLocalLogoutParser>;
 
 export const EventFgAuthLocalAuthorizedParser = z.object({
-  type: z.literal('fg.auth.local.emitted.authorized'),
+  type: z.literal('fg.auth.local.event.authorized'),
   payload: z.object({
     auth_cookie: AuthCookieFgAuthLocalParser,
   }),
@@ -62,7 +62,7 @@ export const EventFgAuthLocalAuthorizedParser = z.object({
 export type EventFgAuthLocalAuthorized = z.infer<typeof EventFgAuthLocalAuthorizedParser>;
 
 export const EventFgAuthLocalUnauthorizedParser = z.object({
-  type: z.literal('fg.auth.local.emitted.unauthorized'),
+  type: z.literal('fg.auth.local.event.unauthorized'),
 });
 export type EventFgAuthLocalUnauthorized = z.infer<typeof EventFgAuthLocalUnauthorizedParser>;
 
