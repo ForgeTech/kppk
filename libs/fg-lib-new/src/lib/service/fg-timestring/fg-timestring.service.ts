@@ -21,7 +21,7 @@ export class FgTimeStringService extends FgBaseService {
     timestring: string,
     resultUnit: TIMESTRING.ReturnUnit = 'ms'
   ): number {
-    return TIMESTRING.default(timestring, resultUnit);
+    return TIMESTRING(timestring, resultUnit);
   }
   /** CONSTRUCTOR */
   constructor() {

@@ -1,4 +1,3 @@
-export * from './fg-lib.module';
 export * from './base/index';
 export * from './component/index';
 export * from './decorator/index';

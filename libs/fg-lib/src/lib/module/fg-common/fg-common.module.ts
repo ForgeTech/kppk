@@ -6,7 +6,7 @@ import { RxPush } from '@rx-angular/template/push';
 import { RxFor } from '@rx-angular/template/for';
 import { RxUnpatch } from '@rx-angular/template/unpatch';
 
-const module = [
+const common_module = [
   CommonModule,
   TranslocoModule,
   RxLet,
@@ -16,7 +16,7 @@ const module = [
 ];
 
 @NgModule({
-  imports: module,
-  exports: module,
+  imports: common_module,
+  exports: common_module,
 })
 export class FgCommonModule {}

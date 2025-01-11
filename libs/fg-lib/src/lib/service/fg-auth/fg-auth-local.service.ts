@@ -12,11 +12,10 @@ import {
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
 import { FgStorageService } from '../fg-storage/fg-storage.service';
 import { FgTimeStringService } from '../fg-timestring/fg-timestring.service';
-import { HmacSHA256 } from 'crypto-js';
+import CryptoES from 'crypto-es';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import Base64 from 'crypto-js/enc-base64';
 import { FgStorageNgxCookieService } from '../fg-storage/fg-storage-ngx-cookie.service';
 
 export const FG_AUTH_LOCAL_USER_PROFILE = 'fg-auth-local-user-profile';
@@ -73,7 +72,8 @@ export class FgAuthLocalService extends FgAuthAbstractService<
 
   /** Greate a base64 encoded hash that can be used as path/filename/url */
   protected createHashValidForPathUrl(toHash: string, salt: string): string {
-    return Base64.stringify(HmacSHA256(toHash, salt)).split('+').join('-').split('/').join('_');
+    const hash = CryptoES.HmacSHA256(toHash, salt)
+    return hash.toString(CryptoES.enc.Base64)
   }
   /**
    * Used to check if entity can be authenticated by authentification-service using passed credentials

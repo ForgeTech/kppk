@@ -9,7 +9,6 @@ export class FgNodeGlobalService extends FgGlobalService implements FgGlobalServ
   public isBrowser = false;
   // USE @ts-ignore TO FIX TS2304: Cannot find name 'global'. error
   // READ: https://stackoverflow.com/questions/37355244/ignore-cannot-find-module-error-on-typescript
-  // @ts-ignore
   nativeGlobal<Node>() {
     return global as Node;
   }

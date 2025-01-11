@@ -23,9 +23,9 @@ import { FgEvent } from '../fg-event/fg-event.class';
 export class FgBadgingApiService {
   protected $title = inject(Title);
   protected $global = inject(FgGlobalService);
-  protected $router = inject(Router, { optional: true });
-  protected $event = inject(FgEventService, { optional: true });
-  protected $log = inject(NGXLogger, { optional: true });
+  protected $router = inject(Router);
+  protected $event = inject(FgEventService);
+  protected $log = inject(NGXLogger);
 
   /** Hold browsers global window- or serviceworkers self-object, only when run in browser */
   protected WINDOW_OR_SELF: any;

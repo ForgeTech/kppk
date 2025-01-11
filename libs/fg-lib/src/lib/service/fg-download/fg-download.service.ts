@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { saveAs } from 'file-saver';
 import { saveAs } from 'file-saver-es';
-import { NGXLogger } from 'ngx-logger';
 import { FgBaseService } from '../../base';
-import { FgEventService } from '../fg-event/fg-event.service';
 
 export interface FgDownloadJSONConfigurationInterface {
   encoding?: string;
