@@ -8,7 +8,7 @@ import {
   SaltFileContentFgAuthLocalParser 
 } from './fg-auth-local.machine.types';
 import { catchError, map, firstValueFrom, tap } from 'rxjs';
-import { FgStorageNgxCookieService } from '@kppk/fg-lib';
+import { FgStorageNgxCookieService } from '@kppk/fg-lib-new';
 import { Injectable, inject } from '@angular/core';
 import { 
   AnyEventObject,
