@@ -4,7 +4,6 @@ export * from './decorator/index';
 // export * from './directive/index';
 export * from './guard/index';
 export * from './http/index';
-export * from './interface/index';
 export * from './module/index';
 export * from './pipe/index';
 export * from './service/index';
