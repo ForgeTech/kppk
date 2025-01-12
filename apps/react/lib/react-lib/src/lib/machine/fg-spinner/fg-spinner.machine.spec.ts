@@ -4,7 +4,7 @@ import { FgSpinnerService } from "./fg-spinner.service";
 import { ZodError } from "zod";
 import { FgImmutableService } from "../../service/fg-immutable.service";
 import { environment } from "./../../testing/environment";
-import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
+import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib-new";
 import { LoggerTestingModule } from "ngx-logger/testing";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideAutoSpy } from "jest-auto-spies";
