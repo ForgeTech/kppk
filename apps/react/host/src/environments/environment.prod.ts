@@ -1,8 +1,9 @@
 import { NgxLoggerLevel } from 'ngx-logger';
 
 import localforage from 'localforage';
-import { PREFERED_COLOR_SCHEME } from '@kppk/fg-lib';
-import { FgEnvironmentConfigInterface } from '@kppk/fg-lib';
+
+import { PREFERED_COLOR_SCHEME } from '@kppk/fg-lib-new';
+import { FgEnvironmentConfigInterface } from '@kppk/fg-lib-new';
 import { AppConfigInterface } from '@kppk/react-lib';
 
 
