@@ -1,4 +1,5 @@
-export * from './fg-global-error.service';
+export * from './kppk-global-error.service';
+export * from './kppk-register-icons.service';
 export * from './fg-immutable.service';
 export * from './fg-pagedjs.service';
 export * from './fg-public-global-error.service';
