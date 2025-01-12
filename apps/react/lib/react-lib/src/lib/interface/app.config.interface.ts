@@ -1,5 +1,4 @@
-import { FgAppConfigInterface } from '@kppk/fg-lib';
-
+import { FgAppConfigInterface } from '@kppk/fg-lib-new';
 import { AppModelInterface } from './app.model.interface';
 /**
  * AppConfigInterface -
