@@ -30,20 +30,20 @@ import { FgNavigationHistoryService } from './fg-navigation-history/fg-navigatio
 import { FgPrefersColorSchemeService, PREFERED_COLOR_SCHEME } from './fg-prefers-color-scheme/fg-prefers-color-scheme.service';
 import { FgPwaInstallService } from './fg-pwa-install/fg-pwa-install.service';
 import { FgRendererService } from './fg-renderer/fg-renderer.service';
-import {
-  FgStorageLocalforageService,
-  FG_LOCALFORAGE_STORAGE_MAP_KEY,
-  FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS,
-  FgStorageLocalforageServiceInstanceMapInterface,
-  FgStorageLocalforageServiceStorageMapInterface,
-} from './fg-storage/fg-storage-localforage.service';
-import {
-  FgStorageNgxCookieService,
-  FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS,
-  FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY,
-  FgStorageNgxCookieServiceStorageMapInterface,
-} from './fg-storage/fg-storage-ngx-cookie.service';
-import { FgStorageService } from './fg-storage/fg-storage.service';
+// import {
+//   FgStorageLocalforageService,
+//   FG_LOCALFORAGE_STORAGE_MAP_KEY,
+//   FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS,
+//   FgStorageLocalforageServiceInstanceMapInterface,
+//   FgStorageLocalforageServiceStorageMapInterface,
+// } from './fg-storage/fg-storage-localforage.service';
+// import {
+//   FgStorageNgxCookieService,
+//   FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS,
+//   FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY,
+//   FgStorageNgxCookieServiceStorageMapInterface,
+// } from './fg-storage/fg-storage-ngx-cookie.service';
+// import { FgStorageService } from './fg-storage/fg-storage.service';
 import { FgTimeStringService } from './fg-timestring/fg-timestring.service';
 import { FgEnvironmentService } from './fg-environment/fg-environment.service';
 // import { FgApplicationModelService } from './fg-application-model/fg-application-model.service';
@@ -62,10 +62,10 @@ export {
   // FgOrientationChangeService,
   FG_AUTH_CREDENTIALS_STORAGE_KEY,
   FG_AUTH_TOKEN_STORAGE_KEY,
-  FG_LOCALFORAGE_STORAGE_MAP_KEY,
-  FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS,
-  FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS,
-  FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY,
+  // FG_LOCALFORAGE_STORAGE_MAP_KEY,
+  // FG_LOCALFORAGE_STORAGE_SERVICE_OPTIONS,
+  // FG_NGXCOOKIE_STORAGE_SERVICE_OPTIONS,
+  // FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY,
   // FgActiveRouteService,
   // FgActiveViewService,
   // FgAnimationFrameEvent,
@@ -92,16 +92,16 @@ export {
   // FgModernizrService,
   FgNavigateBackService,
   FgNavigationHistoryService,
-  FgPrefersColorSchemeService,
-  PREFERED_COLOR_SCHEME,
+  // FgPrefersColorSchemeService,
+  // PREFERED_COLOR_SCHEME,
   FgPwaInstallService,
   FgRendererService,
-  FgStorageLocalforageService,
-  FgStorageLocalforageServiceInstanceMapInterface,
-  FgStorageLocalforageServiceStorageMapInterface,
-  FgStorageNgxCookieService,
-  FgStorageNgxCookieServiceStorageMapInterface,
-  FgStorageService,
+  // FgStorageLocalforageService,
+  // FgStorageLocalforageServiceInstanceMapInterface,
+  // FgStorageLocalforageServiceStorageMapInterface,
+  // FgStorageNgxCookieService,
+  // FgStorageNgxCookieServiceStorageMapInterface,
+  // FgStorageService,
   FgTimeStringService,
   // FgIsOnlineService,
   FgClipboardService,
