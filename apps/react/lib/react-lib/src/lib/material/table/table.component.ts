@@ -10,7 +10,7 @@ import { TableDataSource, TableItem } from './table-datasource';
   styleUrls: ['./table.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  
   imports: [MatTableModule, MatPaginatorModule, MatSortModule]
 })
 export class TableComponent implements AfterViewInit {

@@ -18,7 +18,7 @@ import { REACT_VIEW_CALCULATION_CONTEXT } from '../../../types/kppk-react-calcul
 
 @Component({
   selector: 'fg-react-demo-kppk-react-results',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

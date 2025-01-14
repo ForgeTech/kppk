@@ -17,8 +17,11 @@
       <div *ngIf="!data.stay">
         <ng-container>
           <div
+            tabindex="0"
             class="cursor-pointer inline-flex items-center px-1 py-1 text-sm leading-4 font-medium rounded text-white bg-white hover:bg-gray-50"
-            (click)="dismiss()">
+            (click)="dismiss()"
+            (keypress)="dismiss()"
+          >
             <!-- <div
               class="text-gray-400"
               [pdvIcon]="'close'"></div> -->

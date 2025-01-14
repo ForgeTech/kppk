@@ -1,37 +1,33 @@
 import {  ApplicationRef, Component, inject, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-import { KppkReactLoadingIndicatorComponent } from '@kppk/react-lib';
-import { FgSpinnerService } from 'apps/react/lib/react-lib/src/lib/machine/fg-spinner/fg-spinner.service';
+// import { KppkReactLoadingIndicatorComponent } from '@kppk/react-lib';
 import { filter, take } from 'rxjs';
+import { KppkRegisterIconsService } from './service/kppk-register-icons.service';
 
 @Component({
   imports: [
     RouterModule, 
-    KppkReactLoadingIndicatorComponent
+    // KppkReactLoadingIndicatorComponent
   ],
   selector: 'kppk-react-root',
   template: `
-    <!-- <ul class="remote-menu">
+    <ul class="remote-menu">
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="react_view_login">ReactViewLogin</a></li>
       <li><a routerLink="react_view_home">ReactViewHome</a></li>
       <li><a routerLink="react_view_calc">ReactViewCalc</a></li>
-    </ul> -->
-    @if( appReadyS() ) {
-      <router-outlet/>
-    } 
-    @else {
-      <kppk-react-loading-indicator />
-    }
+    </ul>
+    <router-outlet/>
   `,
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
+  protected $icon = inject(KppkRegisterIconsService);
   protected $appRef = inject(ApplicationRef);
-  protected $spinner = inject(FgSpinnerService);
-  protected $auth = inject(ApplicationRef);
+  // protected $spinner = inject(FgSpinnerService);
+  // protected $auth = inject(ApplicationRef);
 
   protected appReadyS = toSignal(this.$appRef.isStable.pipe(
     filter( isStable => isStable ? true : false ),

@@ -1,4 +1,4 @@
-import { FgAuthTokenInterface, FgAuthUserInterface } from '../../../../fg-lib/src/lib/service/fg-auth/fg-auth.abstract.service';
+import { FgAuthTokenInterface, FgAuthUserInterface } from './fg-auth-user.interface';
 import { FgEnvironmentDevelopmentEventConfigInterface } from './fg-environment-develpment-event.config.interface';
 
 /**

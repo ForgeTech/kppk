@@ -39,7 +39,7 @@ export type RESULT_MATERIAL_TOP_5 = z.infer<typeof materials_top5_parser>;
 
 @Component({
   selector: 'kppk-react-results-overview',
-  standalone: true,
+  
   imports: [
     CommonModule, 
     NgObjectPipesModule, 

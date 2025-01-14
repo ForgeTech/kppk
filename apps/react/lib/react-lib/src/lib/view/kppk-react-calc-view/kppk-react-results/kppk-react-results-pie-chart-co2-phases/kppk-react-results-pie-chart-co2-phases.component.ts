@@ -17,7 +17,7 @@ import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-color
 
 @Component({
   selector: 'kppk-react-results-pie-chart-co2-phases',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

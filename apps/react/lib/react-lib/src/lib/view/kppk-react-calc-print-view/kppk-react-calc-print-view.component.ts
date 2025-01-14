@@ -5,7 +5,7 @@ import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.c
 
 @Component({
   selector: 'fg-react-demo-kppk-react-calc-print-view',
-  standalone: true,
+  
   imports: [
     KppkReactResultsMaterialsComponent,
     KppkReactResultsOverviewComponent
@@ -15,7 +15,7 @@ import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.c
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KppkReactCalcPrintViewComponent extends KppkReactBaseComponent {
+export class KppkReactCalcPrintViewComponent  {
 
   protected results_s = computed(() => {
     let result = this.state_react_view_calculation_s()?.context?.calculation;

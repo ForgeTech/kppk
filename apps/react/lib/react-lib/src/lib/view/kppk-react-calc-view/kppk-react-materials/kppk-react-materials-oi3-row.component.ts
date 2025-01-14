@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsul
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { FgComponentBaseComponent } from '@kppk/fg-lib';
+import { FgComponentBaseComponent } from '@kppk/fg-lib-new';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -10,7 +10,7 @@ import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
 
 @Component({
   selector: 'kppk-react-materials-oi3-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <div [ngClass]="{

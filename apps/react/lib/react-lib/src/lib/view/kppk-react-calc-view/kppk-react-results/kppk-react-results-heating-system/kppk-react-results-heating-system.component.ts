@@ -10,7 +10,7 @@ import { FORM_HEATING_SYSTEM_DATA } from 'apps/fg-react-demo/src/app/types/kppk-
 
 @Component({
   selector: 'kppk-react-results-heating-system',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule

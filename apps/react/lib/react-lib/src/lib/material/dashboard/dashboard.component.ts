@@ -27,7 +27,7 @@ export type MatDemoDashboardCard = {
   styleUrls: ['./dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  
   imports: [
     RxPush,
     MatGridListModule,

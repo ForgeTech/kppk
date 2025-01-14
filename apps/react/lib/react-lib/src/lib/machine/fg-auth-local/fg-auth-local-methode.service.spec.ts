@@ -1,6 +1,6 @@
 import { AuthCookieFgAuthLocal, ContextFgAuthLocal, ContextFgAuthLocalParser } from "./fg-auth-local.machine.types";
 import { AnyEventObject, DoneActorEvent, ErrorActorEvent } from "xstate";
-import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib";
+import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib-new";
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { Spy, provideAutoSpy } from 'jest-auto-spies';
 
@@ -24,7 +24,7 @@ describe('FgAuthLocalMachine', () => {
   let $http_controller: HttpTestingController;
   // let $log_mock: any;
   let context: ContextFgAuthLocal;
-  let event: AnyEventObject = { type: 'MockEvent' };
+  const event: AnyEventObject = { type: 'MockEvent' };
   let auth_cookie_admin: AuthCookieFgAuthLocal;
   let auth_cookie_invalid: any;
 

@@ -1,11 +1,9 @@
 import { NgxLoggerLevel } from 'ngx-logger';
 
-// import localforage from 'localforage';
-import { PREFERED_COLOR_SCHEME } from '@kppk/fg-lib';
-import { FgEnvironmentConfigInterface } from '@kppk/fg-lib';
+import { PREFERED_COLOR_SCHEME } from '@kppk/fg-lib-new';
+import { FgEnvironmentConfigInterface } from '@kppk/fg-lib-new';
 import { AppConfigInterface } from '../interface';
 
-// import { FgSpinnerGuardEvent } from '@fg-kppk/fg-base';
 const version = 'TEST.TEST.TEST';
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.

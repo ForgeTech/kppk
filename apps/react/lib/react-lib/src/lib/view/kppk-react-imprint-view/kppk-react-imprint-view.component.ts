@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { FgCommonModule } from '@kppk/fg-lib';
+import { FgCommonModule } from '@kppk/fg-lib-new';
 import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -9,7 +9,7 @@ import { KppkReactImprintGermanComponent } from './component/kppk-react-imprint-
 
 @Component({
   selector: 'kppk-react-imprint-view',
-  standalone: true,
+  
   imports: [ 
     FgCommonModule,
     MatCardModule,
@@ -22,7 +22,7 @@ import { KppkReactImprintGermanComponent } from './component/kppk-react-imprint-
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KppkReactImprintViewComponent extends KppkReactBaseComponent {
+export class KppkReactImprintViewComponent  {
   protected active_language_s = toSignal(this.$component.$translate.langChanges$, { initialValue: this.$component.$translate.getActiveLang() });
   constructor() {   
     super()

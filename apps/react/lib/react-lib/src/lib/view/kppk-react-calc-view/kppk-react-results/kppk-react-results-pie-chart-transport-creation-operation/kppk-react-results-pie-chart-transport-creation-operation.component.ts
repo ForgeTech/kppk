@@ -17,7 +17,7 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
 
 @Component({
   selector: 'kppk-react-results-pie-chart-transport-creation-operation',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

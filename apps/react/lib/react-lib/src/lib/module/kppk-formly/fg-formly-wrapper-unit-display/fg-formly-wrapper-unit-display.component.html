@@ -1,0 +1,41 @@
+<ng-container *transloco="let t">
+  <div
+    class="unit-tooltip-wrapper field-{{ key }} unit-{{ props['unit'] }}"
+    [ngClass]="{ 
+      disabled: props.disabled, 
+      readonly: props.readonly,
+      editable: (!props.readonly && !props.disabled)
+    }">
+    <div
+      class="field"
+      >
+      <ng-container #fieldComponent></ng-container>
+    </div>
+    <div class="flex flex-row gap-4 unit-tooltip-container">
+      @if(props['unit']) {
+        <div class="unit">
+          <span>{{ t('calc.' + props['unit']) }}</span>
+        </div>
+      }
+      @if(props['edited']) {
+        <div
+          tabindex="0"
+          class="undo"
+          (click)="resetValue($event)"
+          (keypress)="resetValue($event)"
+        >
+          <mat-icon
+            tabindex="0"
+            color="primary"
+            aria-hidden="false"
+            matTooltip="{{ t('rcalc.resetToDefault') }}">
+            undo
+          </mat-icon>
+        </div>
+      }
+      @if(props['tooltip']) {
+        <fg-info-tooltip [text]="props['tooltip']"></fg-info-tooltip>
+      }
+    </div>
+  </div>
+</ng-container>

@@ -7,8 +7,8 @@ import { demolish_disposal_form_material_parser, demolish_disposal_form_result_p
 import { form_excavation_pit_parser, result_excavation_pit_parser } from "./kppk-react-excavation-pit.types";
 import { form_heating_system_data_parser, form_heating_system_result_parser, rose_file_data_parser } from "./kppk-react-heating-system.types";
 import { form_step_selection_data } from "./kppk-react-step-selection.types";
-import { debug_calculation_oi3_import_parser } from "../machine/react-init/react-init.types";
-import { react_calculation_materials_v1_output } from "../machine/react-view-calculation/react-view-calculation-materials.service";
+import { debug_calculation_oi3_import_parser } from "./react-init.types";
+// import { react_calculation_materials_v1_output } from "./react-react-materials.types";
 
 export enum react_view_calculation_form_name_enum {
     unnamed = 'unnamed',
@@ -142,7 +142,7 @@ export enum react_view_calculation_form_name_enum {
     file_bauteilflaechen: z.array(z.any()),
     file_oi3: debug_calculation_oi3_import_parser,
     file_rose: rose_file_data_parser,
-    actor_transform_file_inputs: react_calculation_materials_v1_output.optional(),
+    // actor_transform_file_inputs: react_calculation_materials_v1_output.optional(),
     actor_merge_bauteilflaechen_aufbauten: z.object({
       merged_bauteilflaechen_aufbauten:  z.array(z.any()).optional(),
     }).optional().default({}),
@@ -203,73 +203,6 @@ export enum react_view_calculation_form_name_enum {
     })
   });
   export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<typeof react_view_calculation_context_parser>;
-
-  export const react_view_calculation_context_parser2 = z.object({
-    file_aufbauten:  z.array(z.any()),
-    file_bauteilflaechen: z.array(z.any()),
-    file_oi3: debug_calculation_oi3_import_parser,
-    file_rose: rose_file_data_parser,
-    actor_transform_file_inputs: react_calculation_materials_v1_output.optional(),
-    actor_merge_bauteilflaechen_aufbauten: z.object({
-      merged_bauteilflaechen_aufbauten:  z.array(z.any()).optional(),
-    }).optional().default({}),
-    actor_merge_arich_oi3: z.object({
-      transformed_arich_plus_oi3_source_1: z.array(z.any()).optional(),
-      transformed_arich_plus_oi3_source_2: z.array(z.any()).optional(),
-      transformed_arich_plus_oi3_source_2_found: z.array(z.any()).optional(),
-      transformed_arich_plus_oi3_source_2_not_found: z.array(z.any()).optional(),
-      transformed_arich_plus_oi3_source_2_o1: z.array(z.any()).optional(),
-      window_items: z.array(z.any()).optional(),
-      concrete_items: z.array(z.any()).optional(),
-      material_items: z.array(z.any()).optional(),
-      material_type: z.array(z.any()).optional(),
-    }).optional(),
-    actor_prepare_material_types: z.object({
-      window_items: z.array(form_window_value_parser).optional().default([]),
-      concrete_items: z.array(form_concrete_value_parser).optional().default([]),
-      material_items: z.array(form_material_value_parser).optional().default([]),
-    }).optional(),
-    // actor_material_calculation: z.object({
-  
-    // }).optional().default({}),
-    // actor_concrete_calculation: z.object({
-  
-    // }).optional().default({}),
-    // actor_window_calculation: z.object({
-  
-    // }).optional().default({}),
-    form_material: form_material_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.material,
-    }),
-    form_window: form_window_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.window,
-    }),
-    form_concrete: form_concrete_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.concrete,
-    }),
-    form_construction_site: form_construction_site_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.construction_site,
-    }),
-    form_container_village: form_container_village_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.container_village
-    }),
-    form_demolish_disposal: form_demolish_disposal_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.demolish_disposal,
-    }),
-    form_excavation_pit: form_excavation_pit_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.excavation_pit,
-    }),
-    form_heating_system: form_heating_system_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.heating_system
-    }),
-    form_step_selection: form_step_selection_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.step_selection
-    }),
-    form_common: form_common_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.common
-    })
-  });
-  export type REACT_VIEW_CALCULATION_CONTEXT2 = z.infer<typeof react_view_calculation_context_parser2>;
 
 
 

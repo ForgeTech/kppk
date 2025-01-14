@@ -9,7 +9,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
 @Component({
   selector: 'kppk-react-materials-material-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <div [ngClass]="{

@@ -6,7 +6,7 @@ import {
   Immer,
 } from 'immer';
 import { NGXLogger } from 'ngx-logger';
-import { FgBaseService, FgEventService } from '@kppk/fg-lib';
+import { FgBaseService, FgEventService } from '@kppk/fg-lib-new';
 
 /**
  * FgImmutableConfig -

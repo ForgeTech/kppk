@@ -29,7 +29,7 @@ export interface FlatTreeNode {
   styleUrls: ['./tree.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  
   imports: [MatTreeModule, MatButtonModule, MatIconModule]
 })
 export class TreeComponent {

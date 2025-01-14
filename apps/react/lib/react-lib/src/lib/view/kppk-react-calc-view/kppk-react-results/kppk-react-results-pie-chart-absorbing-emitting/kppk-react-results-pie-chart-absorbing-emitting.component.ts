@@ -15,7 +15,7 @@ import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-color
 
 @Component({
   selector: 'kppk-react-results-pie-chart-absorbing-emitting',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

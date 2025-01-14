@@ -10,7 +10,7 @@ import { DEMOLISH_DISPOSAL_FORM_MATERIAL } from 'apps/fg-react-demo/src/app/type
 
 @Component({
   selector: 'kppk-react-results-demolish-disposal',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule

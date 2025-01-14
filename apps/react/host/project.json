@@ -16,6 +16,10 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/react/host/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "allowedCommonJsDependencies": [
+          "localforage",
+          "timestring"
+        ],
         "assets": [
           {
             "glob": "**/*",

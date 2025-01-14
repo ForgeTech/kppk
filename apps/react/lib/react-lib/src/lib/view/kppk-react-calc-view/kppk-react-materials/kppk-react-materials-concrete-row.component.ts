@@ -13,7 +13,7 @@ import { unit_id_parser } from '../../../types/kppk-react-unit.types';
 
 @Component({
   selector: 'kppk-react-materials-concrete-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <!-- <pre>{{ options() | json }}</pre> -->

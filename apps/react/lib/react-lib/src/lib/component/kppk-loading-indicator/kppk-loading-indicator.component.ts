@@ -7,7 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
  */
 @Component({
   selector: 'kppk-react-loading-indicator',
-  standalone: true,
+  
   imports: [ MatProgressSpinnerModule ],
   template: `
   <div class="relative">

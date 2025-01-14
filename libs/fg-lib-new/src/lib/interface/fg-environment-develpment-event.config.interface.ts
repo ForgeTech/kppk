@@ -1,4 +1,4 @@
-import { FgNgxLoggerMethodeType } from '../../../../fg-lib/src/lib/type';
+export type FgNgxLoggerMethodeType = 'debug' | 'error' | 'fatal' | 'info' | 'log' | 'trace' | 'warn';
 
 /**
  * FgEnvironmentDevelopmentEventConfigInterface -

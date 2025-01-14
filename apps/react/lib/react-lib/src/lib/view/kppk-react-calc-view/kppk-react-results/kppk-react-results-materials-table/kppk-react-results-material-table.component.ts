@@ -11,7 +11,7 @@ import { FORM_MATERIALS_RESULT } from 'apps/fg-react-demo/src/app/types/kppk-rea
 
 @Component({
   selector: 'kppk-react-results-material-table',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

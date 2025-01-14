@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed } from '@angular/core';
-import { FgCommonModule, FgLanguageSwitchComponent, FgMaterialModule, FgMessageBoxComponent, FgPwaInstallComponent } from '@kppk/fg-lib';
-import { FgLayoutDefaultComponent } from '@kppk/fg-lib';
+import { FgCommonModule, FgLanguageSwitchComponent, FgMaterialModule, FgMessageBoxComponent, FgPwaInstallComponent } from '@kppk/fg-lib-new';
+import { FgLayoutDefaultComponent } from '@kppk/fg-lib-new';
 import { RouterModule } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
@@ -11,7 +11,7 @@ import { KppkAdminToolbarComponent } from '../../component/kppk-admin-toolbar/kp
 
 @Component({
   selector: 'kppk-react-login-view',
-  standalone: true,
+  
   imports: [ 
     FgCommonModule, 
     FgMaterialModule,
@@ -31,7 +31,7 @@ import { KppkAdminToolbarComponent } from '../../component/kppk-admin-toolbar/kp
     provideTranslocoScope('general', 'login')
   ]
 })
-export class KppkReactLoginViewComponent extends KppkReactBaseComponent {
+export class KppkReactLoginViewComponent  {
   
   protected pending_s = computed( () => {
     const result = this.state_auth_s()?.matches({'STATE': { "UNAUTHORIZED": "AUTHORIZATION"}});

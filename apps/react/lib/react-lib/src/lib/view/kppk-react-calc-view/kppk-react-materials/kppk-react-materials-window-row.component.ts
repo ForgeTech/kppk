@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
+import { KppkFormlyModule } from '../../../module/kppk-formly/kppk-formly.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
@@ -25,7 +25,7 @@ export const container_window_part_type_select_options = [
 
 @Component({
   selector: 'kppk-react-materials-window-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <!-- <pre>{{ form_state_change() | json }}</pre> -->

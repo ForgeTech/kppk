@@ -1,10 +1,10 @@
 export * from './lib/component';
-export * from './lib/guard';
+// export * from './lib/guard';
 export * from './lib/interface';
-export * from './lib/layout';
+// export * from './lib/layout';
 export * from './lib/machine';
 export * from './lib/material';
-export * from './lib/module';
+// export * from './lib/module';
 export * from './lib/service';
 export * from './lib/types';
 export * from './lib/utils';

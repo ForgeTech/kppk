@@ -14,7 +14,7 @@ import { MatCardModule } from '@angular/material/card';
   styleUrls: ['./address-form.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  
   imports: [
     MatInputModule,
     MatButtonModule,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, effect, inject } from '@angular/core';
-import { FgCommonModule } from '@kppk/fg-lib';
+import { FgCommonModule } from '@kppk/fg-lib-new';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
@@ -12,7 +12,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 
 @Component({
   selector: 'kppk-react-home-view',
-  standalone: true,
+  
   imports: [ 
     FgCommonModule,
     MatCardModule,
@@ -31,7 +31,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
     provideTranslocoScope('general', 'home')
   ]
 })
-export class KppkReactHomeViewComponent extends KppkReactBaseComponent {
+export class KppkReactHomeViewComponent  {
   protected $active_route = inject(ActivatedRoute);
   protected $dialog = inject(MatDialog);
 

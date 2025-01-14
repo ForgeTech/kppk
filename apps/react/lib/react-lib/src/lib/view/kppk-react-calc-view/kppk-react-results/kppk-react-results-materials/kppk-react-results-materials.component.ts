@@ -18,7 +18,7 @@ import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-color
 
 @Component({
   selector: 'kppk-react-results-materials',
-  standalone: true,
+  
   imports: [
     CommonModule,
     NgxChartsModule, 

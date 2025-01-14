@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 
-import { FgBaseService } from '@kppk/fg-lib';
+import { FgBaseService } from '@kppk/fg-lib-new';
 import { createBrowserInspector } from '@statelyai/inspect';
 
 /**
@@ -37,7 +37,6 @@ export const FG_XSTATE_INSPECTOR_CONFIG = new InjectionToken<any>('');
 })
 export class FgXstateService extends FgBaseService {
   protected CONFIG = inject<FgXstateInspectorConfig>(FG_XSTATE_INSPECTOR_CONFIG, { optional: true });
-
   protected DEFAULT_CONFIG: FgXstateInspectorConfig = {
     // Set to false because this should be started after
     // angular is already stable - otherwise the inspection
@@ -45,29 +44,29 @@ export class FgXstateService extends FgBaseService {
     autoStart: false,
   }
   // Holds the xstate inspector
-  protected inspector;
+  protected inspector: any;
   // Holds the xstate inspector
   public inspect;
   // CONSTRUCTOR
   constructor() {
     super();
-    const CONFIG = this.CONFIG;
-
-    if (CONFIG === null) {
-        this.inspector = createBrowserInspector(this.DEFAULT_CONFIG);
-        this.inspect = this.inspector.inspect;
-    } else {
-        let config = {};
-        Object.assign(config, this.DEFAULT_CONFIG);
-        Object.assign(config, CONFIG);
-        this.inspector = createBrowserInspector(this.DEFAULT_CONFIG);
-        this.inspect = this.inspector.inspect;
-    };
+    if(this.CONFIG) {
+      Object.assign(this.DEFAULT_CONFIG, this.CONFIG);
+    }
+    this.inspector = createBrowserInspector(this.DEFAULT_CONFIG);
+    this.inspect = this.inspector.inspect;
   }
-
+  /**
+   * Methode to start and connect to
+   * the xstate inspection service
+   */
   public start() {
     this.inspector.start();
   }
+  /**
+   * Methode to stop and disconnect to
+   * the xstate inspection service
+   */
   public stop() {
     this.inspector.stop();
   }

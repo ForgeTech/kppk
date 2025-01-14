@@ -4,19 +4,18 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 import { provideTranslocoScope } from '@jsverse/transloco';
 
-import { FgCommonModule } from '@kppk/fg-lib';
-
 import { snackTypes } from '../../service/fg-user-notification.service';
+import { CommonModule } from '@angular/common';
 // import { IconDirective } from '../../directives/icon.directive';
 
 @Component({
-  standalone: true,
+  
   selector: 'fg-snackbar',
   templateUrl: './fg-snackbar.component.html',
   styleUrls: ['./fg-snackbar.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [provideTranslocoScope('general')],
-  imports: [FgCommonModule],
+  imports: [CommonModule],
 })
 export class FgSnackbarComponent implements OnInit {
   public data = inject(MAT_SNACK_BAR_DATA);

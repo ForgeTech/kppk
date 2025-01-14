@@ -15,7 +15,7 @@ import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-color
 
 @Component({
   selector: 'kppk-react-results-material-top-grouped-bar-chart',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

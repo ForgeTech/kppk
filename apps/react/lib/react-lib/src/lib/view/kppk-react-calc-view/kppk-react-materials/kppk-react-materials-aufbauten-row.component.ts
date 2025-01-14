@@ -9,7 +9,7 @@ import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
 
 @Component({
   selector: 'kppk-react-materials-aufbauten-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <div [ngClass]="{

@@ -23,7 +23,7 @@ import { KppkWarnBoxResetComponent } from '../../../component/kppk-warn-box-rese
 
 @Component({
   selector: 'fg-react-demo-kppk-react-materials',
-  standalone: true,
+  
   imports: [
     CommonModule,
     MatExpansionModule,

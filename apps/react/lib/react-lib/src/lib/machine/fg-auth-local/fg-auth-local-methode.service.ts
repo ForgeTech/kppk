@@ -20,7 +20,7 @@ import { FgTimeStringService, FgBaseService, FgWebcryptoService } from '@kppk/fg
 import { boundMethod } from 'autobind-decorator';
 import { fromByteArray } from 'base64-js'
 
-export type FgAuthLocalV1Params = { context: ContextFgAuthLocal, event: AnyEventObject};
+export type FgAuthLocalV1Params = { context: ContextFgAuthLocal, event: AnyEventObject };
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,8 @@ export class FgAuthLocalMethodeService extends FgBaseService {
   protected $http = inject( HttpClient );
   protected $time = inject( FgTimeStringService );
   protected $crypto = inject( FgWebcryptoService );
+
+
   
   // protected $crypto = CryptoJS;
   @boundMethod
@@ -60,6 +62,60 @@ export class FgAuthLocalMethodeService extends FgBaseService {
   // public createHashValidForPathUrl( toHash: string, salt: string ): string {
   //   return Base64.stringify( hmacSHA512( toHash, salt ) ).split( '+' ).join( '-' ).split( '/' ).join( '_' );
   // }
+
+  @boundMethod
+  public assign_error({
+    context,
+    event,
+  }: FgAuthLocalV1Params ) {
+    console.log( '>>>>>>>>>>>>>assign_error>>>>>>>>>>>>' );
+    console.log( event );
+    console.log( context );
+    return context;
+  }
+
+  @boundMethod
+  public log_error({
+    context,
+    event,
+  }: FgAuthLocalV1Params ) {
+    console.log( '>>>>>>>>>>>>>log_error>>>>>>>>>>>>' );
+    console.log( event );
+    console.log( context );
+  }
+
+  @boundMethod
+  public emit_error({
+    context,
+    event
+  }: FgAuthLocalV1Params ) {
+    console.log( '>>>>>>>>>>>>>emit_error>>>>>>>>>>>>' );
+    console.log( event );
+    console.log( context );
+    return { type: 'emit_error_event'};
+  }
+
+  @boundMethod
+  public emit_unauthorized_event({
+    context,
+    event
+  }: FgAuthLocalV1Params ) {
+    console.log( '>>>>>>>>>>>>>emit_unauthorized_event>>>>>>>>>>>>' );
+    console.log( event );
+    console.log( context );
+    return { type: 'emit_authorized_event'};
+  }
+
+  @boundMethod
+  public emit_authorized_event({
+    context,
+    event
+  }: FgAuthLocalV1Params ) {
+    console.log( '>>>>>>>>>>>>>emit_authorized_event>>>>>>>>>>>>' );
+    console.log( event );
+    console.log( context );
+    return { type: 'emit_authorized_event'};
+  }
 
   @boundMethod
   public send_authorized_event_to({

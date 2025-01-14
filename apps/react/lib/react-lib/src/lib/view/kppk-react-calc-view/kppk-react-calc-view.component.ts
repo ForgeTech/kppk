@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, inject } from '@angular/core';
-import { FgCommonModule } from '@kppk/fg-lib';
+import { FgCommonModule } from '@kppk/fg-lib-new';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { KppkReactBaseComponent } from '../../base/xstate-base/kppk-react-base.component';
 import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
@@ -25,7 +25,7 @@ import { KppkReactResultsComponent } from './kppk-react-results/kppk-react-resul
 
 @Component({
   selector: 'kppk-react-calc-view',
-  standalone: true,
+  
   imports: [ 
     FgCommonModule,
     MatStepperModule,
@@ -46,7 +46,7 @@ import { KppkReactResultsComponent } from './kppk-react-results/kppk-react-resul
     provideTranslocoScope( 'general', 'calc' )
   ]
 })
-export class KppkReactCalcViewComponent extends KppkReactBaseComponent {
+export class KppkReactCalcViewComponent  {
   protected $fb = inject(FormBuilder);
   protected $active_route = inject(ActivatedRoute);
 

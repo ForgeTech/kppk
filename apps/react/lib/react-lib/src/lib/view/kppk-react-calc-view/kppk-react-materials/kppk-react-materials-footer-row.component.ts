@@ -6,7 +6,7 @@ import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
 
 @Component({
   selector: 'kppk-react-footer-row',
-  standalone: true,
+  
   imports: [CommonModule, KppkFormlyModule],
   template: `
   <div *transloco="let t;" class="flex flex-row">

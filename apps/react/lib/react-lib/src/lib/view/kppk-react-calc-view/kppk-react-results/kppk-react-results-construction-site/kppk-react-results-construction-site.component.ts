@@ -10,7 +10,7 @@ import { FORM_CONSTRUCTION_SITE, RESULT_CONSTRUCTION_SITE } from 'apps/fg-react-
 
 @Component({
   selector: 'kppk-react-results-construction-site',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule,

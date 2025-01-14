@@ -23,6 +23,7 @@ const config: ModuleFederationConfig = {
     ['@angular/core', { eager: true }],
     ['@angular/core/primitives/signals', { eager: true }],
     ['@angular/core/primitives/event-dispatch', { eager: true }],
+    ['@angular/material', { eager: true }],
     ['rxjs', { eager: true }],
     ['rxjs/operators', { eager: true }],
   ],

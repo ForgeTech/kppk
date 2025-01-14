@@ -10,7 +10,7 @@ import { FORM_EXCAVATION_PIT_DATA } from 'apps/fg-react-demo/src/app/types/kppk-
 
 @Component({
   selector: 'kppk-react-results-excavation-pit',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule

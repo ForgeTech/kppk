@@ -20,7 +20,7 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<typeof kppk_react_results
 
 @Component({
   selector: 'kppk-react-results-material-sums',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule

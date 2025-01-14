@@ -10,7 +10,7 @@ import { FORM_CONTAINER_VILLAGE } from 'apps/fg-react-demo/src/app/types/kppk-re
 
 @Component({
   selector: 'kppk-react-results-container-village',
-  standalone: true,
+  
   imports: [
     CommonModule,
     TranslocoModule

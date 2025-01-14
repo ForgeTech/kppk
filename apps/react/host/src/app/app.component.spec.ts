@@ -2,6 +2,11 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { AppComponent } from './app.component';
 import { PlaceholderComponent  } from './component/placeholder.component'
 import { Router, RouterModule } from '@angular/router';
+import { LoggerTestingModule } from 'ngx-logger/testing';
+import { NGXLogger, NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from 'ngx-logger';
+import { provideAutoSpy } from 'jest-auto-spies';
+import { FG_ENVIRONMENT, FgEnvironmentService } from '@kppk/fg-lib-new';
+
 
 describe('AppComponent', () => {
   let app: AppComponent;
@@ -9,6 +14,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        LoggerTestingModule,
         RouterModule.forRoot([
           { path: '', component: PlaceholderComponent },
           {
@@ -19,6 +25,12 @@ describe('AppComponent', () => {
         ]),
         AppComponent,
       ],
+      providers: [
+        provideAutoSpy(FgEnvironmentService),
+        { provide: FG_ENVIRONMENT, useValue: {} },
+        provideAutoSpy(NGXLogger),
+        { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.INFO } },
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
