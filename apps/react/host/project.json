@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/react/host/browser",
         "index": "apps/react/host/src/index.html",
         "main": "apps/react/host/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/react/host/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "allowedCommonJsDependencies": [

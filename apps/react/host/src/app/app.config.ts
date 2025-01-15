@@ -17,7 +17,6 @@ import { environment } from '../environments/environment.prod';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
-    // provideZoneChangeDetection({ eventCoalescing: true }),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes),
     FgEnvironmentService,

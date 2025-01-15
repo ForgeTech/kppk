@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/react/remote/react-view-calc/browser",
         "index": "apps/react/remote/react-view-calc/src/index.html",
         "main": "apps/react/remote/react-view-calc/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/react/remote/react-view-calc/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [

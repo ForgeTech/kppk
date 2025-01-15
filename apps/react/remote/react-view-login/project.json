@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/react/remote/react-view-login/browser",
         "index": "apps/react/remote/react-view-login/src/index.html",
         "main": "apps/react/remote/react-view-login/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [],
         "tsConfig": "apps/react/remote/react-view-login/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
