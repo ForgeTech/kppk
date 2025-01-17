@@ -9,7 +9,7 @@ const version = 'TEST.TEST.TEST';
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
+export const test_environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
   version,
   production: false,
   test: false,

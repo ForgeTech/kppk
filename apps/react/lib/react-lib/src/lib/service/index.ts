@@ -1,4 +1,4 @@
-// export * from './kppk-global-error.service';
+export * from './kppk-global-error.service';
 // export * from './kppk-register-icons.service';
 export * from './fg-immutable.service';
 // export * from './fg-pagedjs.service';
@@ -7,3 +7,6 @@ export * from './fg-immutable.service';
 // export * from './fg-user-notification.service';
 // export * from './fg-utility.service';
 export * from './fg-xstate.service';
+export * from './kppk-register-icons.service';
+export * from './kppk-auth-local-actor.service';
+export * from './kppk-spinner-actor.service';

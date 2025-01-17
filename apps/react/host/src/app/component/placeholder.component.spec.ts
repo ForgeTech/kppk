@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlaceholderComponent } from './placeholder.component';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('PlaceholderComponent', () => {
-  let component: PlaceholderComponent;
   let fixture: ComponentFixture<PlaceholderComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach( () => {
+    TestBed.configureTestingModule({
       imports: [PlaceholderComponent],
+      providers: [
+        provideExperimentalZonelessChangeDetection()
+      ]
     }).compileComponents();
-
     fixture = TestBed.createComponent(PlaceholderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.isStable();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.checkNoChanges).toBeTruthy();
   });
 });

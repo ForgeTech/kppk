@@ -16,9 +16,12 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { CookieOptions } from 'ngx-cookie';
-import { FgTimeStringService, FgBaseService, FgWebcryptoService } from '@kppk/fg-lib-new';
+import { FgTimeStringService, FgBaseService } from '@kppk/fg-lib-new';
 import { boundMethod } from 'autobind-decorator';
-import { fromByteArray } from 'base64-js'
+// import { fromByteArray } from 'base64-js'
+import { HMAC } from 'crypto-es/lib/hmac';
+import { SHA256Algo } from 'crypto-es/lib/sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 export type FgAuthLocalV1Params = { context: ContextFgAuthLocal, event: AnyEventObject };
 
@@ -31,30 +34,36 @@ export class FgAuthLocalMethodeService extends FgBaseService {
   protected $cookie = inject( FgStorageNgxCookieService );
   protected $http = inject( HttpClient );
   protected $time = inject( FgTimeStringService );
-  protected $crypto = inject( FgWebcryptoService );
+  // protected $crypto = inject( FgWebcryptoService );
 
-
-  
-  // protected $crypto = CryptoJS;
+  // @boundMethod
+  // protected async createHashValidForPathUrlWebCrypto(toHash: string, salt: string): Promise<string> {
+  //   const enc = new TextEncoder();
+  //   const key = await this.$crypto.crypto.subtle.importKey(
+  //     "raw",
+  //     enc.encode(salt),
+  //     {
+  //       name: "HMAC",
+  //       hash: {name: "SHA-512"}
+  //     },
+  //     false, // export = false
+  //     ["sign", "verify"] // what this key can do
+  //   );
+  //   const signature = await window.crypto.subtle.sign(
+  //       "HMAC",
+  //       key,
+  //       enc.encode(toHash)
+  //   );
+  //   return fromByteArray(new Uint8Array(signature)).split( '+' ).join( '-' ).split( '/' ).join( '_' );
+  // }
   @boundMethod
   protected async createHashValidForPathUrl(toHash: string, salt: string): Promise<string> {
-    const enc = new TextEncoder();
-    const key = await this.$crypto.crypto.subtle.importKey(
-      "raw",
-      enc.encode(salt),
-      {
-        name: "HMAC",
-        hash: {name: "SHA-512"}
-      },
-      false, // export = false
-      ["sign", "verify"] // what this key can do
-    );
-    const signature = await window.crypto.subtle.sign(
-        "HMAC",
-        key,
-        enc.encode(toHash)
-    );
-    return fromByteArray(new Uint8Array(signature)).split( '+' ).join( '-' ).split( '/' ).join( '_' );
+    const hash = HMAC.create(SHA256Algo, salt).finalize(toHash);
+    return Base64.stringify(hash)
+      .split('+')
+      .join('-')
+      .split('/')
+      .join('_');
   }
 
   // /** Greate a base64 encoded hash that can be used as path/filename/url */

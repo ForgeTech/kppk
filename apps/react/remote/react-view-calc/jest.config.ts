@@ -1,7 +1,7 @@
 export default {
   displayName: 'react_view_calc',
   preset: '../../../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup-zoneless.ts'],
   coverageDirectory: '../../../../coverage/apps/react/remote/react-view-calc',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [

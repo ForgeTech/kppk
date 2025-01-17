@@ -9,6 +9,8 @@
   },
   "exclude": [
     "src/**/*.spec.ts",
+    "src/**/*.jest.ts",
+    "src/**/*.jasmin.ts",
     "src/lib/machine/fg-ui/**/*.ts",
     "src/lib/machine/fg-ui-display-mode/**/*.ts",
     "src/lib/machine/fg-ui-scheme-theme/**/*.ts",

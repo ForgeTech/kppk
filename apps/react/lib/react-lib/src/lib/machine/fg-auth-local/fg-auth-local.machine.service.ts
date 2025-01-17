@@ -10,8 +10,8 @@ import {
 import { Injectable, inject } from '@angular/core';
 import {
   assign,
+  emit,
   fromPromise,
-  sendParent,
   setup 
 } from 'xstate';
 import { FgBaseService } from '@kppk/fg-lib-new';
@@ -21,11 +21,10 @@ import { parent_context_event_input } from "../machine.utils";
 @Injectable({
   providedIn: 'root',
 })
-export class FgAuthLocalService extends FgBaseService {
-  
+export class FgAuthLocalMachineService extends FgBaseService {
   protected $methode = inject(FgAuthLocalMethodeService);
-  public machine = this.get_machine();
-  protected get_machine() {
+
+  public get_machine() {
     return setup({
       types: {
         input: {} as Partial<ContextFgAuthLocal>,
@@ -37,8 +36,8 @@ export class FgAuthLocalService extends FgBaseService {
           | EventFgAuthLocalStop
       },
       actions: {
-        send_authorized_event_to: sendParent(this.$methode.send_authorized_event_to),
-        send_unauthorized_event_to: sendParent(this.$methode.send_unauthorized_event_to),
+        send_authorized_event_to: emit(this.$methode.send_authorized_event_to),
+        send_unauthorized_event_to: emit(this.$methode.send_unauthorized_event_to),
         escalate_auth_local_key_error: this.$methode.escalate_auth_load_cookie_error,
         assign_auth_cookie: assign(this.$methode.assign_auth_cookie),
         assign_auth_key: assign(this.$methode.assign_auth_key),

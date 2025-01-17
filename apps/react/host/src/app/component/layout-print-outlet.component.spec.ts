@@ -2,12 +2,14 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { KppkReactComponent } from './layout-print-outlet.component';
 import { PlaceholderComponent } from './placeholder.component';
 import { Router, RouterModule } from '@angular/router';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import exp from 'constants';
 
 describe('KppkReactComponent', () => {
-  let app: KppkReactComponent;
+  let router: Router;
   let fixture: ComponentFixture<KppkReactComponent>
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach( async () => {
+    TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([
           { path: '', component: PlaceholderComponent },
@@ -19,38 +21,38 @@ describe('KppkReactComponent', () => {
         ]),
         KppkReactComponent,
       ],
+      providers: [
+        provideExperimentalZonelessChangeDetection()
+      ]
     }).compileComponents();
+    router = TestBed.inject(Router);
     fixture = TestBed.createComponent(KppkReactComponent);
-    app = fixture.componentInstance;
+    await fixture.whenStable();
   });
 
   describe('>> class"', () => {
     it('should create the app', () => {
-      expect(app).toBeTruthy();
+      expect(fixture.componentInstance).toBeTruthy();
     });
   
     it(`should have as title 'react-host'`, () => {
-      expect(app.title).toEqual('react-host');
+      expect(fixture.componentInstance.title).toEqual('react-host');
     });
     
   });
 
   describe('>> template"', () => {
-    let template: HTMLElement;
 
-    beforeEach(fakeAsync(() => {
-      const fixture = TestBed.createComponent(KppkReactComponent);
-      const router = TestBed.inject(Router);
-      fixture.ngZone?.run(() => router.navigate(['']));
-      tick();
-      fixture.detectChanges();
-      template = fixture.nativeElement as HTMLElement;
-    }));
+    beforeEach( async () => {
+      // fixture = TestBed.createComponent(KppkReactComponent);
+      router.navigate(['']);
+      await fixture.whenStable();
+    });
 
     describe('>> section ".page-content"', () => {
       let pageContentSections: HTMLCollectionOf<Element>
       beforeEach( () => {
-        pageContentSections = template.getElementsByClassName('page-content')
+        pageContentSections = fixture.nativeElement.getElementsByClassName('page-content')
       })
       it('single instance exists', () => {
         expect(pageContentSections.length).toBe(1);
@@ -66,7 +68,7 @@ describe('KppkReactComponent', () => {
     describe('>> section ".print-content"', () => {
       let printContentSections: HTMLCollectionOf<Element>
       beforeEach( () => {
-        printContentSections = template.getElementsByClassName('print-content')
+        printContentSections = fixture.nativeElement.getElementsByClassName('print-content')
       })
       it('single instance exists', () => {
         expect(printContentSections.length).toBe(1);
@@ -89,51 +91,48 @@ describe('KppkReactComponent', () => {
   describe( '>> behaviour', () => {
 
     describe('>> when only default router-outlet is active', () => {
-      let template: HTMLElement;
-      beforeEach(fakeAsync(() => {
-        const fixture = TestBed.createComponent(KppkReactComponent);
-        const router = TestBed.inject(Router);
-        fixture.ngZone?.run(() => router.navigate(['']));
-        tick();
-        fixture.detectChanges();
-        template = fixture.nativeElement as HTMLElement;
-      }));
+      beforeEach( async() => {
+        router.navigate(['']);
+        await fixture.whenStable();
+      });
       it('section ".page-content" is visible', () => {
-        const pageContentSections = template.getElementsByClassName('page-content');
+        const pageContentSections = fixture.nativeElement.getElementsByClassName('page-content');
         expect(pageContentSections.length).toBe(1);
         expect(pageContentSections[0].classList.contains('invisible')).toBeFalsy();
       })
       it('section ".print-content" is invisible', () => {
-        const printContentSections = template.getElementsByClassName('print-content');
+        const printContentSections = fixture.nativeElement.getElementsByClassName('print-content');
         expect(printContentSections.length).toBe(1);
         expect(printContentSections[0].classList.contains('invisible')).toBeTruthy();
       })
     });
  
     describe('>> when default and ".print-outlet" router-outlets are active', () => {
-      let template: HTMLElement;
-      beforeEach(fakeAsync(() => {
-        const fixture = TestBed.createComponent(KppkReactComponent);
-        const router = TestBed.inject(Router);
-        fixture.ngZone?.run(() => router.navigate(['', {
+
+      beforeEach( async () => {
+        router = TestBed.inject(Router);
+          router.navigate(['', {
           outlets: {
             'print-outlet': ['print']
           }
-        }]));
-        tick();
-        fixture.detectChanges();
-        template = fixture.nativeElement as HTMLElement;
-      }));
+        }]);
+        fixture.componentInstance['print_outlet_activatedS'].set(true)
+        await fixture.whenStable()
+      });
+      it('route is', () => {
+        expect(router.url).toBe('/(print-outlet:print)');
+        expect(fixture.componentInstance['print_outlet_activatedS']()).toBe(true);
+      });
       it('section ".page-content" is invisible', () => {
-        const pageContentSections = template.getElementsByClassName('page-content');
+        const pageContentSections = fixture.nativeElement.getElementsByClassName('page-content');
         expect(pageContentSections.length).toBe(1);
         expect(pageContentSections[0].classList.contains('invisible')).toBeTruthy();
-      })
+      });
       it('section ".print-content" is visible', () => {
-        const printContentSections = template.getElementsByClassName('print-content');
+        const printContentSections = fixture.nativeElement.getElementsByClassName('print-content');
         expect(printContentSections.length).toBe(1);
         expect(printContentSections[0].classList.contains('invisible')).toBeFalsy();
-      })
+      });
     });
 
   })

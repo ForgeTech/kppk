@@ -1,6 +1,6 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
-
 import { FgBaseService } from '@kppk/fg-lib-new';
+
 import { createBrowserInspector } from '@statelyai/inspect';
 
 /**
@@ -44,7 +44,7 @@ export class FgXstateService extends FgBaseService {
     autoStart: false,
   }
   // Holds the xstate inspector
-  protected inspector: any;
+  protected inspector;
   // Holds the xstate inspector
   public inspect;
   // CONSTRUCTOR

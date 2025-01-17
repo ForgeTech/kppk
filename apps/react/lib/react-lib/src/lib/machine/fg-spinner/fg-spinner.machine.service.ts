@@ -3,24 +3,54 @@ import { ActorRef, assign,  raise, sendTo, setup } from 'xstate';
 import { FgBaseService } from '@kppk/fg-lib-new';
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { FgSpinnerMethodeService } from './fg-spinner-methode.service';
-import { ContextFgSpinner, ContextFgSpinnerParser } from './fg-spinner.machine.types';
+import { 
+  ContextFgSpinner,
+  ContextFgSpinnerParser,
+  EventFgSpinnerDismissError,
+  EventFgSpinnerGetContext,
+  EventFgSpinnerHide,
+  EventFgSpinnerSetContext,
+  EventFgSpinnerSetProgress,
+  EventFgSpinnerShow, 
+  EventFgSpinnerStop,
+  InternalFgSpinnerForceHide,
+  InternalFgSpinnerForceShow,
+  InternalFgSpinnerHide,
+  InternalFgSpinnerResetTimeout,
+  InternalFgSpinnerShow,
+} from './fg-spinner.machine.types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FgSpinnerService extends FgBaseService {
+export class FgSpinnerMachineService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
   protected $methode = inject(FgSpinnerMethodeService);
 
-  public machine;
-
   constructor() {
     super();
-    this.machine = this.get_machine();
   }
 
   public get_machine( context?: ContextFgSpinner ) {
     return setup({
+      types: {
+        input: {} as Partial<ContextFgSpinner> | undefined,
+        events: {} as
+          | EventFgSpinnerHide
+          | EventFgSpinnerShow
+          | EventFgSpinnerStop
+          | InternalFgSpinnerHide
+          | InternalFgSpinnerShow
+          | EventFgSpinnerGetContext
+          | EventFgSpinnerSetContext
+          | EventFgSpinnerSetProgress
+          | InternalFgSpinnerForceHide
+          | InternalFgSpinnerForceShow
+          | InternalFgSpinnerResetTimeout
+          | EventFgSpinnerDismissError
+          | EventFgSpinnerSetContext,
+        context: {} as ContextFgSpinner,
+      },
       actions: {
         assign_set_context: assign(this.$methode.assign_set_context),
         assign_set_progress: assign(this.$methode.assign_set_progress),

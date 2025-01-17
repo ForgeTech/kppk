@@ -130,8 +130,8 @@ export class FgSpinnerMethodeService extends FgBaseService {
     context: ContextFgSpinner;
   }) => {
     return this.$immer.produce( context, draft => {
-      if (context.triggerCount > 0) {
-        draft.triggerCount--;
+      if (context.trigger_count > 0) {
+        draft.trigger_count--;
       }
     })
   };
@@ -153,7 +153,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
     context: ContextFgSpinner;
   }) => {
     return this.$immer.produce( context, draft => {
-      draft.triggerCount++;
+      draft.trigger_count++;
     })
   };
 
@@ -180,7 +180,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
   }: {
     context: ContextFgSpinner;
   }) => {
-    return context.allowReuse === false;
+    return context.allow_reuse === false;
   };
 
   public guard_delay_timeout_is_not_zero = ({
@@ -196,7 +196,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
   }: {
     context: ContextFgSpinner;
   }) => {
-    return context.triggerCount === 0;
+    return context.trigger_count === 0;
   };
 
   public guard_allow_timeout_reset_is_true = ({
@@ -204,7 +204,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
   }: {
     context: ContextFgSpinner;
   }) => {
-    return context.allowTimeoutReset === true;
+    return context.allow_timeout_reset === true;
   };
 
   public guard_delay_auto_dismiss_timeout_error_is_not_zero = ({

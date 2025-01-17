@@ -9,9 +9,9 @@ export const ProgressItemFgSpinnerParser = z.object({
 export type ProgressItemFgSpinner = z.infer<typeof ProgressItemFgSpinnerParser>;
 
 export const ContextFgSpinnerParser = z.object({
-  allowReuse: z.boolean().default(true),
-  allowTimeoutReset: z.boolean().default(true),
-  triggerCount: z.number().min(0).default(0),
+  allow_reuse: z.boolean().default(true),
+  allow_timeout_reset: z.boolean().default(true),
+  trigger_count: z.number().min(0).default(0),
   // .or(z.undefined().transform(() => 0)),
   progressItems: z.array(ProgressItemFgSpinnerParser).default([]),
   delay_min_show_time: z.number().min(0).default(1000),

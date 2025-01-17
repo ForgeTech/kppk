@@ -9,7 +9,7 @@ import { HttpClient, provideHttpClient } from "@angular/common/http";
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { TestBed } from "@angular/core/testing";
 import { ZodError } from "zod";
-import { environment } from "../../testing/environment";
+import { test_environment } from "../../testing/test-environment";
 import { FgImmutableService } from "../../service/fg-immutable.service";
 import { NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from "ngx-logger";
 import { CRYPTO, FgWebcryptoService } from "@kppk/fg-lib-new";
@@ -41,7 +41,7 @@ describe('FgAuthLocalMachine', () => {
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
-        { provide: FG_ENVIRONMENT, useValue: environment },
+        { provide: FG_ENVIRONMENT, useValue: test_environment },
         { provide: CRYPTO, useValue: crypto }
       ],
     });

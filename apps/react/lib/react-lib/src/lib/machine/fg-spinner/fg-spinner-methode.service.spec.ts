@@ -13,7 +13,7 @@ import {
 } from "./fg-spinner.machine.types";
 import { ZodError } from "zod";
 import { FgImmutableService } from "../../service/fg-immutable.service";
-import { environment } from "../../testing/environment";
+import { test_environment } from "../../testing/test-environment";
 import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib-new";
 import { LoggerTestingModule } from "ngx-logger/testing";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
@@ -21,6 +21,7 @@ import { provideAutoSpy } from "jest-auto-spies";
 import { NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from "ngx-logger";
 import { provideHttpClient } from "@angular/common/http";
 import { FgSpinnerMethodeService } from './fg-spinner-methode.service';
+import { importProvidersFrom, provideExperimentalZonelessChangeDetection } from "@angular/core";
 
 describe('SERVICE: FgSpinnerService', () => {
   let service: FgSpinnerMethodeService;
@@ -28,16 +29,16 @@ describe('SERVICE: FgSpinnerService', () => {
   
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        LoggerTestingModule,
-      ],
+
       providers: [
         FgSpinnerMethodeService,
         FgImmutableService,
         provideHttpClient(),
         provideHttpClientTesting(),
+        provideExperimentalZonelessChangeDetection(),
+        importProvidersFrom(LoggerTestingModule),
         provideAutoSpy(FgStorageNgxCookieService),
-        { provide: FG_ENVIRONMENT, useValue: environment },
+        { provide: FG_ENVIRONMENT, useValue: test_environment },
         { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
       ],
     });
@@ -49,14 +50,14 @@ describe('SERVICE: FgSpinnerService', () => {
 
   describe('METHODE: ContextFgSpinnerParser', () => {
     it('validated default values', () => {
-      expect(context.allowReuse).toBe(true);
-      expect(context.allowTimeoutReset).toBe(true);
+      expect(context.allow_reuse).toBe(true);
+      expect(context.allow_timeout_reset).toBe(true);
       expect(context.delay_auto_dismiss_timeout_error).toBe(1000);
       expect(context.delay_before_shown).toBe(250);
       expect(context.delay_min_show_time).toBe(1000);
       expect(context.delay_timeout).toBe(0);
       expect(context.progressItems).toStrictEqual([]);
-      expect(context.triggerCount).toBe(0);
+      expect(context.trigger_count).toBe(0);
     })
   })
 
@@ -73,8 +74,8 @@ describe('SERVICE: FgSpinnerService', () => {
     });
     it('CHECK event payload values are applied to context', () => {
       const event = EventFgSpinnerSetContextParser.parse({ payload: {
-        allowReuse: false,
-        allowTimeoutReset: false,
+        allow_reuse: false,
+        allow_timeout_reset: false,
         delay_auto_dismiss_timeout_error: 111,
         delay_before_shown: 222,
         delay_min_show_time: 333,
@@ -84,18 +85,18 @@ describe('SERVICE: FgSpinnerService', () => {
             name: 'test'
           }
         ],
-        triggerCount: 1
+        trigger_count: 1
       }});
       const result = service.assign_set_context({ context, event });
-      expect(result.allowReuse).toBe(false);
-      expect(result.allowTimeoutReset).toBe(false);
+      expect(result.allow_reuse).toBe(false);
+      expect(result.allow_timeout_reset).toBe(false);
       expect(result.delay_auto_dismiss_timeout_error).toBe(111);
       expect(result.delay_before_shown).toBe(222);
       expect(result.delay_min_show_time).toBe(333);
       expect(result.delay_timeout).toBe(444);
       // Only check array with one item was applied
       expect(result.progressItems.length).toBe(1);
-      expect(result.triggerCount).toBe(1);
+      expect(result.trigger_count).toBe(1);
     });
     it('THROWS on invalid event type', () => {
       const event = { type: 'invalid-event-type' };
@@ -261,30 +262,30 @@ describe('SERVICE: FgSpinnerService', () => {
 
   describe('METHODE: assign_decrease_triggers_count', () => {
     it('CHECK: increases context trigger_count', () => {
-      context.triggerCount = 3;
-      expect( context.triggerCount ).toBe(3);
+      context.trigger_count = 3;
+      expect( context.trigger_count ).toBe(3);
       context = service.assign_decrease_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(2);
+      expect( context.trigger_count ).toBe(2);
       context = service.assign_decrease_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(1);
+      expect( context.trigger_count ).toBe(1);
       context = service.assign_decrease_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(0);
+      expect( context.trigger_count ).toBe(0);
       context = service.assign_decrease_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(0);
+      expect( context.trigger_count ).toBe(0);
     });
   });
 
   describe('METHODE: assign_increase_triggers_count', () => {
     it('CHECK: increases context trigger_count', () => {
-      expect( context.triggerCount ).toBe(0);
+      expect( context.trigger_count ).toBe(0);
       context = service.assign_increase_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(1);
+      expect( context.trigger_count ).toBe(1);
       context = service.assign_increase_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(2);
+      expect( context.trigger_count ).toBe(2);
       context = service.assign_increase_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(3);
+      expect( context.trigger_count ).toBe(3);
       context = service.assign_increase_triggers_count( { context } );
-      expect( context.triggerCount ).toBe(4);
+      expect( context.trigger_count ).toBe(4);
     });
   });
 
@@ -344,7 +345,7 @@ describe('SERVICE: FgSpinnerService', () => {
 
   describe('METHODE: guard_allow_reuse_is_false', () => {
     it('CHECK: returns true', () => {
-      context.allowReuse = false;
+      context.allow_reuse = false;
       expect( service.guard_allow_reuse_is_false( { context } )).toBe(true);
     });
     it('CHECK: returns false', () => {
@@ -367,7 +368,7 @@ describe('SERVICE: FgSpinnerService', () => {
       expect( service.guard_triggers_count_equals_zero( { context } )).toBe(true);
     });
     it('CHECK: returns false', () => {
-      context.triggerCount = 1;
+      context.trigger_count = 1;
       expect( service.guard_triggers_count_equals_zero( { context } )).toBe(false);
     });
   });
@@ -377,7 +378,7 @@ describe('SERVICE: FgSpinnerService', () => {
       expect( service.guard_allow_timeout_reset_is_true( { context } )).toBe(true);
     });
     it('CHECK: returns false', () => {
-      context.allowTimeoutReset = false;
+      context.allow_timeout_reset = false;
       expect( service.guard_allow_timeout_reset_is_true( { context } )).toBe(false);
     });
   });

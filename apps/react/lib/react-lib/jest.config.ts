@@ -1,7 +1,7 @@
 export default {
   displayName: 'react-lib',
   preset: '../../../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/test-setup-zoneless.ts'],
   coverageDirectory: '../../../../coverage/apps/react/lib/react-lib',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [

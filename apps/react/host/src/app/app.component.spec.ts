@@ -1,55 +1,46 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { PlaceholderComponent  } from './component/placeholder.component'
-import { Router, RouterModule } from '@angular/router';
-import { LoggerTestingModule } from 'ngx-logger/testing';
-import { NGXLogger, NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from 'ngx-logger';
-import { provideAutoSpy } from 'jest-auto-spies';
+import { provideRouter, Router, RouterModule } from '@angular/router';
+import { test_environment, KppkRegisterIconsService } from '@kppk/react-lib'
+import { appRoutes } from './app.routes';
+import { importProvidersFrom, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { FG_ENVIRONMENT, FgEnvironmentService } from '@kppk/fg-lib-new';
-
+import { provideAutoSpy } from "jest-auto-spies";
+import { LoggerTestingModule } from 'ngx-logger/testing';
+import { AppService } from './app.service';
 
 describe('AppComponent', () => {
-  let app: AppComponent;
   let fixture: ComponentFixture<AppComponent>
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach( async() => {
+    TestBed.configureTestingModule({
       imports: [
-        LoggerTestingModule,
-        RouterModule.forRoot([
-          { path: '', component: PlaceholderComponent },
-          {
-            outlet: 'print-outlet',
-            path: 'print',
-            component: PlaceholderComponent
-          },
-        ]),
-        AppComponent,
+        RouterModule
       ],
       providers: [
+        provideRouter(appRoutes),
+        provideExperimentalZonelessChangeDetection(),
+        provideAutoSpy(KppkRegisterIconsService),
+        provideAutoSpy(AppService),
+        importProvidersFrom(LoggerTestingModule),
         provideAutoSpy(FgEnvironmentService),
-        { provide: FG_ENVIRONMENT, useValue: {} },
-        provideAutoSpy(NGXLogger),
-        { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.INFO } },
+        { provide: FG_ENVIRONMENT, useValue: test_environment },
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
-    app = fixture.componentInstance;
+    await fixture.whenStable();
   });
 
   describe('>> class"', () => {
     it('should create the app', () => {
-      expect(app).toBeTruthy();
+      expect(fixture.componentInstance).toBeTruthy();
     });
-  
     it(`should have as title 'react-host'`, () => {
-      expect(app.title).toEqual('kppk-react');
+      expect(fixture.componentInstance.title).toEqual('kppk-react');
     });
-    
   });
 
   describe('>> template"', () => {
     let template: HTMLElement;
-
     beforeEach(fakeAsync(() => {
       const fixture = TestBed.createComponent(AppComponent);
       const router = TestBed.inject(Router);
@@ -58,7 +49,6 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       template = fixture.nativeElement as HTMLElement;
     }));
-
     it('contains single instance of router-outlet', () => {
       const outlets = template.getElementsByTagName('router-outlet');
       expect(outlets.length).toBe(1);

@@ -15,8 +15,10 @@
     "react-host:serve:login": "nx run react-host:serve --configuration=development --devRemotes=react_view_login --parallel=true",
     "react-host:serve:home": "nx run react-host:serve --configuration=development --devRemotes=react_view_home --parallel=true",
     "react-host:serve:calc": "nx run react-host:serve --configuration=development --devRemotes=react_view_calc --parallel=true",
-    "react-host:test": "nx run react-host:test --file=src/app/app.service.spec.ts --parallel=true --bail=5 --watch=true",
-    "start": "npm run react-host:serve"
+    "react-host:test": "nx run react-host:test --parallel=true --maxWorkers=70% --bail=5 --watchAll=true",
+    "react-lib:test": "nx run react-lib:test --parallel=true --maxWorkers=70% --bail=5 --watchAll=true",
+    "react-lib:test-file": "npx nx run react-lib:test --runInBand=true --bail=5 --testFile='src/lib/service/kppk-spinner-actor.service.spec.ts'",
+    "start": "npm run react-host:serve:all"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +48,7 @@
     "base64-js": "^1.5.1",
     "cors": "~2.8.5",
     "crypto-es": "^2.1.0",
+    "crypto-js": "^4.2.0",
     "express": "~4.18.2",
     "immer": "^10.1.1",
     "localforage": "^1.10.0",

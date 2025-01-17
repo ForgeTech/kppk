@@ -24,6 +24,6 @@ export class FgBaseService implements OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this?.$log.info('SERVICE: ', this.className, 'destoryed!');
+    this?.$log.info('SERVICE: ', this.className, 'destroyed!');
   }
 }

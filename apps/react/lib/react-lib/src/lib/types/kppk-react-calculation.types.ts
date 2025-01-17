@@ -7,7 +7,7 @@ import { demolish_disposal_form_material_parser, demolish_disposal_form_result_p
 import { form_excavation_pit_parser, result_excavation_pit_parser } from "./kppk-react-excavation-pit.types";
 import { form_heating_system_data_parser, form_heating_system_result_parser, rose_file_data_parser } from "./kppk-react-heating-system.types";
 import { form_step_selection_data } from "./kppk-react-step-selection.types";
-import { debug_calculation_oi3_import_parser } from "./react-init.types";
+// import { debug_calculation_oi3_import_parser } from "./react-init.types";
 // import { react_calculation_materials_v1_output } from "./react-react-materials.types";
 
 export enum react_view_calculation_form_name_enum {
@@ -140,7 +140,7 @@ export enum react_view_calculation_form_name_enum {
   export const react_view_calculation_context_parser = z.object({
     file_aufbauten:  z.array(z.any()),
     file_bauteilflaechen: z.array(z.any()),
-    file_oi3: debug_calculation_oi3_import_parser,
+    // file_oi3: debug_calculation_oi3_import_parser,
     file_rose: rose_file_data_parser,
     // actor_transform_file_inputs: react_calculation_materials_v1_output.optional(),
     actor_merge_bauteilflaechen_aufbauten: z.object({

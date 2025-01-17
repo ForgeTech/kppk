@@ -2,12 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import * as crypto from "crypto";
 import { CRYPTO, FgWebcryptoService,  } from './fg-webcrypto.service';
 import { DOCUMENT } from '@angular/common';
+import { importProvidersFrom } from '@angular/core';
+import { LoggerTestingModule } from 'ngx-logger/testing';
 
 describe('FgWebcryptoService', () => {
   let spy_console_warn: jest.SpyInstance;
   let document_mock: any;
   beforeEach(()=> {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        importProvidersFrom(LoggerTestingModule),
+      ]
+    });
     spy_console_warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     document_mock = {
       defaultView: {
@@ -23,6 +29,7 @@ describe('FgWebcryptoService', () => {
       TestBed.resetTestingModule()
       TestBed.configureTestingModule({
         providers: [
+          importProvidersFrom(LoggerTestingModule),
           { provide: DOCUMENT, useValue: document_mock }
         ]
       });
@@ -42,6 +49,7 @@ describe('FgWebcryptoService', () => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
         providers: [
+          importProvidersFrom(LoggerTestingModule),
           { provide: DOCUMENT, useValue: document_mock },
           { provide: CRYPTO, useValue: crypto }
         ]
@@ -56,7 +64,11 @@ describe('FgWebcryptoService', () => {
   describe(`>> Without angular 'DOCUMENT' and 'CRYPTO' InjectionToken`, () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
-      TestBed.configureTestingModule({});
+      TestBed.configureTestingModule({
+        providers: [
+          importProvidersFrom(LoggerTestingModule),
+        ]
+      });
     });
     it(`crypto equals implementation provided by 'CRYPTO' InjectionToken`, () => {
       let service;
@@ -67,19 +79,5 @@ describe('FgWebcryptoService', () => {
       }
     }); 
   })
-
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({
-  //     providers: [
-  //       { provide: CRYPTO, useValue: crypto }
-  //     ]
-  //   });
-  //   service = TestBed.inject(FgWebcryptoService);
-  // });
-
-
-  // it('has ', () => {
-  //   expect(  service.crypto.subtle ).toBeTruthy();
-  //   // expect(  service.$crypto.getRandomValues(new Uint8Array(16)) ).toBe(1);
-  // });
+  
 });

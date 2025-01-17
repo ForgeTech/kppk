@@ -1,9 +1,7 @@
 import {  ApplicationRef, Component, inject, ViewEncapsulation } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
-// import { KppkReactLoadingIndicatorComponent } from '@kppk/react-lib';
-import { filter, take } from 'rxjs';
-import { KppkRegisterIconsService } from './service/kppk-register-icons.service';
+import { AppService } from './app.service';
+import { KppkRegisterIconsService } from '@kppk/react-lib';
 
 @Component({
   imports: [
@@ -25,14 +23,8 @@ import { KppkRegisterIconsService } from './service/kppk-register-icons.service'
 })
 export class AppComponent {
   protected $icon = inject(KppkRegisterIconsService);
+  protected $app = inject(AppService);
   protected $appRef = inject(ApplicationRef);
-  // protected $spinner = inject(FgSpinnerService);
-  // protected $auth = inject(ApplicationRef);
-
-  protected appReadyS = toSignal(this.$appRef.isStable.pipe(
-    filter( isStable => isStable ? true : false ),
-    take( 1 )
-  ) , { initialValue: false })
   
   public title = 'kppk-react';
 }

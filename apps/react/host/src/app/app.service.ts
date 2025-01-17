@@ -1,7 +1,7 @@
-import { ApplicationRef, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { ApplicationRef, effect, inject, Injectable, signal } from '@angular/core';
 import { FgEnvironmentService } from '@kppk/fg-lib-new';
-import { FgAuthLocalService, FgSpinnerService, FgXstateService } from '@kppk/react-lib';
-import { ActorRefFrom, createActor, SnapshotFrom } from 'xstate';
+import { EventFgSpinnerHideParser, EventFgSpinnerShowParser, KppkAuthLocalActorService, KppkSpinnerActorService } from '@kppk/react-lib';
+
 
 /**
  * AppService - 
@@ -13,60 +13,44 @@ import { ActorRefFrom, createActor, SnapshotFrom } from 'xstate';
 })
 export class AppService {
   protected $env = inject(FgEnvironmentService);  
-  protected $xstate = inject(FgXstateService);
-  protected $destroy_ref = inject(DestroyRef);
-
   protected $app_ref = inject(ApplicationRef);
-  public app_readyS = signal(false)
 
-  protected $auth_machine = inject(FgAuthLocalService);
-  public auth_actor: ActorRefFrom<typeof this.$auth_machine.machine>;
-  public auth_stateS = signal<SnapshotFrom<typeof this.$auth_machine.machine> | undefined>(undefined);
+  protected $spinner = inject(KppkSpinnerActorService);
+  protected $auth = inject(KppkAuthLocalActorService);
 
-  protected $spinner_machine = inject(FgSpinnerService);
-  public spinner_actor: ActorRefFrom<typeof this.$spinner_machine.machine>;
-  public spinner_stateS =  signal<SnapshotFrom<typeof this.$spinner_machine.machine> | undefined>(undefined);
-  
+  public readonly app_readyS = signal(false);
   // CONSTRUCTOR
   constructor() { 
+    const event_force_spinner_show = EventFgSpinnerShowParser.parse({ payload: { force: true }})
+    this.$spinner.start();
+    this.$spinner.send(event_force_spinner_show);
+    this.$auth.start();
+
     this.$app_ref.whenStable().then( () => {
       this.app_readyS.set(true);
-    })
-    // const config_auth_machine: ActorOptions<ActorLogicFrom<typeof this.$auth_machine.machine>> = {
-    // const config_auth_machine: ActorOptions<AnyActorLogic> = {
-    const config_auth_machine: any = {
-      input: undefined,
-      systemId: 'AUTH_ACTOR'
-    };
-    // const config_spinner_machine: ActorOptions<ActorLogicFrom<typeof this.$auth_machine.machine>> = {
-    // const config_spinner_machine: ActorOptions<AnyActorLogic> = {
-    const config_spinner_machine: any = {
-      input: undefined,
-      systemId: 'SPINNER_ACTOR',
-    };
-    // If development mode is enabled set xstate inspector
-    if(this.$env.development?.enabled) {
-      config_auth_machine.inspect = this.$xstate.inspect;
-      config_spinner_machine.inspect = this.$xstate.inspect;
-    }
-    // Create actors
-    this.auth_actor = createActor(this.$auth_machine.machine, config_auth_machine);
-    this.spinner_actor = createActor(this.$spinner_machine.machine, config_spinner_machine);
-    // Push actor snapshots to signals
-    this.auth_actor.subscribe( snapshot => {
-      this.auth_stateS.set( snapshot );
+      const event_spinner_hide = EventFgSpinnerHideParser.parse({})
+      this.$spinner.send(event_spinner_hide);
     });
-    this.spinner_actor.subscribe( snapshot => {
-      this.spinner_stateS.set( snapshot );
-    });
-    // Start actors
-    this.auth_actor.start();
-    this.spinner_actor.start();
-    // OnDestroy
-    this.$destroy_ref.onDestroy( () => {
-      // Stop actors
-      this.auth_actor.stop();
-      this.spinner_actor.stop();
-    });
+
+    // effect( () => {
+    //   console.warn('>>>>>>>AUTH_EMIT>>>>>>>');
+    //   console.warn(this.$auth.eventsS());
+    // })
+    // effect( () => {
+    //   console.error('>>>>>>>AUTH_SNAPSHOT>>>>>>>');
+    //   console.error(this.$auth.stateS());
+    //   if(this.$auth.stateS()?.matches({'STATE': 'UNAUTHORIZED'})) {
+    //     console.log('TRY LOGIN');
+        
+    //   }
+    // })
+    // effect( () => {
+    //   console.error('>>>>>>>SPINNER_EMIT>>>>>>>');
+    //   console.error(this.$spinner.eventsS());
+    // })
+    // effect( () => {
+    //   console.error('>>>>>>>SPINNER_SNAPSHOT>>>>>>>');
+    //   console.error(this.$spinner.stateS());
+    // })
   }
 }

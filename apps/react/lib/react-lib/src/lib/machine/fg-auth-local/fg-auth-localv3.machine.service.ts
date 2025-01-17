@@ -28,9 +28,8 @@ import { parent_context_event_input } from '../machine.utils';
 @Injectable({
   providedIn: 'root',
 })
-export class FgAuthLocalV3Service extends FgBaseService {
+export class FgAuthLocalV3MachineService extends FgBaseService {
   protected $methode = inject(FgAuthLocalMethodeService);
-  public machine = this.get_machine();
 
   public get_machine() {
     return setup({
