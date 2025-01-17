@@ -1,0 +1,89 @@
+
+@font-face {
+    font-family: 'ProximaNovaBlack';
+    src: url('./../assets/fonts/proxima-nova/proxima-nova-black/proxima-nova-black.woff') format('woff'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-black/proxima-nova-black.woff2') format('woff2'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-black/proxima-nova-black.eot'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-black/proxima-nova-black.eot?#iefix') format('embedded-opentype'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-black/proxima-nova-black.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'ProximaNova';
+    src: url('./../assets/fonts/proxima-nova/proxima-nova-bold/proxima-nova-bold.woff') format('woff'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-bold/proxima-nova-bold.woff2') format('woff2'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-bold/proxima-nova-bold.eot'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-bold/proxima-nova-bold.eot?#iefix') format('embedded-opentype'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-bold/proxima-nova-bold.otf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+// @font-face {
+//     font-family: 'ProximaNova';
+//     src: url('./../assets/fonts/proxima-nova/proxima-nova-light/proxima-nova-light.woff') format('woff'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-light/proxima-nova-light.woff2') format('woff2'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-light/proxima-nova-light.eot'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-light/proxima-nova-light.eot?#iefix') format('embedded-opentype'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-light/proxima-nova-light.otf') format('truetype');
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: swap;
+// }
+@font-face {
+    font-family: 'ProximaNova';
+    src: url('./../assets/fonts/proxima-nova/proxima-nova-regular/proxima-nova-regular.woff') format('woff'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-regular/proxima-nova-regular.woff2') format('woff2'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-regular/proxima-nova-regular.eot'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-regular/proxima-nova-regular.eot?#iefix') format('embedded-opentype'),
+         url('./../assets/fonts/proxima-nova/proxima-nova-regular/proxima-nova-regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+// @font-face {
+//     font-family: 'ProximaNova';
+//     src: url('./../assets/fonts/proxima-nova/proxima-nova-thin/proxima-nova-thin.woff') format('woff'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-thin/proxima-nova-thin.woff2') format('woff2'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-thin/proxima-nova-thin.eot'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-thin/proxima-nova-thin.eot?#iefix') format('embedded-opentype'),
+//          url('./../assets/fonts/proxima-nova/proxima-nova-thin/proxima-nova-thin.otf') format('truetype');
+//     font-weight: 100;
+//     font-style: normal;
+//     font-display: swap;
+// }
+// @font-face {
+//     font-family: 'AokiInline';
+//     src: url('./../assets/fonts/aoki/aoki-inline/aoki-inline.woff') format('woff'),
+//          url('./../assets/fonts/aoki/aoki-inline/aoki-inline.woff2') format('woff2'),
+//          url('./../assets/fonts/aoki/aoki-inline/aoki-inline.eot'),
+//          url('./../assets/fonts/aoki/aoki-inline/aoki-inline.eot?#iefix') format('embedded-opentype'),
+//          url('./../assets/fonts/aoki/aoki-inline/aoki-inline.otf') format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+//     font-display: swap;
+// }
+@font-face {
+    font-family: 'Aoki';
+    src: url('./../assets/fonts/aoki/aoki-regular/aoki-regular.woff') format('woff'),
+         url('./../assets/fonts/aoki/aoki-regular/aoki-regular.woff2') format('woff2'),
+         url('./../assets/fonts/aoki/aoki-regular/aoki-regular.eot'),
+         url('./../assets/fonts/aoki/aoki-regular/aoki-regular.eot?#iefix') format('embedded-opentype'),
+         url('./../assets/fonts/aoki/aoki-regular/aoki-regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+// @font-face {
+//     font-family: 'Aoki';
+//     src: url('./../assets/fonts/aoki/aoki-light/aoki-light.woff') format('woff'),
+//          url('./../assets/fonts/aoki/aoki-light/aoki-light.woff2') format('woff2'),
+//          url('./../assets/fonts/aoki/aoki-light/aoki-light.eot'),
+//          url('./../assets/fonts/aoki/aoki-light/aoki-light.eot?#iefix') format('embedded-opentype'),
+//          url('./../assets/fonts/aoki/aoki-light/aoki-light.otf') format('truetype');
+//     font-weight: 400;
+//     font-style: normal;
+//     font-display: swap;
+// }

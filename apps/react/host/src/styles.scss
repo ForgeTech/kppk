@@ -3,3 +3,11 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+@import './../../lib/react-lib/src/lib/styles/body-height-fix.scss';
+@import './../../lib/react-lib/src/lib/styles/ff-wk-hide-input-number-stepper.scss';
+@import './../../lib/react-lib/src/lib/styles/kppk-fonts.scss';
+@import './../../lib/react-lib/src/lib/styles/mat-light-theme.scss';
+@import './../../lib/react-lib/src/lib/styles/mat-form-field-overrides.scss';
+// @import 'material-icons/iconfont/material-icons.css';
+
+
