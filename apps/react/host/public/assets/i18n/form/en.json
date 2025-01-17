@@ -1,4 +1,0 @@
-{
-    "error_required": "Eingabe erforderlich",
-    "error_max_file_size": "Die maximale Dateigröße beträgt {{ max_size }} (Ausgewälte Datei: {{actualSize}} )"
-} 
