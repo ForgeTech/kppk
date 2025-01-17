@@ -1,0 +1,94 @@
+<h1>LAYOUT</h1>
+<fg-layout-default *transloco="let t;">
+    <!-- <kppk-admin-toolbar header></kppk-admin-toolbar> -->
+    <main content class="mt-4 flex h-full w-full flex-col items-center justify-center md:mt-0">
+        <mat-card class="min-w-xs w-full max-w-lg !p-4 !shadow-none">
+            <div class="flex flex-col items-center justify-center px-4">
+                <img
+                    class="min-w-xs w-full max-w-md"
+                    alt="{{ t('react_logo_act') }}"
+                    src="./public/assets/images/react/react-logo.png"
+                />
+                <!-- @if( error_s() ) {
+                    <div class="mat-warn-bg mt-2 inline-block h-full w-full px-4 py-2">
+                        {{ t('login.error_authorization') }}
+                    </div>
+                }
+                @if( success_s() ) {
+                    <div class="mat-primary-bg mt-2 inline-block h-full w-full px-4 py-2">
+                        {{ t('login.success_authorization') }}
+                    </div>
+                }
+                @if( pending_s() ){
+                    <mat-progress-bar mode="indeterminate"/>
+                } -->
+            </div>
+            <form [formGroup]="form_login">
+                <mat-card-content class="!px-4">
+                    <formly-form 
+                        class="form"
+                        [model]="{ user: '', password: ''}"
+                        [form]="form_login"
+                        [fields]="fields_login"
+                    ></formly-form>
+                </mat-card-content>
+                <mat-card-actions class="flex !flex-col-reverse gap-2 !px-4 md:!flex-row">
+                    <!-- <fg-pwa-install color="accent" class="w-full md:flex-1"/> -->
+                    <button 
+                        class="w-full md:flex-1"
+                        mat-stroked-button 
+                        color="primary" 
+                        type="submit" 
+                        (click)="login($event)"
+                    >
+                        <mat-icon class="right-4">login</mat-icon>
+                        <!-- {{ t( 'general.' + ROUTES.LOGIN ) }} -->
+                        LOGIN
+                    </button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+        <div class="mt-4 sm:mt-8">{{ t('general.version') }} {{ versionS() }}</div>
+        <a
+            class="m-4 inline-block sm:m-8"
+            href="https://www.kppk.at/"
+            rel="noopener noreferrer"
+            target="_blank"
+        >
+            <img
+            class="kppk-logo"
+            width="100%"
+            alt="{{ t('img-alt_kppk-logo') }}"
+            src="./assets/images/kppk/kppk-logo.svg"
+            />
+        </a>
+    </main>
+    <footer footer>
+        <menu class="flex list-none flex-col justify-end gap-2 md:flex-row">
+            <li class="w-full md:w-64">
+                <a class="w-full !bg-gray-100 !text-base" 
+                    mat-flat-button 
+                    >
+                    <!-- routerLink="/{{ ROUTES.IMPRINT }}" -->
+                    <mat-icon color="primary" svgIcon="info"></mat-icon>
+                    <!-- {{ t( 'general.'+ ROUTES.IMPRINT )}} -->
+                    IMPRINT
+                </a>
+            </li>
+            <li class="w-full md:w-64">
+                <a class="w-full !bg-gray-100 !text-base" 
+                    mat-flat-button 
+                    >
+                    <!-- routerLink="/{{ ROUTES.DATA_PROTECTION }}" -->
+                    <mat-icon color="primary" svgIcon="shield"></mat-icon>
+                    <!-- {{ t( 'general.' + ROUTES.DATA_PROTECTION )}} -->
+                    DATA_PROTECTION
+                </a>
+            </li>
+            <li class="w-full md:w-64">
+                <!-- <fg-language-switch class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"/> -->
+            </li>
+        </menu>
+    </footer>
+</fg-layout-default>
+<div class="bg-image"></div>
