@@ -1,0 +1,13 @@
+{
+  "data_protection": "Data Protection",
+  "home": "Home",
+  "manual": "Manual",
+  "calculation": "Calculation",
+  "calculation_start": "Start Calculation",
+  "imprint": "Imprint",
+  "version": "Version",
+  "login": "Login",
+  "logout": "Logout",
+  "app_error": "FATAL ERROR: Application exited!",
+  "app_stopped": "Application exited successful!"
+}

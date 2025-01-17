@@ -1,0 +1,11 @@
+{
+  "extends": "./../../../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": [],
+    "target": "ES2022"
+  },
+  "files": ["main-icon.ts"],
+  "include": [],
+  "exclude": []
+}

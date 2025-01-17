@@ -1,0 +1,12 @@
+{
+  "welcome_headline": "Welcome to",
+  "welcome_text": "The need to implement REACT® reflects the urgent need for action in the face of the climate crisis. Planners and decision-makers need tools that enable efficient and rapid decision-making regarding carbon emissions. Our goal is not just to react to problems, but to actively participate in shaping a sustainable future. That's why the development of REACT® is an important step forward. REACT® provides us with the necessary data and analyzes to assess the carbon footprint of construction projects and develop targeted reduction strategies.",
+  "headline_start_calc_modal": "R.E.A.C.T® Start calculation",
+  "content_provide_calculation_data": "Calculation data input:",
+  "content_provide_calculation_data_choose_option": "Choose how to provide calculation data",
+  "content_provide_calculation_data_from_files": "Calculation data from files",
+  "content_provide_calculation_data_from_storage": "Load calculation data",
+  "button_cancel": "Cancel",
+  "button_back": "Zurück",
+  "button_start_calc": "Start calculation"
+}

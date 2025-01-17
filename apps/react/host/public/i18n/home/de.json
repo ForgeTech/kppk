@@ -1,0 +1,18 @@
+{
+  "welcome_headline": "Willkommen zu",
+  "welcome_text": "Die Notwendigkeit der Umsetzung von REACT® spiegelt den dringenden Handlungsbedarf angesichts der Klimakrise wider. Planer und Entscheidungsträger benötigen Werkzeuge, die eine effiziente und schnelle Entscheidungsfindung in Bezug auf CO²-Emissionen ermöglichen. Unser Ziel ist es, nicht nur auf Probleme zu reagieren, sondern aktiv an der Gestaltung einer nachhaltigen Zukunft mitzuwirken. Deshalb ist die Entwicklung von REACT® ein wichtiger Schritt nach vorne. REACT® liefert uns die notwendigen Daten und Analysen, um den CO²-Fußabdruck von Bauprojekten zu bewerten und gezielte Reduktionsstrategien zu entwickeln.",
+  "headline_start_calc_modal": "R.E.A.C.T® Berechnung starten",
+  "content_provide_calculation_data": "Eingabe Berechnungsdaten:",
+  "content_provide_calculation_data_choose_option": "Wählen Sie die Art der Berechnungsdaten Bereitstellung.",
+  "content_provide_calculation_data_from_files": "Berechnungsdaten aus Dateien",
+  "content_provide_calculation_data_from_storage": "Berechnungsdaten laden",
+  "button_cancel": "Abbrechen",
+  "button_back": "Zurück",
+  "headline_selected_from_files": "Wählen Sie die für die Berechnung relevanten Dateien aus!",
+  "headline_selected_from_stored": "Coming soon!",
+  "button_start_calc": "Berechnung starten",
+  "oi3_file_placeholder": "Auswahl OI3 Datei",
+  "aufbauten_file_placeholder": "Auswahl Aufbauten Datei",
+  "bauteilflaechen_file_placeholder": "Auswahl Bauteilflaechen Datei",
+  "heating_system_file_placeholder": "Auswahl ROSE Datei"
+}
