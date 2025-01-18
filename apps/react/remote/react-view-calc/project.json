@@ -22,7 +22,10 @@
             "input": "apps/react/remote/react-view-calc/public"
           }
         ],
-        "styles": ["apps/react/remote/react-view-calc/src/styles.scss"],
+        "styles": [
+          "apps/react/host/src/styles.scss",
+          "apps/react/remote/react-view-calc/src/styles.scss"
+        ],
         "scripts": [],
         "customWebpackConfig": {
           "path": "apps/react/remote/react-view-calc/webpack.config.ts"
