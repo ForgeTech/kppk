@@ -1,0 +1,16 @@
+@if(input_visibleS() || pwa_install_availableS() ) {
+  <button
+    type="button"
+    class="btn-install-pwa"
+    mat-stroked-button
+    matTooltip="{{ input_tooltipS() }}"
+    [color]="input_colorS()"
+    (click)="install_pwa($event)"
+    (keydown.enter)="install_pwa($event)"
+    >
+    <mat-icon class="right-4" [ngClass]="{ rotate: pwa_install_availableS() === 'installing' }">
+      {{ pwa_install_availableS() === 'installing' ? 'update' : 'cloud_download' }}
+    </mat-icon>
+    {{ input_labelS() }}
+  </button>
+}

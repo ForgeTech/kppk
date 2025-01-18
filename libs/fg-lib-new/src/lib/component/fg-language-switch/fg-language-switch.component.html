@@ -1,0 +1,30 @@
+<mat-select
+  [value]="selected_langS()"
+  (selectionChange)="on_change($event)"
+  class="fg-language-switch"
+>
+  <mat-select-trigger>
+    <ng-container>
+        <div class="fg-language-switch-lang-name relative text-center">
+          <img 
+            class="fg-language-switch-flag-icon absolute top-[4px] w-[25px]" 
+            alt="{{ selected_langS()?.label }}"
+            src="{{ input_icon_pathS() + selected_langS()?.id }}.svg" 
+          />
+          {{ selected_langS()?.label }}
+        </div>
+    </ng-container>
+  </mat-select-trigger>
+  @for (lang of input_available_langsS(); track lang.id) {
+    <mat-option [value]="lang">   
+      <img
+        class="fg-language-switch-flag-icon mr-2 inline-block w-[25px]"
+        alt="{{ lang.label }}"
+        src="{{ input_icon_pathS() + lang.id }}.svg" 
+      />
+      <span class="fg-language-switch-lang-name">
+        {{ lang.label }}
+      </span>
+    </mat-option>   
+  }
+</mat-select>

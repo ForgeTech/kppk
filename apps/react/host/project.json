@@ -24,6 +24,18 @@
           {
             "glob": "**/*",
             "input": "apps/react/host/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/react/remote/react-view-login/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/react/remote/react-view-calc/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/react/remote/react-view-home/public"
           }
         ],
         "styles": ["apps/react/host/src/styles.scss"],

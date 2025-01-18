@@ -29,7 +29,7 @@ import { FormlyFieldProps } from "@ngx-formly/material/form-field";
     public provide_focus = ( field: FormlyFieldConfig<FormlyFieldProps & {
       [additionalProperties: string]: any;
     }>): any => {
-      this.$log.fatal('TODO! WORK ON PROVIDE_FOCUS');
+      this.$log?.fatal('TODO! WORK ON PROVIDE_FOCUS');
       const current_field_root_path = this.get_root_parent_path( field );
       return current_field_root_path.join() === this.focus_root_parent_path_key_s();
     }
@@ -37,9 +37,9 @@ import { FormlyFieldProps } from "@ngx-formly/material/form-field";
     public set_focus = ( field: FormlyFieldConfig<FormlyFieldProps & {
       [additionalProperties: string]: any;
     }>) => {
-      this.$log.fatal('TODO! WORK ON SET_FOCUS');
+      this.$log?.fatal('TODO! WORK ON SET_FOCUS');
       let field_path = this.get_root_parent_path( field )?.join();
-      this.$log.error('SET_FOCUS: ' + field_path );
+      this.$log?.error('SET_FOCUS: ' + field_path );
       this.focus_root_parent_path_key_s.set( field_path );
     }
 
@@ -63,7 +63,7 @@ import { FormlyFieldProps } from "@ngx-formly/material/form-field";
       FormlyFieldProps & {
         [additionalProperties: string]: any;
       }>, root_path: string[] = [] ):  string[] => {
-        this.$log.fatal('TODO! WORK ON GET_ROOT_PARENT_PATH');
+        this.$log?.fatal('TODO! WORK ON GET_ROOT_PARENT_PATH');
       let found_root: FormlyFieldConfig<FormlyFieldProps & {
         [additionalProperties: string]: any;
       }> = field;

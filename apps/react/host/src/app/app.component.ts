@@ -10,12 +10,12 @@ import { KppkRegisterIconsService } from '@kppk/react-lib';
   ],
   selector: 'kppk-react-root',
   template: `
-    <ul class="remote-menu">
+    <!-- <ul class="remote-menu">
       <li><a routerLink="/">Home</a></li>
       <li><a routerLink="react_view_login">ReactViewLogin</a></li>
       <li><a routerLink="react_view_home">ReactViewHome</a></li>
       <li><a routerLink="react_view_calc">ReactViewCalc</a></li>
-    </ul>
+    </ul> -->
     <router-outlet/>
   `,
   styles: ``,

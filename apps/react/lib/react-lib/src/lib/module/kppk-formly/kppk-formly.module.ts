@@ -1,9 +1,6 @@
 import { AbstractControl, FormsModule, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
-// import { DateAdapter, MAT_DATE_FORMATS, MatRippleModule } from '@angular/material/core';
 import { FormlyConfig, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
-// import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-// import { InputMaskModule } from '@ngneat/input-mask';
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { FgFormlyWrapperUnitDisplayComponent } from './fg-formly-wrapper-unit-display/fg-formly-wrapper-unit-display.component';
@@ -13,11 +10,10 @@ import { FgFormlyFieldFile } from './fg-formly-field-file-type/fg-formly-field-f
 import { FgFileValueAccessor } from './fg-formly-field-file-type/fg-file-value-accessor.directive';
 import { FgFormlyWrapperSectionH3Component  } from './fg-formly-wrapper-section-h3/fg-formly-wrapper-section-h3.component';
 import { FgFormlyWrapperSectionH4Component  } from './fg-formly-wrapper-section-h4/fg-formly-wrapper-section-h4.component';
-// import { FgArrayTypeComponent } from '@kppk/fg-base-new';
 import { MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {FormlyMatDatepickerModule} from '@ngx-formly/material/datepicker';
-import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 import { KppkEnergyUsageYearlyArrayTypeComponent } from './kppk-energy-usage-yearly-formly-array.type';
 import { CommonModule } from '@angular/common';
 
@@ -134,35 +130,37 @@ export function isWindowPartTypeValidator(control: AbstractControl) {
     }),
   ],
   exports: [
-    FgFormlyFieldDigitTypeAccessor,
-    FgFileValueAccessor,
-    FgFormlyFieldNumberDigitInputComponent,
-    FgFormlyFieldFile,
-    FormlyMaterialModule,
-    MaterialFileInputModule,
-    MatFormFieldModule,
-    FormlyModule
+    // FgFileValueAccessor,
+    // FgFormlyFieldDigitTypeAccessor,
+    // FgFormlyFieldFile,
+    // FgFormlyFieldNumberDigitInputComponent,
+    // FormlyMaterialModule,
+    FormlyModule,
+    FormsModule,
+    // MaterialFileInputModule,
+    // MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   providers: [
-    provideTranslocoScope('form')
+    // provideTranslocoScope('form')
   ],
 })
 export class KppkFormlyModule {
-//CONSTRUCTOR
-constructor(
-    public $translate: TranslocoService, 
-    public $log: NGXLogger, 
-    public $config: FormlyConfig,
-) {
-    this.$log.info('FG_FORMLY_MODULE_LOADED');
-    $config.addValidatorMessage('required', this.formly_validation_message_error_required);
-    $config.addValidatorMessage('isWindowPartType', this.formly_validation_message_is_window_part_type);
-  }
+  protected $translate = inject( TranslocoService );
+  protected $log = inject( NGXLogger );
+  protected $config = inject( FormlyConfig );
 
-  public formly_validation_message_error_required = (err: any) => {
-    return this.$translate.translate('form.error_required');
-  }
-  public formly_validation_message_is_window_part_type = (err: any) => {
-    return this.$translate.translate('form.is_window_part_type');
-  }
+constructor() {
+  this.$config.addValidatorMessage('required', this.formly_validation_message_error_required);
+  this.$config.addValidatorMessage('isWindowPartType', this.formly_validation_message_is_window_part_type);
+}
+
+public formly_validation_message_error_required = (err: any) => {
+  return this.$translate.translate('form.error_required');
+}
+
+public formly_validation_message_is_window_part_type = (err: any) => {
+  return this.$translate.translate('form.is_window_part_type');
+}
+
 }

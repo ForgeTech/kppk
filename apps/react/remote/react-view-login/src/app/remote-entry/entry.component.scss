@@ -2,7 +2,6 @@
   display: block;
   height: 100%;
   min-height: 100%;
-  background-color: green;
 }
   
 .bg-image {
@@ -16,7 +15,7 @@
   right: 0;
   z-index: -1;
 
-  background-image: url('./../../../public/assets/images/login/natural-plant.jpg');
+  background-image: url('./../../../public/images/login/natural-plant.jpg');
   // background-color: red;
   background-position: center;
   background-repeat: no-repeat;

@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
+import { optional } from 'zod';
 /**
  * FgBaseLogService -
  * Meant to be extenden by FgServices to provide common service
@@ -17,13 +18,13 @@ export class FgBaseService implements OnDestroy {
   public readonly className: string = this.constructor.name;
 
   /** (Optional) Provide logger service */
-  protected $log = inject(NGXLogger);
+  protected $log = inject(NGXLogger, { optional: true });
 
   constructor() {
-    this?.$log.info('SERVICE: ', this.className, 'created!');
+    this.$log?.info('SERVICE: ', this.className, 'created!');
   }
 
   public ngOnDestroy(): void {
-    this?.$log.info('SERVICE: ', this.className, 'destroyed!');
+    this.$log?.info('SERVICE: ', this.className, 'destroyed!');
   }
 }

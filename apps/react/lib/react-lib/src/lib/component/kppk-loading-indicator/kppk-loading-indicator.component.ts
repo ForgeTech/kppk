@@ -19,7 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     <img
       class="absolute right-[2px] top-[30px] z-10 w-24"
       alt="KPPK Logo"
-      src="./assets/images/kppk/kppk-logo.svg"
+      src="././images/kppk/kppk-logo.svg"
     />
   </div>
   `,

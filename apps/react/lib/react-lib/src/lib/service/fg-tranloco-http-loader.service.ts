@@ -10,6 +10,6 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
   /** Methode to return imported translation */
   getTranslation(langPath: string) {
-    return this.$http.get<Translation>(`./assets/i18n/${langPath}.json`);
+    return this.$http.get<Translation>(`i18n/${langPath}.json`);
   }
 }

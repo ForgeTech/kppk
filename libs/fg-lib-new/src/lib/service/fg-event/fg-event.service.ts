@@ -1,10 +1,20 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
-import { FgEvent } from './fg-event.class';
 import { FgNgxLoggerMethodeType } from '../../interface/fg-environment-develpment-event.config.interface';
 import { FgBaseService } from '../../base/fg-base.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { optional, z } from 'zod';
+import { json_parser } from './../../type/json-type.zod';
+
+export const fg_event_parser = z.object({
+  type: z.string(),
+  target: z.string().optional(),
+  broadcast: z.literal(true).optional(),
+  data: json_parser.optional(),
+});
+
+export type FgEvent = z.infer<typeof fg_event_parser>;
 
 /**
  * FgEventService -
@@ -15,41 +25,47 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
  */
 @Injectable({ providedIn: 'root' })
 export class FgEventService extends FgBaseService {
-  protected loglevel: FgNgxLoggerMethodeType = 'debug';
+  protected $env = inject(FgEnvironmentService, { optional: true });
+  
+  protected log_level: FgNgxLoggerMethodeType = 'debug';
   /**
    * The observable subject used to push events
    * within the angular application
    */
-  protected EVENT$: Subject<FgEvent> = new Subject<FgEvent>();
+  protected EVENT$ = new Subject<FgEvent>();
   public readonly event$ = this.EVENT$.asObservable();
 
   /**  Holds event-signatures to be logged */
   protected EVENT_SIGNATURES_TO_LOG: string[];
-  /**
-   * CONSTRUCTOR
-   */
-  constructor(
-    /** Instance of Forge Log-Service */
-    protected $env: FgEnvironmentService,
-    
-  ) {
-    super();
 
+  /** Holds event broadcast-channel */
+  protected eventC = new BroadcastChannel('fg_event');
+
+  /** CONSTRUCTOR  */
+  constructor( ) {
+    super();
+    if( this.$env?.development?.event?.eventsTolog ) {
+      this.registerEventsToLog(
+        this.$env.development.event.eventsTolog, 
+        this.$env?.development.event?.level
+      )
+    }
     this.EVENT_SIGNATURES_TO_LOG = [];
     this.event$.pipe(takeUntilDestroyed()).subscribe(event => {
-      if (this.EVENT_SIGNATURES_TO_LOG.indexOf(event.signature) !== -1) {
-        this.$log[this.loglevel](event.signature);
-        this.$log[this.loglevel](event);
+      if (this.EVENT_SIGNATURES_TO_LOG.indexOf(event.type) !== -1) {
+        this.log(event.type);
+        this.log(event);
       }
     });
   }
   /**
    * Methode to define a set of events that should be logged
    */
-  public registerEventsToLog(events: string[], level: FgNgxLoggerMethodeType): string[] {
+  public registerEventsToLog(events: string[], level?: FgNgxLoggerMethodeType): string[] {
     this.EVENT_SIGNATURES_TO_LOG = events;
-    this.loglevel = level;
-    this.$log[this.loglevel]('Events to log:', this.EVENT_SIGNATURES_TO_LOG);
+    this.log_level = level ?? 'debug';
+    this.log('Events to log:')
+    this.log(this.EVENT_SIGNATURES_TO_LOG);
     return this.EVENT_SIGNATURES_TO_LOG;
   }
   /**
@@ -57,8 +73,31 @@ export class FgEventService extends FgBaseService {
    * @param component
    * @param event
    */
-  public emitEvent(event: FgEvent): void {
+  public emit(event: FgEvent): void {
+    fg_event_parser.parse( event );
+    // Publish event as next action on event loop
+    setTimeout(this.push_event.bind(null, event), 0);
+  }
+
+  /**
+   * Methode used to publish an event
+   * @param event 
+   */
+  protected push_event( event: FgEvent ): void {
     // Emit event via event-service observable
     this.EVENT$.next(event);
+    // If marked as broadcast publish on channel
+    if( event.broadcast ) {
+      this.eventC.postMessage( event );
+    }
+  }
+  /**
+   * 
+   * @param message 
+   */
+  protected log( message: any ) {
+    if( this.$log ) {
+      this.$log[this.log_level]( message );
+    }
   }
 }

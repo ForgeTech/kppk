@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,8 +12,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './fg-info-tooltip.component.html',
   styleUrls: ['./fg-info-tooltip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  
-  imports: [MatIconModule, MatTooltipModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTooltipModule
+  ],
 })
 export class FgInfoTooltipComponent {
   /** The text to be displayed in tooltip*/
