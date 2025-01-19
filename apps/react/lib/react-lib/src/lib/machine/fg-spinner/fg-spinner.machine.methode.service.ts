@@ -1,13 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { ActorRef, assign,  raise, sendTo, setup } from 'xstate';
 import {
   ContextFgSpinner,
-  ContextFgSpinnerParser,
   EventFgSpinnerGetContextParser,
   EventFgSpinnerHideParser,
   EventFgSpinnerRespondContextParser,
   EventFgSpinnerSetContextParser,
-  EventFgSpinnerSetProgress,
   EventFgSpinnerSetProgressParser,
   EventFgSpinnerShowParser,
   EventFgSpinnerStopParser,
@@ -21,18 +18,17 @@ import {
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { FgBaseService, object_apply_values_of_shared_keys } from '@kppk/fg-lib-new';
 import { FgXstateService } from '../../service/fg-xstate.service';
+import { ActorRef } from 'xstate';
+import { boundMethod } from 'autobind-decorator';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FgSpinnerMethodeService extends FgBaseService {
+export class FgSpinnerMachineMethodeService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
   protected $immer = inject(FgImmutableService);
-  
-  constructor() {
-    super();
-  }
 
+  @boundMethod
   public assign_set_context({
     context,
     event,
@@ -46,6 +42,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
     });
   }
 
+  @boundMethod
   public assign_set_progress({
     context,
     event,
@@ -53,8 +50,7 @@ export class FgSpinnerMethodeService extends FgBaseService {
     context: ContextFgSpinner;
     event: any;
   }) {
-    let set_progress_event: EventFgSpinnerSetProgress;
-    set_progress_event = EventFgSpinnerSetProgressParser.parse(event);
+    const set_progress_event = EventFgSpinnerSetProgressParser.parse(event);
     return this.$immer.produce( context, draft => {
       // If single item received wrap in array
       const eventItems: ProgressItemFgSpinner[] = Array.isArray(
@@ -84,25 +80,33 @@ export class FgSpinnerMethodeService extends FgBaseService {
     });
   }
 
+  @boundMethod
   public escalate_timeout_error() {
     throw new Error('fg_spinner_timeout_error');
   }
+  
+  @boundMethod
   public raise_spinner_event_stop() {
     return EventFgSpinnerStopParser.parse({});
   }
 
+  @boundMethod
   public raise_spinner_internal_hide() {
     return InternalFgSpinnerHideParser.parse({});
   }
 
+  @boundMethod
   public raise_spinner_internal_show() {
     return InternalFgSpinnerShowParser.parse({});
   }
+
+  @boundMethod
   public respond_spinner_event_context_get_target({
     event,
   }: {
+    context: ContextFgSpinner;
     event: any;
-  }) {
+  }){
     EventFgSpinnerGetContextParser.parse(event);
     let target: string | ActorRef<any, any> = '';
     if( event?.payload?.machineId ) {
@@ -113,6 +117,8 @@ export class FgSpinnerMethodeService extends FgBaseService {
     }
     return target;
   }
+
+  @boundMethod
   public respond_spinner_event_context_get_event({
     context,
   }: {
@@ -124,122 +130,140 @@ export class FgSpinnerMethodeService extends FgBaseService {
       }
     })
   }
-  public assign_decrease_triggers_count = ({
+
+  @boundMethod
+  public assign_decrease_triggers_count ({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return this.$immer.produce( context, draft => {
       if (context.trigger_count > 0) {
         draft.trigger_count--;
       }
     })
   };
+
+  @boundMethod
   public raise_spinner_internal_force_hide() {
     return InternalFgSpinnerForceHideParser.parse({});
   }
 
+  @boundMethod
   public raise_spinner_internal_force_show() {
     return InternalFgSpinnerForceShowParser.parse({});
   }
 
+  @boundMethod
   public raise_spinner_internal_reset_timeout() {
     return InternalFgSpinnerResetTimeoutParser.parse({});
   }
 
-  public assign_increase_triggers_count = ({
+  @boundMethod
+  public assign_increase_triggers_count({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return this.$immer.produce( context, draft => {
       draft.trigger_count++;
     })
   };
 
-  public guard_force_hide_is_true = ({
+  @boundMethod
+  public guard_force_hide_is_true ({
     event,
   }: {
     event: any;
-  }) => {
+  }) {
     const valid_event = EventFgSpinnerHideParser.parse(event);
     return valid_event.payload.force;
   };
 
-  public guard_force_show_is_true = ({
+  @boundMethod
+  public guard_force_show_is_true({
     event,
   }: {
     event: any;
-  }) => {
+  }) {
     const valid_event = EventFgSpinnerShowParser.parse(event);
     return valid_event.payload.force;
   };
 
-  public guard_allow_reuse_is_false = ({
+  @boundMethod
+  public guard_allow_reuse_is_false({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.allow_reuse === false;
   };
 
-  public guard_delay_timeout_is_not_zero = ({
+  @boundMethod
+  public guard_delay_timeout_is_not_zero({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.delay_timeout > 0;
   };
 
-  public guard_triggers_count_equals_zero = ({
+  @boundMethod
+  public guard_triggers_count_equals_zero({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.trigger_count === 0;
   };
 
-  public guard_allow_timeout_reset_is_true = ({
+  @boundMethod
+  public guard_allow_timeout_reset_is_true({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.allow_timeout_reset === true;
   };
 
-  public guard_delay_auto_dismiss_timeout_error_is_not_zero = ({
+  @boundMethod
+  public guard_delay_auto_dismiss_timeout_error_is_not_zero ({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.delay_auto_dismiss_timeout_error > 0;
   };
 
-  public delay_min_show_time = ({
+  @boundMethod
+  public delay_min_show_time({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.delay_min_show_time;
   };
 
-  public delay_timeout = ({ context }: { context: ContextFgSpinner }) => {
+  @boundMethod
+  public delay_timeout({ context }: { context: ContextFgSpinner }) {
     return context.delay_timeout;
   };
 
-  public delay_before_shown = ({
+  @boundMethod
+  public delay_before_shown({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.delay_before_shown;
   };
 
-  public delay_auto_dismiss_timeout_error = ({
+  @boundMethod
+  public delay_auto_dismiss_timeout_error({
     context,
   }: {
     context: ContextFgSpinner;
-  }) => {
+  }) {
     return context.delay_auto_dismiss_timeout_error;
   };
 }

@@ -8,7 +8,7 @@ import {
   SaltFileContentFgAuthLocalParser 
 } from './fg-auth-local.machine.types';
 import { catchError, map, firstValueFrom, tap } from 'rxjs';
-import { FgStorageNgxCookieService } from '@kppk/fg-lib-new';
+import { FgStorageService } from '@kppk/fg-lib-new';
 import { Injectable, inject } from '@angular/core';
 import { 
   AnyEventObject,
@@ -28,10 +28,10 @@ export type FgAuthLocalV1Params = { context: ContextFgAuthLocal, event: AnyEvent
 @Injectable({
   providedIn: 'root',
 })
-export class FgAuthLocalMethodeService extends FgBaseService {
+export class FgAuthLocalMachineMethodeService extends FgBaseService {
   
   protected $immer = inject( FgImmutableService );
-  protected $cookie = inject( FgStorageNgxCookieService );
+  protected $cookie = inject( FgStorageService );
   protected $http = inject( HttpClient );
   protected $time = inject( FgTimeStringService );
   // protected $crypto = inject( FgWebcryptoService );

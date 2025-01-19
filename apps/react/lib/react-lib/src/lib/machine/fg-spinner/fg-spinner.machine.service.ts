@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { ActorRef, assign,  raise, sendTo, setup } from 'xstate';
 import { FgBaseService } from '@kppk/fg-lib-new';
 import { FgXstateService } from '../../service/fg-xstate.service';
-import { FgSpinnerMethodeService } from './fg-spinner-methode.service';
+import { FgSpinnerMachineMethodeService } from './fg-spinner.machine.methode.service';
 import { 
   ContextFgSpinner,
   ContextFgSpinnerParser,
@@ -25,14 +24,10 @@ import {
 })
 export class FgSpinnerMachineService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
-  protected $methode = inject(FgSpinnerMethodeService);
-
-  constructor() {
-    super();
-  }
+  protected $methode = inject(FgSpinnerMachineMethodeService);
 
   public get_machine( context?: ContextFgSpinner ) {
-    return setup({
+    return this.$xstate.setup({
       types: {
         input: {} as Partial<ContextFgSpinner> | undefined,
         events: {} as
@@ -52,26 +47,26 @@ export class FgSpinnerMachineService extends FgBaseService {
         context: {} as ContextFgSpinner,
       },
       actions: {
-        assign_set_context: assign(this.$methode.assign_set_context),
-        assign_set_progress: assign(this.$methode.assign_set_progress),
+        assign_set_context: this.$xstate.assign(this.$methode.assign_set_context),
+        assign_set_progress: this.$xstate.assign(this.$methode.assign_set_progress),
         escalate_timeout_error: this.$methode.escalate_timeout_error,
-        raise_spinner_event_stop: raise(this.$methode.raise_spinner_event_stop),
-        raise_spinner_internal_hide: raise(this.$methode.raise_spinner_internal_hide),
-        raise_spinner_internal_show: raise(this.$methode.raise_spinner_internal_show),
-        respond_spinner_event_context: sendTo( this.$methode.respond_spinner_event_context_get_target, this.$methode.respond_spinner_event_context_get_event),
-        assign_decrease_triggers_count: assign(
+        raise_spinner_event_stop: this.$xstate.raise(this.$methode.raise_spinner_event_stop),
+        raise_spinner_internal_hide: this.$xstate.raise(this.$methode.raise_spinner_internal_hide),
+        raise_spinner_internal_show: this.$xstate.raise(this.$methode.raise_spinner_internal_show),
+        respond_spinner_event_context: this.$xstate.sendTo( this.$methode.respond_spinner_event_context_get_target, this.$methode.respond_spinner_event_context_get_event),
+        assign_decrease_triggers_count: this.$xstate.assign(
           this.$methode.assign_decrease_triggers_count
         ),
-        assign_increase_triggers_count: assign(
+        assign_increase_triggers_count: this.$xstate.assign(
           this.$methode.assign_increase_triggers_count
         ),
-        raise_spinner_internal_force_hide: raise(
+        raise_spinner_internal_force_hide: this.$xstate.raise(
           this.$methode.raise_spinner_internal_force_show
         ),
-        raise_spinner_internal_force_show: raise(
+        raise_spinner_internal_force_show: this.$xstate.raise(
           this.$methode.raise_spinner_internal_force_show
         ),
-        raise_spinner_internal_reset_timeout: raise(
+        raise_spinner_internal_reset_timeout: this.$xstate.raise(
           this.$methode.raise_spinner_internal_reset_timeout
         ),
       },
@@ -98,9 +93,7 @@ export class FgSpinnerMachineService extends FgBaseService {
     }).createMachine(
       {
         id: 'FG_SPINNER_V4_5_2',
-        context: ( { input } ) => {
-          return ContextFgSpinnerParser.parse( context || input || {})
-        },
+        context: ContextFgSpinnerParser.parse(context ?? {}),
         type: 'parallel',
         states: {
           DISPLAY: {

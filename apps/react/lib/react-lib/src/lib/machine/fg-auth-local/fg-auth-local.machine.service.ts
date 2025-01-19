@@ -8,24 +8,20 @@ import {
   EventFgAuthLocalUnauthorized,
 } from './fg-auth-local.machine.types';
 import { Injectable, inject } from '@angular/core';
-import {
-  assign,
-  emit,
-  fromPromise,
-  setup 
-} from 'xstate';
 import { FgBaseService } from '@kppk/fg-lib-new';
-import { FgAuthLocalMethodeService } from './fg-auth-local-methode.service';
+import { FgAuthLocalMachineMethodeService } from './fg-auth-local.machine.methode.service';
 import { parent_context_event_input } from "../machine.utils";
+import { FgXstateService } from '../../service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FgAuthLocalMachineService extends FgBaseService {
-  protected $methode = inject(FgAuthLocalMethodeService);
+  protected $xstate = inject(FgXstateService);
+  protected $methode = inject(FgAuthLocalMachineMethodeService);
 
-  public get_machine() {
-    return setup({
+  public get_machine( context?: ContextFgAuthLocal ) {
+    return this.$xstate.setup({
       types: {
         input: {} as Partial<ContextFgAuthLocal>,
         context: {} as ContextFgAuthLocal,
@@ -36,29 +32,29 @@ export class FgAuthLocalMachineService extends FgBaseService {
           | EventFgAuthLocalStop
       },
       actions: {
-        send_authorized_event_to: emit(this.$methode.send_authorized_event_to),
-        send_unauthorized_event_to: emit(this.$methode.send_unauthorized_event_to),
+        send_authorized_event_to: this.$xstate.emit(this.$methode.send_authorized_event_to),
+        send_unauthorized_event_to: this.$xstate.emit(this.$methode.send_unauthorized_event_to),
         escalate_auth_local_key_error: this.$methode.escalate_auth_load_cookie_error,
-        assign_auth_cookie: assign(this.$methode.assign_auth_cookie),
-        assign_auth_key: assign(this.$methode.assign_auth_key),
-        assign_authorization_error: assign(this.$methode.assign_authorization_error),
-        assign_clear_authorization_error: assign(this.$methode.assign_clear_authorization_error),
-        assign_clear_auth_cookie: assign(this.$methode.assign_clear_auth_cookie),
-        assign_revoke_authorization_error: assign(this.$methode.assign_revoke_authorization_error),
+        assign_auth_cookie: this.$xstate.assign(this.$methode.assign_auth_cookie),
+        assign_auth_key: this.$xstate.assign(this.$methode.assign_auth_key),
+        assign_authorization_error: this.$xstate.assign(this.$methode.assign_authorization_error),
+        assign_clear_authorization_error: this.$xstate.assign(this.$methode.assign_clear_authorization_error),
+        assign_clear_auth_cookie: this.$xstate.assign(this.$methode.assign_clear_auth_cookie),
+        assign_revoke_authorization_error: this.$xstate.assign(this.$methode.assign_revoke_authorization_error),
         escalate_auth_load_cookie_error: this.$methode.escalate_auth_load_cookie_error,
       },
       guards: {
         guard_has_auth_cookie: this.$methode.guard_has_auth_cookie
       },
       actors: {
-        actor_load_auth_local_key: fromPromise(this.$methode.actor_load_auth_local_key),
-        actor_load_auth_cookie: fromPromise(this.$methode.actor_load_auth_cookie),
-        actor_revoke_authorization: fromPromise(this.$methode.actor_revoke_authorization),
-        actor_authorization: fromPromise(this.$methode.actor_authorization)
+        actor_load_auth_local_key: this.$xstate.fromPromise(this.$methode.actor_load_auth_local_key),
+        actor_load_auth_cookie: this.$xstate.fromPromise(this.$methode.actor_load_auth_cookie),
+        actor_revoke_authorization: this.$xstate.fromPromise(this.$methode.actor_revoke_authorization),
+        actor_authorization: this.$xstate.fromPromise(this.$methode.actor_authorization)
       },
     }).createMachine({
       context: ( { input }: { input: any} ) => {
-        return ContextFgAuthLocalParser.parse( input || {})
+        return ContextFgAuthLocalParser.parse( context || input || {})
       },
       id: "FG_AUTH_LOCAL_V1",
       type: "parallel",

@@ -4,7 +4,7 @@ import { FG_ENVIRONMENT, FgStorageNgxCookieService } from "@kppk/fg-lib-new";
 import { provideHttpClientTesting, HttpTestingController } from '@angular/common/http/testing';
 import { Spy, provideAutoSpy } from 'jest-auto-spies';
 
-import { FgAuthLocalMethodeService } from './fg-auth-local-methode.service';
+import { FgAuthLocalMachineMethodeService } from './fg-auth-local.machine.methode.service';
 import { HttpClient, provideHttpClient } from "@angular/common/http";
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { TestBed } from "@angular/core/testing";
@@ -16,13 +16,10 @@ import { CRYPTO, FgWebcryptoService } from "@kppk/fg-lib-new";
 import * as crypto from "crypto";
 
 describe('FgAuthLocalMachine', () => {
-  let $service: FgAuthLocalMethodeService;
+  let $service: FgAuthLocalMachineMethodeService;
   let $immer: FgImmutableService;
   let $immer_produce_mock: any;
   let $cookie_mock: Spy<FgStorageNgxCookieService>;
-  let $http: any;
-  let $http_controller: HttpTestingController;
-  // let $log_mock: any;
   let context: ContextFgAuthLocal;
   const event: AnyEventObject = { type: 'MockEvent' };
   let auth_cookie_admin: AuthCookieFgAuthLocal;
@@ -34,7 +31,7 @@ describe('FgAuthLocalMachine', () => {
         LoggerTestingModule,
       ],
       providers: [
-        FgAuthLocalMethodeService,
+        FgAuthLocalMachineMethodeService,
         FgWebcryptoService,
         FgImmutableService,
         provideAutoSpy(FgStorageNgxCookieService),
@@ -45,7 +42,7 @@ describe('FgAuthLocalMachine', () => {
         { provide: CRYPTO, useValue: crypto }
       ],
     });
-    $service = TestBed.inject(FgAuthLocalMethodeService);
+    $service = TestBed.inject(FgAuthLocalMachineMethodeService);
 
     $http = TestBed.inject(HttpClient);
     $http_controller = TestBed.inject(HttpTestingController);

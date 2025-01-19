@@ -20,18 +20,18 @@ import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideAutoSpy } from "jest-auto-spies";
 import { NgxLoggerLevel, TOKEN_LOGGER_CONFIG } from "ngx-logger";
 import { provideHttpClient } from "@angular/common/http";
-import { FgSpinnerMethodeService } from './fg-spinner-methode.service';
+import { FgSpinnerMachineMethodeService } from './fg-spinner.machine.methode.service';
 import { importProvidersFrom, provideExperimentalZonelessChangeDetection } from "@angular/core";
 
-describe('SERVICE: FgSpinnerService', () => {
-  let service: FgSpinnerMethodeService;
+describe('FgSpinnerMethodeService', () => {
+  let service: FgSpinnerMachineMethodeService;
   let context: ContextFgSpinner;
   
   beforeEach(async () => {
     TestBed.configureTestingModule({
 
       providers: [
-        FgSpinnerMethodeService,
+        FgSpinnerMachineMethodeService,
         FgImmutableService,
         provideHttpClient(),
         provideHttpClientTesting(),
@@ -42,7 +42,7 @@ describe('SERVICE: FgSpinnerService', () => {
         { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
       ],
     });
-    service = TestBed.inject(FgSpinnerMethodeService);
+    service = TestBed.inject(FgSpinnerMachineMethodeService);
     context = ContextFgSpinnerParser.parse({});
   });
 

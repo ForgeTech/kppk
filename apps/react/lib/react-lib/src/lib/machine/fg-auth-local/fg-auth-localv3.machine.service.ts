@@ -16,7 +16,7 @@ import {
   EventFgAuthLocalUnauthorized,
   EventFgAuthLocalStop
 } from './fg-auth-local.machine.types';
-import { FgAuthLocalMethodeService } from './fg-auth-local-methode.service'
+import { FgAuthLocalMachineMethodeService } from './fg-auth-local.machine.methode.service'
 import { parent_context_event_input } from '../machine.utils';
 
 // export type FgAuthLocalV3ActorRef = ActorRefFrom<typeof FG_AUTH_LOCAL_V1>;
@@ -29,7 +29,7 @@ import { parent_context_event_input } from '../machine.utils';
   providedIn: 'root',
 })
 export class FgAuthLocalV3MachineService extends FgBaseService {
-  protected $methode = inject(FgAuthLocalMethodeService);
+  protected $methode = inject(FgAuthLocalMachineMethodeService);
 
   public get_machine() {
     return setup({
