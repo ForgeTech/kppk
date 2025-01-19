@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } fr
 import { inject} from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { FG_ROUTING_HOME_PATH } from '@kppk/fg-lib-new';
-import { FgAuthLocalActorService } from '../machine';
+import { FgAuthLocalMachineActorService } from '../machine';
 
 /**
  * KppkReactAuthHomeRedirectGuard -
@@ -12,7 +12,7 @@ export const KppkReactAuthHomeRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const $auth = inject(FgAuthLocalActorService);
+  const $auth = inject(FgAuthLocalMachineActorService);
   const $router = inject(Router);
   const token_home_route = inject(FG_ROUTING_HOME_PATH);
   return $auth.state$

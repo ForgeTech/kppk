@@ -7,7 +7,7 @@ import {
 import { inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { FG_ROUTING_LOGIN_PATH } from '@kppk/fg-lib-new';
-import { FgAuthLocalActorService } from '../machine';
+import { FgAuthLocalMachineActorService } from '../machine';
 
 /**
  * KppkReactLoginRedirectGuard -
@@ -17,7 +17,7 @@ export const KppkReactLoginRedirectGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const $auth = inject(FgAuthLocalActorService);
+  const $auth = inject(FgAuthLocalMachineActorService);
   const $router = inject(Router);
   const token_login_route = inject(FG_ROUTING_LOGIN_PATH);
 
