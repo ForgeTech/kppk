@@ -7,19 +7,40 @@ import { combineLatest, firstValueFrom, map } from 'rxjs';
 import { react_view_calculation_context_parser } from '../../types/kppk-react-calculation.types';
 import { FgBaseService, FgStorageService } from '../../../../../../../../libs/fg-lib-new/src';
 import { CONTEXT_REACT_INIT } from './react-init.machine.types'
+import { boundMethod } from 'autobind-decorator';
+
 
 
 @Injectable({
     providedIn: 'root',
 })
-export class ReactInitMethodeService extends FgBaseService {
+export class ReactInitMachineMethodeService extends FgBaseService {
 
   protected $immer = inject(FgImmutableService);
   protected $http = inject(HttpClient);
   protected $storage = inject(FgStorageService);
   protected $document = inject(DOCUMENT)
-  
-  public react_init_input_context = ({ input }: { input: Partial<CONTEXT_REACT_INIT> }) => {
+
+  constructor(){
+    super()
+  }
+
+  @boundMethod
+  public escalate_load_from_local_error() {
+    throw new Error('FARKFARKFARK');
+  }
+  @boundMethod
+  public escalate_load_from_remote_error() {
+    throw new Error('FARKFARKFARK');
+  }
+
+  @boundMethod
+  public escalate_result_validate_error() {
+    throw new Error('FARKFARKFARK');
+  }
+
+  @boundMethod
+  public react_init_input_context( { input }: { input: Partial<CONTEXT_REACT_INIT> }) {
     const context: CONTEXT_REACT_INIT = {
       environment: undefined,
       load_from_remote: undefined,
@@ -29,7 +50,9 @@ export class ReactInitMethodeService extends FgBaseService {
     return context;
   }
 
-  public react_init_output = ({ context }: { context: CONTEXT_REACT_INIT }) => {
+
+  @boundMethod
+  public react_init_output( { context }: { context: CONTEXT_REACT_INIT }) {
 
     console.log('FIND OUT WHY NOT PARSING ANYMORE')
     // try {
@@ -40,34 +63,37 @@ export class ReactInitMethodeService extends FgBaseService {
     return context;
   };
 
-  public assign_react_init_input = ( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
+  @boundMethod
+  public assign_react_init_input( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) {
     const result = this.$immer.produce( ( context, draft ) => {
       draft.environment = event.input.context;
     });
     return result;
   };
 
-  public assign_load_from_local_result = ( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
+  @boundMethod
+  public assign_load_from_local_result( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) {
     console.log('>>>>>>>>>>>ASSIGN_assign_load_from_local_result>>>>>>>>>>>>>');
     console.log(context);
     console.log(event);
-    const result = this.$immer.produce( ( context, draft ) => {
-    });
+    const result = this.$immer.produce( ( context, draft ) => {});
     return result;
   };
 
-  public assign_load_from_remote_result = ( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
+  @boundMethod
+  public assign_load_from_remote_result( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) {
     // console.log('>>>>>>>>>>>ASSIGN_assign_load_from_remote_result>>>>>>>>>>>>>');
     // console.log(context);
     // console.log(event);
-    const result = this.$immer.produce( context, draft  => {
-      draft.load_from_remote = event.output;
-    });
-    // ReactAppInitV1Context_parser.parse(result);
-    return result;
+    // const result = this.$immer.produce( context, draft  => {
+    //   draft.load_from_remote = event.output;
+    // });
+    // // ReactAppInitV1Context_parser.parse(result);
+    // return result;
   };
 
-  public assign_load_from_url_from_route_result = ( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
+  @boundMethod
+  public assign_load_from_url_from_route_result( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) {
     console.log('>>>>>>>>>>>ASSIGN_assign_load_from_url_from_route_result>>>>>>>>>>>>>');
     console.log(context);
     console.log(event);
@@ -77,29 +103,34 @@ export class ReactInitMethodeService extends FgBaseService {
   };
 
 
-  public assign_load_url_from_params_result = ( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
-    return this.$immer.produce( context, draft => {
-    });
+  @boundMethod
+  public assign_load_url_from_params_result( { context, event }: { context: CONTEXT_REACT_INIT, event: any } ) {
+    // this.$immer.produce( context, draft => {
+    // });
   };
 
-  public assign_result_data = ({ context, event }: { context: CONTEXT_REACT_INIT, event: any } ) => {
-    return this.$immer.produce(  context, draft  => {
-      // if( context?.load_from_remote) {
-      //   draft.output = context.load_from_remote
-      // }
-    });
+  @boundMethod
+  public assign_result_data ({ context, event }: { context: CONTEXT_REACT_INIT, event: any }) {
+    // return this.$immer.produce(  context, draft  => {
+    //   // if( context?.load_from_remote) {
+    //   //   draft.output = context.load_from_remote
+    //   // }
+    // });
   };
 
-  public actor_load_from_local = async ( { input }: { input: any} ) => {
+  @boundMethod
+  public async actor_load_from_local( { input }: { input: any} ) {
     const result = await firstValueFrom(this.$storage.getItem('settings-local-ui'));
     return result;
   };
 
-  public actor_validate_load_from_local = async ( { input }: { input: any} ) => {
+  @boundMethod
+  public async actor_validate_load_from_local( { input }: { input: any} ) {
     return true;
   };
 
-  public actor_load_from_remote = async ( { input }: { input: any } ) => {
+  @boundMethod
+  public async actor_load_from_remote( { input }: { input: any } ) {
     const data$ = combineLatest([
       this.$http.get('./data/august2024/concrete_types.json'),
       // this.$http.get('./data/august2024/construction_site_energy_usage.json'),
@@ -245,8 +276,9 @@ export class ReactInitMethodeService extends FgBaseService {
     return result;
   };
 
-  public actor_validate_load_from_remote = async ( { input }: { input: any} ) => {
-    let result = input;
+  @boundMethod
+  public async actor_validate_load_from_remote( { input }: { input: any} ) {
+    // let result = input;
     // try {
     // //    result = react_init_load_from_remote_parser.parse(input);
     // } catch ( error ) {
@@ -254,16 +286,18 @@ export class ReactInitMethodeService extends FgBaseService {
     //   console.log( error )
     // }
     // console.log( result )
-    return result;
+    return input;
   };
 
-  public actor_merge_result = async ( { input }: { input: any} ) => {
+  @boundMethod
+  public async actor_merge_result( { input }: { input: any} ) {
     // console.log('>>>>>>ACTOR_MERGE_RESULT');
     // console.log( input );
     return input;
   };
 
-  public actor_validate_result = async ( { input }: { input: any} ) => {
+  @boundMethod
+  public async actor_validate_result( { input }: { input: any} ) {
     // console.log('>>>>>>ACTOR_VALIDATE_RESULT');
     // console.log( input );
     return input;
