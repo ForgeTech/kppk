@@ -1,3 +1,4 @@
+export * from './fg-storage/fg-storage-localforage.service';
 export * from './fg-storage/fg-storage-ngx-cookie.service';
 export * from './fg-storage/fg-storage.service';
 export * from './fg-timestring/fg-timestring.service';
