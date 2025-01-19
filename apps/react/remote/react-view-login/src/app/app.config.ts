@@ -23,10 +23,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTransloco({
       config: {
-        availableLangs: ['de', 'en'],
-        defaultLang: 'de',
-        reRenderOnLangChange: true,
-        prodMode: !isDevMode(),
+        availableLangs: environment.i18n.availableLangs,
+        defaultLang: environment.i18n.defaultLang,
+        reRenderOnLangChange: environment.i18n.reRenderOnLangChange,
+        prodMode: environment.i18n.prodMode,
       },
       loader: TranslocoHttpLoader,
     }),
