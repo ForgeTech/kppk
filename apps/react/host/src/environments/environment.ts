@@ -83,7 +83,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
     scopes: {
       keepCasing: undefined
     },
-    assetPath: 'assets/i18n/',
+    assetPath: './i18n/icons/',
     defaultLang: 'de',
     fallbackLang: ['en'],
     availableLangs: ['en', 'de'],

@@ -40,7 +40,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
     storeName: 'FgBaseApp',
   },
   i18n: {
-    assetPath: 'assets/i18n/',
+    assetPath: './i18n/icons/',
     scopes: {
       keepCasing: undefined
     },
