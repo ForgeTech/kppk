@@ -1,8 +1,7 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { FgBaseService } from '@kppk/fg-lib-new';
-
 import { createBrowserInspector } from '@statelyai/inspect';
-
+import { setup, assign, emit, fromPromise, fromObservable, createActor, raise, sendTo, sendParent } from 'xstate';
 /**
  * FgXstateInspectorConfig -
  * Provides configuration for xstate inspector service
@@ -43,10 +42,20 @@ export class FgXstateService extends FgBaseService {
     // tab doesn't seem to connect and automatically open
     autoStart: false,
   }
-  // Holds the xstate inspector
-  protected inspector;
-  // Holds the xstate inspector
-  public inspect;
+  public readonly inspector;
+  public readonly inspect;
+
+  public readonly assign = assign;
+  public readonly createActor = createActor;;
+  public readonly createBrowserInspector = createBrowserInspector;
+  public readonly emit = emit;
+  public readonly fromObservable = fromObservable;
+  public readonly fromPromise = fromPromise;
+  public readonly raise = raise;
+  public readonly sendParent = sendParent;
+  public readonly sendTo = sendTo;
+  public readonly setup = setup;
+
   // CONSTRUCTOR
   constructor() {
     super();
@@ -55,6 +64,7 @@ export class FgXstateService extends FgBaseService {
     }
     this.inspector = createBrowserInspector(this.DEFAULT_CONFIG);
     this.inspect = this.inspector.inspect;
+
   }
   /**
    * Methode to start and connect to
