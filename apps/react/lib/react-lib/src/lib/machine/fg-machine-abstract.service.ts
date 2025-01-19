@@ -12,7 +12,6 @@ import {
   FgEnvironmentService 
 } from '@kppk/fg-lib-new';
 import { FgXstateService } from './../service/fg-xstate.service';
-import { NGXLogger } from 'ngx-logger';
 import { Subject } from 'rxjs';
 import { 
   Actor,
