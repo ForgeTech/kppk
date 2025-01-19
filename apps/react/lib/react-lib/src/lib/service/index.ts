@@ -8,5 +8,3 @@ export * from './fg-tranloco-http-loader.service';
 // export * from './fg-utility.service';
 export * from './fg-xstate.service';
 export * from './kppk-register-icons.service';
-export * from './kppk-auth-local-actor.service';
-export * from './kppk-spinner-actor.service';
