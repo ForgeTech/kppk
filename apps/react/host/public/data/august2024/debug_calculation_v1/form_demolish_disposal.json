@@ -1,0 +1,295 @@
+{
+    "error": [],
+    "name": "demolish_disposal",
+    "valid": true,
+    "value": {
+        "insulation": {
+            "eps": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "glass_wool": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "rock_wool": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "wood_fibre": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "xps": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            }
+        },
+        "material": {
+            "brick": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "concrete": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 50
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "glass": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "plasterboard": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "rubble": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 36
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "steel": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 15
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "wood": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "wood_latch": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "wood_massive": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            },
+            "wood_material": {
+                "container": {
+                    "unit": "",
+                    "value": "10_cubic_meter_container"
+                },
+                "distance": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "km",
+                    "value": 100
+                },
+                "volume": {
+                    "edited": false,
+                    "type": "number",
+                    "unit": "m3",
+                    "value": 0
+                }
+            }
+        },
+        "setting": {
+            "distance": {
+                "edited": false,
+                "type": "number",
+                "unit": "km",
+                "value": 100
+            },
+            "usage": {
+                "edited": false,
+                "type": "number",
+                "unit": "%",
+                "value": 80
+            }
+        }
+    }
+}
