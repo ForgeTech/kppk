@@ -36,9 +36,9 @@ export class FgPwaInstallComponent {
   });
 
   public readonly input_visibleS = input<boolean>(false, { alias: 'visible' });
-  public readonly input_colorS = input<string | 'primary' | 'accent'>('primary', { alias: 'color' });
-  public readonly input_labelS = input<string>('', { alias: 'label' });
-  public readonly input_tooltipS = input<string>('', { alias: 'tooltip' });
+  public readonly input_colorS = input<string | 'primary' | 'accent' | undefined>('primary', { alias: 'color' });
+  public readonly input_labelS = input<string>(undefined, { alias: 'label' });
+  public readonly input_tooltipS = input<string>(undefined, { alias: 'tooltip' });
 
   public readonly pwa_install_availableS = signal<boolean | 'installing'>(false);
   /**

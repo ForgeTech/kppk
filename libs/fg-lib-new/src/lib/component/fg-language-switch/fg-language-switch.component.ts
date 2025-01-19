@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
 export class FgLanguageSwitchComponent {
   protected selected_langS = signal<LangDefinition | undefined>( undefined );
   
-  public input_icon_pathS = input('public/i18n/icons/', { alias: 'icon_path'});
+  public input_icon_pathS = input('./i18n/icons/', { alias: 'icon_path'});
   public input_colorS = input('primary', { alias: 'color'});
   public input_available_langsS = input<LangDefinition[]>([], { alias: 'available_langs' });
   
