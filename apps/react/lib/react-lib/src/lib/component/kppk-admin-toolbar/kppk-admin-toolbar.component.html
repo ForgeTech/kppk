@@ -1,25 +1,25 @@
-@if( show_admin_toolbar_s() ) {
-    <mat-toolbar *transloco="let t;" color="warn" class="!h-fit flex-wrap gap-4 md:!h-10">
+@if( show_admin_toolbarS() ) {
+    <mat-toolbar color="warn" class="flex-row justify-start items-center flex-wrap gap-4">
       <mat-icon>warning</mat-icon>
       <span>Debug Toolbar</span>
       <div class="flex-auto"></div>
       <mat-slide-toggle 
-        [checked]="test_calculation_is_on_s()"
+        [checked]="test_calculation_is_onS()"
         color="primary"
         labelPosition="before"
-        matTooltip="{{ t('test_calculation') }}"
+        matTooltip="test_calculation"
         (change)="toggle_test_calculation($event)" 
       > 
-        {{ t('test_calculation') }}
+        test_calculation
       </mat-slide-toggle>
       <mat-slide-toggle 
-        [checked]="xstate_is_on_s()"
+        [checked]="xstate_is_onS()"
         color="primary"
         labelPosition="before"
-        matTooltip="{{ t('xstate_inspector') }}"
+        matTooltip="xstate_inspector"
         (change)="toggle_xstate($event)" 
       > 
-        <img class="h-12" alt="{{ t}}" src="./assets/images/other/xstate.svg">
+        <img class="h-12" alt="" src="./images/other/xstate.svg">
       </mat-slide-toggle>
     </mat-toolbar>
 }

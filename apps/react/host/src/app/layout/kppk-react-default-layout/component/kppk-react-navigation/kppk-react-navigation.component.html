@@ -1,0 +1,79 @@
+<div *transloco="let t" class="main-navigation flex h-full min-h-full flex-col">
+  <mat-list>
+    @if( can_install_pwa_s() ){
+      <mat-list-item class="pwa-install-item">
+        <fg-pwa-install color="accent" class="w-full md:flex-1"/>
+      </mat-list-item>
+    }
+    @if( is_authorized_s() ){
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.HOME }}">
+          <mat-icon svgIcon="home"/>
+          {{ t('general.'+ HOST_ROUTES.HOME ) }}
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="h-10"></div>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary">
+          <mat-icon svgIcon="download"/>
+          {{ t('general.manual' ) }}
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      @if(true) {
+        <mat-list-item>
+          <a class="w-full" mat-stroked-button color="primary">
+            <mat-icon>add</mat-icon>
+            {{ t('general.calculation_start' ) }}
+          </a>
+        </mat-list-item>
+      }
+      @else if (true) {
+        Add List navigation
+      }
+      <mat-divider></mat-divider>
+    } 
+    @else {
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.LOGIN }}">
+          <mat-icon>login</mat-icon>
+          {{ t('general.'+ HOST_ROUTES.LOGIN) }}
+        </a>
+      </mat-list-item>
+    }
+  </mat-list>
+  <!-- <div class="flex-auto"></div> -->
+  <div class="h-10"></div>
+  <mat-list>
+    <mat-list-item>
+      <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.IMPRINT }}">
+        <mat-icon svgIcon="info"/>
+        {{ t('general.'+ HOST_ROUTES.IMPRINT ) }}
+      </a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.DATA_PROTECTION }}">
+        <mat-icon svgIcon="shield"/>
+        {{ t('general.'+ HOST_ROUTES.DATA_PROTECTION) }}
+      </a>
+    </mat-list-item>
+
+    <mat-list-item>
+      <fg-language-switch class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"/>
+    </mat-list-item>
+    @if( is_authorized_s() ){
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="warn" 
+          tabindex="0"
+          (click)="logout($event)"
+          (keydown)="logout($event)"
+        >
+          <mat-icon svgIcon="logout"/>
+          {{ t('general.logout') }}
+        </a>
+      </mat-list-item>
+    }
+  </mat-list>
+</div>
