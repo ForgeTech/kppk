@@ -50,8 +50,8 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
 
 @include mat.all-component-themes($mat-light-theme);
 
-@include mat.input-theme($mat-light-theme-darker);
-@include mat.form-field-theme($mat-light-theme-darker);
+// @include mat.input-theme($mat-light-theme-darker);
+// @include mat.form-field-theme($mat-light-theme-darker);
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: #FAFAFA  !important;
 }
@@ -59,7 +59,7 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
     color: var(--mdc-filled-text-field-label-text-color) !important;
 }
 
-@include mat.button-theme($mat-light-theme-darker);
+// @include mat.button-theme($mat-light-theme-darker);
 .mat-mdc-unelevated-button.mdc-button,
 .mat-mdc-outlined-button.mdc-button {
   position: relative;
@@ -73,13 +73,8 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
   border-color: var(--mdc-outlined-button-label-text-color);
 }
 
-@include mat.tooltip-theme($mat-light-theme);
-
-@include mat.select-theme($mat-light-theme);
-
-// @include mat.all-component-themes($mat-light-theme);
-// @include mat.all-component-themes($mat-light-theme);
-// @include mat.all-component-themes($mat-light-theme);
+// @include mat.tooltip-theme($mat-light-theme);
+// @include mat.select-theme($mat-light-theme);
 /* You can add global styles to this file, and also import other style files */
 
 
