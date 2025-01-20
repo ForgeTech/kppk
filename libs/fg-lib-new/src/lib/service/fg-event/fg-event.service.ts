@@ -4,12 +4,13 @@ import { FgEnvironmentService } from '../fg-environment/fg-environment.service';
 import { FgNgxLoggerMethodeType } from '../../interface/fg-environment-develpment-event.config.interface';
 import { FgBaseService } from '../../base/fg-base.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { optional, z } from 'zod';
+import { z } from 'zod';
 import { json_parser } from './../../type/json-type.zod';
 
 export const fg_event_parser = z.object({
   type: z.string(),
   target: z.string().optional(),
+  source: z.string().optional(),
   broadcast: z.literal(true).optional(),
   data: json_parser.optional(),
 });
@@ -76,7 +77,7 @@ export class FgEventService extends FgBaseService {
   public emit(event: FgEvent): void {
     fg_event_parser.parse( event );
     // Publish event as next action on event loop
-    setTimeout(this.push_event.bind(null, event), 0);
+    setTimeout(this.push_event.bind(this, event), 0);
   }
 
   /**
@@ -92,12 +93,15 @@ export class FgEventService extends FgBaseService {
     }
   }
   /**
-   * 
+   * Methode to help with logging on
+   * configured log-level
    * @param message 
    */
   protected log( message: any ) {
     if( this.$log ) {
       this.$log[this.log_level]( message );
+    } else {
+      console.warn( message )
     }
   }
 }
