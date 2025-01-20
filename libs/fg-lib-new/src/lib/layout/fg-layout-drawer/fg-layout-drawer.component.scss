@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  min-height: 100%;
+  height: 100%;
+  // Fixes problem with mat-drawer-container not
+  // taking up full available height when content
+  // doesn't fill full height
+  .mat-drawer-container {
+    height: 100%;
+  }
+  // Fixes problem of width of content-area
+  // to be wider then the actual content,
+  // because of display-block on
+  // angular-material .mat-drawer-content style
+  .mat-drawer-content {
+    display: inherit;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
+}

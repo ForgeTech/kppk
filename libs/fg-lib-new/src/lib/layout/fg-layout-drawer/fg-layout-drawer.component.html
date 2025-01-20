@@ -1,0 +1,37 @@
+<mat-drawer-container
+  #container
+  [hasBackdrop]="hasBackdrop$ | push">
+  <!-- RIGHT DRAWER -->
+  <mat-drawer
+    #start
+    [autoFocus]="true"
+    position="start">
+    @if( drawer_contentS as view ) {
+      <ng-template [cdkPortalOutlet]="view"/>
+    }
+    @else {
+      <ng-template #start>
+        <ng-content select="[start]"/>
+      </ng-template>  
+    }
+  </mat-drawer>
+    <!-- LEFT DRAWER -->
+  <mat-drawer
+    #end
+    [autoFocus]="true"
+    position="end">
+    @if(drawer_contentS as view) {
+      <ng-template [cdkPortalOutlet]="view"/>
+    }
+    @else {
+      <ng-template #end>
+        <ng-content select="[end]"/>
+      </ng-template>
+    }
+  </mat-drawer>
+  <!-- CONTENT -->
+  <mat-drawer-content #container class="content">
+    <ng-content select="[content]"/>
+  </mat-drawer-content>
+
+</mat-drawer-container>
