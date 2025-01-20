@@ -1,37 +1,42 @@
 import { Route } from '@angular/router';
 
-export const hostRoutes = {
-    root: '',
-    calc: 'react_view_calc',
-    home: 'react_view_home',
-    login: 'react_view_login',
-    wildcard: '**',
+export enum HOST_ROUTES {
+    ROOT = '',
+    CALC = 'react_view_calc',
+    HOME = 'react_view_home',
+    LOGIN = 'react_view_login',
+    IMPRINT = 'react_view_imprint',
+    DATA_PROTECTION = 'react_view_data_protection',
+    WILDCARD = '**',
 }
 
-export const appRoutes: Route[] = [
-  // {
-  //   path: hostRoutes.root,
-  //   loadComponent: () => import('./view/both.view.component').then(m => m.BothViewComponent),
-  //   children: [
+export const app_routes: Route[] = [
+  {
+    pathMatch: 'prefix',
+    path: HOST_ROUTES.ROOT,
+    loadComponent: () => 
+      import('./layout/kppk-react-default-layout-router-outlet/kppk-react-default-layout-router-outlet.component')
+      .then(m => m.KppkReactDefaultLayoutRouterOutletComponent),
+    children: [
       {
-        path: hostRoutes.calc,
+        path: HOST_ROUTES.CALC,
         loadChildren: () =>
           import('react_view_calc/Routes').then((m) => m!.remoteRoutes),
       },
       {
-        path: hostRoutes.home,
+        path: HOST_ROUTES.HOME,
         loadChildren: () =>
           import('react_view_home/Routes').then((m) => m!.remoteRoutes),
       },
-  //   ]
-  // },
+    ]
+  },
   {
-    path: hostRoutes.login,
+    path: HOST_ROUTES.LOGIN,
     loadChildren: () =>
       import('react_view_login/Routes').then((m) => m!.remoteRoutes),
   },
   {
-    path: hostRoutes.wildcard,
-    redirectTo: hostRoutes.home,
+    path: HOST_ROUTES.WILDCARD,
+    redirectTo: HOST_ROUTES.LOGIN,
   },
 ];

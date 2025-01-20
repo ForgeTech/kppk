@@ -6,7 +6,7 @@ import {
   provideExperimentalZonelessChangeDetection, 
 } from '@angular/core';
 import { PreloadAllModules, provideRouter, withDebugTracing, withPreloading, withViewTransitions } from '@angular/router';
-import { appRoutes } from './app.routes';
+import { app_routes } from './app.routes';
 import {
   provideClientHydration,
   withEventReplay,
@@ -16,19 +16,19 @@ import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from '../environments/environment.prod';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { KppkGlobalError, TranslocoHttpLoader } from '@kppk/react-lib';
 import { provideTransloco } from '@jsverse/transloco';
+import { KppkGlobalError, KppkReactLoadingIndicatorComponent, TranslocoHttpLoader } from '@kppk/react-lib';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay()),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(
-      appRoutes,
+      app_routes,
       withViewTransitions(),
       withPreloading(PreloadAllModules),
       // Provides debug output
-      withDebugTracing(),
+      // withDebugTracing(),
     ),
     provideAnimations(),
     provideHttpClient(
@@ -39,8 +39,8 @@ export const appConfig: ApplicationConfig = {
       config: {
         availableLangs: environment.i18n.availableLangs,
         defaultLang: environment.i18n.defaultLang,
-        reRenderOnLangChange: true,
-        prodMode: !isDevMode(),
+        reRenderOnLangChange: environment.i18n.reRenderOnLangChange,
+        prodMode: environment.production,
       },
       loader: TranslocoHttpLoader,
     }),
@@ -52,7 +52,6 @@ export const appConfig: ApplicationConfig = {
     FgEnvironmentService,
     { provide: FG_ENVIRONMENT, useValue: environment },
     { provide: ErrorHandler, useClass: KppkGlobalError },
-    { provide: FgStorageService, useClass: FgStorageLocalforageService }
-
+    { provide: FgStorageService, useClass: FgStorageLocalforageService },
   ],
 };
