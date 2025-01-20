@@ -17,7 +17,7 @@ import { environment } from '../environments/environment.prod';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
-import { KppkGlobalError, KppkReactLoadingIndicatorComponent, TranslocoHttpLoader } from '@kppk/react-lib';
+import { KppkGlobalError,TranslocoHttpLoader } from '@kppk/react-lib';
 
 export const appConfig: ApplicationConfig = {
   providers: [
