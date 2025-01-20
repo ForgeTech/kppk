@@ -1,20 +1,22 @@
 <fg-layout-default>
+    @let t = transS();
+    <kppk-admin-toolbar header/>
     <main content class="mt-4 flex h-full w-full flex-col items-center justify-center md:mt-0">
         <mat-card class="min-w-xs w-full max-w-lg !p-4 !shadow-none">
             <div class="flex flex-col items-center justify-center px-4">
                 <img
                     class="min-w-xs w-full max-w-md"
-                    alt="{{ 'react_logo_act' }}"
+                    alt="{{ t?.alt_react_logo }}"
                     src="./images/react/react-logo.png"
                 />
                 @if( error_s() ) {
                     <div class="mat-warn-bg mt-2 inline-block h-full w-full px-4 py-2">
-                        error_authorization
+                        {{ t?.authorization_error }}
                     </div>
                 }
                 @if( success_s() ) {
                     <div class="mat-primary-bg mt-2 inline-block h-full w-full px-4 py-2">
-                        success_authorization
+                        {{ t?.authorization_success }}
                     </div>
                 }
                 @if( pending_s() ){
@@ -24,14 +26,17 @@
             <form [formGroup]="form_login">
                 <mat-card-content class="!px-4">
                     <formly-form 
-                        class="form"
+                        class="form inline-block w-full pb-6 pt-8"
                         [model]="{ user: '', password: ''}"
                         [form]="form_login"
                         [fields]="fields_login"
                     ></formly-form>
                 </mat-card-content>
                 <mat-card-actions class="flex !flex-col-reverse gap-2 !px-4 md:!flex-row">
-                    <fg-pwa-install [visible]="true" color="accent" class="w-full md:flex-1"/>
+                    <fg-pwa-install 
+                        [tooltip]="t?.tooltip_install" 
+                        [label]="t?.label_install" 
+                        [visible]="true" color="accent" class="w-full md:flex-1"/>
                     <button 
                         class="w-full md:flex-1"
                         mat-stroked-button 
@@ -40,12 +45,12 @@
                         (click)="login($event)"
                     >
                         <mat-icon class="right-4">login</mat-icon>
-                        LOGIN
+                        {{ t?.label_login }}
                     </button>
                 </mat-card-actions>
             </form>
         </mat-card>
-        <div class="mt-4 sm:mt-8">VERSION {{ versionS() }}</div>
+        <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ versionS() }}</div>
         <a
             class="m-4 inline-block sm:m-8"
             href="https://www.kppk.at/"
@@ -55,8 +60,8 @@
             <img
                 class="kppk-logo"
                 width="100%"
-                alt="{{ 'img-alt_kppk-logo' }}"
-                src="././images/kppk/kppk-logo.svg"
+                alt="{{ t?.alt_kppk_logo }}"
+                src="./images/kppk/kppk-logo.svg"
             />
         </a>
     </main>
@@ -68,8 +73,7 @@
                 >
                     <!-- routerLink="/{{ ROUTES.IMPRINT }}" -->
                     <mat-icon color="primary" svgIcon="info"></mat-icon>
-                    <!-- {{ t( 'general.'+ ROUTES.IMPRINT )}} -->
-                    IMPRINT
+                    {{ t?.route_imprint }}
                 </a>
             </li>
             <li class="w-full md:w-64">
@@ -78,14 +82,16 @@
                 >
                     <!-- routerLink="/{{ ROUTES.DATA_PROTECTION }}" -->
                     <mat-icon color="primary" svgIcon="shield"></mat-icon>
-                    DATA_PROTECTION
+                    {{ t?.route_data_protection }}
                 </a>
             </li>
             <li class="w-full md:w-64">
                 <fg-language-switch 
-                    [selected]=""
-                    [avai]="en"
-                    class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"/>
+                    class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"
+                    [selected]="active_langS()"
+                    [available_langs]="available_langsS()"
+                    [icon_path]="lang_icons_pathS()"
+                />
             </li>
         </menu>
     </footer>
