@@ -18,7 +18,7 @@ export class FgBaseService implements OnDestroy {
   public readonly className: string = this.constructor.name;
 
   /** (Optional) Provide logger service */
-  protected $log = inject(NGXLogger, { optional: true });
+  protected $log = inject(NGXLogger);
 
   constructor() {
     this.$log?.info('SERVICE: ', this.className, 'created!');
