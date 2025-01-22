@@ -2,5 +2,6 @@
     "manual": "Anleitung",
     "calculation_start": "Berechnung starten",
     "login": "Anmelden",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "label_version": "Version"
 }
