@@ -19,6 +19,10 @@
         "assets": [
           {
             "glob": "**/*",
+            "input": "apps/react/host/public"
+          },
+          {
+            "glob": "**/*",
             "input": "apps/react/remote/react-view-home/public"
           }
         ],
