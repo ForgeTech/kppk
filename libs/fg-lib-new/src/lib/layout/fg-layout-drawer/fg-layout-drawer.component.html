@@ -1,13 +1,13 @@
 <mat-drawer-container
   #container
-  [hasBackdrop]="hasBackdrop$ | push">
+  [hasBackdrop]="has_backdropS()">
   <!-- RIGHT DRAWER -->
   <mat-drawer
     #start
     [autoFocus]="true"
     position="start">
-    @if( drawer_contentS as view ) {
-      <ng-template [cdkPortalOutlet]="view"/>
+    @if( drawer_contentS() ) {
+      <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
     }
     @else {
       <ng-template #start>
@@ -20,8 +20,8 @@
     #end
     [autoFocus]="true"
     position="end">
-    @if(drawer_contentS as view) {
-      <ng-template [cdkPortalOutlet]="view"/>
+    @if( drawer_contentS() ) {
+      <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
     }
     @else {
       <ng-template #end>
