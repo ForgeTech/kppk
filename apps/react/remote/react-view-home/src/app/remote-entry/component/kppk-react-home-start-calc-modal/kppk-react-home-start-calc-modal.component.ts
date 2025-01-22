@@ -4,6 +4,7 @@ import {
   ViewEncapsulation,
   computed,
   effect,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -12,31 +13,35 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
-import { KppkFormlyModule } from 'apps/fg-react-demo/src/app/module/kppk-formly-form/kppk-formly.module';
-import { oi3_table_header_type_parser,
-  oi3_table_headline_parser,
-  oi3_table_row_type_parser,
-  OI3_TABLE_ROW_TYPE,
-  oi3_bgf_bzg_m2_parser,
-  rose_table_row_parser, 
-  ROSE_TABLE_ROW_TYPE,
-  rose_table_system_row_parser,
-  ROSE_TABLE_SYSTEM_ROW,
-  rose_table_section_headline_parser,
-} from 'apps/fg-react-demo/src/app/machine/react-view-home/react-view-home.types';
+
 import pdf2array, { Pdf2ArrayOptions } from 'pdf2array';
 import { parse } from 'papaparse';
-import { debug_calculation_oi3_import_parser } from 'apps/fg-react-demo/src/app/machine/react-init/react-init.types';
 import { FileInput, MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FileValidator } from 'ngx-custom-material-file-input';
 import { FormControl, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { rose_file_data_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-heating-system.types';
-import { unit_tonco2_parser, unit_tonco2_xyear_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-unit.types';
+import { 
+  debug_calculation_oi3_import_parser,
+  KppkFormlyModule,
+  KppkReactSharedService,
+  oi3_bgf_bzg_m2_parser,
+  oi3_table_header_type_parser,
+  oi3_table_headline_parser,
+  OI3_TABLE_ROW_TYPE,
+  oi3_table_row_type_parser,
+  ReactViewHomeMachineActorService,
+  rose_file_data_parser,
+  rose_table_row_parser,
+  ROSE_TABLE_ROW_TYPE,
+  rose_table_section_headline_parser,
+  ROSE_TABLE_SYSTEM_ROW,
+  rose_table_system_row_parser,
+  unit_tonco2_xyear_parser } from '@kppk/react-lib';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
-  selector: 'react-demo-kppk-react-home-start-calc-modal',
+  selector: 'react-home-start-calc-modal',
   
   imports: [
     CommonModule,
@@ -54,10 +59,14 @@ import { unit_tonco2_parser, unit_tonco2_xyear_parser } from 'apps/fg-react-demo
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   // providers: [
-  //   provideTranslocoScope('general', 'home', 'form')
+  //   provideTranslocoScope('general','home', 'form')
   // ]
 })
 export class KppkReactHomeStartCalcModalComponent  {
+  protected $shared = inject(KppkReactSharedService);
+  protected $translate = inject(FgTranslate);
+  protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
+
   protected readonly maxSize = 104857600; //100Mb
 
   protected oi3_file = new FormControl( undefined, [Validators.required, FileValidator.maxContentSize(this.maxSize)])
@@ -66,17 +75,17 @@ export class KppkReactHomeStartCalcModalComponent  {
   protected heating_system_file = new FormControl( undefined, [Validators.required, FileValidator.maxContentSize(this.maxSize)])
 
   protected selected_s = computed( () => {
-    return this.state_react_view_home_s()?.matches({ 'MODAL': { 'SHOWN': 'SELECTED'}});
+    return this.$actor_react_view_home.stateS()?.matches({ 'MODAL': { 'SHOWN': 'SELECTED'}});
   });
   protected selected_from_files_s = computed( () => {
-    return this.state_react_view_home_s()?.matches({ 'MODAL': { 'SHOWN': { 'SELECTED': 'FROM_FILES' }}});
+    return this.$actor_react_view_home.stateS()?.matches({ 'MODAL': { 'SHOWN': { 'SELECTED': 'FROM_FILES' }}});
   });
   protected selected_from_stored_s = computed( () => {
-    return this.state_react_view_home_s()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': 'FROM_STORED'}}});
+    return this.$actor_react_view_home.stateS()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': 'FROM_STORED'}}});
   });
   protected selected_ready_s = computed( () => {
-    return this.state_react_view_home_s()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': { 'FROM_FILES': 'READY'}}}});
-          // || this.state_react_view_home_s()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': { 'FROM_STORED': {'FROM_FILE'}}}}});
+    return this.$actor_react_view_home.stateS()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': { 'FROM_FILES': 'READY'}}}});
+          // || this.$actor_react_view_home.stateS()?.matches({ 'MODAL': { 'SHOWN': {'SELECTED': { 'FROM_STORED': {'FROM_FILE'}}}}});
   });
 
   protected oi3_file_change_s = toSignal(this.oi3_file.valueChanges, {initialValue: undefined})
@@ -114,23 +123,23 @@ export class KppkReactHomeStartCalcModalComponent  {
   });
   protected select_from_files = ( event: Event ) => {
     event.preventDefault();
-    this.actor_react_view_home_s()?.send({type: 'react.view.home.event.modal.from_files'})
+    this.$actor_react_view_home.send({type: 'react.view.home.event.modal.from_files'})
   }
   protected select_from_stored = ( event: Event ) => {
     event.preventDefault();
-    this.actor_react_view_home_s()?.send({type: 'react.view.home.event.modal.from_stored'})
+    this.$actor_react_view_home.send({type: 'react.view.home.event.modal.from_stored'})
   }
   protected close_modal = ( event: Event ) => {
     event.preventDefault();
-    this.actor_react_view_home_s()?.send({type: 'react.view.home.event.modal.close'})
+    this.$actor_react_view_home.send({type: 'react.view.home.event.modal.close'})
   }
   protected back = ( event: Event ) => {
     event.preventDefault();
-    this.actor_react_view_home_s()?.send({type: 'react.view.home.event.modal.back'})
+    this.$actor_react_view_home.send({type: 'react.view.home.event.modal.back'})
   }
   protected start_calc = ( event: Event ) => {
     event.preventDefault();
-    this.actor_react_view_home_s()?.send({type: 'react.view.home.event.modal.start_calculation'})
+    this.$actor_react_view_home.send({type: 'react.view.home.event.modal.start_calculation'})
   }
 
   public handle_oi3_file(file: File ) {
@@ -149,8 +158,8 @@ export class KppkReactHomeStartCalcModalComponent  {
         let found_matching_table_format: boolean = false;
         let found_section_headline: boolean = false;
         
-        let data_matching_format: OI3_TABLE_ROW_TYPE[] = [];
-        let data_matching_after_section_headline: OI3_TABLE_ROW_TYPE[] = [];
+        const data_matching_format: OI3_TABLE_ROW_TYPE[] = [];
+        const data_matching_after_section_headline: OI3_TABLE_ROW_TYPE[] = [];
 
         pdfData.forEach( (row, index) => {
             if(found_bfg_or_bgz === false) {
@@ -214,9 +223,9 @@ export class KppkReactHomeStartCalcModalComponent  {
             area: bfg_or_bgz_value,
             data: data_matching_after_section_headline
           });
-          this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.oi3.ready', data });
+          this.$actor_react_view_home.send({ type: 'react.view.home.event.oi3.ready', data });
         } catch ( error ) {
-          // this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.oi3.error' });
+          // this.$actor_react_view_home.send({ type: 'react.view.home.event.oi3.error' });
         }
       });
     })
@@ -309,9 +318,9 @@ export class KppkReactHomeStartCalcModalComponent  {
           }
           
             const payload = rose_file_data_parser.parse(rose_data_raw)
-            this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.rose.ready', data: payload })
+            this.$actor_react_view_home.send({ type: 'react.view.home.event.rose.ready', data: payload })
           } catch( error ) {
-            // this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.rose.error' });
+            // this.$actor_react_view_home.send({ type: 'react.view.home.event.rose.error' });
           }
       });
     })
@@ -361,7 +370,7 @@ export class KppkReactHomeStartCalcModalComponent  {
       // result_test += '["'.concat( row.join('", "')  ,'"],\n')
     })
     // console.log(result_test)
-    this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.aufbauten.ready', data: result_test })
+    this.$actor_react_view_home.send({ type: 'react.view.home.event.aufbauten.ready', data: result_test })
   }
 
   public handle_bauteilflaechen_file(file: File ) {
@@ -402,6 +411,6 @@ export class KppkReactHomeStartCalcModalComponent  {
       result.push(row);
     });
     console.table(result);
-    this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.bauteilflaechen.ready', data: result })
+    this.$actor_react_view_home.send({ type: 'react.view.home.event.bauteilflaechen.ready', data: result })
   }
 }

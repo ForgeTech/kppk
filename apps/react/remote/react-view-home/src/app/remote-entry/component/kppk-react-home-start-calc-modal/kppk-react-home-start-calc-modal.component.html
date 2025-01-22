@@ -1,7 +1,10 @@
+@let s = $shared;
+@let sup = $translate.supplant;
+@let t = s.kppk_react_home_translationsS();
 <mat-card>
     <mat-card-header class="!p-0">
         <mat-toolbar class="relative">
-            <h1>{{ t('home.headline_start_calc_modal') }}</h1>
+            <h1>{{ t?.headline_start_calc_modal }}</h1>
             <div class="flex-auto"></div>
             <button mat-mini-fab color="warn" (click)="close_modal($event)">
                 <mat-icon>close</mat-icon>
@@ -9,8 +12,8 @@
         </mat-toolbar>
     </mat-card-header>
     <mat-card-content class="!px-6 !py-12">
-        <h2>{{ t('home.content_provide_calculation_data') }}</h2>
-        <!-- <div>{{ t('home.content_provide_calculation_data_choose_option') }}</div> -->
+        <h2>{{ t?.content_provide_calculation_data }}</h2>
+        <!-- <div>{{ t?.content_provide_calculation_data_choose_option }}</div> -->
         <div class="flex flex-col gap-4">
             @if( !selected_s() ) {
                 <button class="w-full"
@@ -19,7 +22,7 @@
                     (click)="select_from_files($event)"
                 >
                     <mat-icon>folder_open</mat-icon>
-                    {{ t('home.content_provide_calculation_data_from_files') }}
+                    {{ t?.content_provide_calculation_data_from_files }}
                 </button>
                 <button class="w-full"
                     mat-stroked-button 
@@ -27,15 +30,15 @@
                     (click)="select_from_stored($event)"
                 >
                     <mat-icon>save</mat-icon>
-                    {{ t('home.content_provide_calculation_data_from_storage') }}
+                    {{ t?.content_provide_calculation_data_from_storage }}
                 </button>
             }
             @if(selected_from_files_s()) {
-                    <h3>{{ t('home.headline_selected_from_files') }}</h3>
+                    <h3>{{ t?.headline_selected_from_files }}</h3>
                     <mat-form-field class="w-full">
                         <ngx-mat-file-input 
                             [formControl]="oi3_file"
-                            [valuePlaceholder]="t('home.oi3_file_placeholder')"
+                            [valuePlaceholder]="t?.placeholder_oi3_file ?? ''"
                             accept=".pdf"
                             required
                         />
@@ -53,24 +56,25 @@
                         }
                         @if(oi3_file.hasError('required')) {
                             <mat-error>
-                            {{ t('form.error_required') }}
+                            {{ t?.error_required }}
                             </mat-error>
                         }
 
                         @if(oi3_file.hasError('maxContentSize')) {
                             <mat-error>
-                                {{ t('form.error_max_file_size', {
-                                    max_size: oi3_file.getError('maxContentSize').maxSize | byteFormat,
-                                    actual_size: oi3_file.getError('maxContentSize').actualSize | byteFormat 
-                                }) }}
-                                <!-- The total size must not exceed {{oi3_file.getError('maxContentSize').maxSize | byteFormat}} ({{requiredfile.getError('maxContentSize').actualSize | byteFormat}}). -->
+                                {{
+                                    sup(t?.error_max_file_size, {
+                                        max_size: oi3_file.getError('maxContentSize').maxSize | byteFormat,
+                                        actual_size: oi3_file.getError('maxContentSize').actualSize | byteFormat 
+                                    })
+                                }}
                             </mat-error>
                         }
                     </mat-form-field>
                     <mat-form-field class="w-full">
                         <ngx-mat-file-input 
                             [formControl]="aufbauten_file"
-                            [valuePlaceholder]="t('home.aufbauten_file_placeholder')" 
+                            [valuePlaceholder]="t?.placeholder_aufbauten_file ?? ''" 
                             accept=".txt"
                             required
                         />
@@ -88,22 +92,24 @@
                         }
                         @if(aufbauten_file.hasError('required')) {
                             <mat-error>
-                            {{ t('form.error_required') }}
+                            {{ t?.error_required }}
                             </mat-error>
                         }
                         @if(aufbauten_file.hasError('maxContentSize')) {
                             <mat-error>
-                                {{ t('form.error_max_file_size', {
-                                    max_size: aufbauten_file.getError('maxContentSize').maxSize | byteFormat,
-                                    actual_size: aufbauten_file.getError('maxContentSize').actualSize | byteFormat 
-                                }) }}
+                                {{
+                                    sup(t?.error_max_file_size, {
+                                        max_size: aufbauten_file.getError('maxContentSize').maxSize | byteFormat,
+                                        actual_size: aufbauten_file.getError('maxContentSize').actualSize | byteFormat 
+                                    })
+                                }}
                             </mat-error>
                         }
                     </mat-form-field>
                     <mat-form-field class="w-full">
                         <ngx-mat-file-input 
                             [formControl]="bauteilflaechen_file"
-                            [valuePlaceholder]="t('home.bauteilflaechen_file_placeholder')" 
+                            [valuePlaceholder]="t?.placeholder_bauteilflaechen_file ?? ''"
                             accept=".csv"
                             required
                         />
@@ -121,22 +127,24 @@
                         }
                         @if(bauteilflaechen_file.hasError('required')) {
                             <mat-error>
-                            {{ t('form.error_required') }}
+                            {{ t?.error_required }}
                             </mat-error>
                         }
                         @if(bauteilflaechen_file.hasError('maxContentSize')) {
                             <mat-error>
-                                {{ t('form.error_max_file_size', {
-                                    max_size: bauteilflaechen_file.getError('maxContentSize').maxSize | byteFormat,
-                                    actual_size: bauteilflaechen_file.getError('maxContentSize').actualSize | byteFormat 
-                                }) }}
+                                {{
+                                    sup(t?.error_max_file_size, {
+                                        max_size: bauteilflaechen_file.getError('maxContentSize').maxSize | byteFormat,
+                                        actual_size: bauteilflaechen_file.getError('maxContentSize').actualSize | byteFormat 
+                                    })
+                                }}
                             </mat-error>
                         }
                     </mat-form-field>
                     <mat-form-field class="w-full">
                         <ngx-mat-file-input 
                             [formControl]="heating_system_file"
-                            [valuePlaceholder]="t('home.heating_system_file_placeholder')" 
+                            [valuePlaceholder]="t?.placeholder_heating_system_file ?? ''"
                             accept=".pdf"
                             required
                         />
@@ -154,21 +162,23 @@
                         }
                         @if(heating_system_file.hasError('required')) {
                             <mat-error>
-                            {{ t('form.error_required') }}
+                            {{ t?.error_required }}
                             </mat-error>
                         }
                         @if(heating_system_file.hasError('maxContentSize')) {
                             <mat-error>
-                                {{ t('form.error_max_file_size', {
-                                    max_size: heating_system_file.getError('maxContentSize').maxSize | byteFormat,
-                                    actual_size: heating_system_file.getError('maxContentSize').actualSize | byteFormat 
-                                }) }}
+                                {{
+                                    sup(t?.error_max_file_size, {
+                                        max_size: heating_system_file.getError('maxContentSize').maxSize | byteFormat,
+                                        actual_size: heating_system_file.getError('maxContentSize').actualSize | byteFormat 
+                                    })
+                                }}
                             </mat-error>
                         }
                     </mat-form-field>
             }
             @if(selected_from_stored_s()) {
-                <h3>{{ t('home.headline_selected_from_stored_s') }}</h3>
+                <h3>{{ t?.headline_selected_from_stored }}</h3>
                 
             }
      </div>
@@ -183,7 +193,7 @@
                     (click)="back($event)"
                 >
                     <mat-icon>undo</mat-icon>
-                    {{ t('home.button_back') }}
+                    {{ t?.button_back }}
                 </button>
             }
             @else {
@@ -193,7 +203,7 @@
                     (click)="close_modal($event)"
                 >
                     <mat-icon>close</mat-icon>
-                    {{ t('home.button_cancel') }}
+                    {{ t?.button_cancel }}
                 </button>
             }
             <button class="w-[240px]"
@@ -202,7 +212,7 @@
                 (click)="start_calc($event)"
             >
                 <mat-icon>play_arrow</mat-icon>
-                {{ t('home.button_start_calc') }}
+                {{ t?.button_start_calc }}
             </button>
         </mat-card-actions>
     </mat-card-footer>

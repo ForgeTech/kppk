@@ -1,55 +1,78 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { KppkReactSharedService, ReactInitMachineActorService, ReactInitMachineService, ReactViewHomeMachineActorService } from '@kppk/react-lib';
+import { MatButtonModule } from '@angular/material/button';
+import { NGXLogger } from 'ngx-logger';
+import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
 
 @Component({
   imports: [
     CommonModule,
     MatIconModule,
-    MatDialogModule
+    MatButtonModule,
+    MatDialogModule,
+    MatCardModule
   ],
   selector: 'kppk-react-view-home',
   templateUrl: './entry.component.html',
+  styles: [`
+
+  :host {
+    display: block;
+    min-height: 100%;
+  }
+  .home-filler-container {
+    background-color: #a2b819;
+  }
+  `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemoteEntryComponent {
   protected $active_route = inject(ActivatedRoute);
-  protected $dialog = inject(MAT_RADIO_DEFAULT_OPTIONS);
+  protected $dialog = inject(MatDialog);
+  protected $log = inject(NGXLogger);
+  protected $shared = inject(KppkReactSharedService);
+  protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
+  protected $actor_react_init = inject(ReactInitMachineActorService);
 
-  protected start_calculation_dialog: undefined | MatDialogRe<any, any>;
-  // constructor() {
-    // super()
-    // this.$active_route.queryParams.subscribe( values => {
-    //   this.$component.$log.warn('3>>>>>>>>>>>PARAMS>>>>>>>>');
-    //   console.log( values );
-    // });
-    // effect( () => {
-      // const state = this.state_react_view_home_s()
-      // console.log()
-      // if( state?.matches( { 'MODAL': 'SHOWN' } ) && this.start_calculation_dialog === undefined) {
-      //   this.start_calculation_dialog = this.$dialog.open(
-      //     KppkReactHomeStartCalcModalComponent, {
-      //     panelClass: 'kppk_react_home_view_modal_panal',
-      //     enterAnimationDuration: '250ms',
-      //     exitAnimationDuration: '250ms',
-      //     autoFocus: true,
-      //     disableClose: true,
-      //   });
-      // } else if( 
-      //   this.start_calculation_dialog 
-      //   && (state?.matches({ 'MODAL': 'HIDDEN'}) || state?.matches({ 'MODAL': 'DONE'})) 
-      // ) {
-      //   this.start_calculation_dialog.close();
-      //   this.start_calculation_dialog = undefined;
-      // }
-    // });
-  // }
+  protected start_calculation_dialog: undefined | MatDialogRef<any, any>;
+  constructor() {
+    if( this.$actor_react_init.is_runningS() === false ) {
+      this.$actor_react_init.start();
+    }
+    this.$actor_react_view_home.start()
+    this.$active_route.queryParams.subscribe( values => {
+      this.$log.warn('3>>>>>>>>>>>PARAMS>>>>>>>>');
+      console.log( values );
+    });
+    effect( () => {
+      const state = this.$actor_react_view_home.stateS();
+      console.log()
+      if( state?.matches( { 'MODAL': 'SHOWN' } ) && this.start_calculation_dialog === undefined) {
+        this.start_calculation_dialog = this.$dialog.open(
+          KppkReactHomeStartCalcModalComponent, {
+          panelClass: 'kppk_react_home_view_modal_panal',
+          enterAnimationDuration: '250ms',
+          exitAnimationDuration: '250ms',
+          autoFocus: true,
+          disableClose: true,
+        });
+      } else if( 
+        this.start_calculation_dialog 
+        && (state?.matches({ 'MODAL': 'HIDDEN'}) || state?.matches({ 'MODAL': 'DONE'})) 
+      ) {
+        this.start_calculation_dialog.close();
+        this.start_calculation_dialog = undefined;
+      }
+    });
+  }
 
   protected open_start_calc_modal = ( event: Event ) => {
     event.preventDefault();
-    // this.actor_react_view_home_s()?.send({ type: 'react.view.home.event.modal.open' });
+    this.$actor_react_view_home.send({ type: 'react.view.home.event.modal.open' });
   };
 }

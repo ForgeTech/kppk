@@ -1,46 +1,53 @@
-<mat-card *transloco="let t;" content class="flex h-full flex-col flex-wrap items-center justify-start !shadow-none">
+@let s = $shared;
+@let t = s.kppk_react_home_translationsS();
+<mat-card content class="flex h-full flex-col flex-wrap items-center justify-start !shadow-none">
     <mat-card-header class="w-full">
-        <h1 class="!mx-auto">{{ t('home.welcome_headline') }}</h1>
+        <h1 class="!mx-auto">{{ t?.headline_welcome }}</h1>
     </mat-card-header>
-    <img
-        class="m-6 mr-[16px] aspect-auto h-24"
-        alt="R.E.A.C.T. Reduction Analysis Tool Logo"
-        src="./images/react/react-logo.png"
-    />
-    <div class="flex w-full min-w-[24px] max-w-4xl flex-col px-6">
-        <p class="text-justify text-base">{{ t('home.welcome_text') }}</p>
+
+    <div>
+        <img
+            class="m-6 mr-[16px] aspect-auto h-24"
+            alt="R.E.A.C.T. Reduction Analysis Tool Logo"
+            src="./images/react/react-logo.png"
+        />
+        <div class="flex w-full min-w-[24px] max-w-4xl flex-col px-6">
+            <p class="text-justify text-base">{{ t?.text_welcome }}</p>
+        </div>
+        <div class="relative flex w-full flex-row justify-center">
+        <button 
+            class="my-4 !min-w-[240px]" 
+            mat-stroked-button 
+            color="primary" 
+            type="submit" 
+            (click)="open_start_calc_modal($event)"
+        >
+            <mat-icon class="right-4">add</mat-icon>
+            {{ t?.calculation_start }}
+        </button>
+    </div>
+    <div class="m-6 place-self-center">{{ t?.label_version }} {{ s.versionS() }}</div>
    </div>
-   <div class="relative flex w-full flex-row justify-center">
-    <button 
-        class="my-4 !min-w-[240px]" mat-stroked-button color="primary" 
-        type="submit" 
-        (click)="open_start_calc_modal($event)"
-    >
-        <mat-icon class="right-4">add</mat-icon>
-        {{ t('general.calculation_start' ) }}
-    </button>
-   
-   </div>
-   <div class="m-6 place-self-center">{{ t('general.version') }} {{ version_s() }}</div>
+   <div class="flex-auto flex-grow bg-red-300"></div>
    <div class="home-filler-container flex min-h-8 w-full flex-row items-center justify-center">
-        <div class="grid grid-cols-3 gap-6 p-6">
+        <div class="grid grid-cols-3 gap-6 p-6 lg:grid-cols-6">
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/material.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_material }}" src="./images/react/material.png"/>
             </div>
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/construction_site.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_construction_site }}" src="./images/react/construction_site.png"/>
             </div>
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/container_village.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_container_village }}" src="./images/react/container_village.png"/>
             </div>
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/demolish_disposal.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_demolish_disposal }}" src="./images/react/demolish_disposal.png"/>
             </div>
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/excavation_pit.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_excavation_pit }}" src="./images/react/excavation_pit.png"/>
             </div>
             <div class="">
-                <img class="w-32" alt="{{ t}}" src="./assets/images/react/heating_system.png"/>
+                <img class="w-32" alt="{{ t?.alt_pictogram_heating_system }}" src="./images/react/heating_system.png"/>
             </div>
         </div>
    </div>
