@@ -3,7 +3,9 @@ import {
   ErrorHandler,
   importProvidersFrom,
   isDevMode,
-  provideExperimentalZonelessChangeDetection, 
+  makeEnvironmentProviders,
+  provideExperimentalZonelessChangeDetection,
+  providePlatformInitializer, 
 } from '@angular/core';
 import { PreloadAllModules, provideRouter, withDebugTracing, withPreloading, withViewTransitions } from '@angular/router';
 import { app_routes } from './app.routes';
@@ -11,16 +13,25 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { FG_ENVIRONMENT, FgEnvironmentService, FgStorageService, FgStorageLocalforageService } from '@kppk/fg-lib-new';
-import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { FG_ENVIRONMENT, FgEnvironmentService, FgStorageService, FgStorageLocalforageService, FgStorageNgxCookieService, FgBreakpoint, FgEventService } from '@kppk/fg-lib-new';
+import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment.prod';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
-import { KppkGlobalError,TranslocoHttpLoader } from '@kppk/react-lib';
+import { KppkGlobalError,KppkReactSharedService,TranslocoHttpLoader } from '@kppk/react-lib';
+import { CookieModule } from 'ngx-cookie';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    makeEnvironmentProviders([
+      importProvidersFrom(LoggerModule.forRoot({
+        // serverLoggingUrl: '/api/logs',
+        level: environment.logger.level,
+        // serverLogLevel: NgxLoggerLevel.ERROR
+      })),
+      FgEventService
+    ]),
     provideClientHydration(withEventReplay()),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(
@@ -44,14 +55,13 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    importProvidersFrom(LoggerModule.forRoot({
-      // serverLoggingUrl: '/api/logs',
-      level: NgxLoggerLevel.DEBUG,
-      serverLogLevel: NgxLoggerLevel.ERROR
-    })),
     FgEnvironmentService,
     { provide: FG_ENVIRONMENT, useValue: environment },
     { provide: ErrorHandler, useClass: KppkGlobalError },
     { provide: FgStorageService, useClass: FgStorageLocalforageService },
+    FgStorageNgxCookieService,
+    importProvidersFrom(CookieModule.forRoot()),
+    FgBreakpoint,
+    KppkReactSharedService,
   ],
 };
