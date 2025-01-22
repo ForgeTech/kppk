@@ -6,3 +6,4 @@ export * from './lib/service';
 export * from './lib/token';
 export * from './lib/util';
 export * from './lib/decorator';
+export * from './lib/library/pdf2array';
