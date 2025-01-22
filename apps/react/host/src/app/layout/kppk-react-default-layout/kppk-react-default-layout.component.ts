@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, inject, viewChild } from '@angular/core';
-import { filter } from 'rxjs/operators';
-import { MatDrawer } from '@angular/material/sidenav';
 import { Portal, PortalModule } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
-import { ViewportScrollPosition } from '@angular/cdk/scrolling';
 import {
   FgEventService,
   // FgLayoutBaseEvent,
   FgLayoutDefaultComponent,
-  // FgLayoutDrawerComponent,
+  FgLayoutDrawerComponent,
   // FgLayoutDrawerEvent,
   // FgSwUpdateBannerComponent 
 } from '@kppk/fg-lib-new';
@@ -19,7 +16,7 @@ import { KppkReactNavigationComponent } from './component/kppk-react-navigation/
 import { KppkReactHeaderOpenNavBtnComponent } from './component/kppk-react-header-open-nav-btn/kppk-react-header-open-nav-btn.component';
 
 import { CommonModule } from '@angular/common';
-import { KppkAdminToolbarComponent } from '@kppk/react-lib';
+import { KppkAdminToolbarComponent, KppkReactSharedService } from '@kppk/react-lib';
 
 export interface FgOpenDrawerInterface {
   drawer: 'inner' | 'outer';
@@ -35,7 +32,7 @@ export interface FgOpenDrawerInterface {
   imports: [
     CommonModule,
     PortalModule,
-    // FgLayoutDrawerComponent,
+    FgLayoutDrawerComponent,
     // FgSwUpdateBannerComponent,
     FgLayoutDefaultComponent,
     MatCardModule,
@@ -52,26 +49,8 @@ export interface FgOpenDrawerInterface {
 })
 export class KppkReactDefaultLayoutComponent  {
   protected $event = inject(FgEventService);
+  protected $shared = inject(KppkReactSharedService);
 
-  // protected drawer_s = viewChild<FgLayoutDrawerComponent>('drawer');
-
-
-  // protected open_navigation_event_s = toSignal( this.$event.event$.pipe(
-  //   filter( event => event.type === FgLayoutDrawerEvent.OPEN_DRAWER )
-  // ));
-  // protected close_navigation_event_s = toSignal(this.$event.event$.pipe(
-  //   filter( event => event.type === FgLayoutDrawerEvent.CLOSE_DRAWER )
-  // ));
-  // protected scroll_to_s = toSignal( this.$event.event$.pipe(
-  //   filter( event => event.type === FgLayoutBaseEvent.SCROLL_TO )
-  // ));
-
-  protected show_admin_toolbar_s = computed( () => {
-    // const main_context = this.state_main_s()?.context;
-    // const auth_context = this.state_auth_s()?.context;
-    // return main_context?.environment.development?.enabled || auth_context?.auth_cookie?.profile.admin ? true : false;
-    return true;
-  })
   public drawerContent$: Subject <Portal<any>> = new Subject();
   /** Flags if layout is bigger then medium */
   // public breakPointLayout$: Observable<boolean> = this.$component.$breakpoint.matchedBreakpoints$.pipe(

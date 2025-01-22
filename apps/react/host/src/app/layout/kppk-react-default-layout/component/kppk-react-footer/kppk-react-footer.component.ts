@@ -24,7 +24,7 @@ import { Component } from '@angular/core';
       <img
         class="relative -top-[2px] h-[20px]"
         alt="Kppk Ziviltechniker GMBH"
-        src="./assets/images/kppk/kppk-logo.svg"
+        src="./images/kppk/kppk-logo.svg"
       />
     </a>
   </div>
