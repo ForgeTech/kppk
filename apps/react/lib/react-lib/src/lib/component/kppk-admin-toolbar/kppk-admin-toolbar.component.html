@@ -1,25 +1,41 @@
-@if( show_admin_toolbarS() ) {
-    <mat-toolbar color="warn" class="flex-row justify-start items-center flex-wrap gap-4">
-      <mat-icon>warning</mat-icon>
-      <span>Debug Toolbar</span>
-      <div class="flex-auto"></div>
-      <mat-slide-toggle 
-        [checked]="test_calculation_is_onS()"
-        color="primary"
-        labelPosition="before"
-        matTooltip="test_calculation"
-        (change)="toggle_test_calculation($event)" 
-      > 
-        test_calculation
-      </mat-slide-toggle>
-      <mat-slide-toggle 
-        [checked]="xstate_is_onS()"
-        color="primary"
-        labelPosition="before"
-        matTooltip="xstate_inspector"
-        (change)="toggle_xstate($event)" 
-      > 
-        <img class="h-12" alt="" src="./images/other/xstate.svg">
-      </mat-slide-toggle>
-    </mat-toolbar>
+@if( showS() ) {
+  <div class="flex flex-row">
+    <pre>
+      Value
+      {{ $actor_admin_toolbar.stateS()?.value | json}}
+      Context
+      {{ $actor_admin_toolbar.stateS()?.context | json}}
+    </pre>
+    <pre>
+      Value
+      {{ $actor_init.stateS()?.value | json}}
+      Context
+      {{ $actor_init.stateS()?.context | json}}
+    </pre>
+  </div>
+  @let t = translationS();
+  <mat-toolbar color="warn" class="flex-row justify-start items-center flex-wrap gap-4">
+    <mat-icon>warning</mat-icon>
+    <span>{{ t?.development_tools }}</span>
+    <div class="flex-auto"></div>
+    <mat-slide-toggle 
+      color="primary"
+      [disabled]="disabled_test_calculationS()"
+      [checked]="test_calculation_is_onS()"
+      [matTooltip]="t?.tooltip_test_calculation"
+      labelPosition="before"
+      (change)="toggle_test_calculation($event)" 
+    > 
+      {{ t?.test_calculation }}
+    </mat-slide-toggle>
+    <mat-slide-toggle 
+      color="primary"
+      [checked]="xstate_is_onS()"
+      [matTooltip]="t?.tooltip_xstate"
+      labelPosition="before"
+      (change)="toggle_xstate($event)" 
+    > 
+      <img class="h-12" alt="{{ t?.alt_xstate}}" src="./images/other/xstate.svg">
+    </mat-slide-toggle>
+  </mat-toolbar>
 }
