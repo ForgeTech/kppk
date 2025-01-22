@@ -14,7 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
 
-import pdf2array, { Pdf2ArrayOptions } from 'pdf2array';
+import { pdf2array, Pdf2ArrayOptions } from '@kppk/fg-lib-new';
 import { parse } from 'papaparse';
 import { FileInput, MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -55,17 +55,19 @@ import { FgTranslate } from '@kppk/fg-lib-new';
     MatFormFieldModule,
   ],
   templateUrl: './kppk-react-home-start-calc-modal.component.html',
-  styleUrl: './kppk-react-home-start-calc-modal.component.scss',
+  styles: [`
+    :host {
+      display: block;
+    }
+  `],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // providers: [
-  //   provideTranslocoScope('general','home', 'form')
-  // ]
 })
 export class KppkReactHomeStartCalcModalComponent  {
   protected $shared = inject(KppkReactSharedService);
   protected $translate = inject(FgTranslate);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
+  // protected pdf_parser = new PDFParser();
 
   protected readonly maxSize = 104857600; //100Mb
 
@@ -142,6 +144,18 @@ export class KppkReactHomeStartCalcModalComponent  {
     this.$actor_react_view_home.send({type: 'react.view.home.event.modal.start_calculation'})
   }
 
+    public cleanString(input: string) {
+      var output = "";
+      for (var i=0; i<input.length; i++) {
+          if (input.charCodeAt(i) <= 127 || input.charCodeAt(i) >= 160 && input.charCodeAt(i) <= 255) {
+              output += input.charAt(i);
+          } else {
+            output += '?';
+          }
+      }
+      return output;
+  }
+
   public handle_oi3_file(file: File ) {
      file.arrayBuffer().then( (buffer: ArrayBuffer) => {
       // console.log('>>>>>>>>>>>>>>>>>>>>ARRAY_BUFFER');
@@ -210,8 +224,6 @@ export class KppkReactHomeStartCalcModalComponent  {
         // console.log(data_matching_format.length)
         // console.log(data_matching_after_section_headline.length);
         console.table(data_matching_after_section_headline);
-        const text_encoder = new TextEncoder();
-        const text_decoder = new TextDecoder();
         for( let index = 0; index < data_matching_after_section_headline.length; index++) {
           const row = data_matching_after_section_headline[ index ];
           const name = row[0];
@@ -231,17 +243,7 @@ export class KppkReactHomeStartCalcModalComponent  {
     })
   }
 
-  public cleanString(input: string) {
-      var output = "";
-      for (var i=0; i<input.length; i++) {
-          if (input.charCodeAt(i) <= 127 || input.charCodeAt(i) >= 160 && input.charCodeAt(i) <= 255) {
-              output += input.charAt(i);
-          } else {
-            output += '?';
-          }
-      }
-      return output;
-  }
+
 
   public handle_rose_file( file: File ) {
     file.arrayBuffer().then( (buffer: ArrayBuffer) => {
@@ -326,7 +328,23 @@ export class KppkReactHomeStartCalcModalComponent  {
     })
   }
 
-  public handle_aufbauten_file(file: File ) {
+
+public transform_aufbauten_data( data: [ string[] ] ) {
+  let result: string[] = [];
+
+  let result_test: any[] = [];
+  data.forEach( row => {
+    // console.log('>>>>>>>>>>>>ROW>>>>>>>>>>>>>>>');
+    // console.log(row);
+    const result = row.map( value => value.split('\t')).flat()
+    result_test.push( result );
+    // result_test += '["'.concat( row.join('", "')  ,'"],\n')
+  })
+  // console.log(result_test)
+  this.$actor_react_view_home.send({ type: 'react.view.home.event.aufbauten.ready', data: result_test })
+}
+
+public handle_aufbauten_file(file: File ) {
   const config = {
     delimiter: ";",
     // // newline: "",
@@ -357,21 +375,6 @@ export class KppkReactHomeStartCalcModalComponent  {
   };
   parse(file, config)
 }
-
-  public transform_aufbauten_data( data: [ string[] ] ) {
-    let result: string[] = [];
-
-    let result_test: any[] = [];
-    data.forEach( row => {
-      // console.log('>>>>>>>>>>>>ROW>>>>>>>>>>>>>>>');
-      // console.log(row);
-      const result = row.map( value => value.split('\t')).flat()
-      result_test.push( result );
-      // result_test += '["'.concat( row.join('", "')  ,'"],\n')
-    })
-    // console.log(result_test)
-    this.$actor_react_view_home.send({ type: 'react.view.home.event.aufbauten.ready', data: result_test })
-  }
 
   public handle_bauteilflaechen_file(file: File ) {
     const config = {

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { KppkReactSharedService, ReactInitMachineActorService, ReactInitMachineService, ReactViewHomeMachineActorService } from '@kppk/react-lib';
+import { KppkReactSharedService, ReactInitMachineActorService, ReactViewHomeMachineActorService } from '@kppk/react-lib';
 import { MatButtonModule } from '@angular/material/button';
 import { NGXLogger } from 'ngx-logger';
 import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
@@ -15,19 +15,18 @@ import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-hom
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
   ],
   selector: 'kppk-react-view-home',
   templateUrl: './entry.component.html',
   styles: [`
-
-  :host {
-    display: block;
-    min-height: 100%;
-  }
-  .home-filler-container {
-    background-color: #a2b819;
-  }
+    :host {
+      display: block;
+      min-height: 100%;
+    }
+    .home-filler-container {
+      background-color: #a2b819;
+    }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,21 +38,17 @@ export class RemoteEntryComponent {
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
   protected $actor_react_init = inject(ReactInitMachineActorService);
 
-  protected start_calculation_dialog: undefined | MatDialogRef<any, any>;
+  protected ref_start_calculation_dialog: undefined | MatDialogRef<any, any>;
   constructor() {
     if( this.$actor_react_init.is_runningS() === false ) {
       this.$actor_react_init.start();
     }
     this.$actor_react_view_home.start()
-    this.$active_route.queryParams.subscribe( values => {
-      this.$log.warn('3>>>>>>>>>>>PARAMS>>>>>>>>');
-      console.log( values );
-    });
+
     effect( () => {
       const state = this.$actor_react_view_home.stateS();
-      console.log()
-      if( state?.matches( { 'MODAL': 'SHOWN' } ) && this.start_calculation_dialog === undefined) {
-        this.start_calculation_dialog = this.$dialog.open(
+      if( state?.matches( { 'MODAL': 'SHOWN' } ) && this.ref_start_calculation_dialog === undefined) {
+        this.ref_start_calculation_dialog = this.$dialog.open(
           KppkReactHomeStartCalcModalComponent, {
           panelClass: 'kppk_react_home_view_modal_panal',
           enterAnimationDuration: '250ms',
@@ -62,11 +57,11 @@ export class RemoteEntryComponent {
           disableClose: true,
         });
       } else if( 
-        this.start_calculation_dialog 
+        this.ref_start_calculation_dialog 
         && (state?.matches({ 'MODAL': 'HIDDEN'}) || state?.matches({ 'MODAL': 'DONE'})) 
       ) {
-        this.start_calculation_dialog.close();
-        this.start_calculation_dialog = undefined;
+        this.ref_start_calculation_dialog.close();
+        this.ref_start_calculation_dialog = undefined;
       }
     });
   }
