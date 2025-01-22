@@ -1,6 +1,7 @@
 {
   "route_data_protection": "Data Protection",
   "route_home": "Home",
+  "route_login": "Login",
   "route_calculation": "Calculation",
   "route_imprint": "Imprint",
   "route_print": "Print"
