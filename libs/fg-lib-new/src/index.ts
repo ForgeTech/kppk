@@ -5,3 +5,4 @@ export * from './lib/layout';
 export * from './lib/service';
 export * from './lib/token';
 export * from './lib/util';
+export * from './lib/decorator';
