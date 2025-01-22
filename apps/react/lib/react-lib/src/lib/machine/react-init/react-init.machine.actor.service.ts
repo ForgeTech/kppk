@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { Actor, ActorLogicFrom, ActorOptions, createActor, EmittedFrom, EventFrom, SnapshotFrom } from 'xstate';
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { ReactInitMachineService } from './react-init.machine.service';
-import { FgBaseService, FgEnvironmentService } from '../../../../../../../../libs/fg-lib-new/src';
+import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
 
 
 @Injectable({

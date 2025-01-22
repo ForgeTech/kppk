@@ -1,9 +1,10 @@
 import { Injectable, inject } from "@angular/core";
 // import { ReactAdminToolbarV1Context } from "./react-admin-toolbar.machine";
 import { FgXstateService } from "../../service";
-import { FgBaseService } from "../../../../../../../../libs/fg-lib-new/src";
 import { ReactAdminToolbarMachineMethodeService } from './react-admin-toolbar.machine.methode.service';
 import { REACT_ADMIN_TOOLBAR_CONTEXT, react_admin_toolbar_context_parser } from "./react-admin-toolbar.machine.types";
+import { FgBaseService } from "@kppk/fg-lib-new";
+
 
 @Injectable({
     providedIn: 'root',
