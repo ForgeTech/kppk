@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TranslocoService } from "@jsverse/transloco";
-import { combineLatest, forkJoin, map, Observable, startWith, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
 import { FgBaseService } from "../base";
 
 @Injectable({
@@ -8,6 +8,18 @@ import { FgBaseService } from "../base";
 })
 export class FgTranslate extends FgBaseService {
     protected $transloco = inject(TranslocoService); 
+
+    public supplant = function (template_string?: string, value_object?: Record<string, string>) {
+        if(template_string === undefined || value_object === undefined) {
+            return template_string;
+        }
+        return template_string.replace(/{([^{{}}]*)}/g,
+            (a, b) => {
+                const r = value_object[b];
+                return typeof r === 'string' || typeof r === 'number' ? r : a;
+            }
+        );
+    };
 
     public get_translations$<T extends Record<string, string>>(
         keys_scope: T
