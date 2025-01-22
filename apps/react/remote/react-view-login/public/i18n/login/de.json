@@ -5,6 +5,5 @@
   "input_password_label": "Passwort",
   "input_user_label": "Benutzername",
   "label_login": "Anmelden",
-  "label_version": "Version",
   "authorization_success": "Anmeldung erfolgreich!"
 }
