@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { FgEnvironmentConfigInterface } from '@kppk/fg-lib-new';
+import { FgEnvironmentConfigInterface } from './../interface/fg-environment.config.interface';
 
 /**
  * Injection-Token used used to provide environment variables outside app.module
