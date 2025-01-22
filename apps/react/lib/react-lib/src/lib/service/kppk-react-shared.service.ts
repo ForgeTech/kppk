@@ -46,6 +46,36 @@ export class KppkReactSharedService extends FgBaseService {
 
     public show_admin_toolbarS = signal(isDevMode());
     
+    public kppk_react_home_translations$ = this.$translate.get_translations$({
+      alt_pictogram_construction_site: "home",
+      alt_pictogram_container_village: "home",
+      alt_pictogram_demolish_disposal: "home",
+      alt_pictogram_excavation_pit: "home",
+      alt_pictogram_heating_system: "home",
+      alt_pictogram_material: "home",
+      button_back: "home",
+      button_cancel: "home",
+      button_start_calc: "home",
+      content_provide_calculation_data_choose_option: "home",
+      content_provide_calculation_data_from_files: "home",
+      content_provide_calculation_data_from_storage: "home",
+      content_provide_calculation_data: "home",
+      headline_selected_from_files: "home",
+      headline_selected_from_stored: "home",
+      headline_start_calc_modal: "home",
+      headline_welcome: "home",
+      placeholder_aufbauten_file: "home",
+      placeholder_bauteilflaechen_file: "home",
+      placeholder_heating_system_file: "home",
+      placeholder_oi3_file: "home",
+      text_welcome: "home",
+      label_version: "general",
+      calculation_start: "general",
+      error_required: 'form',
+      error_max_file_size: 'form',
+    });
+    public kppk_react_home_translationsS = toSignal(this.kppk_react_home_translations$, { initialValue: undefined });
+    
     public kppk_react_admin_toolbar_translations$ = this.$translate.get_translations$({
       alt_kppk_logo: "login",
       alt_react_logo: "login",
@@ -55,7 +85,7 @@ export class KppkReactSharedService extends FgBaseService {
       input_user_label: "login",
       label_install: "pwa",
       label_login: "login",
-      label_version: "login",
+      label_version: "general",
       route_data_protection: "route",
       route_imprint: "route",
       tooltip_install: "pwa",
@@ -71,7 +101,7 @@ export class KppkReactSharedService extends FgBaseService {
       input_user_label: "login",
       label_install: "pwa",
       label_login: "login",
-      label_version: "login",
+      label_version: "general",
       route_data_protection: "route",
       route_imprint: "route",
       tooltip_install: "pwa",
