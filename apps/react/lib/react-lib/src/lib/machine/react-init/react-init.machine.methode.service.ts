@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { DOCUMENT } from '@angular/common';
-import { combineLatest, firstValueFrom, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import { firstValueFrom, forkJoin, Observable } from 'rxjs';
 import { react_view_calculation_context_parser } from '../../types/kppk-react-calculation.types';
 import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from './react-init.machine.types'
 import { boundMethod } from 'autobind-decorator';
@@ -24,7 +24,6 @@ export class ReactInitMachineMethodeService extends FgBaseService {
   constructor(){
     super()
   }
-
 
   @boundMethod
   public escalate_result_validate_error({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {
@@ -131,39 +130,39 @@ export class ReactInitMachineMethodeService extends FgBaseService {
   @boundMethod
   public async actor_load_from_remote( { input }: { input: any } ) {
     const common$ = this.load_object({
-      concrete_types: './data/august2024/common/concrete_types.json',
-      //construction_site_energy_usage: './data/august2024/common/construction_site_energy_usage.json',
-      container_disposal: './data/august2024/common/container_disposal.json',
-      container_village: './data/august2024/common/container_village.json',
-      material_co2_equ: './data/august2024/common/material_co2_equ.json',
-      material_density: './data/august2024/common/material_density.json',
-      truck: './data/august2024/common/truck.json',
-      window_frames: './data/august2024/common/window_frames.json',
-      window_glass: './data/august2024/common/window_glass.json',
+      concrete_types: './react/data/august2024/common/concrete_types.json',
+      //construction_site_energy_usage: './react/data/august2024/common/construction_site_energy_usage.json',
+      container_disposal: './react/data/august2024/common/container_disposal.json',
+      container_village: './react/data/august2024/common/container_village.json',
+      material_co2_equ: './react/data/august2024/common/material_co2_equ.json',
+      material_density: './react/data/august2024/common/material_density.json',
+      truck: './react/data/august2024/common/truck.json',
+      window_frames: './react/data/august2024/common/window_frames.json',
+      window_glass: './react/data/august2024/common/window_glass.json',
     });
 
     const form_defaults$ = this.load_object({
-      form_common: './data/august2024/form_default/form_common.json',
-      form_construction_site: './data/august2024/form_default/form_construction_site.json',
-      form_container_village: './data/august2024/form_default/form_container_village.json',
-      form_demolish_disposal: './data/august2024/form_default/form_demolish_disposal.json',
-      form_excavation_pit: './data/august2024/form_default/form_excavation_pit.json',
-      form_rose: './data/august2024/form_default/form_rose.json',
-      form_selection: './data/august2024/form_default/form_selection.json',
+      form_common: './react/data/august2024/form_default/form_common.json',
+      form_construction_site: './react/data/august2024/form_default/form_construction_site.json',
+      form_container_village: './react/data/august2024/form_default/form_container_village.json',
+      form_demolish_disposal: './react/data/august2024/form_default/form_demolish_disposal.json',
+      form_excavation_pit: './react/data/august2024/form_default/form_excavation_pit.json',
+      form_rose: './react/data/august2024/form_default/form_rose.json',
+      form_selection: './react/data/august2024/form_default/form_selection.json',
     });
 
     const debug_calculation_v1$ = this.load_object({
-      file_aufbauten: './data/august2024/debug_calculation_v1/file_aufbauten.json',
-      file_bauteilflaechen: './data/august2024/debug_calculation_v1/file_bauteilflaechen.json',
-      file_oi3: './data/august2024/debug_calculation_v1/file_oi3.json',
-      file_rose: './data/august2024/debug_calculation_v1/file_rose.json',
-      form_common: './data/august2024/debug_calculation_v1/form_common.json',
-      form_construction_site: './data/august2024/debug_calculation_v1/form_construction_site.json',
-      form_container_village: './data/august2024/debug_calculation_v1/form_container_village.json',
-      form_demolish_disposal: './data/august2024/debug_calculation_v1/form_demolish_disposal.json',
-      form_excavation_pit: './data/august2024/debug_calculation_v1/form_excavation_pit.json',
-      form_rose: './data/august2024/debug_calculation_v1/form_rose.json',
-      form_selection: './data/august2024/debug_calculation_v1/form_selection.json',
+      file_aufbauten: './react/data/august2024/debug_calculation_v1/file_aufbauten.json',
+      file_bauteilflaechen: './react/data/august2024/debug_calculation_v1/file_bauteilflaechen.json',
+      file_oi3: './react/data/august2024/debug_calculation_v1/file_oi3.json',
+      file_rose: './react/data/august2024/debug_calculation_v1/file_rose.json',
+      form_common: './react/data/august2024/debug_calculation_v1/form_common.json',
+      form_construction_site: './react/data/august2024/debug_calculation_v1/form_construction_site.json',
+      form_container_village: './react/data/august2024/debug_calculation_v1/form_container_village.json',
+      form_demolish_disposal: './react/data/august2024/debug_calculation_v1/form_demolish_disposal.json',
+      form_excavation_pit: './react/data/august2024/debug_calculation_v1/form_excavation_pit.json',
+      form_rose: './react/data/august2024/debug_calculation_v1/form_rose.json',
+      form_selection: './react/data/august2024/debug_calculation_v1/form_selection.json',
     });
 
     const load_from_remote$ = forkJoin({
@@ -186,9 +185,6 @@ export class ReactInitMachineMethodeService extends FgBaseService {
   public escalate_load_from_remote_error({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {
     throw new Error('FARKFARKFARK');
   }
-
-
-
 
   @boundMethod
   public async actor_merge_result( { input }: { input: any} ) {
