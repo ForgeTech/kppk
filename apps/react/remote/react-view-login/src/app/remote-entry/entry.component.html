@@ -1,6 +1,7 @@
 <fg-layout-default>
-    @let t = transS();
-    <kppk-admin-toolbar header/>
+    @let s = $shared;
+    @let t = s.kppk_react_login_translationsS();
+    <kppk-admin-toolbar [show]="s.admin_show_toolbarS()" header/>
     <main content class="mt-4 flex h-full w-full flex-col items-center justify-center md:mt-0">
         <mat-card class="min-w-xs w-full max-w-lg !p-4 !shadow-none">
             <div class="flex flex-col items-center justify-center px-4">
@@ -9,17 +10,17 @@
                     alt="{{ t?.alt_react_logo }}"
                     src="./images/react/react-logo.png"
                 />
-                @if( error_s() ) {
+                @if( s.auth_authorization_errorS() ) {
                     <div class="mat-warn-bg mt-2 inline-block h-full w-full px-4 py-2">
                         {{ t?.authorization_error }}
                     </div>
                 }
-                @if( success_s() ) {
+                @if( s.auth_authoirzation_successS() ) {
                     <div class="mat-primary-bg mt-2 inline-block h-full w-full px-4 py-2">
                         {{ t?.authorization_success }}
                     </div>
                 }
-                @if( pending_s() ){
+                @if( s.auth_authorization_pendingS() ){
                     <mat-progress-bar mode="indeterminate"/>
                 }
             </div>
@@ -50,7 +51,7 @@
                 </mat-card-actions>
             </form>
         </mat-card>
-        <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ versionS() }}</div>
+        <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ s.versionS() }}</div>
         <a
             class="m-4 inline-block sm:m-8"
             href="https://www.kppk.at/"
@@ -88,9 +89,9 @@
             <li class="w-full md:w-64">
                 <fg-language-switch 
                     class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"
-                    [selected]="active_langS()"
-                    [available_langs]="available_langsS()"
-                    [icon_path]="lang_icons_pathS()"
+                    [selected]="s.lang_activeS()"
+                    [available_langs]="s.langs_availableS()"
+                    [icon_path]="s.langs_icons_pathS()"
                 />
             </li>
         </menu>
