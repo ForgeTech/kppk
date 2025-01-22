@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { inject, Injectable, InjectionToken } from '@angular/core';
-import { FgBaseService } from '../../base';
+import { FgBaseService } from '../../base/fg-base.service';
 
 /**
  * Token to provide 'WebAPI Crypto' in none browser environments

@@ -1,5 +1,5 @@
 import { getPlatform } from "@angular/core";
-import { fg_event_parser, FgEventService } from "../service";
+import { fg_event_parser, FgEventService } from "../service/fg-event/fg-event.service";
 import { z } from "zod";
 
 export const fg_error_event_options_parser = fg_event_parser.extend({

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, shareReplay } from 'rxjs';
 import { FgEventService } from '../fg-event/fg-event.service';
-import { FgBaseService } from '../../base';
+import { FgBaseService } from '../../base/fg-base.service';
 import { DOCUMENT } from '@angular/common';
 
   /** Event to be dispatched when user installs pwa */
