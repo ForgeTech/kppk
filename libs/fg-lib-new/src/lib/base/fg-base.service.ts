@@ -1,6 +1,5 @@
-import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { NGXLogger } from 'ngx-logger';
-import { optional } from 'zod';
 /**
  * FgBaseLogService -
  * Meant to be extenden by FgServices to provide common service
