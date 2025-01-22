@@ -1,15 +1,25 @@
-<div *transloco="let t" class="main-navigation flex h-full min-h-full flex-col">
+<div class="main-navigation flex h-full min-h-full flex-col">
+  @let s = $shared;
+  @let t = s.kppk_react_navigation_translationsS();
+  <pre>
+    translations
+    {{ t | json }}
+  </pre>
   <mat-list>
     @if( can_install_pwa_s() ){
       <mat-list-item class="pwa-install-item">
-        <fg-pwa-install color="accent" class="w-full md:flex-1"/>
+        <fg-pwa-install 
+          [tooltip]="t?.tooltip_install" 
+          [label]="t?.label_install" 
+          color="accent" 
+          class="w-full md:flex-1"/>
       </mat-list-item>
     }
-    @if( is_authorized_s() ){
+    @if( s.auth_is_authorizedS() ){
       <mat-list-item>
         <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.HOME }}">
           <mat-icon svgIcon="home"/>
-          {{ t('general.'+ HOST_ROUTES.HOME ) }}
+          {{ t?.route_home }}
         </a>
       </mat-list-item>
       <mat-list-item>
@@ -18,7 +28,7 @@
       <mat-list-item>
         <a class="w-full" mat-stroked-button color="primary">
           <mat-icon svgIcon="download"/>
-          {{ t('general.manual' ) }}
+          {{ t?.manual }}
         </a>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -26,7 +36,7 @@
         <mat-list-item>
           <a class="w-full" mat-stroked-button color="primary">
             <mat-icon>add</mat-icon>
-            {{ t('general.calculation_start' ) }}
+            {{ t?.calculation_start }}
           </a>
         </mat-list-item>
       }
@@ -39,7 +49,7 @@
       <mat-list-item>
         <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.LOGIN }}">
           <mat-icon>login</mat-icon>
-          {{ t('general.'+ HOST_ROUTES.LOGIN) }}
+          {{ t?.route_login }}
         </a>
       </mat-list-item>
     }
@@ -50,28 +60,36 @@
     <mat-list-item>
       <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.IMPRINT }}">
         <mat-icon svgIcon="info"/>
-        {{ t('general.'+ HOST_ROUTES.IMPRINT ) }}
+        {{ t?.route_imprint }}
       </a>
     </mat-list-item>
     <mat-list-item>
       <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.DATA_PROTECTION }}">
         <mat-icon svgIcon="shield"/>
-        {{ t('general.'+ HOST_ROUTES.DATA_PROTECTION) }}
+        {{ t?.route_data_protection }}
       </a>
     </mat-list-item>
 
     <mat-list-item>
-      <fg-language-switch class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"/>
+      <fg-language-switch 
+        class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"
+        [selected]="s.lang_activeS()"
+        [available_langs]="s.langs_availableS()"
+        [icon_path]="s.langs_icons_pathS()"
+    />
     </mat-list-item>
-    @if( is_authorized_s() ){
+    @if( s.auth_is_authorizedS() ){
       <mat-list-item>
-        <a class="w-full" mat-stroked-button color="warn" 
+        <a 
+          class="w-full" 
+          mat-stroked-button 
+          color="warn" 
           tabindex="0"
           (click)="logout($event)"
           (keydown)="logout($event)"
         >
           <mat-icon svgIcon="logout"/>
-          {{ t('general.logout') }}
+          {{ t?.logout }}
         </a>
       </mat-list-item>
     }

@@ -1,14 +1,13 @@
-import { FgLanguageSwitchComponent, FgPwaInstallComponent, FgPwaInstallService } from '@kppk/fg-lib-new';
+import { FgEnvironmentService, FgLanguageSwitchComponent, FgPwaInstallComponent, FgPwaInstallService } from '@kppk/fg-lib-new';
 import { MatIconModule } from '@angular/material/icon';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, inject } from '@angular/core';
 
-import { provideTranslocoScope } from '@jsverse/transloco';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FgAuthLocalMachineActorService } from '@kppk/react-lib';
+import { FgAuthLocalMachineActorService, KppkReactSharedService } from '@kppk/react-lib';
 import { HOST_ROUTES } from '../../../../app.routes';
 
 /**
@@ -30,19 +29,17 @@ import { HOST_ROUTES } from '../../../../app.routes';
   styleUrls: ['./kppk-react-navigation.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    provideTranslocoScope( 'general' )
-  ]
 })
 export class KppkReactNavigationComponent  {
-  protected $pwa = inject(FgPwaInstallService);
   protected $auth_local = inject(FgAuthLocalMachineActorService);
+  protected $env = inject(FgEnvironmentService);
+  protected $pwa = inject(FgPwaInstallService);
+  protected $shared = inject(KppkReactSharedService);
+
   protected HOST_ROUTES = HOST_ROUTES;
 
   protected can_install_pwa_s = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
-  protected is_authorized_s = computed( () => {
-    return this.$auth_local.stateS()?.matches( {'STATE': 'AUTHORIZED' })
-  });
+
   protected logout( event: Event ) {
     event.preventDefault();
     this.$auth_local?.send({ type: 'fg.auth.local.event.logout' } );
