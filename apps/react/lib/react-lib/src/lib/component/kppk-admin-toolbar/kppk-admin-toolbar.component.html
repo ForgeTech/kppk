@@ -1,6 +1,6 @@
 @if( showS() ) {
   <div class="flex flex-row">
-    <pre>
+    <!-- <pre>
       Value
       {{ $actor_admin_toolbar.stateS()?.value | json}}
       Context
@@ -8,10 +8,10 @@
     </pre>
     <pre>
       Value
-      {{ $actor_init.stateS()?.value | json}}
+      {{ $actor_react_init.stateS()?.value | json}}
       Context
-      {{ $actor_init.stateS()?.context | json}}
-    </pre>
+      {{ $actor_react_init.stateS()?.context | json}}
+    </pre> -->
   </div>
   @let t = translationS();
   <mat-toolbar color="warn" class="flex-row justify-start items-center flex-wrap gap-4">

@@ -32,7 +32,7 @@ import { FgXstateService } from '../../service';
 })
 export class KppkAdminToolbarComponent  {
   protected $actor_admin_toolbar = inject(ReactAdminToolbarMachineActorService);
-  protected $actor_init = inject(ReactInitMachineActorService);
+  protected $actor_react_init = inject(ReactInitMachineActorService);
   protected $translate = inject(FgTranslate);
   protected $xstate = inject(FgXstateService);
 
@@ -40,7 +40,7 @@ export class KppkAdminToolbarComponent  {
 
   protected disabled_test_calculationS = computed( () => {
     let disabled = true;
-    const status = this.$actor_init.stateS()?.status;
+    const status = this.$actor_react_init.stateS()?.status;
     if( status ) {
       disabled = status === 'done';
     } 
@@ -65,8 +65,8 @@ export class KppkAdminToolbarComponent  {
 
   constructor(){
     this.$actor_admin_toolbar.start()
-    if( this.$actor_init.is_runningS() === false ) {
-      this.$actor_init.start();
+    if( this.$actor_react_init.is_runningS() === false ) {
+      this.$actor_react_init.start();
     }
     effect( () => {
       const init = this.$actor_admin_toolbar.stateS();
