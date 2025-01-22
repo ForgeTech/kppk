@@ -12,10 +12,20 @@ export const fg_event_parser = z.object({
   target: z.string().optional(),
   source: z.string().optional(),
   broadcast: z.literal(true).optional(),
+  data: z.any()
+});
+
+export type FG_EVENT = z.infer<typeof fg_event_parser>;
+
+export const fg_event_serializable_parser = z.object({
+  type: z.string(),
+  target: z.string().optional(),
+  source: z.string().optional(),
+  broadcast: z.literal(true).optional(),
   data: json_parser.optional(),
 });
 
-export type FgEvent = z.infer<typeof fg_event_parser>;
+export type FG_EVENT_SERIAZABLE = z.infer<typeof fg_event_serializable_parser>;
 
 /**
  * FgEventService -
@@ -33,7 +43,7 @@ export class FgEventService extends FgBaseService {
    * The observable subject used to push events
    * within the angular application
    */
-  protected EVENT$ = new Subject<FgEvent>();
+  protected EVENT$ = new Subject<FG_EVENT>();
   public readonly event$ = this.EVENT$.asObservable();
 
   /**  Holds event-signatures to be logged */
@@ -74,7 +84,7 @@ export class FgEventService extends FgBaseService {
    * @param component
    * @param event
    */
-  public emit(event: FgEvent): void {
+  public emit(event: FG_EVENT ): void {
     fg_event_parser.parse( event );
     // Publish event as next action on event loop
     setTimeout(this.push_event.bind(this, event), 0);
@@ -84,12 +94,13 @@ export class FgEventService extends FgBaseService {
    * Methode used to publish an event
    * @param event 
    */
-  protected push_event( event: FgEvent ): void {
+  protected push_event( event: FG_EVENT ): void {
     // Emit event via event-service observable
     this.EVENT$.next(event);
     // If marked as broadcast publish on channel
     if( event.broadcast ) {
-      this.eventC.postMessage( event );
+      const event_parsed = fg_event_serializable_parser.parse( event )
+      this.eventC.postMessage( event_parsed );
     }
   }
   /**
