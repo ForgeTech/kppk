@@ -19,6 +19,11 @@ export const app_routes: Route[] = [
       .then(m => m.KppkReactDefaultLayoutRouterOutletComponent),
     children: [
       {
+        path:  HOST_ROUTES.ROOT,
+        pathMatch: 'prefix',
+        redirectTo: HOST_ROUTES.HOME
+      },
+      {
         path: HOST_ROUTES.CALC,
         loadChildren: () =>
           import('react_view_calc/Routes').then((m) => m!.remoteRoutes),
