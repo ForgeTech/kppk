@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { FORM_HEATING_SYSTEM_DATA } from 'apps/fg-react-demo/src/app/types/kppk-react-heating-system.types';
+import { FORM_HEATING_SYSTEM_DATA } from '@kppk/react-lib';
 import { z } from 'zod';
-import { unit_kilogram_co2_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-unit.types';
+import { unit_kilogram_co2_parser } from '@kppk/react-lib';
 
 export const kppk_react_results_material_sums_parser = z.object({
   co2_sum_transport: unit_kilogram_co2_parser,

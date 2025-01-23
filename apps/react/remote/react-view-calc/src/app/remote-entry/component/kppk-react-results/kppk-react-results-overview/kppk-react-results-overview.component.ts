@@ -14,11 +14,11 @@ import { KppkReactResultsContainerVillageComponent } from '../kppk-react-results
 import { KppkReactResultsDemolishDisposalComponent } from '../kppk-react-results-demolish-disposal/kppk-react-results-demolish-disposal.component';
 import { KppkReactResultsExcavationPitComponent } from '../kppk-react-results-excavation-pit/kppk-react-results-excavation-pit.component';
 import { KppkReactResultsHeatingSystemComponent } from '../kppk-react-results-heating-system/kppk-react-results-heating-system.component';
-import { REACT_VIEW_CALCULATION_CONTEXT } from 'apps/fg-react-demo/src/app/types/kppk-react-calculation.types';
+import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
 import { KppkReactResultsMaterialSumsComponent } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
 import { KppkReactResultsMaterialTopGroupedBarChartComponent } from '../kppk-react-results-material-top-grouped-bar-chart/kppk-react-results-material-top-grouped-bar-chart.component';
-import { form_materials_result_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-material.types';
-import { unit_kilogram_co2_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-unit.types';
+import { form_materials_result_parser } from '@kppk/react-lib';
+import { unit_kilogram_co2_parser } from '@kppk/react-lib';
 import { KppkReactResultsPieChartAbsorbingEmittingComponent } from '../kppk-react-results-pie-chart-absorbing-emitting/kppk-react-results-pie-chart-absorbing-emitting.component';
 import { z } from 'zod';
 import { KppkReactResultsPieChartCo2PhasesComponent } from '../kppk-react-results-pie-chart-co2-phases/kppk-react-results-pie-chart-co2-phases.component';

@@ -1,7 +1,7 @@
 import { FG_FORM_HEATING_SYSTEM_CONTEXT } from "../../types/kppk-react-calculation.types";
 import { FORM_HEATING_SYSTEM_DATA, form_heating_system_data_parser, FORM_HEATING_SYSTEM_RESULT, form_heating_system_result_parser, ROSE_FILE_DATA } from "../../types/kppk-react-heating-system.types";
 import { UNIT_TCO2, UNIT_TCO2_YEAR, unit_tonco2_parser, unit_tonco2_xyear_parser, unit_tonco2_year_parser, UNIT_YEAR } from "../../types/kppk-react-unit.types";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.machine.types";
 
 export const calculate_usage_co2 = ( system_co2_year: UNIT_TCO2_YEAR, calc_usage: UNIT_YEAR ): UNIT_TCO2 => {
     const value = system_co2_year.value * calc_usage.value;
@@ -22,7 +22,7 @@ export const form_heating_system_calculate_dynamic_model_values = ( form_heating
 
 export const calculate_heating_system_results = ( 
     form_heating_system: FG_FORM_HEATING_SYSTEM_CONTEXT,
-    data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+    data: REACT_INIT_LOAD_FROM_REMOTE_COMMON
   ): FORM_HEATING_SYSTEM_RESULT  => {
     const result: FORM_HEATING_SYSTEM_RESULT = {
         calc_usage_co2: calculate_usage_co2( form_heating_system.value.system_co2_year, form_heating_system.value.calc_usage)

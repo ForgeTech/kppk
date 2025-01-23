@@ -1,25 +1,21 @@
-import { Component, computed, effect, input, output, ViewEncapsulation } from '@angular/core';
+import { Component, computed, input, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
+import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent } from '@kppk/react-lib';
 import { KppkReactMaterialsAufbautenRowComponent } from './kppk-react-materials-aufbauten-row.component';
 import { KppkReactMaterialsBauteilflaechenRowComponent } from './kppk-react-materials-bauteilflaechen-row.component';
 import { KppkReactMaterialsOi3RowComponent } from './kppk-react-materials-oi3-row.component';
 import { KppkReactMaterialsTypeRowComponent } from './kppk-react-materials-type-row.component';
-import { KppkLoadingIndicatorComponent } from '../../../component/kppk-loading-indicator/kppk-loading-indicator.component';
-import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { KppkReactMaterialsMaterialRowComponent } from "./kppk-react-materials-material-row.component";
 import { KppkReactMaterialsConcreteRowComponent } from "./kppk-react-materials-concrete-row.component";
 import { KppkReactMaterialsWindowRowComponent } from './kppk-react-materials-window-row.component';
 import { FormlyFormOptions } from '@ngx-formly/core';
 import { KppkReactMaterialsDefaultsFormComponent } from './kppk-react-materials-defaults-form';
 import { KppkReactMaterialsFooterRowComponent } from './kppk-react-materials-footer-row.component';
-import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '../../../types/kppk-react-calculation.types';
-import { KppkWarnBoxResetComponent } from '../../../component/kppk-warn-box-reset/kppk-warn-box-reset.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
 
 @Component({
   selector: 'fg-react-demo-kppk-react-materials',
@@ -33,7 +29,7 @@ import { KppkWarnBoxResetComponent } from '../../../component/kppk-warn-box-rese
     KppkReactMaterialsBauteilflaechenRowComponent,
     KppkReactMaterialsOi3RowComponent,
     KppkReactMaterialsTypeRowComponent,
-    KppkLoadingIndicatorComponent,
+    KppkReactLoadingIndicatorComponent,
     KppkReactMaterialsMaterialRowComponent,
     KppkReactMaterialsConcreteRowComponent,
     KppkReactMaterialsWindowRowComponent,
@@ -54,26 +50,26 @@ export class KppkReactMaterialsComponent {
 
   protected state_react_view_calculation_s = computed( () => {
     const options: FormlyFormOptions = this.options_s();
-    const state = options.formState.state_react_view_calculation as ReactViewCalculationV1Snapshot;
+    const state = options.formState.state_react_view_calculation as any; // as ReactViewCalculationV1Snapshot;
     return state;
   })
 
   protected transformed_aufbauten_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_aufbauten;
-    return result;
+    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_aufbauten;
+    return 0 // result;
   });
 
   protected transformed_bauteilflaechen_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_bauteilflaechen;
-    return result;
+    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_bauteilflaechen;
+    return 0 // result;
   });
 
   protected transformed_oi3_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_oi3;
-    return result;
+    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_oi3;
+    return 0 // result;
   });
 
   protected material_type_s = computed( () => {

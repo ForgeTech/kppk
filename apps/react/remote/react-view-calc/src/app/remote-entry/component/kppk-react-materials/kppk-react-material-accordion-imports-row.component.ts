@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
+import { KppkFormlyModule } from '@kppk/react-lib'
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
-import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
+import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
 
 @Component({
   selector: 'kppk-react-footer-row',

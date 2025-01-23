@@ -9,9 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { REACT_VIEW_CALCULATION_CONTEXT } from 'apps/fg-react-demo/src/app/types/kppk-react-calculation.types';
-import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-colors.service';
-import { mwh_to_kwh } from 'apps/fg-react-demo/src/app/machine/react-view-calculation/react-view-calculation-construction-site.utils';
+import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
 
 

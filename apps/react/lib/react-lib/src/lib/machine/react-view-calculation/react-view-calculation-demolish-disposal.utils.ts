@@ -26,7 +26,7 @@ import { add_number_units,
   UNIT_TRIPS,
   unit_trips_parser 
 } from "../../types/kppk-react-unit.types";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.machine.types";
 import { MATERIAL_DENSITY_DATA, material_density_item_parser } from "../../types/kppk-react-material.types";
 import { TRUCK_DATA, truck_data_item_parser, truck_data_parser } from "../../types/kppk-react-truck.types";
 import { FG_FORM_DEMOLISH_DISPOSAL_CONTEXT } from "../../types/kppk-react-calculation.types";
@@ -143,7 +143,7 @@ export const get_section_result = (
 
 export const calculate_demolish_disposal_results = ( 
   form_demolish_disposal: FG_FORM_DEMOLISH_DISPOSAL_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA 
+  data: REACT_INIT_LOAD_FROM_REMOTE_COMMON 
 ): any  => {
   const truck_data = truck_data_parser.parse( data.truck.filter( item => item.category.includes('demolish_disposal' )));
   const material_section_result = get_section_result( 

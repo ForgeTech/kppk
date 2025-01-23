@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '../../../module/kppk-formly/kppk-formly.module';
+import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
-import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
+ { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, map, shareReplay, startWith } from 'rxjs';
 import { FormlySelectOption } from '@ngx-formly/core/select';
-import { unit_id_parser } from '../../../types/kppk-react-unit.types';
+import { unit_id_parser } from '@kppk/react-lib';
 import { FormGroup } from '@angular/forms';
-import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
+import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.service';
 
 export enum WINDOW_PART_TYPE_ENUM {
   none = 'window_part_type_enum_none',
@@ -112,7 +112,7 @@ export class KppkReactMaterialsWindowRowComponent {
   ]).pipe(
     map( values => {
         const [lang, glass] = values;
-        const result = glass!.map( item => {
+        const result = glass!.map( (item: any) => {
           const option: FormlySelectOption = {
             label: item.name.value,
             value: unit_id_parser.parse(item.id).value
@@ -130,7 +130,7 @@ export class KppkReactMaterialsWindowRowComponent {
   ]).pipe(
     map( values => {
         const [lang, frames] = values;
-        const result = frames!.map( item => {
+        const result = frames!.map( (item: any) => {
           const option: FormlySelectOption = {
             label: item.name.value,
             value: unit_id_parser.parse(item.id).value

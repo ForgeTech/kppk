@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { FORM_CONTAINER_VILLAGE } from 'apps/fg-react-demo/src/app/types/kppk-react-container-village.types';
+import { FORM_CONTAINER_VILLAGE } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-results-container-village',

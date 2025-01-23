@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { FORM_CONSTRUCTION_SITE, RESULT_CONSTRUCTION_SITE } from 'apps/fg-react-demo/src/app/types/kppk-react-construction-site.types';
+import { FORM_CONSTRUCTION_SITE } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-results-construction-site',
@@ -25,10 +25,7 @@ import { FORM_CONSTRUCTION_SITE, RESULT_CONSTRUCTION_SITE } from 'apps/fg-react-
   ]
 })
 export class KppkReactResultsConstructionSiteComponent {
-
   public form = input.required<FORM_CONSTRUCTION_SITE>();
-
-  // public results = input.required<RESULT_CONSTRUCTION_SITE>();
 }
 
 

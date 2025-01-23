@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
+import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { combineLatest, map, shareReplay, startWith } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
-import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
+import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.service';
+// import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { FormlySelectOption } from '@ngx-formly/core/select';
-import { unit_id_parser } from '../../../types/kppk-react-unit.types';
+import { unit_id_parser } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-materials-concrete-row',
@@ -58,7 +58,7 @@ export class KppkReactMaterialsConcreteRowComponent {
 
   protected state_react_view_calculation_s = computed( () => {
     const options: FormlyFormOptions = this.options();
-    const state = options.formState.state_react_view_calculation as ReactViewCalculationV1Snapshot;
+    const state = options.formState.state_react_view_calculation as any;//as ReactViewCalculationV1Snapshot;
     return state;
   })
 

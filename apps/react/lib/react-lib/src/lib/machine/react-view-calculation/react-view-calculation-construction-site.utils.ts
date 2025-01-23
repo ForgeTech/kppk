@@ -2,7 +2,7 @@ import { FG_FORM_CONSTRUCTION_SITE_CONTEXT } from "../../types/kppk-react-calcul
 import { RESULT_CONSTRUCTION_SITE, result_construction_site_parser } from "../../types/kppk-react-construction-site.types";
 import { add_number_units, UNIT_GCO2_KM, UNIT_KGCO2, UNIT_KGCO2_KWH, UNIT_KGCO2_L, unit_kilogram_co2_parser, unit_kilogramco2_kilowatthour_parser, unit_kilogramco2_liter_parser, unit_kilowatthours_parser, UNIT_KM, UNIT_KWH, UNIT_KWH_MONTH, UNIT_LITER, UNIT_M2, UNIT_M3, unit_megawatthours_parser, UNIT_MONTH, UNIT_MWH, UNIT_MWH_MONTH, UNIT_NUMBER, unit_number_parser } from "../../types/kppk-react-unit.types";
 import { BUILD_TYPE_ENUM, POWER_SUPPLY_CALCULATION_TYPE_ENUM, HEAT_SUPPLY_CALCULATION_TYPE_ENUM } from "../../view/kppk-react-calc-view/kppk-react-constructions-site.fields.service";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.machine.types";
 
 export const  mwh_to_kwh = ( value_MWh: UNIT_MWH  ): UNIT_KWH => {
     const value = value_MWh.value * 1000;
@@ -21,7 +21,7 @@ export const  power_supply_calculate_energy_usage = (
   return unit_kilowatthours_parser.parse({ value });
 };
 
-export const  power_supply_calculate_energy_usage_estimate = (
+export const power_supply_calculate_energy_usage_estimate = (
   operation_period: UNIT_MONTH,
   gross_floor_area: UNIT_M2,
   estimate_value: UNIT_NUMBER,
@@ -100,7 +100,7 @@ export const calculate_energy_usage_estimate = () => {
 
 export const calculate_construction_site_results = ( 
   form_construction_site: FG_FORM_CONSTRUCTION_SITE_CONTEXT, 
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA): RESULT_CONSTRUCTION_SITE => {
+  data: REACT_INIT_LOAD_FROM_REMOTE_COMMON): RESULT_CONSTRUCTION_SITE => {
   const result = result_construction_site_parser.parse({});
 
   // const energy_usage_estimate = calculate_energy_usage_estimate()
@@ -121,7 +121,7 @@ export const calculate_construction_site_results = (
 
   // Calculate energy_usage of power_supply
   if( form_construction_site.value.energy_usage_settings.energy_usage_build_type.value === BUILD_TYPE_ENUM.building_construction ) {
-
+    let year_energy_values;
     switch(form_construction_site.value.energy_usage_settings.energy_usage_calculation_type.value) {
       case POWER_SUPPLY_CALCULATION_TYPE_ENUM.estimate:
         result.power_supply.energy_usage = power_supply_calculate_energy_usage_estimate(
@@ -131,7 +131,7 @@ export const calculate_construction_site_results = (
         );
       break;
       case POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry:
-        let year_energy_values = form_construction_site.value.energy_usage_values.year_energy_usage.map( year => {
+        year_energy_values = form_construction_site.value.energy_usage_values.year_energy_usage.map( year => {
           return Object.entries(year).map( item => {
               const [key, value] = item;
               return value;
@@ -161,7 +161,7 @@ export const calculate_construction_site_results = (
           ));
       break;
       case HEAT_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry:
-        let year_energy_values = form_construction_site.value.heating_supply_values.year_energy_usage.map( year => {
+        year_energy_values = form_construction_site.value.heating_supply_values.year_energy_usage.map( year => {
           return Object.entries(year).map( item => {
               const [key, value] = item;
               return value;

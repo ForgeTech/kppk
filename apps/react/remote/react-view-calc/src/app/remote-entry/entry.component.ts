@@ -3,19 +3,22 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgObjectPipesModule } from 'ngx-pipes';
-import { KppkFormlyModule } from '@kppk/react-lib';
-import { KppkReactMaterialsComponent } from './kppk-react-calc-view/kppk-react-materials/kppk-react-materials.component';
+import { KppkFormlyModule, react_view_calculation_form_name_enum, ReactViewCalculationMachineActorService } from '@kppk/react-lib';
+// import { KppkReactMaterialsComponent } from './kppk-react-calc-view/kppk-react-materials/kppk-react-materials.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
-import { KppkReactResultsComponent } from './kppk-react-calc-view/kppk-react-results/kppk-react-results.component';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { KppkReactCommonFields } from './kppk-react-calc-view/kppk-react-common.fields.service';
 import { NGXLogger } from 'ngx-logger';
-import { KppkReactConstructionSiteFields } from './kppk-react-calc-view/kppk-react-constructions-site.fields.service';
-import { KppkReactContainerVillageFields } from './kppk-react-calc-view/kppk-react-container-village.fields.service';
-import { KppkReactDemolishDisposalFields } from './kppk-react-calc-view/kppk-react-demolish-disposal.fields.service';
-import { KppkReactExcavationPitFields } from './kppk-react-calc-view/kppk-react-excavation-pit.fields.service';
-import { KppkReactHeatingSystemFields } from './kppk-react-calc-view/kppk-react-heating-system.fields.service';
+
+import { KppkReactResultsComponent } from './component/kppk-react-results/kppk-react-results.component';
+import { KppkReactConstructionSiteFields } from './service/kppk-react-constructions-site.fields.service';
+import { KppkReactCommonFields } from './service/kppk-react-common.fields.service';
+import { KppkReactContainerVillageFields } from './service/kppk-react-container-village.fields.service';
+import { KppkReactDemolishDisposalFields } from './service/kppk-react-demolish-disposal.fields.service';
+import { KppkReactExcavationPitFields } from './service/kppk-react-excavation-pit.fields.service';
+import { KppkReactHeatingSystemFields } from './service/kppk-react-heating-system.fields.service';
+import { KppkReactMaterialsComponent } from './component/kppk-react-materials/kppk-react-materials.component';
+import { FormlyFormOptions } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -31,19 +34,21 @@ import { KppkReactHeatingSystemFields } from './kppk-react-calc-view/kppk-react-
   ],
   selector: 'kppk-react-view-calculation',
   templateUrl: './entry.component.html',
+  styleUrl: './entry.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemoteEntryComponent {
     protected $log = inject(NGXLogger);
     protected $fb = inject(FormBuilder);
     protected $active_route = inject(ActivatedRoute);
+    protected $actor_view_calculation = inject(ReactViewCalculationMachineActorService)
   
   
     protected $fields_common = inject(KppkReactCommonFields);
     protected form_common = new FormGroup({});
     protected fields_common = this.$fields_common.fields;
     protected form_common_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_common.value;    
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_common.value;    
       this.$log.fatal('UPDATED_COMMON_MODEL');
       this.$log.fatal(JSON.stringify( result ));
       return result;
@@ -52,7 +57,7 @@ export class RemoteEntryComponent {
     protected options_s = computed( () => {
       const options: FormlyFormOptions = {
         formState: { 
-          state_react_view_calculation: this.state_react_view_calculation_s()
+          state_react_view_calculation: this.$actor_view_calculation.stateS()
         }
       }
       return options;
@@ -62,7 +67,7 @@ export class RemoteEntryComponent {
     protected form_construction_site = new FormGroup({});
     protected fields_construction_site = this.$fields_construction.fields();
     protected form_construction_site_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_construction_site.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_construction_site.value;
       // result.exact_energy_usage = []
       return result;
     })
@@ -71,7 +76,7 @@ export class RemoteEntryComponent {
     protected form_container_village = new FormGroup({});
     protected fields_container_village = this.$fields_container_village.fields;
     protected form_container_village_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_container_village.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_container_village.value;
       return result;
     })
   
@@ -79,7 +84,7 @@ export class RemoteEntryComponent {
     protected fields_demolish_disposal= this.$fields_demolish_disposal.demolish_disposal_fields;
     protected form_demolish_disposal= new FormGroup({});
     protected form_demolish_disposal_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_demolish_disposal.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_demolish_disposal.value;
       return result;
     });
   
@@ -87,7 +92,7 @@ export class RemoteEntryComponent {
     protected fields_excavation_pit = this.$fields_excavation_pit.excavation_pit_fields;
     protected form_excavation_pit = new FormGroup({});
     protected form_excavation_pit_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_excavation_pit.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_excavation_pit.value;
       return result;
     });
   
@@ -95,7 +100,7 @@ export class RemoteEntryComponent {
     protected fields_heating_system = this.$fields_heating_system.fields;
     protected form_heating_system = new FormGroup({});
     protected form_heating_system_model_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_heating_system.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_heating_system.value;
       return result;
     });
   
@@ -108,12 +113,12 @@ export class RemoteEntryComponent {
       "heating_system": [ true ],
     })
     protected form_step_selection_s = computed( () => {
-      const result = this.state_react_view_calculation_s()?.context.calculation?.form_step_selection.value;
+      const result = this.$actor_view_calculation.stateS()?.context.calculation?.form_step_selection.value;
       return result;
     });
   
     protected results_s = computed(() => {
-      const result = this.state_react_view_calculation_s()?.context?.calculation;
+      const result = this.$actor_view_calculation.stateS()?.context?.calculation;
       return result;
     });
   
@@ -280,7 +285,7 @@ export class RemoteEntryComponent {
       effect( () => {
         const form_values = this.form_step_selection_s();
         if(form_values) {
-          this.form_step_selection.patchValue(form_values, {emitEvent: false})
+          // this.form_step_selection.patchValue(form_values, {emitEvent: false})
         }
       })
       // effect(()=> {
@@ -379,11 +384,11 @@ export class RemoteEntryComponent {
     }
   
     protected send_event_to_calculation_machine( event: any ) {
-      this.actor_react_view_calculation_s()?.send(event)
+      // this.actor_react_view_calculation_s()?.send(event)
      }
   
     protected logout( event?: Event ) {
       event?.preventDefault();
-      this.actor_main_s()?.send({ type: 'fg.auth.local.event.logout' });
+      // this.actor_main_s()?.send({ type: 'fg.auth.local.event.logout' });
     };
 }

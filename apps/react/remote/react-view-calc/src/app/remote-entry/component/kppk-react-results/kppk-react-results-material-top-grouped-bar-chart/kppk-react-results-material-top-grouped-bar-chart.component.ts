@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-results-materials-table/kppk-react-results-material-table.component';
-import { FORM_MATERIALS_RESULT } from 'apps/fg-react-demo/src/app/types/kppk-react-material.types';
-import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-colors.service';
+import { FORM_MATERIALS_RESULT } from '@kppk/react-lib';
+import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
 @Component({
   selector: 'kppk-react-results-material-top-grouped-bar-chart',
@@ -114,14 +114,14 @@ export class KppkReactResultsMaterialTopGroupedBarChartComponent {
     });
   })
 
-  protected showXAxis: boolean = true;
-  protected showYAxis: boolean = true;
-  protected gradient: boolean = false;
-  protected showLegend: boolean = true;
-  protected legendPosition: string = 'below';
-  protected showXAxisLabel: boolean = true;
-  protected yAxisLabel: string = 'Country';
-  protected showYAxisLabel: boolean = true;
+  protected showXAxis = true;
+  protected showYAxis = true;
+  protected gradient = false;
+  protected showLegend = true;
+  protected legendPosition = 'below';
+  protected showXAxisLabel = true;
+  protected yAxisLabel = 'Country';
+  protected showYAxisLabel = true;
   protected xAxisLabel = 'Population';
 
   public axis_kgco2_formatting = ( value: any ) => {

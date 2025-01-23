@@ -1,10 +1,5 @@
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
 import { Injectable, inject } from '@angular/core';
-import { assign, fromPromise, raise } from 'xstate';
-import { 
-  REACT_VIEW_CALCULATION_MACHINE_V4, 
-  ReactViewCalculationV1Context, 
-} from './react-view-calculation.machine';
 import { ReactCalculationMaterialsService } from './react-view-calculation-materials.service';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { concrete_items,
@@ -49,104 +44,55 @@ import { demolish_disposal_form_result_parser } from '../../types/kppk-react-dem
 import { calculate_excavation_pit_results } from './react-view-calculation-excavation-pit.utils';
 import { result_excavation_pit_parser } from '../../types/kppk-react-excavation-pit.types';
 import { form_heating_system_result_parser } from '../../types/kppk-react-heating-system.types';
-import { calculate_heating_system_results, form_heating_system_calculate_dynamic_model_values } from './react-view-calculation-heating-system.utils';
-import { form_concrete_context_parser, form_concrete_context_results_parser, form_material_context_parser, form_material_context_results_parser, form_window_context_parser, form_window_context_results_parser } from '../../types/kppk-react-calculation.types';
-import { form_construction_site_parser } from '../../types/kppk-react-construction-site.types';
+import { 
+  calculate_heating_system_results,
+  form_heating_system_calculate_dynamic_model_values 
+} from './react-view-calculation-heating-system.utils';
+import { 
+  form_concrete_context_parser,
+  form_concrete_context_results_parser,
+  form_material_context_parser,
+  form_material_context_results_parser,
+  form_window_context_parser,
+  form_window_context_results_parser 
+} from '../../types/kppk-react-calculation.types';
+import { 
+  form_construction_site_parser 
+} from '../../types/kppk-react-construction-site.types';
+import { REACT_VIEW_CALCULATION_CONTEXT_V1 } from './react-view-calculation.machine.types';
+import { boundMethod } from 'autobind-decorator';
 
 
 @Injectable({
   providedIn: 'root',
 })
-export class ReactViewCalculationService extends FgBaseService {
-  public machine;
+export class ReactViewCalculationMachineMethodeService extends FgBaseService {
 
   protected $decimal_pipe = inject(DecimalPipe);
   protected $immer = inject(FgImmutableService);
   protected $storage = inject(FgStorageService);
   protected $calc_materials = inject(ReactCalculationMaterialsService);
 
-  constructor() {
-    super();
-    this.machine = REACT_VIEW_CALCULATION_MACHINE_V4.provide({
-      actors: {
-        actor_transform_file_inputs: this.$calc_materials.machine,
-        actor_merge_bauteilflaechen_aufbauten: fromPromise(this.actor_merge_bauteilflaechen_aufbauten),
-        actor_merge_arich_oi3: fromPromise(this.actor_merge_arich_oi3),
-        actor_prepare_material_types: fromPromise(this.actor_prepare_material_types),
-        actor_material_calculation: fromPromise(this.actor_material_calculation),
-        actor_concrete_calculation:  fromPromise(this.actor_concrete_calculation),
-        actor_window_calculation:  fromPromise(this.actor_window_calculation),
-        actor_container_village_calculation: fromPromise(this.actor_container_village_calculation),
-        actor_construction_site_calculation: fromPromise(this.actor_construction_site_calculation),
-        actor_demolish_disposal_calculation: fromPromise(this.actor_demolish_disposal_calculation),
-        actor_excavation_pit_calculation: fromPromise(this.actor_excavation_pit_calculation),
-        actor_heating_system_calculation: fromPromise(this.actor_heating_system_calculation),
-        actor_result_calculation: fromPromise(this.actor_result_calculation),
-      },
-      actions: {
-        // assign_form_data: assign(this.assign_form_data),
-        assign_transformed_file_inputs: assign(this.assign_transformed_file_inputs),
-        assign_change_aufbauten:  assign(this.assign_change_aufbauten),
-        assign_change_bauteilflaechen:  assign(this.assign_change_bauteilflaechen),
-        assign_change_oi3: assign(this.assign_change_oi3),
-        assign_change_material_type: assign(this.assign_change_material_type),
-        assign_merged_bauteilflaechen_aufbauten: assign(this.assign_merged_bauteilflaechen_aufbauten),
-        assign_prepare_material_types: assign(this.assign_prepare_material_types),
-        assign_merge_arich_oi3: assign(this.assign_merge_arich_oi3),
-        assign_material_calculation_result: assign(this.assign_material_calculation_result),
-        assign_concrete_calculation_result: assign(this.assign_concrete_calculation_result),
-        assign_window_calculation_result: assign(this.assign_window_calculation_result),
-        assign_change_material_calculation: assign(this.assign_change_material_calculation),
-        assign_change_window_calculation: assign(this.assign_change_window_calculation),
-        assign_change_concrete_calculation: assign(this.assign_change_concrete_calculation),
-        assign_container_village_calculation_result: assign(this.assign_container_village_calculation_result),
-        assign_construction_site_calculation_result: assign(this.assign_construction_site_calculation_result),
-        assign_demolish_disposal_calculation_result: assign(this.assign_demolish_disposal_calculation_result),
-        assign_excavation_pit_calculation_result: assign(this.assign_excavation_pit_calculation_result),
-        assign_heating_system_calculation_result: assign(this.assign_heating_system_calculation_result),
-        // raise_form_internal_update: raise(this.raise_form_internal_update),
-        assign_step_selection_form_data: assign( this.assign_step_selection_form_data ),
-        assign_container_village_form_data: assign( this.assign_container_village_form_data ),
-        assign_construciton_form_data: assign( this.assign_construciton_form_data ),
-        assign_demolish_disposal_form_data: assign( this.assign_demolish_disposal_form_data ),
-        assign_excavation_pit_form_data: assign( this.assign_excavation_pit_form_data ),
-        assign_heating_system_form_data: assign( this.assign_heating_system_form_data ),
-        assign_common_form_data: assign( this.assign_common_form_data ),
-        assign_result_calculation_result: assign( this.assign_result_calculation_result ),
-        raise_form_internal_update: raise( this.raise_form_internal_update ),
-      },
-      guards: {
-        guard_merge_bauteilflaechen_aufbauten_data_exists: this.guard_merge_bauteilflaechen_aufbauten_data_exists,
-        guard_merge_arich_oi3_data_exists: this.guard_merge_arich_oi3_data_exists,
-        guard_materials_with_type_data_exists: this.guard_materials_with_type_data_exists,
-        guard_material_calculation_data_exist: this.guard_material_calculation_data_exist,
-        guard_concrete_calculation_data_exist: this.guard_concrete_calculation_data_exist,
-        guard_window_calculation_data_exist: this.guard_window_calculation_data_exist,
-        guard_container_village_selected: this.guard_container_village_selected, 
-        guard_construction_site_selected: this.guard_construction_site_selected,
-        guard_demolish_disposal_selected: this.guard_demolish_disposal_selected, 
-        guard_excavation_pit_selected: this.guard_excavation_pit_selected, 
-        guard_heating_system_selected: this.guard_heating_system_selected,
-      },
-    });
-
-  }
-
-  public actor_merge_bauteilflaechen_aufbauten = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
+  @boundMethod
+  public async actor_merge_bauteilflaechen_aufbauten( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
     let merged_bauteilflaechen_aufbauten: any[] = [];
-    if(input.calculation?.actor_transform_file_inputs?.transformed_aufbauten && input.calculation?.actor_transform_file_inputs.transformed_bauteilflaechen) {
-      const transformed_aufbauten = this.$immer.clone(input.calculation?.actor_transform_file_inputs.transformed_aufbauten, false);
-      const transformed_bauteilflaechen = this.$immer.clone(input.calculation?.actor_transform_file_inputs.transformed_bauteilflaechen, false);
+    if(input.context.calculation?.actor_transform_file_inputs?.transformed_aufbauten && input.context.calculation?.actor_transform_file_inputs.transformed_bauteilflaechen) {
+      // const transformed_aufbauten = this.$immer.clone(input.calculation?.actor_transform_file_inputs.transformed_aufbauten, false);
+      const transformed_aufbauten = input.context.calculation?.actor_transform_file_inputs.transformed_aufbauten;
+      // const transformed_bauteilflaechen = this.$immer.clone(input.calculation?.actor_transform_file_inputs.transformed_bauteilflaechen, false);
+      const transformed_bauteilflaechen = input.context.calculation?.actor_transform_file_inputs.transformed_bauteilflaechen;
       merged_bauteilflaechen_aufbauten = merge_bauteilflaechen_aufbauten( transformed_aufbauten, transformed_bauteilflaechen);
     }
     return { merged_bauteilflaechen_aufbauten };
   }
-
-  public actor_merge_arich_oi3 = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
+  @boundMethod
+  public async actor_merge_arich_oi3( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
     const result: any = {};
-    if(input.calculation?.actor_transform_file_inputs && input.calculation.actor_merge_bauteilflaechen_aufbauten.merged_bauteilflaechen_aufbauten) {
-      const transformed_oi3 = this.$immer.clone( input.calculation.actor_transform_file_inputs.transformed_oi3, false );
-      const merged_bauteilflaechen_aufbauten = this.$immer.clone( input.calculation.actor_merge_bauteilflaechen_aufbauten.merged_bauteilflaechen_aufbauten, false );
+    if(input.context.calculation?.actor_transform_file_inputs && input.context.calculation.actor_merge_bauteilflaechen_aufbauten.merged_bauteilflaechen_aufbauten) {
+      // const transformed_oi3 = this.$immer.clone( input.context.calculation.actor_transform_file_inputs.transformed_oi3, false );
+      const transformed_oi3 = input.context.calculation.actor_transform_file_inputs.transformed_oi3;
+      // const merged_bauteilflaechen_aufbauten = this.$immer.clone( input.context.calculation.actor_merge_bauteilflaechen_aufbauten.merged_bauteilflaechen_aufbauten, false );
+      const merged_bauteilflaechen_aufbauten = input.context.calculation.actor_merge_bauteilflaechen_aufbauten.merged_bauteilflaechen_aufbauten;
       result.transformed_arich_plus_oi3_source_1 = transformed_arich_plus_oi3_source_1( transformed_oi3 );
       result.transformed_arich_plus_oi3_source_2 = transformed_arich_plus_oi3_source_2( merged_bauteilflaechen_aufbauten, transformed_oi3 );
       
@@ -167,9 +113,9 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
-
-  public actor_prepare_material_types = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    let result: {
+  @boundMethod
+  public async actor_prepare_material_types( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    const result: {
       window_items: any[],
       concrete_items: any[],
       material_items: any[],
@@ -178,21 +124,28 @@ export class ReactViewCalculationService extends FgBaseService {
       concrete_items: [],
       material_items: [],
     };
-    if( input.calculation && input.calculation.actor_merge_arich_oi3?.material_type ) {
-      const material_types = input.calculation.actor_merge_arich_oi3.material_type;
-      material_types.forEach( (item, index ) => {
+    if( input.context.calculation && input.context.calculation.actor_merge_arich_oi3?.material_type ) {
+      const material_types = input.context.calculation.actor_merge_arich_oi3.material_type;
+      let concrete_item;
+      let window_item;
+      let name;
+      let windows;
+      let frames;
+      let material_item 
+      material_types.forEach( ( item ) => {
         switch( item.type.value ) {
           case 'concrete': 
-              let concrete_item = form_concrete_value_parser.parse(item);
-              concrete_item = this.calculate_concrete_item( concrete_item, input);
+              
+              concrete_item = form_concrete_value_parser.parse(item);
+              concrete_item = this.calculate_concrete_item( concrete_item, input.context);
               result.concrete_items.push(concrete_item);
             break;
           case 'window': 
-              const window_item = form_window_value_parser.parse(item);
+              window_item = form_window_value_parser.parse(item);
               // Try to assign default window_part_type
-              const name = window_item.name.value.toLowerCase()
-              const windows = input.data?.window_glass;
-              const frames = input.data?.window_frame;
+              name = window_item.name.value.toLowerCase()
+              windows = input.context.data?.window_glass;
+              frames = input.context.data?.window_frame;
               if( windows && frames ) {
                 if( 
                   name.indexOf('glas') !== -1
@@ -208,12 +161,12 @@ export class ReactViewCalculationService extends FgBaseService {
                   window_item.window_part_type.value = WINDOW_PART_TYPE_ENUM.none as string;
                 }
               }
-              this.calculate_window_item( window_item, input );
+              this.calculate_window_item( window_item, input.context );
               result.window_items.push(window_item);
             break;
           case 'material': 
-              let material_item = form_material_value_parser.parse(item);
-              material_item = this.calculate_material_item( material_item, input);
+              material_item = form_material_value_parser.parse(item);
+              material_item = this.calculate_material_item( material_item, input.context);
               result.material_items.push(material_item);
             break;
           default:
@@ -226,8 +179,9 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
-  public actor_material_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    const form = form_material_context_parser.parse(input.calculation?.form_material);
+  @boundMethod
+  public async actor_material_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    const form = form_material_context_parser.parse(input.context.calculation?.form_material);
     const result = form_material_context_results_parser.parse({})
     form.value.rows.forEach( item => {
       add_number_units( result.gwp_total, item.gwp)
@@ -235,8 +189,10 @@ export class ReactViewCalculationService extends FgBaseService {
     })
     return form_material_context_results_parser.parse(result);
   }
-  public actor_concrete_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    const form = form_concrete_context_parser.parse(input.calculation?.form_concrete);
+
+  @boundMethod
+  public async actor_concrete_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    const form = form_concrete_context_parser.parse(input.context.calculation?.form_concrete);
     const result = form_concrete_context_results_parser.parse({})
     form.value.rows.forEach( item => {
       add_number_units(result.gwp_sum, item.gwp);
@@ -255,8 +211,10 @@ export class ReactViewCalculationService extends FgBaseService {
     add_number_units(result.gwp_total, result.gwp_transport);
     return form_concrete_context_results_parser.parse(result);
   }
-  public actor_window_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    const form = form_window_context_parser.parse(input.calculation?.form_window);
+
+  @boundMethod
+  public async actor_window_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    const form = form_window_context_parser.parse(input.context.calculation?.form_window);
     const result = form_window_context_results_parser.parse({})
     form.value.rows.forEach( item => {
       add_number_units( result.gwp_total, item.gwp)
@@ -265,57 +223,65 @@ export class ReactViewCalculationService extends FgBaseService {
     return form_window_context_results_parser.parse(result);
   }
 
-  public actor_container_village_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
+  @boundMethod
+  public async actor_container_village_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
     let result = {};
-    if( input.calculation?.form_container_village && input.data ) {
-      result = calculate_container_village_results( input.calculation.form_container_village, input.data );
+    if( input.context.calculation?.form_container_village && input.data ) {
+      result = calculate_container_village_results( input.context.calculation.form_container_village, input.context.data );
     }
     return result;
   }
-  public actor_construction_site_calculation = async ( { input }: { input: ReactViewCalculationV1Context } ) => {
-      let result = {};
-      if( input.calculation?.form_construction_site && input.data ) {
-        result = calculate_construction_site_results( input.calculation.form_construction_site, input.data );
-      }
-      return result;
-  }
-  public actor_demolish_disposal_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    let result = demolish_disposal_form_result_parser.parse({})
-    if( input.calculation?.form_demolish_disposal && input.data ) {
-      result = calculate_demolish_disposal_results( input.calculation.form_demolish_disposal, input.data );
-    }
-    return result;
-  }
-  public actor_excavation_pit_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    let result = result_excavation_pit_parser.parse({})
-    // let result = demolish_disposal_form_result_parser.parse({})
-    if( input.calculation?.form_excavation_pit && input.data ) {
-      result = calculate_excavation_pit_results( input.calculation.form_excavation_pit, input.data );
+  
+  @boundMethod
+  public async actor_construction_site_calculation( { input }: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    let result = {};
+    if( input.context.calculation?.form_construction_site && input.context.data ) {
+      result = calculate_construction_site_results( input.context.calculation.form_construction_site, input.context.data );
     }
     return result;
   }
 
-  public actor_heating_system_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
+  @boundMethod
+  public async actor_demolish_disposal_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    let result = demolish_disposal_form_result_parser.parse({})
+    if( input.context.calculation?.form_demolish_disposal && input.context.data ) {
+      result = calculate_demolish_disposal_results( input.context.calculation.form_demolish_disposal, input.context.data );
+    }
+    return result;
+  }
+
+  @boundMethod
+  public async actor_excavation_pit_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    let result = result_excavation_pit_parser.parse({})
+    // let result = demolish_disposal_form_result_parser.parse({})
+    if( input.context.calculation?.form_excavation_pit && input.context.data ) {
+      result = calculate_excavation_pit_results( input.context.calculation.form_excavation_pit, input.context.data );
+    }
+    return result;
+  }
+
+  @boundMethod
+  public async actor_heating_system_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
     // const context = form_heating_system_context_parser.parse(input.calculation.form_heating_system);
     let result = form_heating_system_result_parser.parse({});
-    if( input.calculation?.form_excavation_pit && input.data ) { 
-      result = calculate_heating_system_results( input.calculation.form_heating_system, input.data );
+    if( input.context.calculation?.form_excavation_pit && input.context.data ) { 
+      result = calculate_heating_system_results( input.context.calculation.form_heating_system, input.context.data );
     }
     return form_heating_system_result_parser.parse(result);
   }
 
-  public actor_result_calculation = async ( {input}: { input: ReactViewCalculationV1Context } ) => {
-    if( input.calculation ) {
+  @boundMethod
+  public async actor_result_calculation( {input}: { input: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any} } ) {
+    if( input.context.calculation ) {
       console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>RESULT>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-      console.log( JSON.stringify( input.calculation.form_heating_system ) );
+      console.log( JSON.stringify( input.context.calculation.form_heating_system ) );
     }
     // const result = form_heating_system_context_parser.parse(input.calculation.form_heating_system);
     // return form_heating_system_result_parser.parse(result);
   }
 
-
-
-  public assign_common_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+  @boundMethod
+  public assign_common_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         // const data = form_common_context_parser.parse(event.payload);
@@ -325,7 +291,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
-  public assign_result_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+  @boundMethod
+  public assign_result_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         // TODO
@@ -333,7 +300,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_step_selection_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_step_selection_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         // const data = form_common_context_parser.parse(event.payload);
@@ -342,7 +311,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_container_village_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_container_village_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.form_container_village.valid = event.payload.valid;
@@ -361,7 +332,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_construciton_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_construciton_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.form_construction_site.valid = event.payload.valid;
@@ -382,7 +355,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_demolish_disposal_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_demolish_disposal_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.form_demolish_disposal.valid = event.payload.valid;
@@ -402,7 +377,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_excavation_pit_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_excavation_pit_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.form_excavation_pit.valid = event.payload.valid;
@@ -425,7 +402,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
   
-  public assign_heating_system_form_data = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+  @boundMethod
+  public assign_heating_system_form_data({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.form_heating_system.valid = event.payload.valid;
@@ -446,7 +424,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
-  public assign_transformed_file_inputs = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+  @boundMethod
+  public assign_transformed_file_inputs({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ) {
         draft.calculation.actor_transform_file_inputs = event.output;
@@ -454,7 +433,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_aufbauten = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_change_aufbauten({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.actor_transform_file_inputs?.transformed_aufbauten &&  draft?.calculation?.actor_transform_file_inputs?.transformed_aufbauten) {
         draft.calculation.actor_transform_file_inputs.transformed_aufbauten[event.payload.index] = event.payload.data;
@@ -462,7 +443,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_bauteilflaechen = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+
+  @boundMethod
+  public assign_change_bauteilflaechen({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.actor_transform_file_inputs?.transformed_bauteilflaechen &&  draft?.calculation?.actor_transform_file_inputs?.transformed_bauteilflaechen) {
         draft.calculation.actor_transform_file_inputs.transformed_bauteilflaechen[event.payload.index] = event.payload.data;
@@ -470,7 +453,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_oi3 = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_change_oi3({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.actor_transform_file_inputs?.transformed_oi3 && draft?.calculation?.actor_transform_file_inputs?.transformed_oi3) {
         draft.calculation.actor_transform_file_inputs.transformed_oi3[event.payload.index] = event.payload.data;
@@ -478,7 +463,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_merged_bauteilflaechen_aufbauten = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_merged_bauteilflaechen_aufbauten({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ){
         draft.calculation.actor_merge_bauteilflaechen_aufbauten = event.output;
@@ -486,7 +473,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_prepare_material_types = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_prepare_material_types({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if( context.calculation && draft.calculation ){
         draft.calculation.actor_prepare_material_types = event.output;
@@ -497,7 +486,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_merge_arich_oi3 = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_merge_arich_oi3({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context.calculation && draft.calculation) {
         draft.calculation.actor_merge_arich_oi3 = event.output;
@@ -505,7 +496,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_material_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_material_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_window.value.rows && draft?.calculation) {
         draft.calculation.form_material.value.results = event.output
@@ -513,7 +506,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_concrete_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_concrete_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_window.value.rows && draft?.calculation) {
         draft.calculation.form_concrete.value.results = event.output
@@ -521,7 +516,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_window_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_window_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_window.value.rows && draft?.calculation) {
         draft.calculation.form_window.value.results = event.output
@@ -529,7 +526,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_material_calculation = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_change_material_calculation({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_material.value.rows && draft?.calculation ) {
         const item = form_material_value_parser.parse(event.payload.data);
@@ -544,7 +543,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_window_calculation = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_change_window_calculation({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_window.value.rows && draft?.calculation) {
         try {
@@ -569,7 +570,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_concrete_calculation = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_change_concrete_calculation({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_concrete.value.rows && draft?.calculation) {
           const item = form_concrete_value_parser.parse(event.payload.data);
@@ -578,7 +581,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_container_village_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_container_village_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_container_village.value && draft?.calculation) {
         draft.calculation.form_container_village.value.results = event.output;
@@ -586,7 +591,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_construction_site_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_construction_site_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_construction_site.value && draft?.calculation) {
         draft.calculation.form_construction_site.value.results = event.output;
@@ -594,7 +601,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_demolish_disposal_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_demolish_disposal_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_demolish_disposal.value && draft?.calculation) {
         draft.calculation.form_demolish_disposal.value.results = event.output;
@@ -602,7 +611,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_excavation_pit_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_excavation_pit_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_excavation_pit.value && draft?.calculation) {
         draft.calculation.form_excavation_pit.value.results = event.output;
@@ -610,8 +621,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  
-  public assign_heating_system_calculation_result = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_heating_system_calculation_result({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.form_heating_system.value && draft?.calculation) {
         draft.calculation.form_heating_system.value.results = event.output;
@@ -619,7 +631,9 @@ export class ReactViewCalculationService extends FgBaseService {
     });
     return result;
   }
-  public assign_change_material_type = ({ context, event }: { context: ReactViewCalculationV1Context, event: any  }) => {
+
+  @boundMethod
+  public assign_change_material_type({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any  }) {
     const result = this.$immer.produce( context, draft => { 
       if(context?.calculation?.actor_merge_arich_oi3?.material_type && draft?.calculation?.actor_merge_arich_oi3?.material_type ) {
         draft.calculation.actor_merge_arich_oi3.material_type[event.payload.index] = event.payload.data;
@@ -629,71 +643,102 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
-  public raise_form_internal_update = ({ context, event }: { context: ReactViewCalculationV1Context, event: any }) => {
+  @boundMethod
+  public raise_form_internal_update({ context, event }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1, event: any }) {
     return { type: 'fg.form.internal.update' } as const;
   }
 
-  public guard_container_village_form_is_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+  @boundMethod
+  public guard_container_village_form_is_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation ? true : false;
     return result;
   }
-  public guard_construction_site_form_is_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_construction_site_form_is_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation ? true : false;
     return result;
   }
-  public guard_demolish_disposal_form_is_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_demolish_disposal_form_is_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation ? true : false;
     return result;
   }
-  public guard_excavation_pit_form_is_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_excavation_pit_form_is_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation ? true : false;
     return result;
   }
-  public guard_merge_bauteilflaechen_aufbauten_data_exists = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_merge_bauteilflaechen_aufbauten_data_exists({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_bauteilflaechen_aufbauten?.merged_bauteilflaechen_aufbauten ? true : false;
     return result;
   }
-  public guard_merge_arich_oi3_data_exists = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_merge_arich_oi3_data_exists({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_arich_oi3 ? true : false;
     return result;
   }
-  public guard_materials_with_type_data_exists = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_materials_with_type_data_exists({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_arich_oi3?.material_type ? true : false;
     return result;
   }
-  public guard_material_calculation_data_exist = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_material_calculation_data_exist({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_arich_oi3?.material_items ? true : false;
     return result;
   }
-  public guard_concrete_calculation_data_exist = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_concrete_calculation_data_exist({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_arich_oi3?.concrete_items ? true : false;
     return result;
   }
-  public guard_window_calculation_data_exist = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_window_calculation_data_exist({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.actor_merge_arich_oi3?.window_items ? true : false;
     return result;
   }
-  public guard_container_village_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_container_village_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.form_step_selection.value.container_village ? true : false;
     return result;
   }
-  public guard_construction_site_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_construction_site_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.form_step_selection.value.construction_site ? true : false;
     return result;
   }
-  public guard_demolish_disposal_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_demolish_disposal_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.form_step_selection.value.demolish_disposal ? true : false;
     return result;
   }
-  public guard_excavation_pit_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_excavation_pit_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.form_step_selection.value.excavation_pit ? true : false;
     return result;
   }
-  public guard_heating_system_selected = ({ context }: { context: ReactViewCalculationV1Context }) => {
+
+  @boundMethod
+  public guard_heating_system_selected({ context }: { context: REACT_VIEW_CALCULATION_CONTEXT_V1 }) {
     const result = context.calculation?.form_step_selection.value.heating_system ? true : false;
     return result;
   }
 
+  @boundMethod
   public calculate_shipments( item: FORM_MATERIAL_VALUE | FORM_CONCRETE_VALUE | FORM_WINDOW_VALUE, truck: TRUCK_DATA_ITEM, usage_in_percent: UNIT_PERCENT = { value: 100, unit: '%', edited: false, type: 'number'} ) {
     let shipments = 0;
     if( truck.max_density.value < item.density.value ) {
@@ -708,21 +753,28 @@ export class ReactViewCalculationService extends FgBaseService {
     return result;
   }
 
+  @boundMethod
   public calculate_co2_transport( item: FORM_MATERIAL_VALUE | FORM_CONCRETE_VALUE | FORM_WINDOW_VALUE, truck: TRUCK_DATA_ITEM  ) {
     const value = (truck.co2_consumption.value * item.distance.value * item.shipments.value) / 1000;
     const result = unit_kilogram_co2_parser.parse( { value } );
     return result;
   }
+
+  @boundMethod
   public calculate_gwp_oeko( mass: UNIT_KG, gwp_oeko: UNIT_KGCO2_KG ) {
     const value = mass.value * gwp_oeko.value;
     const result = unit_kilogram_co2_parser.parse({ value });
     return result;
   }
+
+  @boundMethod
   public calculate_mass( area: UNIT_M2 , area_based_mass: UNIT_KG_M2  ) {
     const value = area.value * area_based_mass.value;
     const result = unit_kilogram_parser.parse( { value } );
     return result;
   }
+
+  @boundMethod
   public calculate_volumn( mass: UNIT_KG , density: UNIT_KG_M3  ) {
     try{
       const value = mass.value / density.value;
@@ -734,7 +786,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return unit_meter_cubic_parser.parse( { value: 1 } );
   }
 
-  public calculate_material_item( item: FORM_MATERIAL_VALUE, context: ReactViewCalculationV1Context ) {
+  @boundMethod
+  public calculate_material_item( item: FORM_MATERIAL_VALUE, context: REACT_VIEW_CALCULATION_CONTEXT_V1 ) {
     const truck = context.data?.truck[5];
     const material_defaults = context.calculation?.form_material.value.defaults;
  
@@ -750,7 +803,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return item;
   }
 
-  public calculate_concrete_item( item: FORM_CONCRETE_VALUE, context: ReactViewCalculationV1Context ) {
+  @boundMethod
+  public calculate_concrete_item( item: FORM_CONCRETE_VALUE, context: REACT_VIEW_CALCULATION_CONTEXT_V1 ) {
     const truck = context.data?.truck[0];
     const concrete_defaults = context.calculation?.form_concrete.value.defaults;
     if(item && truck && concrete_defaults ) {
@@ -768,7 +822,8 @@ export class ReactViewCalculationService extends FgBaseService {
     return item;
   }
 
-  public calculate_window_item( item: FORM_WINDOW_VALUE, context: ReactViewCalculationV1Context ) {
+  @boundMethod
+  public calculate_window_item( item: FORM_WINDOW_VALUE, context: REACT_VIEW_CALCULATION_CONTEXT_V1 ) {
     const truck = context.data?.truck[5];
     const window_defaults = context.calculation?.form_material.value.defaults;
     const windows = context.data?.window_glass;
@@ -817,6 +872,7 @@ export class ReactViewCalculationService extends FgBaseService {
     return item;
   }
 
+  @boundMethod
   public roundNumbersOnObject<T extends { [id: string] : any; }>( item: T, defaults: any) {
     Object.keys( item ).forEach( key => {
       try {

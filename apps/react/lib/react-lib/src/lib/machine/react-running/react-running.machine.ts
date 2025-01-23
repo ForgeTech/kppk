@@ -3,11 +3,11 @@ import { AuthCookieFgAuthLocal } from "../fg-auth-local/fg-auth-local.machine.ty
 import { REACT_INIT_OUTPUT_DATA } from "../react-init/react-init.types";
 import { of } from "rxjs";
 import { REACT_VIEW_HOME_MACHINE_V1 } from "../react-view-home/react-view-home.machine";
-import { REACT_VIEW_CALCULATION_MACHINE_V4, react_view_calculation_v1_context_parser, ReactViewCalculationV1Context } from "../react-view-calculation/react-view-calculation.machine";
+import { REACT_VIEW_CALCULATION_MACHINE_V4, react_view_calculation_v1_context_parser, ReactViewCalculationV1Context } from "../react-view-calculation/react-view-calculation.machine.ignorets";
 
 import { REACT_ADMIN_TOOLBOX_V1, ReactAdminToolbarV1Context } from "../react-admin-toolbar/react-admin-toolbar.machine";
 import { AppConfigInterface } from "../../interface/app.config.interface";
-import { FgEnvironmentConfigInterface } from "@kppk/fg-lib";
+import { FgEnvironmentConfigInterface } from "@kppk/fg-lib-new";
 import { REACT_VIEW_CALCULATION_CONTEXT } from "../../types/kppk-react-calculation.types";
 
 export type ReactAppRunningV2Snapshot = SnapshotFrom<typeof FG_REACT_RUNNING_V2>;

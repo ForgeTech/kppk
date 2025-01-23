@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '../../../module/kppk-formly-form/kppk-formly.module';
+import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
-import { KppkReactComponentBaseService } from '../../../base/xstate-base/kppk-react-component-base.service';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
+import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.service';
 @Component({
   selector: 'kppk-react-materials-material-row',
   
@@ -36,7 +35,6 @@ import { KppkReactFieldsUtils } from '../kppk-react-fields-utils.service';
   providers:  [provideTranslocoScope( 'general', 'calc' )]
 })
 export class KppkReactMaterialsMaterialRowComponent {
-  protected $component = inject(KppkReactComponentBaseService);
   protected $utils = inject(KppkReactFieldsUtils);
   protected $translate = inject(TranslocoService);
 

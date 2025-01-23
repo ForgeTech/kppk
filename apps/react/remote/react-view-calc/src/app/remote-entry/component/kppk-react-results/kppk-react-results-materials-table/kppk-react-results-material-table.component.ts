@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { FORM_MATERIALS_RESULT } from 'apps/fg-react-demo/src/app/types/kppk-react-material.types';
+import { FORM_MATERIALS_RESULT } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-results-material-table',

@@ -2,7 +2,7 @@ import { FG_FORM_CONTAINER_VILLAGE_CONTEXT } from "../../types/kppk-react-calcul
 import { container_village_energy_result_item, CONTAINER_VILLAGE_ENERGY_RESULT_ITEM, CONTAINER_VILLAGE_ENERGY_WEEK_CATEGORY_VALUES, CONTAINER_VILLAGE_FORM_ENERGY_VALUE, CONTAINER_VILLAGE_RESULT, container_village_result_parser } from "../../types/kppk-react-container-village.types";
 import { material_co2_equ_item_parser } from "../../types/kppk-react-material.types";
 import { add_number_units, UNIT_GCO2_KM, unit_gramco2_kilometer_parser, UNIT_KGCO2, UNIT_KGCO2_KWH, unit_kilogram_co2_parser, unit_kilogramco2_kilowatthour_parser, unit_kilowatthours_month_parser, unit_kilowatthours_parser, unit_kilowatthours_week_parser, UNIT_KM, UNIT_KWH, UNIT_KWH_MONTH, UNIT_KWH_WEEK, UNIT_MONTH, unit_number_parser, UNIT_PIECES, unit_pieces_parser, unit_string_parser } from "../../types/kppk-react-unit.types";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.machine.types";
 
 
 
@@ -70,7 +70,7 @@ export const calculate_distance_co2 = ( distance: UNIT_KM, amount: UNIT_PIECES, 
 
 export const calculate_container_village_results = ( 
   form_container_village: FG_FORM_CONTAINER_VILLAGE_CONTEXT, 
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA): CONTAINER_VILLAGE_RESULT => {
+  data: REACT_INIT_LOAD_FROM_REMOTE_COMMON): CONTAINER_VILLAGE_RESULT => {
   const result = container_village_result_parser.parse({});
   let container_count = unit_pieces_parser.parse({});
   let energy_type = material_co2_equ_item_parser.parse(data.material_co2_equ.find( item => {

@@ -12,9 +12,9 @@ import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 import { provideTranslocoScope, TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { ResizeHorizontalGraphDirective } from './kppk-graph-line-height.directive';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-results-materials-table/kppk-react-results-material-table.component';
-import { REACT_VIEW_CALCULATION_CONTEXT } from 'apps/fg-react-demo/src/app/types/kppk-react-calculation.types';
-import { form_materials_result_parser } from 'apps/fg-react-demo/src/app/types/kppk-react-material.types';
-import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-colors.service';
+import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { form_materials_result_parser } from '@kppk/react-lib';
+import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
 @Component({
   selector: 'kppk-react-results-materials',

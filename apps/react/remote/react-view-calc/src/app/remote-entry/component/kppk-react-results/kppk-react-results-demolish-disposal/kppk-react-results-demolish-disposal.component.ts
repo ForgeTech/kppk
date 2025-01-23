@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { DEMOLISH_DISPOSAL_FORM_MATERIAL } from 'apps/fg-react-demo/src/app/types/kppk-react-demolish-disposal.types';
+import { DEMOLISH_DISPOSAL_FORM_MATERIAL } from '@kppk/react-lib';;
 
 @Component({
   selector: 'kppk-react-results-demolish-disposal',

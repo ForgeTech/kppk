@@ -9,7 +9,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { EventFgSpinnerHide, EventFgSpinnerShow } from '../fg-spinner/fg-spinner.machine.types';
 import { ReactViewHomeService } from '../react-view-home/react-view-home.service';
-import { ReactViewCalculationService } from '../react-view-calculation/react-view-calculation.service';
+import { ReactViewCalculationService } from '../react-view-calculation/react-view-calculation.machine.service';
 import { ReactAdminToolbarService } from '../react-admin-toolbar/react-admin-toolbar.service';
 import { REACT_ACTOR_ENUM } from '../react-main/react-mainv2.service';
 

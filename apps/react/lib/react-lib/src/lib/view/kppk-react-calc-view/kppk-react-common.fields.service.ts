@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { FgBaseService } from "@kppk/fg-lib";
+import { FgBaseService } from "@kppk/fg-lib-new";
 import { TranslocoService } from "@jsverse/transloco";
 import { FormlyFieldConfig } from "@ngx-formly/core";
 import { KppkReactFieldsUtils } from "./kppk-react-fields-utils.service";

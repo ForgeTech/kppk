@@ -46,6 +46,7 @@
     "@nx/angular": "20.3.1",
     "@rx-angular/template": "^19.1.2",
     "@statelyai/inspect": "^0.4.0",
+    "@swimlane/ngx-charts": "^21.1.2",
     "@xstate/graph": "^3.0.2",
     "angular-oauth2-oidc": "^19.0.0",
     "autobind-decorator": "^2.4.0",

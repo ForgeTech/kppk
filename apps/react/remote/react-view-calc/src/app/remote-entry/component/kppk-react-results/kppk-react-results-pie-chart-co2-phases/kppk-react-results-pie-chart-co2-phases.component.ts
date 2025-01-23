@@ -8,11 +8,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { RESULT_MATERIAL_TOP_5 } from '../kppk-react-results-overview/kppk-react-results-overview.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { REACT_VIEW_CALCULATION_CONTEXT } from 'apps/fg-react-demo/src/app/types/kppk-react-calculation.types';
+import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
 import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
-import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-colors.service';
+import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
 
 @Component({

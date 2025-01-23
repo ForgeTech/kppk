@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '../../../module/kppk-formly/kppk-formly.module';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
-import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
+import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine.ignorets';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, map, shareReplay, startWith } from 'rxjs';
 import { FormlySelectOption } from '@ngx-formly/core/select';

@@ -1,10 +1,9 @@
 import { inject, Injectable } from "@angular/core";
-import { FgBaseService } from "@kppk/fg-lib";
+import { FgBaseService } from "@kppk/fg-lib-new";
 import { TranslocoService } from "@jsverse/transloco";
 import { FormlyFieldConfig } from "@ngx-formly/core";
 import { KppkReactFieldsUtils } from "./kppk-react-fields-utils.service";
 import { map, startWith } from "rxjs";
-import { KppkReactComponentBaseService } from "../../base/xstate-base/kppk-react-component-base.service";
 import { FormlySelectOption } from "@ngx-formly/core/select";
 
 @Injectable({
@@ -12,7 +11,7 @@ import { FormlySelectOption } from "@ngx-formly/core/select";
   })
   export class KppkReactHeatingSystemFields extends FgBaseService {
     protected $translate = inject(TranslocoService);
-    protected $base = inject(KppkReactComponentBaseService);
+    // protected $base = inject(KppkReactComponentBaseService);
     protected $utils = inject(KppkReactFieldsUtils);
 
     protected heating_system_settings: FormlyFieldConfig[] = [
@@ -41,7 +40,7 @@ import { FormlySelectOption } from "@ngx-formly/core/select";
                     startWith( this.$translate.getActiveLang() ),
                     map( () => {
                       const options: FormlySelectOption[] = [];
-                      const system_data = this.$base.state_react_view_calculation_s()?.context.calculation?.file_rose;
+                      const system_data = 0 as any;//this.$base.state_react_view_calculation_s()?.context.calculation?.file_rose;
                       if( system_data ) {
                         Object.keys( system_data ).forEach( key => {
                             const value_unit_tonco2 = system_data[ key as keyof typeof system_data];

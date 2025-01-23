@@ -19,7 +19,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 export class AppComponent {
   protected $actor_spinner = inject(FgSpinnerMachineActorService);
   protected $app = inject(AppService);
-  protected $appRef = inject(ApplicationRef);
+  // protected $appRef = inject(ApplicationRef);
   protected $dialog = inject(MatDialog);
   protected $icon = inject(KppkRegisterIconsService);
 
@@ -31,7 +31,7 @@ export class AppComponent {
           this.dialog_ref = this.$dialog.open(KppkReactLoadingIndicatorComponent, {
             backdropClass: 'fg_spinner_modal_backdrop',
             panelClass: 'fg_spinner_modal_panal',
-            enterAnimationDuration: '200ms',
+            enterAnimationDuration: this.$app.app_readyS() ? '200ms' : '0',
             exitAnimationDuration: '500ms',
             autoFocus: true,
             restoreFocus: true,

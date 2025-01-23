@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { RESULT_MATERIAL_TOP_5 } from '../kppk-react-results-overview/kppk-react-results-overview.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { KppkReactCalcViewColorsService } from '../../kppk-react-calc-view-colors.service';
+import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
 
 @Component({

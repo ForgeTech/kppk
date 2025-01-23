@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { FORM_EXCAVATION_PIT_DATA } from 'apps/fg-react-demo/src/app/types/kppk-react-excavation-pit.types';
+import { FORM_EXCAVATION_PIT_DATA } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-results-excavation-pit',
