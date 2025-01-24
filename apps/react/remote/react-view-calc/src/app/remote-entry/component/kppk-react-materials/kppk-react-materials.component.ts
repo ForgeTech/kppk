@@ -2,7 +2,7 @@ import { Component, computed, input, output, ViewEncapsulation } from '@angular/
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent } from '@kppk/react-lib';
+import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent, REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KppkReactMaterialsAufbautenRowComponent } from './kppk-react-materials-aufbauten-row.component';
 import { KppkReactMaterialsBauteilflaechenRowComponent } from './kppk-react-materials-bauteilflaechen-row.component';
 import { KppkReactMaterialsOi3RowComponent } from './kppk-react-materials-oi3-row.component';
@@ -15,61 +15,61 @@ import { KppkReactMaterialsDefaultsFormComponent } from './kppk-react-materials-
 import { KppkReactMaterialsFooterRowComponent } from './kppk-react-materials-footer-row.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { AnyMachineSnapshot, AnyStateMachine, SnapshotFrom } from 'xstate';
 
 @Component({
-  selector: 'fg-react-demo-kppk-react-materials',
+  selector: 'kppk-react-materials',
   
   imports: [
     CommonModule,
-    MatExpansionModule,
-    ScrollingModule,
     KppkFormlyModule,
+    KppkReactLoadingIndicatorComponent,
     KppkReactMaterialsAufbautenRowComponent,
     KppkReactMaterialsBauteilflaechenRowComponent,
-    KppkReactMaterialsOi3RowComponent,
-    KppkReactMaterialsTypeRowComponent,
-    KppkReactLoadingIndicatorComponent,
-    KppkReactMaterialsMaterialRowComponent,
     KppkReactMaterialsConcreteRowComponent,
-    KppkReactMaterialsWindowRowComponent,
     KppkReactMaterialsDefaultsFormComponent,
     KppkReactMaterialsFooterRowComponent,
-    MatStepperModule,
+    KppkReactMaterialsMaterialRowComponent,
+    KppkReactMaterialsOi3RowComponent,
+    KppkReactMaterialsTypeRowComponent,
+    KppkReactMaterialsWindowRowComponent,
+    KppkWarnBoxResetComponent,
+    MatExpansionModule,
     MatIconModule,
-    KppkWarnBoxResetComponent
+    MatStepperModule,
+    ScrollingModule,
 ],
   templateUrl: './kppk-react-materials.component.html',
   styleUrl: './kppk-react-materials.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class KppkReactMaterialsComponent {
-  public transformed_materials_data_s = input.required<REACT_VIEW_CALCULATION_CONTEXT>( { alias: 'transformed_materials_data' });
+  public transformed_materials_data_s = input.required<REACT_VIEW_CALCULATION>( { alias: 'transformed_materials_data' });
   public options_s = input.required<FormlyFormOptions>( { alias: 'options' });
   public change = output<any>();
 
   protected state_react_view_calculation_s = computed( () => {
     const options: FormlyFormOptions = this.options_s();
-    const state = options.formState.state_react_view_calculation as any; // as ReactViewCalculationV1Snapshot;
+    const state = options.formState.state_react_view_calculation as SnapshotFrom<AnyStateMachine>;
     return state;
   })
 
   protected transformed_aufbauten_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_aufbauten;
-    return 0 // result;
+    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_aufbauten;
+    return result;
   });
 
   protected transformed_bauteilflaechen_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_bauteilflaechen;
-    return 0 // result;
+    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_bauteilflaechen;
+    return result;
   });
 
   protected transformed_oi3_s = computed( () => {
     const transformed_materials_data = this.transformed_materials_data_s();
-    // const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_oi3;
-    return 0 // result;
+    const result = transformed_materials_data?.actor_transform_file_inputs?.transformed_oi3;
+    return result;
   });
 
   protected material_type_s = computed( () => {

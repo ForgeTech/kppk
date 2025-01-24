@@ -1,11 +1,11 @@
 @if ( results_s(); as result) {
-    <div *transloco="let t;" class="result-grid min-h-full w-full">
+    <div class="result-grid min-h-full w-full">
         <kppk-react-results-material-sums [data]="materials_sums_s()" />
         <kppk-react-results-material-top-grouped-bar-chart class="absorbing" [data]="materials_top5_s().absorbing.items">
-            <h2>{{ t('calc.materials_top_absorbing') }}</h2>
+            <h2>{{ 'calc.materials_top_absorbing' }}</h2>
         </kppk-react-results-material-top-grouped-bar-chart>
         <kppk-react-results-material-top-grouped-bar-chart class="emitting" [data]="materials_top5_s().emitting.items" >
-            <h2>{{ t('calc.materials_top_emitting') }}</h2>
+            <h2>{{ 'calc.materials_top_emitting' }}</h2>
         </kppk-react-results-material-top-grouped-bar-chart>
         <kppk-react-results-pie-chart-absorbing-emitting [data_s]="materials_top5_s()"/>
         <kppk-react-results-construction-site [form]="result.form_construction_site.value" />

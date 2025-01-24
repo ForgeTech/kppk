@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
@@ -23,7 +23,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     NgxChartsModule,
   ],
   template: `
-  <table  *transloco="let t;" class="table-result table">
+  <table class="table-result table">
     <thead>
         <tr>
             <th colspan="2">
@@ -63,7 +63,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     @for( item of this.graph_data_s().data; track $index; let i = $index ) {
     <tr>
         <td class="text-left">{{ item.name }}</td>
-        <td class="text-right">{{ item.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ t('calc.kgCo2') }}</span></td>
+        <td class="text-right">{{ item.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ 'calc.kgCo2' }}</span></td>
       </tr>
     }
     </tbody>
@@ -80,7 +80,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
   protected $colors = inject(KppkReactCalcViewColorsService);
   
 
-  public data_s = input.required<REACT_VIEW_CALCULATION_CONTEXT>();
+  public data_s = input.required<REACT_VIEW_CALCULATION>();
   public material_s = input.required<KPPK_REACT_RESULTS_MATERIAL_SUMS>();
 
   protected graph_data_s = computed( () => {

@@ -23,7 +23,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     NgxChartsModule
   ],
   template: `
-  <div class="flex flex-col"  *transloco="let t;">
+  <div class="flex flex-col">
     <kppk-react-results-material-table 
       class="w-full" 
       [results]="data_s()"

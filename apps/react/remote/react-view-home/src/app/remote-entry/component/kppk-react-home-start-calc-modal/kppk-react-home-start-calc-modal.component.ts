@@ -12,9 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-
-
-import { pdf2array, Pdf2ArrayOptions } from '@kppk/fg-lib-new';
+import { FgLayoutDefaultComponent, pdf2array, Pdf2ArrayOptions } from '@kppk/fg-lib-new';
 import { parse } from 'papaparse';
 import { FileInput, MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +20,7 @@ import { FileValidator } from 'ngx-custom-material-file-input';
 import { FormControl, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { 
-  debug_calculation_oi3_import_parser,
+  oi3_file_data_parser,
   KppkFormlyModule,
   KppkReactSharedService,
   oi3_bgf_bzg_m2_parser,
@@ -42,7 +40,6 @@ import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'react-home-start-calc-modal',
-  
   imports: [
     CommonModule,
     MatCardModule,
@@ -53,11 +50,15 @@ import { FgTranslate } from '@kppk/fg-lib-new';
     KppkFormlyModule,
     MaterialFileInputModule,
     MatFormFieldModule,
+    FgLayoutDefaultComponent
   ],
   templateUrl: './kppk-react-home-start-calc-modal.component.html',
   styles: [`
     :host {
       display: block;
+      min-height: 100%;
+      height: 100%;
+      background-color: red;
     }
   `],
   encapsulation: ViewEncapsulation.None,
@@ -67,6 +68,8 @@ export class KppkReactHomeStartCalcModalComponent  {
   protected $shared = inject(KppkReactSharedService);
   protected $translate = inject(FgTranslate);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
+
+  protected kppk_react_home_translationsS = toSignal(this.$shared.kppk_react_home_translations$);
   // protected pdf_parser = new PDFParser();
 
   protected readonly maxSize = 104857600; //100Mb
@@ -146,7 +149,7 @@ export class KppkReactHomeStartCalcModalComponent  {
 
     public cleanString(input: string) {
       var output = "";
-      for (var i=0; i<input.length; i++) {
+      for (let i = 0 ; i<input.length; i++) {
           if (input.charCodeAt(i) <= 127 || input.charCodeAt(i) >= 160 && input.charCodeAt(i) <= 255) {
               output += input.charAt(i);
           } else {
@@ -167,10 +170,10 @@ export class KppkReactHomeStartCalcModalComponent  {
       pdf2array( buffer, options ).then( pdfData => {
         // console.log('>>>>>>>>>>>>>>>>>PDF_DATA>>>>>>>>>>>>>>>>>');
         // console.log(pdfData);
-        let found_bfg_or_bgz: boolean = false;
-        let bfg_or_bgz_value: number = 0;
-        let found_matching_table_format: boolean = false;
-        let found_section_headline: boolean = false;
+        let found_bfg_or_bgz = false;
+        let bfg_or_bgz_value = 0;
+        let found_matching_table_format = false;
+        let found_section_headline = false;
         
         const data_matching_format: OI3_TABLE_ROW_TYPE[] = [];
         const data_matching_after_section_headline: OI3_TABLE_ROW_TYPE[] = [];
@@ -231,7 +234,7 @@ export class KppkReactHomeStartCalcModalComponent  {
         }
         
         try {
-          const data = debug_calculation_oi3_import_parser.parse({
+          const data = oi3_file_data_parser.parse({
             area: bfg_or_bgz_value,
             data: data_matching_after_section_headline
           });

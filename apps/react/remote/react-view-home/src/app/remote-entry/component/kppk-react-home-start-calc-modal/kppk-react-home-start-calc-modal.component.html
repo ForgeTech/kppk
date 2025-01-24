@@ -1,8 +1,8 @@
 @let s = $shared;
 @let sup = $translate.supplant;
-@let t = s.kppk_react_home_translationsS();
-<mat-card>
-    <mat-card-header class="!p-0">
+@let t = kppk_react_home_translationsS();
+<fg-layout-default class="h-full">
+    <header header class="!p-0">
         <mat-toolbar class="relative">
             <h1>{{ t?.headline_start_calc_modal }}</h1>
             <div class="flex-auto"></div>
@@ -10,9 +10,9 @@
                 <mat-icon>close</mat-icon>
             </button>
         </mat-toolbar>
-    </mat-card-header>
-    <mat-card-content class="!px-6 !py-12">
-        <h2>{{ t?.content_provide_calculation_data }}</h2>
+    </header>
+    <section content class="!px-6 !py-12">
+        <!-- <h2>{{ t?.content_provide_calculation_data }}</h2> -->
         <!-- <div>{{ t?.content_provide_calculation_data_choose_option }}</div> -->
         <div class="flex flex-col gap-4">
             @if( !selected_s() ) {
@@ -182,12 +182,11 @@
                 
             }
      </div>
-    </mat-card-content>
-    <mat-card-footer>
-        <mat-card-actions class="gap-4">
-            <div class="flex-auto"></div>
+    </section>
+    <footer footer class="flex flex-row gap-4 !px-6">
+            <!-- <div class="flex-auto"></div> -->
             @if( selected_s() ) {
-                <button class="w-[240px]"
+                <button class="flex-1"
                     mat-stroked-button 
                     color="accent"  
                     (click)="back($event)"
@@ -197,7 +196,7 @@
                 </button>
             }
             @else {
-                <button class="w-[240px]" 
+                <button class="flex-1" 
                     mat-stroked-button 
                     color="warn" 
                     (click)="close_modal($event)"
@@ -206,7 +205,7 @@
                     {{ t?.button_cancel }}
                 </button>
             }
-            <button class="w-[240px]"
+            <button class="flex-1"
                 [disabled]="!selected_ready_s()" 
                 mat-stroked-button color="primary" 
                 (click)="start_calc($event)"
@@ -214,6 +213,5 @@
                 <mat-icon>play_arrow</mat-icon>
                 {{ t?.button_start_calc }}
             </button>
-        </mat-card-actions>
-    </mat-card-footer>
-</mat-card>
+    </footer>
+</fg-layout-default>

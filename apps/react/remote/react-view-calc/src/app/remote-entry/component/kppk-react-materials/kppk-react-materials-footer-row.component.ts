@@ -9,7 +9,7 @@ import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.servi
   
   imports: [CommonModule, KppkFormlyModule],
   template: `
-  <div *transloco="let t;" class="flex flex-row">
+  <div class="flex flex-row">
     <div class="flex-auto"></div>
     <!-- <pre>{{ results() | json}}</pre> -->
     <!-- @if( results() ) {
@@ -17,7 +17,7 @@ import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.servi
         <div>{{ key }} {{ t('calc.' + key)}} {{ results()[key].value }} {{ results()[key].unit }}</div>
       }
     } -->
-    <div>{{ row()?.length }} {{ t('calc.item_count')}}</div>
+    <div>{{ row()?.length }} {{ 'calc.item_count' }}</div>
   </div>
   `,
   styles:  `

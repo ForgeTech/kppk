@@ -5,7 +5,6 @@ import { Actor, ActorLogicFrom, ActorOptions, createActor, EmittedFrom, EventFro
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { ReactViewCalculationMaschineService } from './react-view-calculation.machine.service';
 import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
-import { NGXLogger } from 'ngx-logger';
 
 
 @Injectable({
@@ -16,7 +15,7 @@ export class ReactViewCalculationMachineActorService extends FgBaseService imple
   protected $xstate = inject(FgXstateService);
   protected $machine = inject(ReactViewCalculationMaschineService);
 
-  protected machine = this.$machine.get_machine();
+  readonly machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
   protected actor: Actor<typeof this.machine>;
 

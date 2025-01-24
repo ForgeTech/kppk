@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TranslocoService } from "@jsverse/transloco";
-import { combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, shareReplay, startWith, switchMap } from 'rxjs';
 import { FgBaseService } from "../base";
 
 @Injectable({
@@ -45,6 +45,7 @@ export class FgTranslate extends FgBaseService {
                     return result
                 } , {} as Record<keyof T, string>)
             }),
+            shareReplay(1)
         )
         return translation$; 
     }

@@ -38,7 +38,7 @@ export class KppkReactNavigationComponent  {
 
   protected HOST_ROUTES = HOST_ROUTES;
 
-  protected can_install_pwa_s = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
+  protected can_install_pwaS = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
 
   protected logout( event: Event ) {
     event.preventDefault();

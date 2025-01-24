@@ -1,11 +1,11 @@
-<ng-container *transloco="let t;">
+<ng-container>
     <mat-tab-group animationDuration="1000ms">
 
-        <mat-tab class="p-8" label="{{ t('calc.overview') }}">
+        <mat-tab class="p-8" label="{{ 'calc.overview' }}">
             <kppk-react-results-overview [results]="results_s()"/>
         </mat-tab>
     
-        <mat-tab class="p-8" label="{{ t('calc.material') }}">
+        <mat-tab class="p-8" label="{{ 'calc.material' }}">
             <kppk-react-results-materials [results]="results_s()"/>
         </mat-tab>
 <!--     

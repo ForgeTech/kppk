@@ -1,13 +1,13 @@
-<mat-card *transloco="let t;" content class="flex h-full flex-col flex-wrap items-center justify-start !shadow-none">
+<mat-card content class="flex h-full flex-col flex-wrap items-center justify-start !shadow-none">
 
     <mat-card-header class="w-full">
-        <h1>{{ t('calc.headline') }}</h1>
+        <h1>{{ 'calc.headline' }}</h1>
     </mat-card-header>
 
     <mat-card-content class="w-full !px-0">
         
         <div class="w-full max-w-lg p-4">
-        <h2>{{ t('calc.common_headline') }}</h2>
+        <h2>{{ 'calc.common_headline' }}</h2>
         <formly-form 
             [form]="form_common"
             [fields]="fields_common"
@@ -57,7 +57,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.material') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.material' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary" 
@@ -65,19 +65,19 @@
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="material"
                 >
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
             <ng-template matStepContent>
-                <!-- @if( state_react_view_calculation_s()?.context?.calculation; as transformed_materials_data) {
-    
-                    <fg-react-demo-kppk-react-materials
-                    [transformed_materials_data]="transformed_materials_data"
-                    [options]="options_s()"
-                    (change)="send_event_to_calculation_machine($event)"
+                <!-- @if( $actor_view_calculation.?.context?.calculation; as transformed_materials_data) { -->
+                @if( $actor_view_calculation.stateS()?.context?.calculation; as transformed_materials_data) {
+                    <kppk-react-materials
+                        [transformed_materials_data]="transformed_materials_data"
+                        [options]="options_s()"
+                        (change)="send_event_to_calculation_machine($event)"
                     />
-                } -->
+                }
             </ng-template>
             </mat-step>
             
@@ -87,7 +87,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.construction_site') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.construction_site' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary" 
@@ -95,7 +95,7 @@
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="construction_site"
                 >
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
@@ -119,7 +119,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.container_village') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.container_village' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary" 
@@ -127,7 +127,7 @@
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="container_village"
                 >
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
@@ -149,7 +149,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.demolish_disposal') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.demolish_disposal' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary" 
@@ -157,7 +157,7 @@
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="material"
                 >
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
@@ -180,14 +180,14 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.excavation_pit') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.excavation_pit' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary"
                     [checked]="form_step_selection_s()" 
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="excavation_pit">
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
@@ -210,7 +210,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.heating_system') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.heating_system' }}</h2>
                 <div class="flex-auto"></div>
                 <!-- <mat-checkbox
                     color="primary" 
@@ -218,7 +218,7 @@
                     (change)="handle_form_step_selection_change_event($event)"
                     formControlName="heating_system"
                 >
-                    {{ t('calc.use_in_calculation') }}
+                    {{ 'calc.use_in_calculation' }}
                 </mat-checkbox> -->
                 </div>
             </ng-template>
@@ -240,7 +240,7 @@
             >
             <ng-template matStepLabel>
                 <div class="flex w-full flex-row items-center justify-start gap-6">
-                <h2 class="!mb-0">{{ t('calc.calculation_result') }}</h2>
+                <h2 class="!mb-0">{{ 'calc.calculation_result' }}</h2>
                 </div>
             </ng-template>
             <ng-template matStepContent>

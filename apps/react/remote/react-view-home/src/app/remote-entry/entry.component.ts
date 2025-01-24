@@ -8,6 +8,8 @@ import { KppkReactSharedService, ReactInitMachineActorService, ReactViewHomeMach
 import { MatButtonModule } from '@angular/material/button';
 import { NGXLogger } from 'ngx-logger';
 import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FgLayoutDefaultComponent } from '@kppk/fg-lib-new';
 
 @Component({
   imports: [
@@ -16,6 +18,7 @@ import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-hom
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
+    FgLayoutDefaultComponent
   ],
   selector: 'kppk-react-view-home',
   templateUrl: './entry.component.html',
@@ -23,10 +26,14 @@ import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-hom
     :host {
       display: block;
       min-height: 100%;
+      height: 100%;
     }
-    .home-filler-container {
-      background-color: #a2b819;
+    .kppk_react_home_view_modal_panal {
+      background-color: red;
     }
+    // .home-filler-container {
+    //   background-color: #a2b819;
+    // }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -37,8 +44,9 @@ export class RemoteEntryComponent {
   protected $shared = inject(KppkReactSharedService);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
   protected $actor_react_init = inject(ReactInitMachineActorService);
-
+  protected kppk_react_home_translationsS = toSignal(this.$shared.kppk_react_home_translations$);
   protected ref_start_calculation_dialog: undefined | MatDialogRef<any, any>;
+
   constructor() {
     if( this.$actor_react_init.is_runningS() === false ) {
       this.$actor_react_init.start();
@@ -53,6 +61,8 @@ export class RemoteEntryComponent {
           panelClass: 'kppk_react_home_view_modal_panal',
           enterAnimationDuration: '250ms',
           exitAnimationDuration: '250ms',
+          minHeight: '600px',
+          minWidth: '600px',
           autoFocus: true,
           disableClose: true,
         });

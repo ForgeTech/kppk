@@ -14,7 +14,7 @@ import { KppkReactResultsContainerVillageComponent } from '../kppk-react-results
 import { KppkReactResultsDemolishDisposalComponent } from '../kppk-react-results-demolish-disposal/kppk-react-results-demolish-disposal.component';
 import { KppkReactResultsExcavationPitComponent } from '../kppk-react-results-excavation-pit/kppk-react-results-excavation-pit.component';
 import { KppkReactResultsHeatingSystemComponent } from '../kppk-react-results-heating-system/kppk-react-results-heating-system.component';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KppkReactResultsMaterialSumsComponent } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
 import { KppkReactResultsMaterialTopGroupedBarChartComponent } from '../kppk-react-results-material-top-grouped-bar-chart/kppk-react-results-material-top-grouped-bar-chart.component';
 import { form_materials_result_parser } from '@kppk/react-lib';
@@ -65,7 +65,7 @@ export type RESULT_MATERIAL_TOP_5 = z.infer<typeof materials_top5_parser>;
 })
 export class KppkReactResultsOverviewComponent {
 
-  public results_s = input.required<REACT_VIEW_CALCULATION_CONTEXT>({
+  public results_s = input.required<REACT_VIEW_CALCULATION>({
     alias: 'results'
   });
 

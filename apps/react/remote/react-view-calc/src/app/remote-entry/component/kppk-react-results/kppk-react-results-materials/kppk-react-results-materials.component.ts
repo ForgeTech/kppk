@@ -3,16 +3,15 @@ import {
   Component,
   ViewEncapsulation,
   computed,
-  effect,
   inject,
   input
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { provideTranslocoScope, TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { ResizeHorizontalGraphDirective } from './kppk-graph-line-height.directive';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-results-materials-table/kppk-react-results-material-table.component';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { form_materials_result_parser } from '@kppk/react-lib';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 
@@ -53,7 +52,7 @@ export class KppkReactResultsMaterialsComponent {
     }
   ]
 
-  public results_s = input.required<REACT_VIEW_CALCULATION_CONTEXT>({alias: 'results'});
+  public results_s = input.required<REACT_VIEW_CALCULATION>({alias: 'results'});
 
   protected  materials_s = computed( () => {
     const materials = form_materials_result_parser.parse([

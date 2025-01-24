@@ -17,7 +17,7 @@ const config: ModuleFederationConfig = {
   remotes: [
     'react_view_login',
     'react_view_home',
-    'react_view_calc'
+    // 'react_view_calc'
   ],
   
   additionalShared: [ 

@@ -10,6 +10,7 @@ import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.servi
 // import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { FormlySelectOption } from '@ngx-formly/core/select';
 import { unit_id_parser } from '@kppk/react-lib';
+import { AnyStateMachine, SnapshotFrom } from 'xstate';
 
 @Component({
   selector: 'kppk-react-materials-concrete-row',
@@ -58,7 +59,7 @@ export class KppkReactMaterialsConcreteRowComponent {
 
   protected state_react_view_calculation_s = computed( () => {
     const options: FormlyFormOptions = this.options();
-    const state = options.formState.state_react_view_calculation as any;//as ReactViewCalculationV1Snapshot;
+    const state = options.formState.state_react_view_calculation as SnapshotFrom<AnyStateMachine>;
     return state;
   })
 
@@ -76,7 +77,7 @@ export class KppkReactMaterialsConcreteRowComponent {
   ]).pipe(
     map( values => {
         const [lang, glass] = values;
-        const result = glass!.map( item => {
+        const result = glass!.map( (item:any) => {
           const option: FormlySelectOption = {
             label: item.name.value,
             value: unit_id_parser.parse(item.id).value

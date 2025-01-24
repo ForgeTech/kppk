@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { DOCUMENT } from '@angular/common';
 import { firstValueFrom, forkJoin, Observable } from 'rxjs';
-import { react_view_calculation_context_parser } from '../../types/kppk-react-calculation.types';
 import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from './react-init.machine.types'
 import { boundMethod } from 'autobind-decorator';
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
@@ -33,7 +32,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
   @boundMethod
   public react_init_input_context( { input }: { input: Partial<REACT_INIT_CONTEXT> }) {
     let context: REACT_INIT_CONTEXT = {
-      environment: undefined,
+      // environment: undefined,
       load_from_remote: undefined,
       output: undefined,
     }
@@ -47,8 +46,9 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
     console.log('FIND OUT WHY NOT PARSING ANYMORE')
     // try {
-    //   // result = react_init_output_parser.parse(context?.output);
+    //   result = react_init_output_parser.parse(context?.output);
     // } catch( error ) {
+    //   console.log( '>>>>>>>>>>>>> ERROR >>>>>>>>>>>>>>' );
     //   console.log( error );
     // }
     return context;
@@ -65,7 +65,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
   @boundMethod
   public assign_load_from_local_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
     const result = this.$immer.produce( context, draft  => {
-      draft.load_from_remote = event.output;
+      draft.load_from_local = event.output;
     });
     return result;
   };
@@ -79,66 +79,65 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     return result;
   };
 
-  @boundMethod
-  public assign_load_from_url_from_route_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    console.log('>>>>>>>>>>>ASSIGN_assign_load_from_url_from_route_result>>>>>>>>>>>>>');
-    console.log(context);
-    console.log(event);
-    // const result = this.$immer.produce( context, draft  => {
-    // });
-    return context;
-  };
+  // @boundMethod
+  // public assign_load_from_url_from_route_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
+  //   console.log('>>>>>>>>>>>ASSIGN_assign_load_from_url_from_route_result>>>>>>>>>>>>>');
+  //   console.log(context);
+  //   console.log(event);
+  //   // const result = this.$immer.produce( context, draft  => {
+  //   // });
+  //   return context;
+  // };
 
 
-  @boundMethod
-  public assign_load_url_from_params_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    console.log('assign_load_url_from_params_result');
-    // this.$immer.produce( context, draft => {
-    // });
-    return context;
-  };
+  // @boundMethod
+  // public assign_load_url_from_params_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
+  //   console.log('assign_load_url_from_params_result');
+  //   // this.$immer.produce( context, draft => {
+  //   // });
+  //   return context;
+  // };
 
   @boundMethod
-  public assign_result_data ({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {
-    console.log('assign_result_data');    
-    // return this.$immer.produce(  context, draft  => {
-    //   // if( context?.load_from_remote) {
-    //   //   draft.output = context.load_from_remote
-    //   // }
-    // });
-    return context;
-  };
-
-  @boundMethod
-  public async actor_load_from_local( { input }: { input: any} ) {
-    console.log('actor_load_from_local');
-    const result = await firstValueFrom(this.$storage.getItem('settings-local-ui'));
+  public assign_result_data ({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {   
+    const result = this.$immer.produce(  context, draft  => {
+      if( context?.load_from_remote) {
+        draft.output = context.load_from_remote
+      }
+    });
     return result;
   };
 
-  @boundMethod
-  public async actor_validate_load_from_local( { input }: { input: any} ) {
-    console.log('actor_validate_load_from_local');
-    return input;
-  };
+  // @boundMethod
+  // public async actor_load_from_local( { input }: { input: any} ) {
+  //   console.log('actor_load_from_local');
+  //   const result = await firstValueFrom(this.$storage.getItem('settings-local-ui'));
+  //   return result;
+  // };
 
-  @boundMethod
-  public escalate_load_from_local_error({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {
-    throw new Error('FARKFARKFARK');
-  }
+  // @boundMethod
+  // public async actor_validate_load_from_local( { input }: { input: any} ) {
+  //   console.log('actor_validate_load_from_local');
+  //   return input;
+  // };
+
+  // @boundMethod
+  // public escalate_load_from_local_error({ context, event }: { context: REACT_INIT_CONTEXT, event: any }) {
+  //   throw new Error('FARKFARKFARK');
+  // }
 
   @boundMethod
   public async actor_load_from_remote( { input }: { input: any } ) {
-    const common$ = this.load_object({
-      concrete_types: './react/data/august2024/common/concrete_types.json',
-      //construction_site_energy_usage: './react/data/august2024/common/construction_site_energy_usage.json',
-      container_disposal: './react/data/august2024/common/container_disposal.json',
-      container_village: './react/data/august2024/common/container_village.json',
-      material_co2_equ: './react/data/august2024/common/material_co2_equ.json',
-      material_density: './react/data/august2024/common/material_density.json',
-      truck: './react/data/august2024/common/truck.json',
-      window_frames: './react/data/august2024/common/window_frames.json',
-      window_glass: './react/data/august2024/common/window_glass.json',
+    const app$ = this.load_object({
+      concrete_types: './react/data/august2024/app/concrete_types.json',
+      // construction_site_energy_usage: './react/data/august2024/app/construction_site_energy_usage.json',
+      container_disposal: './react/data/august2024/app/container_disposal.json',
+      container_village: './react/data/august2024/app/container_village.json',
+      material_co2_equ: './react/data/august2024/app/material_co2_equ.json',
+      material_density: './react/data/august2024/app/material_density.json',
+      truck: './react/data/august2024/app/truck.json',
+      window_frames: './react/data/august2024/app/window_frames.json',
+      window_glass: './react/data/august2024/app/window_glass.json',
     });
 
     const form_defaults$ = this.load_object({
@@ -166,10 +165,9 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     });
 
     const load_from_remote$ = forkJoin({
-      common: common$,
+      app: app$,
       form_defaults: form_defaults$,
-      debug_calculation_v1: debug_calculation_v1$,
-
+      debug_calculation_v1: debug_calculation_v1$
     })
     const result = await firstValueFrom(load_from_remote$);
     return result;

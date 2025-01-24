@@ -1,14 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { 
-  REACT_VIEW_CALCULATION_MACHINE_V4, 
-  ReactViewCalculationV1Context, 
-} from './react-view-calculation.machine.ignorets';
 import { ReactCalculationMaterialsService } from './react-view-calculation-materials.service';
 import { ReactViewCalculationMachineMethodeService } from './react-view-calculation.machine.methode.service';
 import { FgXstateService } from '../../service';
 import { parent_context_event_input } from '../machine.utils';
 import { FgBaseService } from '@kppk/fg-lib-new';
-import { REACT_VIEW_CALCULATION_CONTEXT_V1 } from './react-view-calculation.machine.types';
+import { REACT_VIEW_CALCULATION_CONTEXT } from './kppk-react-calculation.machine.types';
 
 
 @Injectable({
@@ -20,11 +16,11 @@ export class ReactViewCalculationMaschineService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
 
 
-  public get_machine( context?: REACT_VIEW_CALCULATION_CONTEXT_V1 ) {
+  public get_machine( context?: REACT_VIEW_CALCULATION_CONTEXT ) {
     return this.$xstate.setup({
         types: {
-          input: {} as Partial<REACT_VIEW_CALCULATION_CONTEXT_V1>,
-          context: {} as REACT_VIEW_CALCULATION_CONTEXT_V1,
+          input: {} as Partial<REACT_VIEW_CALCULATION_CONTEXT>,
+          context: {} as REACT_VIEW_CALCULATION_CONTEXT,
           events: {} as 
           | { type: 'fg.form.construction_site.event.update', payload: any }
           | { type: 'fg.form.container_village.event.update', payload: any }

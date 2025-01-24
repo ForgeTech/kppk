@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
- { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { combineLatest, map, shareReplay, startWith } from 'rxjs';
 import { FormlySelectOption } from '@ngx-formly/core/select';
 import { unit_id_parser } from '@kppk/react-lib';
 import { FormGroup } from '@angular/forms';
 import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.service';
+import { SnapshotFrom } from 'xstate';
 
 export enum WINDOW_PART_TYPE_ENUM {
   none = 'window_part_type_enum_none',
@@ -71,7 +71,7 @@ export class KppkReactMaterialsWindowRowComponent {
 
   protected state_react_view_calculation_s = computed( () => {
     const options: FormlyFormOptions = this.options();
-    const state = options.formState.state_react_view_calculation as ReactViewCalculationV1Snapshot;
+    const state = options.formState.state_react_view_calculation;
     return state;
   })
 

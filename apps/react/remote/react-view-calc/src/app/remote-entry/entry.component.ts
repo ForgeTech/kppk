@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgObjectPipesModule } from 'ngx-pipes';
-import { KppkFormlyModule, react_view_calculation_form_name_enum, ReactViewCalculationMachineActorService } from '@kppk/react-lib';
-// import { KppkReactMaterialsComponent } from './kppk-react-calc-view/kppk-react-materials/kppk-react-materials.component';
+import { KppkFormlyModule, ReactViewCalculationMachineActorService } from '@kppk/react-lib';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -19,6 +18,7 @@ import { KppkReactExcavationPitFields } from './service/kppk-react-excavation-pi
 import { KppkReactHeatingSystemFields } from './service/kppk-react-heating-system.fields.service';
 import { KppkReactMaterialsComponent } from './component/kppk-react-materials/kppk-react-materials.component';
 import { FormlyFormOptions } from '@ngx-formly/core';
+import { react_view_calculation_form_name_enum } from 'apps/react/lib/react-lib/src/lib/machine/react-view-calculation/kppk-react-calculation.machine.types';
 
 @Component({
   imports: [
@@ -122,164 +122,8 @@ export class RemoteEntryComponent {
       return result;
     });
   
-    // protected results$ = this.state_react_view_calculation$.pipe( 
-    //   map( state => {
-    //     const calculation = state.context.calculation;
-    //     let materials = [ 
-    //       ...calculation.form_concrete.value.rows, 
-    //       ...calculation.form_window.value.rows,
-    //       ...calculation.form_material.value.rows, 
-    //     ].map( item => {
-    //       return materials_result.parse( item );
-    //     }).sort( (a, b) => {
-    //       if (a.gwp.value < b.gwp.value) {
-    //         return -1;
-    //       }
-    //       if (a.gwp.value > b.gwp.value) {
-    //         return 1;
-    //       }
-    //       return 0;
-    //     });
-    //     const materials_co2_transport = materials.reduce( (sum, item) => {
-    //       return sum += item.co2_transport.value;
-    //     }, 0)
-    //     const materials_sum = materials.reduce( (sum, item) => {
-    //       return sum += item.gwp.value;
-    //     }, 0)
-    //     const materials_sum_oeko = materials.reduce( (sum, item) => {
-    //       if( item.gwp_oeko.type === 'number') {
-    //         sum += item.gwp_oeko.value;
-    //       } else {
-    //         sum += item.gwp.value;
-    //       }
-    //       return sum;
-    //     }, 0);
-  
-    //     materials = materials.map( item => {
-    //       item.gwp_percentage.value =  item.gwp.value / (materials_sum/100);
-    //       item.gwp_transport_percentage.value =  item.co2_transport.value / (materials_sum/100);
-    //       item.gwp_oeko_percentage.value =  item.gwp_oeko.value / (materials_sum/100);
-    //       return item;
-    //     } );
-  
-        
-    //     const materials_low = materials.filter((i, index) => (index < 5)); 
-    //     const reversed =  materials.map( item => item).reverse();
-    //     const materials_top = reversed.filter((i, index) => (index < 5)); 
-  
-    //     const absorbing = materials.reduce( (sum, item) => {
-    //       if( item.gwp.value < 0 ) {
-    //         sum += Math.abs(item.gwp.value)
-    //       }
-    //       return sum;
-    //     }, 0);
-  
-    //     const emitting  = materials.reduce( (sum, item) => {
-    //       if( item.gwp.value >= 0 ) {
-    //         sum += item.gwp.value
-    //       }
-    //       return sum;
-    //     }, 0);
-        
-    //     let overview: any = {
-    //       selected: calculation.form_step_selection.value,
-    //       materials_top,
-    //       materials_low,
-    //       pie_emit_abs: {
-    //         emitting: unit_kilogram_co2_parser.parse({ value: emitting}),
-    //         absorbing: unit_kilogram_co2_parser.parse({ value: absorbing}),
-    //       },
-    //       materials: {
-    //         co2_creation:  unit_kilogram_co2_parser.parse( { value: materials_sum }),
-    //         co2_oeko_creation:  unit_kilogram_co2_parser.parse( { value: materials_sum_oeko }),
-    //         co2_transport: unit_kilogram_co2_parser.parse( { value: materials_co2_transport }),
-    //       },
-    //       excavation_pit: {
-    //         excavation: {
-    //           volumn: calculation.form_excavation_pit.value.excavation.volume,
-    //           distance: calculation.form_excavation_pit.value.excavation.distance,
-    //           co2_transport: calculation.form_excavation_pit.value.results.excavation.co2_transport,
-    //         },
-    //         excavation_pit_security: {
-    //           methode: calculation.form_excavation_pit.value.excavation_pit_security.methode,
-    //           depth: calculation.form_excavation_pit.value.excavation_pit_security.depth,
-    //           distance: calculation.form_excavation_pit.value.excavation_pit_security.distance,
-    //           linear_meter: calculation.form_excavation_pit.value.results.excavation_pit_security.linear_meter,
-    //           co2_creation: calculation.form_excavation_pit.value.results.excavation_pit_security.co2_creation,
-    //           co2_transport: calculation.form_excavation_pit.value.results.excavation_pit_security.co2_transport,
-    //         }
-    //       },
-    //       construction_site: {
-    //         building_type: calculation.form_construction_site.value.energy_usage_settings.energy_usage_build_type,
-    //         power_supply: {
-    //           power_type: calculation.form_construction_site.value.energy_usage_settings.energy_usage_power_type,
-    //           power_usage: calculation.form_construction_site.value.results.power_supply.energy_usage,
-    //           power_co2: calculation.form_construction_site.value.results.co2_power_supply,
-    //         },
-    //         heating_supply: {
-    //           power_type: calculation.form_construction_site.value.heating_supply_settings.energy_usage_power_type,
-    //           power_usage: calculation.form_construction_site.value.results.heating_supply.energy_usage,
-    //           power_co2: calculation.form_construction_site.value.results.heating_supply.co2_energy_usage,
-    //           oil_usage: calculation.form_construction_site.value.results.heating_supply.fuel_oil_usage,
-    //           oil_co2: calculation.form_construction_site.value.results.heating_supply.co2_fuel_oil_usage,
-    //         },
-    //         power_supply_co2: calculation.form_construction_site.value.results.co2_power_supply,
-    //         heating_supply_co2: calculation.form_construction_site.value.results.co2_heating_supply,
-    //         sum_co2: calculation.form_construction_site.value.results.co2_supply,
-    //       },
-    //       demolish_disposal: {
-    //         co2_transport: calculation.form_demolish_disposal.value.results.consumption_co2_sum,
-    //       },
-    //       container_village: {
-    //         container_co2: calculation.form_container_village.value.results.container_co2,
-    //         distance_co2: calculation.form_container_village.value.results.distance_co2,
-    //         scum_co2: calculation.form_container_village.value.results.sum_co2,
-    //       },
-    //       heating_system: {
-    //         system_select: calculation.form_heating_system.value.system_select,
-    //         system_co2_year: calculation.form_heating_system.value.system_co2_year,
-    //         calc_usage: calculation.form_heating_system.value.calc_usage,
-    //         usage_co2: calculation.form_heating_system.value.results.calc_usage_co2,
-    //       }
-    //     }
-  
-    //     const co2_creation = overview.materials.co2_creation.value 
-    //                        + overview.excavation_pit.excavation_pit_security.co2_creation.value;
-    //     const co2_transport = overview.materials.co2_transport.value 
-    //                         + overview.excavation_pit.excavation.co2_transport.value 
-    //                         + overview.excavation_pit.excavation_pit_security.co2_transport.value
-    //                         + overview.demolish_disposal.co2_transport.value;
-    //     const co2_construction_site = overview.container_village.scum_co2.value + overview.construction_site.sum_co2.value;
-  
-    //     const sums = {
-    //       co2_transport: unit_kilogram_co2_parser.parse({ value: co2_transport}),
-    //       co2_creation: unit_kilogram_co2_parser.parse({ value: co2_creation}),
-    //       co2_construction_site: unit_kilogram_co2_parser.parse({ value: co2_construction_site}),
-    //       co2_heating_system: unit_kilogram_co2_parser.parse({ value: overview.heating_system.usage_co2.value * 1000}),
-    //     }
-  
-    //     overview.sums = sums;
-  
-    //     const building = overview.materials.co2_creation.value 
-    //     + overview.materials.co2_transport.value
-    //     const excavation_pit = overview.excavation_pit.excavation.co2_transport.value 
-    //           + overview.excavation_pit.excavation_pit_security.co2_creation.value
-    //           + overview.excavation_pit.excavation_pit_security.co2_transport.value
-        
-    //     overview.parts = {
-    //       building: unit_kilogram_co2_parser.parse({ value: building}),
-    //       excavation_pit: unit_kilogram_co2_parser.parse({ value: excavation_pit}),
-    //     }
-  
-    //     const results = {
-    //       materials,
-    //       overview
-    //     }
-    //     return results;
-    //   })
-    // ) 
-  
     constructor() {
+      this.$actor_view_calculation.start()
       // super();
       // Update form_step_select with machine context values
       effect( () => {

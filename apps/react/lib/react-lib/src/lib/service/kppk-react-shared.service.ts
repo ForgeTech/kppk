@@ -53,28 +53,34 @@ export class KppkReactSharedService extends FgBaseService {
       alt_pictogram_excavation_pit: "home",
       alt_pictogram_heating_system: "home",
       alt_pictogram_material: "home",
+
       button_back: "home",
       button_cancel: "home",
       button_start_calc: "home",
+
+      calculation_start: "general",
+
       content_provide_calculation_data_choose_option: "home",
       content_provide_calculation_data_from_files: "home",
       content_provide_calculation_data_from_storage: "home",
       content_provide_calculation_data: "home",
+
+      error_max_file_size: 'form',
+      error_required: 'form',
+
       headline_selected_from_files: "home",
       headline_selected_from_stored: "home",
       headline_start_calc_modal: "home",
       headline_welcome: "home",
+
+      label_version: "general",
+      
       placeholder_aufbauten_file: "home",
       placeholder_bauteilflaechen_file: "home",
       placeholder_heating_system_file: "home",
       placeholder_oi3_file: "home",
       text_welcome: "home",
-      label_version: "general",
-      calculation_start: "general",
-      error_required: 'form',
-      error_max_file_size: 'form',
     });
-    public kppk_react_home_translationsS = toSignal(this.kppk_react_home_translations$, { initialValue: undefined });
     
     public kppk_react_admin_toolbar_translations$ = this.$translate.get_translations$({
       alt_kppk_logo: "login",
@@ -90,7 +96,6 @@ export class KppkReactSharedService extends FgBaseService {
       route_imprint: "route",
       tooltip_install: "pwa",
     });
-    public kppk_react_admin_toolbar_translationsS = toSignal(this.kppk_react_admin_toolbar_translations$, { initialValue: undefined });
 
     public kppk_react_login_translations$ = this.$translate.get_translations$({
       alt_kppk_logo: "login",
@@ -106,12 +111,11 @@ export class KppkReactSharedService extends FgBaseService {
       route_imprint: "route",
       tooltip_install: "pwa",
     });
-    public kppk_react_login_translationsS = toSignal(this.kppk_react_login_translations$, { initialValue: undefined });
 
-    public kppk_react_navigation_translationsS = toSignal(this.$translate.get_translations$({
+    public kppk_react_navigation_translations$ = this.$translate.get_translations$({
       calculation_start: "general",
       label_install: "pwa",
-      label_version: "login",
+      label_version: "general",
       login: "general",
       logout: "general",
       manual: "general",
@@ -120,7 +124,7 @@ export class KppkReactSharedService extends FgBaseService {
       route_imprint: "route",
       route_login: "route",
       tooltip_install: "pwa",
-    }), { initialValue: undefined });
+    });
 
       protected lang_active$ = this.$transloco.langChanges$.pipe( startWith( this.$transloco.getActiveLang() ));
       public    lang_activeS = toSignal(this.lang_active$, { initialValue: this.$transloco.getDefaultLang() });

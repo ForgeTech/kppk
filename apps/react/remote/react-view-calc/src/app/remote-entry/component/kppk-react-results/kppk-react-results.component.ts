@@ -9,7 +9,7 @@ import { KppkReactResultsMaterialsComponent } from './kppk-react-results-materia
 import { KppkReactResultsOverviewComponent } from './kppk-react-results-overview/kppk-react-results-overview.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
+import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 
 @Component({
   selector: 'fg-react-demo-kppk-react-results',
@@ -31,7 +31,7 @@ import { REACT_VIEW_CALCULATION_CONTEXT } from '@kppk/react-lib';
 })
 export class KppkReactResultsComponent {
 
-  public results_s = input.required<REACT_VIEW_CALCULATION_CONTEXT>({alias: 'results'});
+  public results_s = input.required<REACT_VIEW_CALCULATION>({alias: 'results'});
 }
 
 

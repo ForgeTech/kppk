@@ -8,6 +8,7 @@ import { form_excavation_pit_parser, result_excavation_pit_parser } from "../../
 import { form_heating_system_data_parser, form_heating_system_result_parser, rose_file_data_parser } from "../../types";
 import { form_step_selection_data } from "../../types";
 import { react_calculation_materials_v1_output } from "./react-view-calculation-materials.service";
+import { react_init_load_from_remote_data_parser } from "../react-init";
 
 export enum react_view_calculation_form_name_enum {
     unnamed = 'unnamed',
@@ -169,7 +170,7 @@ export enum react_view_calculation_form_name_enum {
   });
   export type FORM_VALUES = z.infer<typeof form_values_parser>;
   
-  export const react_view_calculation_context_parser = form_values_parser.extend({
+  export const react_view_calculation_parser = form_values_parser.extend({
     file_aufbauten:  z.object({ data: z.array(z.any())}),
     file_bauteilflaechen: z.object({ data: z.array(z.any()) }),
     file_oi3: z.any(),
@@ -195,9 +196,16 @@ export enum react_view_calculation_form_name_enum {
       material_items: z.array(form_material_value_parser).optional().default([]),
     }).optional(),
   });
-  export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<typeof react_view_calculation_context_parser>;
+  export type REACT_VIEW_CALCULATION = z.infer<typeof react_view_calculation_parser>;
 
-
+  export const react_view_calculation_context_parser = z.object({
+    form_defaults: form_values_parser, 
+    calculation: react_view_calculation_parser,
+    data: react_init_load_from_remote_data_parser,
+  });
+  
+  export type REACT_VIEW_CALCULATION_CONTEXT =  z.infer<typeof react_view_calculation_context_parser>;
+  
 
   export const react_view_calculation_result_parser = z.object({
 

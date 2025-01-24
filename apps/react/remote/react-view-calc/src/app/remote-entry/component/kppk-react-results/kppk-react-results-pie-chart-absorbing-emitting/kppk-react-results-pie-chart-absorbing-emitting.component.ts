@@ -22,7 +22,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     NgxChartsModule,
   ],
   template: `
-  <table  *transloco="let t;" class="table-result table">
+  <table class="table-result table">
     <thead>
         <tr>
             <th colspan="2">
@@ -63,7 +63,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     @for( item of this.result_abso_emit_pie_s(); track $index; let i = $index ) {
     <tr>
         <td class="text-left">{{ item.name }}</td>
-        <td class="text-right">{{ item.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ t('calc.kgCo2') }}</span></td>
+        <td class="text-right">{{ item.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ 'calc.kgCo2' }}</span></td>
       </tr>
     }
     </tbody>

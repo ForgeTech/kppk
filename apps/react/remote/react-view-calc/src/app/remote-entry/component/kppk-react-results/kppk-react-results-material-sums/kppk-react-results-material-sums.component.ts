@@ -26,7 +26,7 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<typeof kppk_react_results
     TranslocoModule
   ],
   template: `
-  <table  *transloco="let t;" class="table-result col-span-6 table">
+  <table class="table-result col-span-6 table">
     <thead>
         <tr>
             <th colspan="2">
@@ -36,16 +36,16 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<typeof kppk_react_results
     </thead>
     <tbody>
         <tr>
-            <td>{{ t('calc.co2_transport') }}</td>
-            <td class="text-right">{{ data().co2_sum_transport.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ t('calc.' + data().co2_sum_transport.unit ) }}</span></td>
+            <td>{{ 'calc.co2_transport' }}</td>
+            <td class="text-right">{{ data().co2_sum_transport.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + data().co2_sum_transport.unit  }}</span></td>
         </tr>
         <tr>
-            <td>{{ t('calc.co2_creation') }}</td>
-            <td class="text-right">{{ data().co2_sum.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ t('calc.' + data().co2_sum.unit ) }}</span></td>
+            <td>{{ 'calc.co2_creation' }}</td>
+            <td class="text-right">{{ data().co2_sum.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + data().co2_sum.unit  }}</span></td>
         </tr>
         <tr>
-            <td>{{ t('calc.co2_oeko_creation') }}</td>
-            <td class="text-right">{{ data().co2_sum_oeko.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ t('calc.' + data().co2_sum_oeko.unit ) }}</span></td>
+            <td>{{ 'calc.co2_oeko_creation' }}</td>
+            <td class="text-right">{{ data().co2_sum_oeko.value | number:'1.2-2' }} <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + data().co2_sum_oeko.unit  }}</span></td>
         </tr>
     </tbody>
   </table>

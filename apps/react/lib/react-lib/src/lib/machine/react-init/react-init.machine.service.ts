@@ -20,21 +20,21 @@ export class ReactInitMachineService extends FgBaseService {
         context: {} as REACT_INIT_CONTEXT,
       },
       actions: {
-        assign_load_from_local_result: this.$xstate.assign( this.$methode.assign_load_from_local_result ),
+        // assign_load_from_local_result: this.$xstate.assign( this.$methode.assign_load_from_local_result ),
         assign_load_from_remote_result: this.$xstate.assign( this.$methode.assign_load_from_remote_result ),
-        assign_load_from_url_from_route_result: this.$xstate.assign( this.$methode.assign_load_from_url_from_route_result ),
-        assign_load_url_from_params_result: this.$xstate.assign( this.$methode.assign_load_url_from_params_result ),
+        // assign_load_from_url_from_route_result: this.$xstate.assign( this.$methode.assign_load_from_url_from_route_result ),
+        // assign_load_url_from_params_result: this.$xstate.assign( this.$methode.assign_load_url_from_params_result ),
         assign_react_init_input: this.$xstate.assign( this.$methode.assign_react_init_input ),
         assign_result_data: this.$xstate.assign( this.$methode.assign_result_data ),
-        escalate_load_from_local_error: this.$methode.escalate_load_from_local_error,
+        // escalate_load_from_local_error: this.$methode.escalate_load_from_local_error,
         escalate_load_from_remote_error: this.$methode.escalate_load_from_remote_error,
         escalate_result_validate_error: this.$methode.escalate_result_validate_error
       },
       actors: {
-        actor_load_from_local: this.$xstate.fromPromise( this.$methode.actor_load_from_local ),
+        // actor_load_from_local: this.$xstate.fromPromise( this.$methode.actor_load_from_local ),
         actor_load_from_remote: this.$xstate.fromPromise( this.$methode.actor_load_from_remote ),
         actor_merge_result: this.$xstate.fromPromise( this.$methode.actor_merge_result ),
-        actor_validate_load_from_local: this.$xstate.fromPromise( this.$methode.actor_validate_load_from_local ),
+        // actor_validate_load_from_local: this.$xstate.fromPromise( this.$methode.actor_validate_load_from_local ),
         actor_validate_load_from_remote: this.$xstate.fromPromise( this.$methode.actor_validate_load_from_remote ),
         actor_validate_result: this.$xstate.fromPromise( this.$methode.actor_validate_result ),
       },
@@ -61,48 +61,48 @@ export class ReactInitMachineService extends FgBaseService {
             target: "RESULTS",
           },
           states: {
-            FROM_LOCAL: {
-              initial: "PENDING",
-              states: {
-                PENDING: {
-                  invoke: {
-                    id: "load_from_local",
-                    input: parent_context_event_input,
-                    onDone: {
-                      target: "VALIDATE",
-                    },
-                    onError: {
-                      target: "ERROR",
-                    },
-                    src: "actor_load_from_local",
-                  },
-                },
-                VALIDATE: {
-                  invoke: {
-                    id: "validate_load_from_local",
-                    input: parent_context_event_input,
-                    onDone: {
-                      target: "DONE",
-                    },
-                    onError: {
-                      target: "ERROR",
-                    },
-                    src: "actor_validate_load_from_local",
-                  },
-                },
-                ERROR: {
-                  entry: {
-                    type: "escalate_load_from_local_error",
-                  },
-                },
-                DONE: {
-                  type: "final",
-                  entry: {
-                    type: "assign_load_from_local_result",
-                  },
-                },
-              },
-            },
+            // FROM_LOCAL: {
+            //   initial: "PENDING",
+            //   states: {
+            //     PENDING: {
+            //       invoke: {
+            //         id: "load_from_local",
+            //         input: parent_context_event_input,
+            //         onDone: {
+            //           target: "VALIDATE",
+            //         },
+            //         onError: {
+            //           target: "ERROR",
+            //         },
+            //         src: "actor_load_from_local",
+            //       },
+            //     },
+            //     VALIDATE: {
+            //       invoke: {
+            //         id: "validate_load_from_local",
+            //         input: parent_context_event_input,
+            //         onDone: {
+            //           target: "DONE",
+            //         },
+            //         onError: {
+            //           target: "ERROR",
+            //         },
+            //         src: "actor_validate_load_from_local",
+            //       },
+            //     },
+            //     ERROR: {
+            //       entry: {
+            //         type: "escalate_load_from_local_error",
+            //       },
+            //     },
+            //     DONE: {
+            //       type: "final",
+            //       entry: {
+            //         type: "assign_load_from_local_result",
+            //       },
+            //     },
+            //   },
+            // },
             FROM_REMOTE: {
               initial: "PENDING",
               states: {
