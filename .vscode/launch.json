@@ -10,6 +10,27 @@
             "name": "REACT Host (Chrome)",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "REACT Login Standalone (Chrome)",
+            "url": "http://localhost:3001",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "REACT Home Standalone (Chrome)",
+            "url": "http://localhost:3002",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "REACT Calculation Standalone (Chrome)",
+            "url": "http://localhost:3003",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
