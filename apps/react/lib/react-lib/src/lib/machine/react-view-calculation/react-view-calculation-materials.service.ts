@@ -4,12 +4,11 @@ import { assign, fromPromise, setup } from 'xstate';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { transform_oi3, transform_bauteilflaechen, transform_aufbauten} from './react-view-calculation-materials.utils';
 import { z } from 'zod';
-import { debug_calculation_oi3_import_parser } from '../react-init';
 
 export const react_calculation_materials_v1_input = z.object({
   file_aufbauten: z.array(z.any()),
   file_bauteilflaechen: z.array(z.any()),
-  file_oi3: debug_calculation_oi3_import_parser,
+  file_oi3: z.any(),
 });
 export type ReactCalculationMaterialsV1Input = z.infer<typeof react_calculation_materials_v1_input>;
 

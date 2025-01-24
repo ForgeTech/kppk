@@ -1,6 +1,24 @@
 import { z } from 'zod';
-import { unit_boolean_parser, unit_degree_parser, unit_kilogram_co2_parser, unit_kilogram_meter_square_parser, unit_kilogram_parser, unit_kilogramco2_kilometer_parser, unit_kilogramco2_liter_parser, unit_kilometer_parser, unit_meter_cubic_parser, unit_meter_parser, unit_milimeter_parser, unit_pieces_parser } from './kppk-react-unit.types';
-import { EXCAVATION_PIT_SECURITY_METHODE_ENUM, JET_BLASTING_PROCESS_TYPE_ENUM, JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM } from '../view/kppk-react-calc-view/kppk-react-excavation-pit.fields.service';
+import { 
+  unit_boolean_parser,
+  unit_degree_parser,
+  unit_kilogram_co2_parser,
+  unit_kilogram_meter_square_parser,
+  unit_kilogram_parser,
+  unit_kilogramco2_kilometer_parser, 
+  unit_kilogramco2_liter_parser,
+  unit_kilometer_parser,
+  unit_meter_cubic_parser,
+  unit_meter_parser,
+  unit_milimeter_parser,
+  unit_pieces_parser 
+} from './kppk-react-unit.types';
+import { 
+  EXCAVATION_PIT_SECURITY_METHODE_ENUM,
+  JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM,
+  JET_BLASTING_PROCESS_TYPE_ENUM 
+} from 'apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-excavation-pit.fields.service';
+
 
 export const unit_excavation_pit_security_methode_enum_parser = z.object({
   value: z.nativeEnum(EXCAVATION_PIT_SECURITY_METHODE_ENUM).default(EXCAVATION_PIT_SECURITY_METHODE_ENUM.jet_blasting),

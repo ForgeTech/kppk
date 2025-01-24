@@ -1,10 +1,36 @@
-import { FG_FORM_EXCAVATION_PIT_CONTEXT } from "../../types/kppk-react-calculation.types";
-import {  FORM_EXCAVATION_PIT_DATA, form_excavation_pit_parser, RESULT_EXCAVATION_PIT, result_excavation_pit_parser, UNIT_JET_BLASTING_PROCESS_CYLINDER_SHAPE } from "../../types/kppk-react-excavation-pit.types";
+import { EXCAVATION_PIT_SECURITY_METHODE_ENUM, JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM } from "apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-excavation-pit.fields.service";
+import { FG_FORM_EXCAVATION_PIT_CONTEXT } from "./kppk-react-calculation.machine.types";
+import { 
+  RESULT_EXCAVATION_PIT,
+  result_excavation_pit_parser,
+  UNIT_JET_BLASTING_PROCESS_CYLINDER_SHAPE 
+} from "../../types/kppk-react-excavation-pit.types";
 import { material_co2_equ_item_parser, material_density_item_parser } from "../../types/kppk-react-material.types";
 import { truck_data_item_parser } from "../../types/kppk-react-truck.types";
-import { add_number_units, UNIT_DEGREE, UNIT_GCO2_KM, UNIT_KG, UNIT_KG_M2, UNIT_KG_M3, UNIT_KGCO2, UNIT_KGCO2_KG, UNIT_KGCO2_KM, unit_kilogram_co2_parser, unit_kilogram_parser, unit_kilogramco2_kilogram_parser, unit_kilogramco2_kilometer_parser, UNIT_KM, UNIT_M, UNIT_M3, unit_meter_cubic_parser, unit_meter_parser, UNIT_MM, UNIT_PIECES, unit_radiant_parser } from "../../types/kppk-react-unit.types";
-import { EXCAVATION_PIT_SECURITY_METHODE_ENUM, JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM } from "../../view/kppk-react-calc-view/kppk-react-excavation-pit.fields.service";
-import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.machine.types";
+import { 
+  add_number_units,
+  UNIT_DEGREE,
+  UNIT_GCO2_KM,
+  UNIT_KG,
+  UNIT_KG_M2,
+  UNIT_KG_M3,
+  UNIT_KGCO2,
+  UNIT_KGCO2_KG,
+  UNIT_KGCO2_KM,
+  unit_kilogram_co2_parser,
+  unit_kilogram_parser,
+  unit_kilogramco2_kilogram_parser,
+  unit_kilogramco2_kilometer_parser,
+  UNIT_KM,
+  UNIT_M,
+  UNIT_M3,
+  unit_meter_cubic_parser,
+  unit_meter_parser,
+  UNIT_MM,
+  UNIT_PIECES,
+  unit_radiant_parser 
+} from "../../types/kppk-react-unit.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "./../react-init/react-init.machine.types";
 
     export const calculate_excavation_co2_transport = (
         volume: UNIT_M3,
@@ -120,7 +146,7 @@ import { REACT_INIT_LOAD_FROM_REMOTE_COMMON } from "./../react-init/react-init.m
     length: UNIT_M,
     width: UNIT_M
   ): UNIT_M3 => {
-    let value = depth.value * length.value * width.value;
+    const value = depth.value * length.value * width.value;
     return unit_meter_cubic_parser.parse({ value });
   }
  
@@ -245,7 +271,7 @@ export const calculate_shotcrete_co2_nail_volumen = (nail_count: UNIT_PIECES, na
 
 export const calculate_excavation_pit_results = ( 
     form_excavation_pit: FG_FORM_EXCAVATION_PIT_CONTEXT,
-    data: REACT_INIT_LOAD_FROM_REMOTE_COMMON 
+    data: REACT_INIT_LOAD_FROM_REMOTE_DATA 
   ): RESULT_EXCAVATION_PIT  => {
     const common_truck = truck_data_item_parser.parse( data.truck.find( item => item.category.includes( 'common' )));
     const concrete_truck = truck_data_item_parser.parse(data.truck.find( item => item.category.includes( 'concrete' )));
@@ -482,7 +508,7 @@ export const calculate_excavation_pit_results = (
         excavation_truck.co2_consumption
       );
 
-      let result = {
+      const result = {
         jet_blasting_process: {
           jet_blasting_process_cylinder: {
             concrete_volume: jet_blasting_process_cylinder_concrete_volume,
