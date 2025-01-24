@@ -36,6 +36,8 @@ export class KppkReactNavigationComponent  {
   protected $pwa = inject(FgPwaInstallService);
   protected $shared = inject(KppkReactSharedService);
 
+  protected kppk_react_navigation_translationsS = toSignal(this.$shared.kppk_react_navigation_translations$, { initialValue: undefined})
+
   protected HOST_ROUTES = HOST_ROUTES;
 
   protected can_install_pwaS = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
