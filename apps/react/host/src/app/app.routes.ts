@@ -1,14 +1,7 @@
 import { Route } from '@angular/router';
+import { HOST_ROUTES } from '@kppk/react-lib';
 
-export enum HOST_ROUTES {
-    ROOT = '',
-    CALC = 'react_view_calc',
-    HOME = 'react_view_home',
-    LOGIN = 'react_view_login',
-    IMPRINT = 'react_view_imprint',
-    DATA_PROTECTION = 'react_view_data_protection',
-    WILDCARD = '**',
-}
+
 
 export const app_routes: Route[] = [
   {

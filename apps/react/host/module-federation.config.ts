@@ -16,7 +16,7 @@ const config: ModuleFederationConfig = {
    */
   remotes: [
     'react_view_login',
-    'react_view_home',
+    // 'react_view_home',
     // 'react_view_calc'
   ],
   
@@ -51,18 +51,24 @@ const config: ModuleFederationConfig = {
       singleton: true,
       requiredVersion: 'auto',
     }],
-  //   ['@angular/material', {
-  //     eager: true, 
-  //     strictVersion: true,
-  //     singleton: true,
-  //     requiredVersion: 'auto',
-  //   }],
-  //   ['@angular/cdk', {
-  //     eager: true, 
-  //     strictVersion: true,
-  //     singleton: true,
-  //     requiredVersion: 'auto',
-  //   }],
+    ['@angular/material', {
+      eager: true, 
+      strictVersion: true,
+      singleton: true,
+      requiredVersion: 'auto',
+    }],
+    ['@angular/cdk', {
+      eager: true, 
+      strictVersion: true,
+      singleton: true,
+      requiredVersion: 'auto',
+    }],
+    ['zod', {
+      eager: true, 
+      strictVersion: true,
+      singleton: true,
+      requiredVersion: 'auto',
+    }],
   //   [ '@angular/cdk/schematics', {
   //     eager: true, 
   //     strictVersion: true,

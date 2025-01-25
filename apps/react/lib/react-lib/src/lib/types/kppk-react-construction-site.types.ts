@@ -16,7 +16,9 @@ import {
   HEAT_SUPPLY_CALCULATION_TYPE_ENUM,
   POWER_SUPPLY_CALCULATION_TYPE_ENUM,
   POWER_SUPPLY_POWER_TYPE_ENUM 
-} from 'apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-constructions-site.fields.service';
+} from '../enum';
+
+
 
 export const construction_site_energy_usage_calculation_type_enum_parser = z.object({
   value: z.nativeEnum(POWER_SUPPLY_CALCULATION_TYPE_ENUM).default(POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry),

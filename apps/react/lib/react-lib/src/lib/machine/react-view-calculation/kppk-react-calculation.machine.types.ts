@@ -9,20 +9,9 @@ import { form_heating_system_data_parser, form_heating_system_result_parser, ros
 import { form_step_selection_data } from "../../types";
 import { react_calculation_materials_v1_output } from "./react-view-calculation-materials.service";
 import { react_init_load_from_remote_data_parser } from "../react-init";
+import { react_view_calculation_form_name_enum } from "../../enum";
 
-export enum react_view_calculation_form_name_enum {
-    unnamed = 'unnamed',
-    construction_site = 'construction_site',
-    window = 'window',
-    concrete = 'concrete',
-    material = 'material',
-    container_village = 'container_village',
-    demolish_disposal = 'demolish_disposal',
-    excavation_pit = 'excavation_pit',
-    heating_system = 'heating_system',
-    common = 'common',
-    step_selection = 'step_selection',
-  }
+
   // export type REACT_VIEW_CALCULATION_FORM_NAME_ENUM =
   
   const react_view_calculation_form_name_enum_parser = z.nativeEnum(react_view_calculation_form_name_enum);

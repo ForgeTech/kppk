@@ -59,8 +59,7 @@ import {
   form_construction_site_parser 
 } from '../../types/kppk-react-construction-site.types';
 import { boundMethod } from 'autobind-decorator';
-import { WINDOW_PART_TYPE_ENUM } from 'apps/react/remote/react-view-calc/src/app/remote-entry/component/kppk-react-materials/kppk-react-materials-window-row.component';
-
+import { WINDOW_PART_TYPE_ENUM } from '../../enum';
 
 @Injectable({
   providedIn: 'root',

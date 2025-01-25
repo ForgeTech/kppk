@@ -8,7 +8,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // import { FgPagedjsService } from 'apps/fg-react-demo/src/app/service/fg-pagedjs.service';
 // import { ROUTES_ENUM } from 'apps/fg-react-demo/src/app/app.routes';
 import { CommonModule } from '@angular/common';
-import { HOST_ROUTES } from '../../../../app.routes';
+import { HOST_ROUTES } from '@kppk/react-lib';
 
 /**
  * RoseHeaderComponent -

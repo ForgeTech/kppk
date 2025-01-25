@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { NgObjectPipesModule } from 'ngx-pipes';
-import { KppkFormlyModule, ReactViewCalculationMachineActorService } from '@kppk/react-lib';
+import { 
+  KppkFormlyModule,
+  react_view_calculation_form_name_enum, 
+  ReactViewCalculationMachineActorService 
+} from '@kppk/react-lib';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -18,7 +22,6 @@ import { KppkReactExcavationPitFields } from './service/kppk-react-excavation-pi
 import { KppkReactHeatingSystemFields } from './service/kppk-react-heating-system.fields.service';
 import { KppkReactMaterialsComponent } from './component/kppk-react-materials/kppk-react-materials.component';
 import { FormlyFormOptions } from '@ngx-formly/core';
-import { react_view_calculation_form_name_enum } from 'apps/react/lib/react-lib/src/lib/machine/react-view-calculation/kppk-react-calculation.machine.types';
 
 @Component({
   imports: [

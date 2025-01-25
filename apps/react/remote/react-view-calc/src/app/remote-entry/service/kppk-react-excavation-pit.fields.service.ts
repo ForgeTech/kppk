@@ -6,28 +6,11 @@ import { startWith } from 'rxjs';
 import { map } from 'rxjs';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
-
-export enum JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM {
-  'full_circle' = 'full_circle',
-  'half_circle' = 'half_circle',
-  'quater_circle' = 'quater_circle',
-}
-
-export enum JET_BLASTING_PROCESS_TYPE_ENUM {
-  'process_type_cylinder' = 'process_type_cylinder',
-  'process_type_cuboid' = 'process_type_cuboid',
-}
-
-export enum EXCAVATION_PIT_SECURITY_METHODE_ENUM {
-  'foundation_pile' = 'foundation_pile',
-  'sheet_pile_wall' = 'sheet_pile_wall',
-  'escarpment' = 'escarpment',
-  'shotcrete' = 'shotcrete',
-  'jet_blasting' = 'jet_blasting',
-}
-
-
-
+import { 
+  EXCAVATION_PIT_SECURITY_METHODE_ENUM,
+  JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM,
+  JET_BLASTING_PROCESS_TYPE_ENUM 
+} from '@kppk/react-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -202,7 +185,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_jet_blasting_process = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.jet_blasting;
     return result;
@@ -211,7 +194,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_jet_blasting_process_type_cylinder = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.jet_blasting_process.process_type.value !== JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cylinder;
     return result;
@@ -220,7 +203,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_jet_blasting_process_type_cuboid = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.jet_blasting_process.process_type.value !== JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cuboid;
     return result;
@@ -396,7 +379,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_escarpment_process = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.escarpment;
     return result;
@@ -439,7 +422,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_sheet_pile_wall_process = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.sheet_pile_wall;
     return result;
@@ -480,7 +463,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_shotcrete_process = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.shotcrete;
     return result;
@@ -599,7 +582,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected hide_unequal_foundation_pile_process = ( field: FormlyFieldConfig<FormlyFieldProps & {
     [additionalProperties: string]: any;
   }> ): boolean => {
-    field.model
+    // field.model
     const root_model = this.$utils.get_root_parent( field ).model;
     const result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.foundation_pile;
     return result;

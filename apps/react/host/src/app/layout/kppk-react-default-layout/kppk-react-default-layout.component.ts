@@ -39,7 +39,7 @@ export interface FgOpenDrawerInterface {
     KppkReactFooterComponent,
     KppkReactHeaderComponent,
     KppkReactNavigationComponent,
-    KppkReactHeaderOpenNavBtnComponent,
+    // KppkReactHeaderOpenNavBtnComponent,
     KppkAdminToolbarComponent
   ],
   templateUrl: './kppk-react-default-layout.component.html',

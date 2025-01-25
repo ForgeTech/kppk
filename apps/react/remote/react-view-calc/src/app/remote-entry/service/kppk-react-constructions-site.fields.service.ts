@@ -5,29 +5,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
 import { map, startWith } from 'rxjs';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
-
-export enum BUILD_TYPE_ENUM {
-  'building_construction' = 'building_construction',
-  'prefabricated_house' = 'prefabricated_house',
-};
-
-export enum POWER_SUPPLY_CALCULATION_TYPE_ENUM {
-  'estimate' = 'estimate',
-  'custom' = 'custom',
-  'exact_entry' = 'exact_entry',
-};
-
-export enum POWER_SUPPLY_POWER_TYPE_ENUM {
-  'austria_common_energy_mix' = 'austria_common_energy_mix',
-  'austria_green_power_mix' = 'austria_green_power_mix',
-};
-
-
-export enum HEAT_SUPPLY_CALCULATION_TYPE_ENUM {
-  'estimate' = 'estimate',
-  'custom' = 'custom',
-  'exact_entry' = 'exact_entry',
-};
+import { BUILD_TYPE_ENUM, HEAT_SUPPLY_CALCULATION_TYPE_ENUM, POWER_SUPPLY_CALCULATION_TYPE_ENUM, POWER_SUPPLY_POWER_TYPE_ENUM } from '@kppk/react-lib';
 
 @Injectable({
   providedIn: 'root',

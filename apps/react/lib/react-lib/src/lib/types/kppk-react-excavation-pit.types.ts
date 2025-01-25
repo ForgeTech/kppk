@@ -17,7 +17,7 @@ import {
   EXCAVATION_PIT_SECURITY_METHODE_ENUM,
   JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM,
   JET_BLASTING_PROCESS_TYPE_ENUM 
-} from 'apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-excavation-pit.fields.service';
+} from '@kppk/react-lib';
 
 
 export const unit_excavation_pit_security_methode_enum_parser = z.object({

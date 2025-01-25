@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-
 export const component_composition_step_1_parser = z.object({
     id: z.string(),
     short_id: z.object({

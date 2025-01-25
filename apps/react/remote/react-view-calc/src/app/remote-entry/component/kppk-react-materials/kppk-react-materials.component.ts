@@ -2,7 +2,6 @@ import { Component, computed, input, output, ViewEncapsulation } from '@angular/
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent, REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KppkReactMaterialsAufbautenRowComponent } from './kppk-react-materials-aufbauten-row.component';
 import { KppkReactMaterialsBauteilflaechenRowComponent } from './kppk-react-materials-bauteilflaechen-row.component';
 import { KppkReactMaterialsOi3RowComponent } from './kppk-react-materials-oi3-row.component';
@@ -11,11 +10,12 @@ import { KppkReactMaterialsMaterialRowComponent } from "./kppk-react-materials-m
 import { KppkReactMaterialsConcreteRowComponent } from "./kppk-react-materials-concrete-row.component";
 import { KppkReactMaterialsWindowRowComponent } from './kppk-react-materials-window-row.component';
 import { FormlyFormOptions } from '@ngx-formly/core';
-import { KppkReactMaterialsDefaultsFormComponent } from './kppk-react-materials-defaults-form';
+// import { KppkReactMaterialsDefaultsFormComponent } from './kppk-react-materials-defaults-form';
 import { KppkReactMaterialsFooterRowComponent } from './kppk-react-materials-footer-row.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
-import { AnyMachineSnapshot, AnyStateMachine, SnapshotFrom } from 'xstate';
+import { AnyStateMachine, SnapshotFrom } from 'xstate';
+import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent, REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-materials',
@@ -27,7 +27,6 @@ import { AnyMachineSnapshot, AnyStateMachine, SnapshotFrom } from 'xstate';
     KppkReactMaterialsAufbautenRowComponent,
     KppkReactMaterialsBauteilflaechenRowComponent,
     KppkReactMaterialsConcreteRowComponent,
-    KppkReactMaterialsDefaultsFormComponent,
     KppkReactMaterialsFooterRowComponent,
     KppkReactMaterialsMaterialRowComponent,
     KppkReactMaterialsOi3RowComponent,

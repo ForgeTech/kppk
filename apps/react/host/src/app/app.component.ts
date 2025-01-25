@@ -1,4 +1,4 @@
-import {  ApplicationRef, Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import {  Component, effect, inject, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppService } from './app.service';
 import { FgSpinnerMachineActorService, KppkReactLoadingIndicatorComponent, KppkRegisterIconsService } from '@kppk/react-lib';
@@ -7,7 +7,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   imports: [
     RouterModule, 
-    KppkReactLoadingIndicatorComponent
+    // KppkReactLoadingIndicatorComponent
   ],
   selector: 'kppk-react-root',
   template: `

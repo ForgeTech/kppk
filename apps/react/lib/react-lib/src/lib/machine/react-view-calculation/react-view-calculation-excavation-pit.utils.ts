@@ -1,12 +1,16 @@
-import { EXCAVATION_PIT_SECURITY_METHODE_ENUM, JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM } from "apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-excavation-pit.fields.service";
 import { FG_FORM_EXCAVATION_PIT_CONTEXT } from "./kppk-react-calculation.machine.types";
 import { 
   RESULT_EXCAVATION_PIT,
   result_excavation_pit_parser,
   UNIT_JET_BLASTING_PROCESS_CYLINDER_SHAPE 
 } from "../../types/kppk-react-excavation-pit.types";
-import { material_co2_equ_item_parser, material_density_item_parser } from "../../types/kppk-react-material.types";
-import { truck_data_item_parser } from "../../types/kppk-react-truck.types";
+import { 
+  material_co2_equ_item_parser,
+  material_density_item_parser 
+} from "../../types/kppk-react-material.types";
+import { 
+  truck_data_item_parser 
+} from "../../types/kppk-react-truck.types";
 import { 
   add_number_units,
   UNIT_DEGREE,
@@ -30,191 +34,199 @@ import {
   UNIT_PIECES,
   unit_radiant_parser 
 } from "../../types/kppk-react-unit.types";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "./../react-init/react-init.machine.types";
-
-    export const calculate_excavation_co2_transport = (
-        volume: UNIT_M3,
-        distance: UNIT_KM,
-        capacity_volume: UNIT_M3,
-        co2_consumption: UNIT_GCO2_KM
-    ): UNIT_KGCO2 => {
-        // =K3/'Transport Kennzahlen'!F15
-        const first = volume.value / capacity_volume.value;
-        // *BauGrube!K7*'Transport Kennzahlen'!E20
-        const second = first * distance.value * co2_consumption.value;
-        // from g to kg
-        const third = second / 1000;
-        // Double for two-way transport
-        const value = third * 2;
-
-        return unit_kilogram_co2_parser.parse({ value });
-    }
+import { 
+  REACT_INIT_LOAD_FROM_REMOTE_DATA 
+} from "./../react-init/react-init.machine.types";
+import { 
+  EXCAVATION_PIT_SECURITY_METHODE_ENUM,
+  JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM 
+} from "../../enum";
 
 
-  export const calculate_excavation_pit_security_co2_transport = (
-    co2_transport: UNIT_KGCO2_KM,
-    distance: UNIT_KM
-  ): UNIT_KGCO2 => {
-    const value = co2_transport.value * distance.value;
-    return unit_kilogram_co2_parser.parse({ value });
+
+export const calculate_excavation_co2_transport_ep = (
+  volume: UNIT_M3,
+  distance: UNIT_KM,
+  capacity_volume: UNIT_M3,
+  co2_consumption: UNIT_GCO2_KM
+): UNIT_KGCO2 => {
+  // =K3/'Transport Kennzahlen'!F15
+  const first = volume.value / capacity_volume.value;
+  // *BauGrube!K7*'Transport Kennzahlen'!E20
+  const second = first * distance.value * co2_consumption.value;
+  // from g to kg
+  const third = second / 1000;
+  // Double for two-way transport
+  const value = third * 2;
+
+  return unit_kilogram_co2_parser.parse({ value });
+}
+
+
+export const calculate_excavation_pit_security_co2_transport = (
+  co2_transport: UNIT_KGCO2_KM,
+  distance: UNIT_KM
+): UNIT_KGCO2 => {
+  const value = co2_transport.value * distance.value;
+  return unit_kilogram_co2_parser.parse({ value });
+}
+
+// =((E11^2*PI())/4)*E3*E12
+export const calculate_foundation_pile_concrete_volumne = (
+  diameter: UNIT_M,
+  depth: UNIT_M,
+  amount: UNIT_PIECES
+): UNIT_M3 => {
+  const inner = ( Math.pow(diameter.value, 2) * Math.PI ) / 4;
+  const value = inner * depth.value * amount.value;
+
+  return unit_meter_cubic_parser.parse({ value });
+}
+
+export const calculate_foundation_pile_concrete_mass = (
+  concrete_volume: UNIT_M3,
+  density: UNIT_KG_M3
+): UNIT_KG => {
+  const value = concrete_volume.value * density.value;
+  return unit_kilogram_parser.parse({ value });
+}
+
+export const calculate_shotcrete_additional_excavation = (
+  depth: UNIT_M,
+  linear_meter: UNIT_M,
+  thickness: UNIT_M,
+  density: UNIT_KG_M3
+) => {
+  const value = depth.value * linear_meter.value * thickness.value * density.value;
+  return unit_kilogram_parser.parse({ value });
+}
+
+
+export const calculate_sheet_pile_wall_steel_mass = (
+  depth: UNIT_M,
+  linear_meter: UNIT_M,
+  mass_unit_area: UNIT_KG_M2
+): UNIT_KG => {
+  const value = depth.value * linear_meter.value * mass_unit_area.value;
+  return unit_kilogram_parser.parse({ value });
+}
+
+export const calculate_escarpment_additional_excavation = (
+  depth: UNIT_M,
+  running_meter: UNIT_M,
+  density_escavation: UNIT_KG_M3,
+  tilt: UNIT_DEGREE
+): UNIT_KG => {
+  const first = Math.pow(depth.value, 2);
+  const second = 2 * Math.tan(degrees_to_radiants( tilt ).value);
+  let value = 0
+  if( second !== 0 ) {
+      value = (first / second ) * running_meter.value * density_escavation.value;
+  } else {
+      console.log('WARNING_DEVISION_WITH_ZERO: Return 0 insteat NAN');
   }
+  return unit_kilogram_parser.parse({ value  });
+}
 
-  // =((E11^2*PI())/4)*E3*E12
-  export const calculate_foundation_pile_concrete_volumne = (
-    diameter: UNIT_M,
-    depth: UNIT_M,
-    amount: UNIT_PIECES
-  ): UNIT_M3 => {
-    const inner = ( Math.pow(diameter.value, 2) * Math.PI ) / 4;
-    const value = inner * depth.value * amount.value;
+export const degrees_to_radiants  = (
+  degrees: UNIT_DEGREE
+) => {
+  const value = (degrees.value * Math.PI) / 180.0;
+  return unit_radiant_parser.parse({ value });
+}
 
-    return unit_meter_cubic_parser.parse({ value });
+// 2*PI()*SQRT(K3/(PI()*E3))
+export const calculate_line_meter_min = (  
+  volume: UNIT_M3,
+  depth: UNIT_M, 
+): UNIT_M => {
+  // K3/(PI()*E3)
+  const divisor = Math.PI * depth.value;
+  let inner_result = 0;
+  if( divisor !== 0 ) {
+      inner_result = volume.value / divisor
+  } else {
+    console.log('WARNING_DEVISION_WITH_ZERO: Return 0 insteat NAN');
   }
+  const value = 2 * Math.PI * Math.sqrt( inner_result );
+  return unit_meter_parser.parse({ value });
+}
 
-  export const calculate_foundation_pile_concrete_mass = (
-    concrete_volume: UNIT_M3,
-    density: UNIT_KG_M3
+// =I26*I27*E3
+export const calculate_jet_blasting_process_cubid_volume = (
+  depth: UNIT_M,
+  length: UNIT_M,
+  width: UNIT_M
+): UNIT_M3 => {
+  const value = depth.value * length.value * width.value;
+  return unit_meter_cubic_parser.parse({ value });
+}
+
+
+// =IF(J21=Tabelle7[
+// @[1/4 Kreis]],
+//((K16^2*PI())/4)*E3*K17, 
+// IF(J21=Tabelle7[[#Headers],[1/4 Kreis]], 
+//(((K16^2*PI())/4)*E3*K17)/2, 
+//((K16^2*PI())/4)*E3*K17)/2)
+export const calculate_jet_blasting_process_cylinder_volume = (
+  depth: UNIT_M,
+  diameter: UNIT_M,
+  amount: UNIT_PIECES, 
+  process_type: UNIT_JET_BLASTING_PROCESS_CYLINDER_SHAPE,
+): UNIT_M3 => {
+  // let result: { value: number, unit: "m³" } = {
+  //   value: 0,
+  //   unit: "m³"
+  // };
+  let value = 0;
+  // K16^2*PI())/4
+  const inner_result = ( Math.pow( diameter.value, 2) * Math.PI ) / 4;
+  // inner_result * E3 * K17
+  const result_full = inner_result * depth.value * amount.value;
+  const result_half = result_full / 2;
+  const result_quater = result_half / 2;
+  switch( process_type.value ) {
+    case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.full_circle:
+      value = result_full;
+      break;
+    case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.half_circle:
+      value = result_half;
+      break;
+    case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.quater_circle:
+      value = result_quater;
+      break;
+  }
+  return unit_meter_cubic_parser.parse({ value });
+}
+
+export const calculate_mass_ep = (  
+  volume: UNIT_M3,
+  density: UNIT_KG_M3, 
   ): UNIT_KG => {
-    const value = concrete_volume.value * density.value;
-    return unit_kilogram_parser.parse({ value });
-  }
+    const value = volume.value * density.value;
 
-  export const calculate_shotcrete_additional_excavation = (
-    depth: UNIT_M,
-    linear_meter: UNIT_M,
-    thickness: UNIT_M,
-    density: UNIT_KG_M3
-  ) => {
-    const value = depth.value * linear_meter.value * thickness.value * density.value;
-    return unit_kilogram_parser.parse({ value });
-  }
+  return unit_kilogram_parser.parse({ value });
+}
 
-
-  export const calculate_sheet_pile_wall_steel_mass = (
-    depth: UNIT_M,
-    linear_meter: UNIT_M,
-    mass_unit_area: UNIT_KG_M2
-  ): UNIT_KG => {
-    const value = depth.value * linear_meter.value * mass_unit_area.value;
-    return unit_kilogram_parser.parse({ value });
-  }
-
-  export const calculate_escarpment_additional_excavation = (
-    depth: UNIT_M,
-    running_meter: UNIT_M,
-    density_escavation: UNIT_KG_M3,
-    tilt: UNIT_DEGREE
-  ): UNIT_KG => {
-    const first = Math.pow(depth.value, 2);
-    const second = 2 * Math.tan(degrees_to_radiants( tilt ).value);
-    let value = 0
-    if( second !== 0 ) {
-        value = (first / second ) * running_meter.value * density_escavation.value;
-    } else {
-        console.log('WARNING_DEVISION_WITH_ZERO: Return 0 insteat NAN');
-    }
-    return unit_kilogram_parser.parse({ value  });
-  }
-
-  export const degrees_to_radiants  = (
-    degrees: UNIT_DEGREE
-  ) => {
-    const value = (degrees.value * Math.PI) / 180.0;
-    return unit_radiant_parser.parse({ value });
-  }
-
-  // 2*PI()*SQRT(K3/(PI()*E3))
-  export const calculate_line_meter_min = (  
-    volume: UNIT_M3,
-    depth: UNIT_M, 
-  ): UNIT_M => {
-    // K3/(PI()*E3)
-    const divisor = Math.PI * depth.value;
-    let inner_result = 0;
-    if( divisor !== 0 ) {
-        inner_result = volume.value / divisor
-    } else {
-     console.log('WARNING_DEVISION_WITH_ZERO: Return 0 insteat NAN');
-    }
-    const value = 2 * Math.PI * Math.sqrt( inner_result );
-    return unit_meter_parser.parse({ value });
-  }
-
-  // =I26*I27*E3
-  export const calculate_jet_blasting_process_cubid_volume = (
-    depth: UNIT_M,
-    length: UNIT_M,
-    width: UNIT_M
-  ): UNIT_M3 => {
-    const value = depth.value * length.value * width.value;
-    return unit_meter_cubic_parser.parse({ value });
-  }
- 
-
-  // =IF(J21=Tabelle7[
-  // @[1/4 Kreis]],
-  //((K16^2*PI())/4)*E3*K17, 
-  // IF(J21=Tabelle7[[#Headers],[1/4 Kreis]], 
-  //(((K16^2*PI())/4)*E3*K17)/2, 
-  //((K16^2*PI())/4)*E3*K17)/2)
-  export const calculate_jet_blasting_process_cylinder_volume = (
-    depth: UNIT_M,
-    diameter: UNIT_M,
-    amount: UNIT_PIECES, 
-    process_type: UNIT_JET_BLASTING_PROCESS_CYLINDER_SHAPE,
-  ): UNIT_M3 => {
-    // let result: { value: number, unit: "m³" } = {
-    //   value: 0,
-    //   unit: "m³"
-    // };
-    let value = 0;
-    // K16^2*PI())/4
-    const inner_result = ( Math.pow( diameter.value, 2) * Math.PI ) / 4;
-    // inner_result * E3 * K17
-    const result_full = inner_result * depth.value * amount.value;
-    const result_half = result_full / 2;
-    const result_quater = result_half / 2;
-    switch( process_type.value ) {
-      case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.full_circle:
-        value = result_full;
-        break;
-      case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.half_circle:
-        value = result_half;
-        break;
-      case JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM.quater_circle:
-        value = result_quater;
-        break;
-    }
-    return unit_meter_cubic_parser.parse({ value });
-  }
-
-  export const calculate_mass = (  
-    volume: UNIT_M3,
-    density: UNIT_KG_M3, 
-    ): UNIT_KG => {
-      const value = volume.value * density.value;
-
-    return unit_kilogram_parser.parse({ value });
-  }
-
-  // =(K30/'Transport Kennzahlen'!$D$5)*'Transport Kennzahlen'!$E$10
-  export const co2_transport = (  
-    mass_concrete: UNIT_KG,
-    truck_max_load: UNIT_KG, 
-    truck_co2_km: UNIT_GCO2_KM
-    ): UNIT_KGCO2_KM => {
-    const number_of_drives = mass_concrete.value / truck_max_load.value;
-    const value = number_of_drives * truck_co2_km.value  / 1000;
-
-    return unit_kilogramco2_kilometer_parser.parse({ value });
-  }
-
-  export const double_co2 = (
-    truck_co2_km: UNIT_KGCO2_KM, 
+// =(K30/'Transport Kennzahlen'!$D$5)*'Transport Kennzahlen'!$E$10
+export const co2_transport = (  
+  mass_concrete: UNIT_KG,
+  truck_max_load: UNIT_KG, 
+  truck_co2_km: UNIT_GCO2_KM
   ): UNIT_KGCO2_KM => {
-    const value = truck_co2_km.value * 2;
-    return unit_kilogramco2_kilometer_parser.parse({ value });
-  }
+  const number_of_drives = mass_concrete.value / truck_max_load.value;
+  const value = number_of_drives * truck_co2_km.value  / 1000;
+
+  return unit_kilogramco2_kilometer_parser.parse({ value });
+}
+
+export const double_co2 = (
+  truck_co2_km: UNIT_KGCO2_KM, 
+): UNIT_KGCO2_KM => {
+  const value = truck_co2_km.value * 2;
+  return unit_kilogramco2_kilometer_parser.parse({ value });
+}
 
 
 export const co2_creation = ( 
@@ -302,7 +314,7 @@ export const calculate_excavation_pit_results = (
         form_excavation_pit.value.jet_blasting_process.amount,
         form_excavation_pit.value.jet_blasting_process.jet_blasting_process_cylinder.shape,
     );
-    const jet_blasting_process_cylinder_concrete_mass = calculate_mass( 
+    const jet_blasting_process_cylinder_concrete_mass = calculate_mass_ep( 
         jet_blasting_process_cylinder_concrete_volume,
         concrete_density.density 
     );
@@ -320,7 +332,7 @@ export const calculate_excavation_pit_results = (
         form_excavation_pit.value.jet_blasting_process.jet_blasting_process_cuboid.length,
         form_excavation_pit.value.jet_blasting_process.jet_blasting_process_cuboid.width
       );
-      const jet_blasting_process_cuboid_concrete_mass = calculate_mass(
+      const jet_blasting_process_cuboid_concrete_mass = calculate_mass_ep(
         jet_blasting_process_cuboid_concrete_volume,
         concrete_density.density 
       );
@@ -501,7 +513,7 @@ export const calculate_excavation_pit_results = (
           break;
       }
 
-      const excavation_co2_transport = calculate_excavation_co2_transport(
+      const excavation_co2_transport = calculate_excavation_co2_transport_ep(
         form_excavation_pit.value.excavation.volume,
         form_excavation_pit.value.excavation.distance,
         excavation_truck.capacity_volume,

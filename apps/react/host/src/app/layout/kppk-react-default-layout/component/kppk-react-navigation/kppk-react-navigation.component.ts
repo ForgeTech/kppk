@@ -8,8 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FgAuthLocalMachineActorService, KppkReactSharedService } from '@kppk/react-lib';
-import { HOST_ROUTES } from '../../../../app.routes';
-
+import { HOST_ROUTES } from '@kppk/react-lib';
 /**
  * KppkReactNavigationComponent -
  * Sidebar navigation-component

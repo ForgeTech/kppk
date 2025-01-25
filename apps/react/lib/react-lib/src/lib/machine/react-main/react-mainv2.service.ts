@@ -15,23 +15,6 @@ import { EventFgSpinnerHide, EventFgSpinnerShow } from '../fg-spinner/fg-spinner
 import { EventFgAuthLocalLogin, EventFgAuthLocalLogout } from '../fg-auth-local/fg-auth-local.machine.types';
 import { ReactRunningV5Service } from '../react-running/react-runningv5.service';
 
-export enum REACT_ACTOR_ENUM {
-  FG_AUTH_LOCAL = 'fg_auth_local',
-  FG_SPINNER = 'fg_spinner',
-  FG_TICK = 'fg_tick',
-  FG_UI_DISPLAY_MODE = 'fg_ui_display_mode',
-  FG_UI_SCHEME_THEME = 'fg_ui_scheme_theme',
-  FG_UI = 'fg_ui',
-  REACT_INIT = 'react_init',
-  REACT_MAIN = 'react_main',
-  REACT_RECOVERY = 'react_recovery',
-  REACT_RUNNING = 'react_running',
-  REACT_RUNNING_ADMIN_TOOLBAR = 'react_running_admin_toolbar',
-  REACT_RUNNING_NAVIGATION = 'react_running_navigation',
-  REACT_VIEW_HOME = 'react_view_home',
-  REACT_VIEW_CALCULATION = 'react_view_calculation',
-}
-
 export type EVENT_REACT_MAIN = 
 | { type: "fg.ui.*" }
 | { type: "react.event.stop" }

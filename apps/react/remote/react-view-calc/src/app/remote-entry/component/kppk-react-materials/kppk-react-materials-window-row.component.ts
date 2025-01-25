@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KppkFormlyModule } from '@kppk/react-lib';
+import { 
+  KppkFormlyModule,
+  WINDOW_PART_TYPE_ENUM 
+} from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -9,13 +12,7 @@ import { FormlySelectOption } from '@ngx-formly/core/select';
 import { unit_id_parser } from '@kppk/react-lib';
 import { FormGroup } from '@angular/forms';
 import { KppkReactFieldsUtils } from'../../service/kppk-react-fields-utils.service';
-import { SnapshotFrom } from 'xstate';
 
-export enum WINDOW_PART_TYPE_ENUM {
-  none = 'window_part_type_enum_none',
-  glass = 'window_part_type_enum_glass',
-  frame = 'window_part_type_enum_frame',
-}
 
 export const container_window_part_type_select_options = [
   { label: WINDOW_PART_TYPE_ENUM.none, value: WINDOW_PART_TYPE_ENUM.none },

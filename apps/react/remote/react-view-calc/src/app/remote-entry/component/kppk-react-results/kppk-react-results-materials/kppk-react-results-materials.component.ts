@@ -21,7 +21,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
   imports: [
     CommonModule,
     NgxChartsModule, 
-    ResizeHorizontalGraphDirective,
+    // ResizeHorizontalGraphDirective,
     TranslocoModule,
     KppkReactResultsMaterialTableComponent,
   ],

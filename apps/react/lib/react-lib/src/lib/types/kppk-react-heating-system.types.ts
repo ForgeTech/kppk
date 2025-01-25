@@ -1,5 +1,11 @@
 import { z } from "zod";
-import { unit_string_parser, unit_tonco2_parser, unit_tonco2_xyear_parser, unit_tonco2_year_parser, unit_years_parser } from "./kppk-react-unit.types";
+import { 
+  unit_string_parser,
+  unit_tonco2_parser,
+  unit_tonco2_xyear_parser,
+  unit_tonco2_year_parser,
+  unit_years_parser 
+} from "./kppk-react-unit.types";
 
 export const rose_file_data_parser = z.object({
   gas: unit_tonco2_xyear_parser.optional().default({ value: 20}),
