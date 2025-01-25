@@ -1,9 +1,31 @@
-import { BUILD_TYPE_ENUM, HEAT_SUPPLY_CALCULATION_TYPE_ENUM, POWER_SUPPLY_CALCULATION_TYPE_ENUM } from "apps/react/remote/react-view-calc/src/app/remote-entry/service/kppk-react-constructions-site.fields.service";
 import { FG_FORM_CONSTRUCTION_SITE_CONTEXT } from "./kppk-react-calculation.machine.types";
 import { RESULT_CONSTRUCTION_SITE, result_construction_site_parser } from "../../types/kppk-react-construction-site.types";
 import { add_number_units, UNIT_GCO2_KM, UNIT_KGCO2, UNIT_KGCO2_KWH, UNIT_KGCO2_L, unit_kilogram_co2_parser, unit_kilogramco2_kilowatthour_parser, unit_kilogramco2_liter_parser, unit_kilowatthours_parser, UNIT_KM, UNIT_KWH, UNIT_KWH_MONTH, UNIT_LITER, UNIT_M2, UNIT_M3, unit_megawatthours_parser, UNIT_MONTH, UNIT_MWH, UNIT_MWH_MONTH, UNIT_NUMBER, unit_number_parser } from "../../types/kppk-react-unit.types";
 
 import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "./../react-init/react-init.machine.types";
+
+export enum BUILD_TYPE_ENUM {
+  'building_construction' = 'building_construction',
+  'prefabricated_house' = 'prefabricated_house',
+};
+
+export enum POWER_SUPPLY_CALCULATION_TYPE_ENUM {
+  'estimate' = 'estimate',
+  'custom' = 'custom',
+  'exact_entry' = 'exact_entry',
+};
+
+export enum POWER_SUPPLY_POWER_TYPE_ENUM {
+  'austria_common_energy_mix' = 'austria_common_energy_mix',
+  'austria_green_power_mix' = 'austria_green_power_mix',
+};
+
+
+export enum HEAT_SUPPLY_CALCULATION_TYPE_ENUM {
+  'estimate' = 'estimate',
+  'custom' = 'custom',
+  'exact_entry' = 'exact_entry',
+};
 
 export const  mwh_to_kwh = ( value_MWh: UNIT_MWH  ): UNIT_KWH => {
     const value = value_MWh.value * 1000;

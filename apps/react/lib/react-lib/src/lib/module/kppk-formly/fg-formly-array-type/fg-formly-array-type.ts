@@ -1,7 +1,7 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FieldArrayType, FormlyModule } from '@ngx-formly/core';
-import { FgCommonModule } from '../../../module';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -23,7 +23,7 @@ import { FgCommonModule } from '../../../module';
   }
   `,
   template: `
-    <ng-container *transloco="let t; read: 'form'">
+    <ng-container>
       <!-- <cdk-virtual-scroll-viewport 
         class="parts-calculation-form"
         appendOnly
@@ -42,7 +42,7 @@ import { FgCommonModule } from '../../../module';
       </ng-container>
     </ng-container>
   `,
-  imports: [FgCommonModule, FormlyModule, ScrollingModule],
+  imports: [CommonModule, FormlyModule, ScrollingModule],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 }) /*implements AfterViewInit, OnDestroy*/

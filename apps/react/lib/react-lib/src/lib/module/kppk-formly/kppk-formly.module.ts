@@ -12,7 +12,7 @@ import { FgFormlyWrapperSectionH3Component  } from './fg-formly-wrapper-section-
 import { FgFormlyWrapperSectionH4Component  } from './fg-formly-wrapper-section-h4/fg-formly-wrapper-section-h4.component';
 import { MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {FormlyMatDatepickerModule} from '@ngx-formly/material/datepicker';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { TranslocoService } from '@jsverse/transloco';
 import { KppkEnergyUsageYearlyArrayTypeComponent } from './kppk-energy-usage-yearly-formly-array.type';
 import { CommonModule } from '@angular/common';
