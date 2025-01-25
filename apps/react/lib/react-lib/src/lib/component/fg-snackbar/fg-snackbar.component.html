@@ -1,4 +1,4 @@
-<ng-container *transloco="let t">
+<ng-container>
   <div class="rounded-xl bg-white shadow-2xl ring-1 ring-gray-500 ring-opacity-5">
     <div class="relative px-4 py-4 text-gray-900 flex">
       <div>
@@ -10,9 +10,9 @@
       <div class="pl-3 pr-5 flex-grow">
         <div class="text-gray-900 font-semibold">
           <span *ngIf="data.customHeader">{{ data.customHeader }}</span>
-          <span>{{ t(data.header) }}</span>
+          <span>{{ data.header }}</span>
         </div>
-        <div class="text-gray-500 text-sm whitespace-pre-wrap">{{ t(data.body) }}</div>
+        <div class="text-gray-500 text-sm whitespace-pre-wrap">{{ data.body }}</div>
       </div>
       <div *ngIf="!data.stay">
         <ng-container>
