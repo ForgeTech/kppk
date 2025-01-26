@@ -9,27 +9,28 @@ import { form_heating_system_data_parser, form_heating_system_result_parser, ros
 import { form_step_selection_data } from "./kppk-react-step-selection.types";
 // import { debug_calculation_oi3_import_parser } from "./react-init.types";
 // import { react_calculation_materials_v1_output } from "./react-react-materials.types";
+import { REACT_VIEW_CALCULATION_FROM_NAME_ENUM } from "./../enum";
 
-export enum react_view_calculation_form_name_enum {
-    unnamed = 'unnamed',
-    construction_site = 'construction_site',
-    window = 'window',
-    concrete = 'concrete',
-    material = 'material',
-    container_village = 'container_village',
-    demolish_disposal = 'demolish_disposal',
-    excavation_pit = 'excavation_pit',
-    heating_system = 'heating_system',
-    common = 'common',
-    step_selection = 'step_selection',
-  }
+// export enum react_view_calculation_form_name_enum {
+//     unnamed = 'unnamed',
+//     construction_site = 'construction_site',
+//     window = 'window',
+//     concrete = 'concrete',
+//     material = 'material',
+//     container_village = 'container_village',
+//     demolish_disposal = 'demolish_disposal',
+//     excavation_pit = 'excavation_pit',
+//     heating_system = 'heating_system',
+//     common = 'common',
+//     step_selection = 'step_selection',
+//   }
   // export type REACT_VIEW_CALCULATION_FORM_NAME_ENUM =
   
-  const react_view_calculation_form_name_enum_parser = z.nativeEnum(react_view_calculation_form_name_enum);
+  const react_view_calculation_form_name_enum_parser = z.nativeEnum(REACT_VIEW_CALCULATION_FROM_NAME_ENUM);
   type REACT_VIEW_CALCULATION_FORM_NAME_ENUM = z.infer<typeof react_view_calculation_form_name_enum_parser>;
   
   export const fg_form_context = z.object({
-    name: react_view_calculation_form_name_enum_parser.optional().default(react_view_calculation_form_name_enum.unnamed),
+    name: react_view_calculation_form_name_enum_parser.optional().default(REACT_VIEW_CALCULATION_FROM_NAME_ENUM.unnamed),
     error: z.array(z.any()).optional().default([]),
     valid: z.boolean().optional().default(false),
   });
@@ -172,34 +173,34 @@ export enum react_view_calculation_form_name_enum {
   
     // }).optional().default({}),
     form_material: form_material_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.material,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.material,
     }),
     form_window: form_window_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.window,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.window,
     }),
     form_concrete: form_concrete_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.concrete,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.concrete,
     }),
     form_construction_site: form_construction_site_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.construction_site,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.construction_site,
     }),
     form_container_village: form_container_village_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.container_village
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.container_village
     }),
     form_demolish_disposal: form_demolish_disposal_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.demolish_disposal,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.demolish_disposal,
     }),
     form_excavation_pit: form_excavation_pit_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.excavation_pit,
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.excavation_pit,
     }),
     form_heating_system: form_heating_system_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.heating_system
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.heating_system
     }),
     form_step_selection: form_step_selection_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.step_selection
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.step_selection
     }),
     form_common: form_common_context_parser.optional().default({
-      name: react_view_calculation_form_name_enum.common
+      name: REACT_VIEW_CALCULATION_FROM_NAME_ENUM.common
     })
   });
   export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<typeof react_view_calculation_context_parser>;
