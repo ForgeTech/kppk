@@ -37,10 +37,10 @@ export class RemoteEntryComponent {
     protected $auth_actor = inject(FgAuthLocalMachineActorService);
     protected $env = inject(FgEnvironmentService);
     protected $shared = inject(KppkReactSharedService);
-    protected kppk_react_login_translationsS = toSignal(this.$shared.kppk_react_login_translations$);
-
-    public form_login = new FormGroup({});    
-    public fields_login = [
+    protected kppk_react_login_translationsS = toSignal(this.$shared.kppk_react_login_translations$, { initialValue: undefined });
+    
+    protected form_login = new FormGroup({});    
+    protected fields_login = [
       {
         key: 'user',
         type: 'input',
@@ -69,7 +69,7 @@ export class RemoteEntryComponent {
       },
     ];
 
-    public login( event?: Event ) {
+    protected login( event?: Event ) {
       event?.preventDefault();
       const event_to_dispatch = { 
         type: 'fg.auth.local.event.login' as const, 

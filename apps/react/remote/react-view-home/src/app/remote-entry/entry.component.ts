@@ -1,22 +1,24 @@
+import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatCardModule } from '@angular/material/card';
+import { FgLayoutDefaultComponent } from '@kppk/fg-lib-new';
+import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
 import { KppkReactSharedService, ReactInitMachineActorService, ReactViewHomeMachineActorService } from '@kppk/react-lib';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { NGXLogger } from 'ngx-logger';
-import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [
     CommonModule,
-    MatIconModule,
+    FgLayoutDefaultComponent,
     MatButtonModule,
-    MatDialogModule,
     MatCardModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   selector: 'kppk-react-view-home',
   templateUrl: './entry.component.html',
@@ -24,10 +26,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
     :host {
       display: block;
       min-height: 100%;
+      height: 100%;
     }
-    .home-filler-container {
-      background-color: #a2b819;
+    .kppk_react_home_view_modal_panal {
+      background-color: red;
     }
+    // .home-filler-container {
+    //   background-color: #a2b819;
+    // }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -39,8 +45,8 @@ export class RemoteEntryComponent {
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
   protected $actor_react_init = inject(ReactInitMachineActorService);
   protected kppk_react_home_translationsS = toSignal(this.$shared.kppk_react_home_translations$);
-
   protected ref_start_calculation_dialog: undefined | MatDialogRef<any, any>;
+
   constructor() {
     if( this.$actor_react_init.is_runningS() === false ) {
       this.$actor_react_init.start();
@@ -55,6 +61,8 @@ export class RemoteEntryComponent {
           panelClass: 'kppk_react_home_view_modal_panal',
           enterAnimationDuration: '250ms',
           exitAnimationDuration: '250ms',
+          minHeight: '600px',
+          minWidth: '600px',
           autoFocus: true,
           disableClose: true,
         });
