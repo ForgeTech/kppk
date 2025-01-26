@@ -1,59 +1,23 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FieldArrayType, FormlyModule } from '@ngx-formly/core';
-import { FgCommonModule } from '../../../module';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   
   selector: 'pdv-array-type',
-  styles: `
-  .parts-calculation-form {
-    height: 500px;
-    background-color: red;
-  }
-  .parts-calculation-form-row {
-    height: 50px;
-    &:nth-child(even) {
-      background-color: yellow;
-    }
-    &:nth-child(odd) {
-      background-color: yellowgreen;
-    }
-  }
-  `,
+  styles: ``,
   template: `
-    <ng-container *transloco="let t; read: 'form'">
-      <!-- <cdk-virtual-scroll-viewport 
-        class="parts-calculation-form"
-        appendOnly
-        [itemSize]="50"
-      >
-        <formly-field 
-          class="parts-calculation-form-row"
-          *cdkVirtualFor="let arrayField of field.fieldGroup; let i = index" 
-          [field]="arrayField"
-        > 
-        </formly-field>
-      </cdk-virtual-scroll-viewport> -->
-      <ng-container *ngFor="let arrayField of field.fieldGroup; let i = index">
-       <!-- {{ arrayField.model | json }}  -->
-        <formly-field [field]="arrayField"> </formly-field>
-      </ng-container>
-    </ng-container>
+    @for (array_field of field.fieldGroup; track $index) {
+      <formly-field [field]="array_field"/>
+    }
   `,
-  imports: [FgCommonModule, FormlyModule, ScrollingModule],
+  imports: [CommonModule, FormlyModule, ScrollingModule],
   // changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
-}) /*implements AfterViewInit, OnDestroy*/
+})
 export class FgArrayTypeComponent extends FieldArrayType {
-  // protected fieldHeadlines$: Subject<{}[]> = new Subject();
-  // protected CHANGE$$: Subscription | undefined = undefined;
-  // protected fieldGroupArray$: Subject<FormlyFieldConfig[]> = new Subject();
-  // protected fieldGroupOptions$: Subject<FormlyFormOptions> = new Subject();
-  // protected addForm = new FormGroup({});
-  // protected ALLOW_ADDING$ = new BehaviorSubject<boolean>(true);
-  // protected helperFormFields: FormlyFieldConfig;
   // CONSTRUCTOR
   constructor() {
     super();
