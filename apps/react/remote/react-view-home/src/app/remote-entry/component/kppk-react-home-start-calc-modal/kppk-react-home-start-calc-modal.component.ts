@@ -67,7 +67,7 @@ export class KppkReactHomeStartCalcModalComponent  {
   protected $shared = inject(KppkReactSharedService);
   protected $translate = inject(FgTranslate);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
-  // protected pdf_parser = new PDFParser();
+  protected kppk_react_home_translationsS = toSignal(this.$shared.kppk_react_home_translations$);
 
   protected readonly maxSize = 104857600; //100Mb
 

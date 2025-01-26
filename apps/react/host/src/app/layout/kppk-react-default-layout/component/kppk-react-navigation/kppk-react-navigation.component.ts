@@ -8,8 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FgAuthLocalMachineActorService, KppkReactSharedService } from '@kppk/react-lib';
-import { HOST_ROUTES } from '../../../../app.routes';
-
+import { HOST_ROUTES } from '@kppk/react-lib';
 /**
  * KppkReactNavigationComponent -
  * Sidebar navigation-component
@@ -36,9 +35,11 @@ export class KppkReactNavigationComponent  {
   protected $pwa = inject(FgPwaInstallService);
   protected $shared = inject(KppkReactSharedService);
 
+  protected kppk_react_navigation_translationsS = toSignal(this.$shared.kppk_react_navigation_translations$, { initialValue: undefined})
+
   protected HOST_ROUTES = HOST_ROUTES;
 
-  protected can_install_pwa_s = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
+  protected can_install_pwaS = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
 
   protected logout( event: Event ) {
     event.preventDefault();

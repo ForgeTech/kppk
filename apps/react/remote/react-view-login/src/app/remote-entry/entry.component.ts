@@ -11,6 +11,7 @@ import { FgAuthLocalMachineActorService, KppkAdminToolbarComponent, KppkFormlyMo
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FgLanguageSwitchComponent, FgPwaInstallComponent } from '@kppk/fg-lib-new';
 import { map} from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [
@@ -36,6 +37,7 @@ export class RemoteEntryComponent {
     protected $auth_actor = inject(FgAuthLocalMachineActorService);
     protected $env = inject(FgEnvironmentService);
     protected $shared = inject(KppkReactSharedService);
+    protected kppk_react_login_translationsS = toSignal(this.$shared.kppk_react_login_translations$);
 
     public form_login = new FormGroup({});    
     public fields_login = [

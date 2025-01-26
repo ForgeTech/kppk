@@ -8,6 +8,7 @@ import { KppkReactSharedService, ReactInitMachineActorService, ReactViewHomeMach
 import { MatButtonModule } from '@angular/material/button';
 import { NGXLogger } from 'ngx-logger';
 import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [
@@ -37,6 +38,7 @@ export class RemoteEntryComponent {
   protected $shared = inject(KppkReactSharedService);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
   protected $actor_react_init = inject(ReactInitMachineActorService);
+  protected kppk_react_home_translationsS = toSignal(this.$shared.kppk_react_home_translations$);
 
   protected ref_start_calculation_dialog: undefined | MatDialogRef<any, any>;
   constructor() {
