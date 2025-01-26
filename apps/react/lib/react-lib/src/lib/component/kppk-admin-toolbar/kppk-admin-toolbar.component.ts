@@ -41,8 +41,8 @@ export class KppkAdminToolbarComponent  {
   protected disabled_test_calculationS = computed( () => {
     let disabled = true;
     const status = this.$actor_react_init.stateS()?.status;
-    if( status ) {
-      disabled = status === 'done';
+    if( status === 'done' ) {
+      disabled = false;
     } 
     return disabled;
   });
