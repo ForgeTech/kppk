@@ -146,14 +146,14 @@ export class KppkReactResultsOverviewComponent {
   });
   
  
-  protected showXAxis: boolean = true;
-  protected showYAxis: boolean = true;
-  protected gradient: boolean = false;
-  protected showLegend: boolean = true;
-  protected legendPosition: string = 'below';
-  protected showXAxisLabel: boolean = true;
-  protected yAxisLabel: string = 'Country';
-  protected showYAxisLabel: boolean = true;
+  protected showXAxis = true;
+  protected showYAxis = true;
+  protected gradient = false;
+  protected showLegend = true;
+  protected legendPosition = 'below';
+  protected showXAxisLabel = true;
+  protected yAxisLabel = 'Country';
+  protected showYAxisLabel = true;
   protected xAxisLabel = 'Population';
 
 
