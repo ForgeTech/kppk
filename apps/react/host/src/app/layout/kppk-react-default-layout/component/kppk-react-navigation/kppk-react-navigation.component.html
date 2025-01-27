@@ -72,6 +72,7 @@
         [selected]="s.lang_activeS()"
         [available_langs]="s.langs_availableS()"
         [icon_path]="s.langs_icons_pathS()"
+        (change)="s.set_language($event)"
     />
     </mat-list-item>
     @if( s.auth_is_authorizedS() ){

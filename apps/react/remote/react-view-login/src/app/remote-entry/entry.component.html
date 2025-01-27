@@ -1,6 +1,6 @@
+@let s = $shared;
+@let t = kppk_react_login_translationsS();
 <fg-layout-default>
-    @let s = $shared;
-    @let t = kppk_react_login_translationsS();
     <kppk-admin-toolbar [show]="s.admin_show_toolbarS()" header/>
     <main content class="mt-4 flex h-full w-full flex-col items-center justify-center md:mt-0">
         <mat-card class="min-w-xs w-full max-w-lg !p-4 !shadow-none">
@@ -92,6 +92,7 @@
                     [selected]="s.lang_activeS()"
                     [available_langs]="s.langs_availableS()"
                     [icon_path]="s.langs_icons_pathS()"
+                    (change)="s.set_language($event)"
                 />
             </li>
         </menu>
