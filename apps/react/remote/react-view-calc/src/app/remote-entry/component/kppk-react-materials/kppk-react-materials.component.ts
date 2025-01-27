@@ -15,7 +15,11 @@ import { KppkReactMaterialsFooterRowComponent } from './kppk-react-materials-foo
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatIconModule } from '@angular/material/icon';
 import { AnyStateMachine, SnapshotFrom } from 'xstate';
-import { KppkFormlyModule, KppkReactLoadingIndicatorComponent, KppkWarnBoxResetComponent, REACT_VIEW_CALCULATION } from '@kppk/react-lib';
+import { KppkFormlyModule,
+   KppkReactLoadingIndicatorComponent,
+   KppkWarnBoxResetComponent,
+   REACT_VIEW_CALCULATION 
+} from '@kppk/react-lib';
 
 @Component({
   selector: 'kppk-react-materials',
