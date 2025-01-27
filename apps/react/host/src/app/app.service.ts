@@ -1,11 +1,13 @@
 import { ApplicationRef, inject, Injectable, signal } from '@angular/core';
-import { FgBaseService, FgBreakpoint } from '@kppk/fg-lib-new';
+import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgBreakpoint, FgEnvironmentService, FgEventService } from '@kppk/fg-lib-new';
 import { EventFgSpinnerHideParser,
   EventFgSpinnerShowParser,
   FgAuthLocalMachineActorService,
   FgSpinnerMachineActorService,
   ReactInitMachineActorService, 
 } from '@kppk/react-lib';
+import { filter } from 'rxjs';
 
 /**
  * AppService - 
@@ -17,6 +19,8 @@ import { EventFgSpinnerHideParser,
 })
 export class AppService extends FgBaseService {
   protected $app_ref = inject(ApplicationRef);
+  protected $translate = inject(TranslocoService);
+  protected $environment = inject(FgEnvironmentService);
   protected $actor_spinner = inject(FgSpinnerMachineActorService);
   protected $actor_auth = inject(FgAuthLocalMachineActorService);
   protected $breakpoint = inject(FgBreakpoint);
@@ -30,6 +34,8 @@ export class AppService extends FgBaseService {
     this.$actor_spinner.start();
     this.$actor_spinner.send(event_force_spinner_show);
     this.$actor_auth.start();
+
+    this.$translate.setDefaultLang(this.$environment.i18n.defaultLang);
 
     this.$app_ref.whenStable().then( () => {
       this.app_readyS.set(true);
