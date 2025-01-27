@@ -21,13 +21,13 @@
       "@kppk/react-lib": ["libs/react-lib/src/index.ts"],
       "@kppk/react-lib-vite": ["libs/react-lib-vite/src/index.ts"],
       "react_view_calc/Routes": [
-        "apps/react/remote/react-view-calc/src/app/remote-entry/entry.routes.ts"
+        "apps/kppk-react-mf/remote/react-view-calc/src/app/remote-entry/entry.routes.ts"
       ],
       "react_view_home/Routes": [
-        "apps/react/remote/react-view-home/src/app/remote-entry/entry.routes.ts"
+        "apps/kppk-react-mf/remote/react-view-home/src/app/remote-entry/entry.routes.ts"
       ],
       "react_view_login/Routes": [
-        "apps/react/remote/react-view-login/src/app/remote-entry/entry.routes.ts"
+        "apps/kppk-react-mf/remote/react-view-login/src/app/remote-entry/entry.routes.ts"
       ]
     }
   },
