@@ -5,7 +5,7 @@ import { FgImmutableService } from '../../service/fg-immutable.service';
 import { DOCUMENT } from '@angular/common';
 import { firstValueFrom, forkJoin, Observable } from 'rxjs';
 import { react_view_calculation_context_parser } from '../../types/kppk-react-calculation.types';
-import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from './react-init.machine.types'
+import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from '../../types/react-init.machine.types'
 import { boundMethod } from 'autobind-decorator';
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
 
