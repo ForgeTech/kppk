@@ -48,7 +48,7 @@ export enum REACT_ACTOR_ENUM {
   REACT_VIEW_CALCULATION = 'react_view_calculation',
 }
 
-export enum REACT_VIEW_CALCULATION_FROM_NAME_ENUM {
+export enum REACT_VIEW_CALCULATION_FORM_NAME_ENUM {
     unnamed = 'unnamed',
     construction_site = 'construction_site',
     window = 'window',
