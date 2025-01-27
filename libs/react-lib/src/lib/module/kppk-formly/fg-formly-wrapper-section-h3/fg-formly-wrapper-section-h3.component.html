@@ -1,0 +1,7 @@
+<div
+  class="p-4 m-4 border-4 border-gray-100"
+  [ngClass]="{ disabled: props.disabled }"
+>
+  <h3>{{ field.props?.label }}</h3>
+  <ng-container #fieldComponent></ng-container>
+</div>
