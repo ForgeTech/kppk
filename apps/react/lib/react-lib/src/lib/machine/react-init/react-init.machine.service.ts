@@ -3,6 +3,7 @@ import { ReactInitMachineMethodeService  } from './react-init.machine.methode.se
 import { FgXstateService } from '../../service';
 import { parent_context_event_input } from "../machine.utils";
 import { FgBaseService } from '@kppk/fg-lib-new';
+import { REACT_INIT_CONTEXT } from '../../types';
 
 @Injectable({
   providedIn: 'root',

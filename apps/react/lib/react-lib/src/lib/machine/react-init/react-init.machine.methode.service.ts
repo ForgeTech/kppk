@@ -6,7 +6,7 @@ import { DOCUMENT } from '@angular/common';
 import { firstValueFrom, forkJoin, Observable } from 'rxjs';
 import { boundMethod } from 'autobind-decorator';
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
-import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from '../../types';
+import { REACT_INIT_CONTEXT, react_init_load_from_remote_parser } from '../../types';
 
 
 
@@ -62,7 +62,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_load_from_local_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    const result = this.$immer.produce( (context, draft)  => {
+    const result = this.$immer.produce( context, draft  => {
       draft.load_from_remote = event.output;
     });
     return result;
@@ -70,7 +70,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_load_from_remote_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    const result = this.$immer.produce( (context, draft)  => {
+    const result = this.$immer.produce( context, draft  => {
       draft.load_from_remote = event.output;
     });
     // ReactAppInitV1Context_parser.parse(result);

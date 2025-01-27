@@ -12,3 +12,4 @@ export * from './kppk-react-truck.types';
 export * from './kppk-react-unit.types';
 export * from './kppk-react-init.machine.types';
 export * from './kppk-react-materials.types';
+export * from './kppk-react-form.types';
