@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { DOCUMENT } from '@angular/common';
 import { firstValueFrom, forkJoin, Observable } from 'rxjs';
-import { react_view_calculation_context_parser } from '../../types/kppk-react-calculation.types';
-import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from '../../types/react-init.machine.types'
 import { boundMethod } from 'autobind-decorator';
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
+import { REACT_INIT_CONTEXT, react_init_context_parser, react_init_load_from_remote_parser } from '../../types';
 
 
 
@@ -15,7 +14,6 @@ import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
     providedIn: 'root',
 })
 export class ReactInitMachineMethodeService extends FgBaseService {
-
   protected $immer = inject(FgImmutableService);
   protected $http = inject(HttpClient);
   protected $storage = inject(FgStorageService);
@@ -30,16 +28,16 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     throw new Error('FARKFARKFARK');
   }
 
-  @boundMethod
-  public react_init_input_context( { input }: { input: Partial<REACT_INIT_CONTEXT> }) {
-    let context: REACT_INIT_CONTEXT = {
-      environment: undefined,
-      load_from_remote: undefined,
-      output: undefined,
-    }
-    context = react_init_context_parser.parse( Object.assign( context, input) );
-    return context;
-  }
+  // @boundMethod
+  // public react_init_input_context( { input }: { input: Partial<REACT_INIT_CONTEXT> }) {
+  //   let context: REACT_INIT_CONTEXT = {
+  //     environment: undefined,
+  //     load_from_remote: undefined,
+  //     output: undefined,
+  //   }
+  //   context = react_init_context_parser.parse( Object.assign( context, input) );
+  //   return context;
+  // }
 
 
   @boundMethod
@@ -64,7 +62,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_load_from_local_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    const result = this.$immer.produce( context, draft  => {
+    const result = this.$immer.produce( (context, draft)  => {
       draft.load_from_remote = event.output;
     });
     return result;
@@ -72,7 +70,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_load_from_remote_result( { context, event }: { context: REACT_INIT_CONTEXT, event: any } ) {
-    const result = this.$immer.produce( context, draft  => {
+    const result = this.$immer.produce( (context, draft)  => {
       draft.load_from_remote = event.output;
     });
     // ReactAppInitV1Context_parser.parse(result);

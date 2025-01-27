@@ -1,27 +1,16 @@
 import { z } from "zod";
-import { form_concrete_value_parser,
-  form_material_value_parser,
-  form_window_value_parser,
-  unit_kilogram_co2_parser,
-  unit_kilometer_parser,
-  unit_number_parser,
-  unit_percent_parser,
-  unit_string_parser,
-  form_construction_site_parser,
-  result_construction_site_parser,
-  container_village_result_parser,
-  form_container_village_parser,
-  demolish_disposal_form_material_parser,
-  demolish_disposal_form_result_parser,
-  form_excavation_pit_parser,
-  result_excavation_pit_parser,
-  form_heating_system_data_parser,
-  form_heating_system_result_parser,
-  rose_file_data_parser,
-  form_step_selection_data 
-} from '.'
-import { react_calculation_materials_v1_output } from "../machine/react-view-calculation/react-view-calculation-materials.service";
+
 import { REACT_VIEW_CALCULATION_FORM_NAME_ENUM } from "../enum";
+import { unit_kilogram_co2_parser, unit_kilometer_parser, unit_number_parser, unit_percent_parser, unit_string_parser } from "./kppk-react-unit.types";
+import { form_concrete_value_parser, form_material_value_parser, form_window_value_parser } from "./kppk-react-material.types";
+import { form_construction_site_parser, result_construction_site_parser } from "./kppk-react-construction-site.types";
+import { container_village_result_parser, form_container_village_parser } from "./kppk-react-container-village.types";
+import { demolish_disposal_form_material_parser, demolish_disposal_form_result_parser } from "./kppk-react-demolish-disposal.types";
+import { form_excavation_pit_parser, result_excavation_pit_parser } from "./kppk-react-excavation-pit.types";
+import { form_heating_system_data_parser, form_heating_system_result_parser, rose_file_data_parser } from "./kppk-react-heating-system.types";
+import { form_step_selection_data } from "./kppk-react-step-selection.types";
+import { react_init_load_from_remote_data_parser } from "./kppk-react-init.machine.types";
+import { react_calculation_materials_output } from "./kppk-react-calculation-materials.types";
 
   
   export const react_view_calculation_form_name_enum_parser = z.nativeEnum(REACT_VIEW_CALCULATION_FORM_NAME_ENUM);
@@ -173,7 +162,7 @@ import { REACT_VIEW_CALCULATION_FORM_NAME_ENUM } from "../enum";
     file_bauteilflaechen: z.object({ data: z.array(z.any()) }),
     file_oi3: z.any(),
     file_rose: rose_file_data_parser,
-    actor_transform_file_inputs: react_calculation_materials_v1_output.optional(),
+    actor_transform_file_inputs: react_calculation_materials_output.optional(),
     actor_merge_bauteilflaechen_aufbauten: z.object({
       merged_bauteilflaechen_aufbauten:  z.array(z.any()).optional(),
     }).optional().default({}),
@@ -203,7 +192,13 @@ import { REACT_VIEW_CALCULATION_FORM_NAME_ENUM } from "../enum";
   });
   
   export type REACT_VIEW_CALCULATION_CONTEXT =  z.infer<typeof react_view_calculation_context_parser>;
-  
+
+  export const react_view_calculation_input_parser = z.object({
+    context: react_view_calculation_context_parser,
+    event: z.any()
+  });
+  export type REACT_VIEW_CALCULATION_INPUT =  z.infer<typeof react_view_calculation_input_parser>;
+
 
   export const react_view_calculation_result_parser = z.object({
 

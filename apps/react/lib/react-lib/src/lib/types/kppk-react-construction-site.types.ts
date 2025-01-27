@@ -1,10 +1,5 @@
 import { z } from 'zod';
-import { 
-   POWER_SUPPLY_CALCULATION_TYPE_ENUM,
-   BUILD_TYPE_ENUM,
-   POWER_SUPPLY_POWER_TYPE_ENUM, 
-   HEAT_SUPPLY_CALCULATION_TYPE_ENUM
-} from '../view/kppk-react-calc-view/kppk-react-constructions-site.fields.service';
+
 import { 
   unit_floor_parser,
   unit_kilogram_co2_parser,
@@ -16,6 +11,7 @@ import {
   unit_meter_square_parser,
   unit_month_parser 
 } from './kppk-react-unit.types';
+import { BUILD_TYPE_ENUM, HEAT_SUPPLY_CALCULATION_TYPE_ENUM, POWER_SUPPLY_CALCULATION_TYPE_ENUM, POWER_SUPPLY_POWER_TYPE_ENUM } from '../enum';
 
 export const construction_site_energy_usage_calculation_type_enum_parser = z.object({
   value: z.nativeEnum(POWER_SUPPLY_CALCULATION_TYPE_ENUM).default(POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry),

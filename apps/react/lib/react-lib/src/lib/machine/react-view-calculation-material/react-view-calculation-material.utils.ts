@@ -102,7 +102,7 @@ export const transform_aufbauten = ( aufbauten_data: any[] ) => {
     // "Column2", Splitter.SplitTextByDelimiter(".", QuoteStyle.Csv), 
     //{"Column2.1", "Column2.2"})
     .map( row => {
-      let transformedRow: string[] = [];
+      const transformedRow: string[] = [];
       const splitRow = row[0].split('.')
       transformedRow.push( splitRow[0] );
       transformedRow.push( splitRow[1] ? splitRow[1] : '' );

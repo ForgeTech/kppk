@@ -26,10 +26,10 @@ import { add_number_units,
   UNIT_TRIPS,
   unit_trips_parser 
 } from "../../types/kppk-react-unit.types";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
 import { MATERIAL_DENSITY_DATA, material_density_item_parser } from "../../types/kppk-react-material.types";
 import { TRUCK_DATA, truck_data_item_parser, truck_data_parser } from "../../types/kppk-react-truck.types";
 import { FG_FORM_DEMOLISH_DISPOSAL_CONTEXT } from "../../types/kppk-react-calculation.types";
+import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../../types";
 
 
 
@@ -168,7 +168,7 @@ export const calculate_demolish_disposal_results = (
   const consumption_co2_sum = section_items.map( value => value.consumption_co2).reduce( (sum, kg_co2) => {
     return add_number_units( sum, kg_co2 );
   }, unit_kilogram_co2_parser.parse({}))
-  let result =  { 
+  const result =  { 
     material_section_result, 
     insulation_section_result,
     consumption_co2_sum 

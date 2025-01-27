@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { ReactInitMachineMethodeService  } from './react-init.machine.methode.service';
 import { FgXstateService } from '../../service';
 import { parent_context_event_input } from "../machine.utils";
-import { REACT_INIT_CONTEXT } from '../../types/react-init.machine.types'
 import { FgBaseService } from '@kppk/fg-lib-new';
 
 @Injectable({

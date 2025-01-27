@@ -1,8 +1,35 @@
-import { FG_FORM_CONSTRUCTION_SITE_CONTEXT } from "../../types/kppk-react-calculation.types";
-import { RESULT_CONSTRUCTION_SITE, result_construction_site_parser } from "../../types/kppk-react-construction-site.types";
-import { add_number_units, UNIT_GCO2_KM, UNIT_KGCO2, UNIT_KGCO2_KWH, UNIT_KGCO2_L, unit_kilogram_co2_parser, unit_kilogramco2_kilowatthour_parser, unit_kilogramco2_liter_parser, unit_kilowatthours_parser, UNIT_KM, UNIT_KWH, UNIT_KWH_MONTH, UNIT_LITER, UNIT_M2, UNIT_M3, unit_megawatthours_parser, UNIT_MONTH, UNIT_MWH, UNIT_MWH_MONTH, UNIT_NUMBER, unit_number_parser } from "../../types/kppk-react-unit.types";
-import { BUILD_TYPE_ENUM, POWER_SUPPLY_CALCULATION_TYPE_ENUM, HEAT_SUPPLY_CALCULATION_TYPE_ENUM } from "../../view/kppk-react-calc-view/kppk-react-constructions-site.fields.service";
-import { REACT_INIT_LOAD_FROM_REMOTE_DATA } from "../react-init/react-init.types";
+import { 
+  BUILD_TYPE_ENUM,
+  HEAT_SUPPLY_CALCULATION_TYPE_ENUM,
+  POWER_SUPPLY_CALCULATION_TYPE_ENUM 
+} from "../../enum";
+import { 
+  add_number_units,
+  FG_FORM_CONSTRUCTION_SITE_CONTEXT,
+  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  RESULT_CONSTRUCTION_SITE,
+  result_construction_site_parser,
+  UNIT_GCO2_KM,
+  UNIT_KGCO2,
+  UNIT_KGCO2_KWH,
+  UNIT_KGCO2_L,
+  unit_kilogram_co2_parser,
+  unit_kilogramco2_kilowatthour_parser,
+  unit_kilogramco2_liter_parser,
+  unit_kilowatthours_parser,
+  UNIT_KM,
+  UNIT_KWH,
+  UNIT_KWH_MONTH,
+  UNIT_LITER,
+  UNIT_M2,
+  UNIT_M3,
+  unit_megawatthours_parser,
+  UNIT_MONTH,
+  UNIT_MWH,
+  UNIT_MWH_MONTH,
+  UNIT_NUMBER,
+  unit_number_parser 
+} from "../../types";
 
 export const  mwh_to_kwh = ( value_MWh: UNIT_MWH  ): UNIT_KWH => {
     const value = value_MWh.value * 1000;
