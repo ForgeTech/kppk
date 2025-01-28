@@ -15,13 +15,13 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome kppk-react-web'
+      'Welcome kppk-react'
     );
   });
 
-  it(`should have as title 'kppk-react-web'`, () => {
+  it(`should have as title 'kppk-react'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('kppk-react-web');
+    expect(app.title).toEqual('kppk-react');
   });
 });

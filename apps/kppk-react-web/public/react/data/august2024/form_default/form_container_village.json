@@ -1,0 +1,26 @@
+{
+    "first_aid": {
+        "amount": 0,
+        "usage": 0
+    },
+    "meeting": {
+        "amount": 0,
+        "usage": 0
+    },
+    "office": {
+        "amount": 0,
+        "usage": 0
+    },
+    "repository": {
+        "amount": 0,
+        "usage": 0
+    },
+    "residency": {
+        "amount": 0,
+        "usage": 0
+    },
+    "sanitary": {
+        "amount": 0,
+        "usage": 0
+    }
+}

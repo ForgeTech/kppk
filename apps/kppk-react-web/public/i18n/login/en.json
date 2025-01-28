@@ -1,0 +1,9 @@
+{
+  "alt_kppk_logo": "Logo KPPK",
+  "alt_react_logo": "Logo REACT",
+  "authorization_error": "Error appeared at application login!",
+  "authorization_success": "Login successful!",
+  "input_password_label": "Password",
+  "input_user_label": "Username",
+  "label_login": "Login",
+}

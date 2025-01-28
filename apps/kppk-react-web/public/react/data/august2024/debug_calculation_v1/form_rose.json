@@ -1,0 +1,45 @@
+{
+    "error": [],
+    "name": "heating_system",
+    "valid": true,
+    "value": {
+        "calc_usage": {
+            "edited": false,
+            "type": "number",
+            "unit": "year",
+            "value": 50
+        },
+        "result": {
+            "calc_usage_co2": {
+                "edited": false,
+                "type": "number",
+                "unit": "tCo2",
+                "value": 50
+            }
+        },
+        "system_co2_duration": {
+            "edited": false,
+            "type": "number",
+            "unit": "tCo2/xyear",
+            "value": 20
+        },
+        "system_co2_year": {
+            "edited": false,
+            "type": "number",
+            "unit": "tCo2/year",
+            "value": 1
+        },
+        "system_duration": {
+            "edited": false,
+            "type": "number",
+            "unit": "year",
+            "value": 20
+        },
+        "system_select": {
+            "edited": false,
+            "type": "string",
+            "unit": "",
+            "value": "gas"
+        }
+    }
+}
