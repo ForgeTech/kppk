@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as TIMESTRING from 'timestring';
+import timestring from 'timestring';
 import { FgBaseService } from '../../base/fg-base.service';
 /**
  * FgTimeService -
@@ -18,10 +18,10 @@ export class FgTimeStringService extends FgBaseService {
    * returns 60 000 as numeric value
    */
   public transform(
-    timestring: string,
-    resultUnit: TIMESTRING.ReturnUnit = 'ms'
+    to_parse: string,
+    resultUnit: timestring.ReturnUnit = 'ms'
   ): number {
-    return TIMESTRING(timestring, resultUnit);
+    return timestring(to_parse, resultUnit);
   }
   /** CONSTRUCTOR */
   constructor() {
