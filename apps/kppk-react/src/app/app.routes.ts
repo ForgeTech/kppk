@@ -1,8 +1,6 @@
 import { Route } from '@angular/router';
 import { HOST_ROUTES } from '@kppk/react-lib';
 
-
-
 export const app_routes: Route[] = [
   {
     pathMatch: 'prefix',
@@ -18,13 +16,13 @@ export const app_routes: Route[] = [
       },
       {
         path: HOST_ROUTES.CALC,
-        loadChildren: () =>
+        loadComponent: () =>
           import('./view/kppk-react-view-calculation/kppk-react-view-calculation.component')
           .then((m) => m!.KppkReactViewCalculationComponent),
       },
       {
         path: HOST_ROUTES.HOME,
-        loadChildren: () =>
+        loadComponent: () =>
           import('./view/kppk-react-view-home/kppk-react-view-home.component')
           .then((m) => m!.KppkReactViewHomeComponent),
       },
@@ -32,7 +30,7 @@ export const app_routes: Route[] = [
   },
   {
     path: HOST_ROUTES.LOGIN,
-    loadChildren: () =>
+    loadComponent: () =>
       import('./view/kppk-react-view-login/kppk-react-view-login.component')
       .then((m) => m!.KppkReactViewLoginComponent),
   },
