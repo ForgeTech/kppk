@@ -13,9 +13,9 @@ describe('KppkGlobalError', () => {
       ],
     });
   });
-  it('METHODE: handleError', () => {
+  test('METHODE: handleError', () => {
     const $service = TestBed.inject(ErrorHandler) as KppkGlobalError;
-    const spy = jest.spyOn($service['$log'], 'fatal');
+    const spy = vi.spyOn($service['$log'], 'fatal');
     const error: Error = new Error('ERROR');
 
     $service.handleError(error);

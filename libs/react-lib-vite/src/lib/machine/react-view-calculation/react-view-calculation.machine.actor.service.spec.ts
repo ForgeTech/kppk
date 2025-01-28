@@ -5,6 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { FgXstateService } from '../../service/fg-xstate.service';
+import { FgXstateServiceMock } from '../../service/fg-xstate.service.mock';
 import { FgAuthLocalMachineService } from '..';
 import { FgEnvironmentService } from '@kppk/fg-lib-new';
 import { ReactViewCalculationMachineActorService } from './react-view-calculation.machine.actor.service';
@@ -14,9 +15,6 @@ import { EventFrom, SnapshotFrom } from 'xstate';
 describe('ReactViewCalculationMachineActorService', () => {
   const fg_auth_local_service_mock = {
     get_machine: test_machine,
-  };
-  const fg_xstate_service_mock = {
-    inspect: { inspect: 'inspect' },
   };
   const fg_environment_service_mock_development_enabled = {
     development: { enabled: true },
@@ -34,7 +32,7 @@ describe('ReactViewCalculationMachineActorService', () => {
           provide: FgAuthLocalMachineService,
           useValue: fg_auth_local_service_mock,
         },
-        { provide: FgXstateService, useValue: fg_xstate_service_mock },
+        { provide: FgXstateService, useValue: FgXstateServiceMock },
         {
           provide: FgEnvironmentService,
           useValue: fg_environment_service_mock_development_enabled,
@@ -43,21 +41,21 @@ describe('ReactViewCalculationMachineActorService', () => {
       ],
     });
     $service = TestBed.inject(ReactViewCalculationMachineActorService);
-    jest.clearAllMocks();
-    jest.clearAllTimers();
+    vi.clearAllMocks();
+    vi.clearAllTimers();
   });
 
-  it('is created', () => {
+  test('is created', () => {
     expect($service).toBeTruthy();
   });
 
   describe('> FgEnvironmentService > development > enabled: true', () => {
-    it('MEMBER: config > (environment>development>enabled>true)', () => {
+    test('MEMBER: config > (environment>development>enabled>true)', () => {
       expect($service['config']).toEqual({
         inspect: { inspect: 'inspect' },
       });
     });
-    it('MEMBER: event$ > emit events emitted by test_machine', (done) => {
+    test('MEMBER: event$ > emit events emitted by test_machine', async () => {
       const subscribtion = $service.event$.subscribe((value) => {
         const snapshot = $service[
           'actor'
@@ -81,7 +79,7 @@ describe('ReactViewCalculationMachineActorService', () => {
               context: { value: 'end' },
             });
             subscribtion.unsubscribe();
-            done();
+            return true;
             break;
         }
       });
@@ -92,7 +90,7 @@ describe('ReactViewCalculationMachineActorService', () => {
       $service.send(event);
       $service.send(event);
     });
-    it('MEMBER: eventS > emits events emitted by test_machine', () => {
+    test('MEMBER: eventS > emits events emitted by test_machine', () => {
       const event = { type: 'proceed' } as unknown as EventFrom<
         (typeof $service)['machine']
       >;
@@ -113,7 +111,7 @@ describe('ReactViewCalculationMachineActorService', () => {
         context: { value: 'end' },
       });
     });
-    it('MEMBER: state$ > emits snapshot emitted by test_machine', (done) => {
+    test('MEMBER: state$ > emits snapshot emitted by test_machine', async () => {
       // Is initialized as undefined
       expect($service.eventsS()).toBe(undefined);
       const event = { type: 'proceed' } as unknown as EventFrom<
@@ -133,26 +131,26 @@ describe('ReactViewCalculationMachineActorService', () => {
             expect(snapshot.value).toEqual('START');
             break;
           case 'MIDDLE':
-            expect($service.stateS()?.children).toEqual({});
-            expect($service.stateS()?.context).toEqual({ value: 'middle' });
-            expect($service.stateS()?.error).toBe(undefined);
-            expect($service.stateS()?.historyValue).toEqual({});
-            expect($service.stateS()?.output).toEqual(undefined);
-            expect($service.stateS()?.status).toEqual('active');
-            expect($service.stateS()?.tags).toEqual(new Set());
-            expect($service.stateS()?.value).toEqual('MIDDLE');
+            expect(snapshot.children).toEqual({});
+            expect(snapshot.context).toEqual({ value: 'middle' });
+            expect(snapshot.error).toBe(undefined);
+            expect(snapshot.historyValue).toEqual({});
+            expect(snapshot.output).toEqual(undefined);
+            expect(snapshot.status).toEqual('active');
+            expect(snapshot.tags).toEqual(new Set());
+            expect(snapshot.value).toEqual('MIDDLE');
             break;
           case 'END':
-            expect($service.stateS()?.children).toEqual({});
-            expect($service.stateS()?.context).toEqual({ value: 'end' });
-            expect($service.stateS()?.error).toBe(undefined);
-            expect($service.stateS()?.historyValue).toEqual({});
-            expect($service.stateS()?.output).toEqual({ value: 'end' });
-            expect($service.stateS()?.status).toEqual('done');
-            expect($service.stateS()?.tags).toEqual(new Set());
-            expect($service.stateS()?.value).toEqual('END');
+            expect(snapshot.children).toEqual({});
+            expect(snapshot.context).toEqual({ value: 'end' });
+            expect(snapshot.error).toBe(undefined);
+            expect(snapshot.historyValue).toEqual({});
+            expect(snapshot.output).toEqual({ value: 'end' });
+            expect(snapshot.status).toEqual('done');
+            expect(snapshot.tags).toEqual(new Set());
+            expect(snapshot.value).toEqual('END');
             subscribtion.unsubscribe();
-            done();
+            return true;
             break;
         }
       });
@@ -160,7 +158,7 @@ describe('ReactViewCalculationMachineActorService', () => {
       $service.send(event);
       $service.send(event);
     });
-    it('MEMBER: stateS > emits snapshot emitted by test_machine', () => {
+    test('MEMBER: stateS > emits snapshot emitted by test_machine', () => {
       // Is initialized as undefined
       const event = { type: 'proceed' } as unknown as EventFrom<
         (typeof $service)['machine']
@@ -197,36 +195,36 @@ describe('ReactViewCalculationMachineActorService', () => {
       expect($service.stateS()?.tags).toEqual(new Set());
       expect($service.stateS()?.value).toEqual('END');
     });
-    it('MEMBER: is_runningS > is false', () => {
+    test('MEMBER: is_runningS > is false', () => {
       expect($service.is_runningS()).toBe(false);
     });
-    it('METHODE: start > calls ACTOR start and sets is_runningS to true', () => {
-      const spy = jest.spyOn($service['actor'], 'start');
-      const spy2 = jest.spyOn($service['is_runningS'], 'set');
+    test('METHODE: start > calls ACTOR start and sets is_runningS to true', () => {
+      const spy = vi.spyOn($service['actor'], 'start');
+      const spy2 = vi.spyOn($service['is_runningS'], 'set');
       $service.start();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy2).toHaveBeenCalledWith(true);
     });
-    it('METHODE: stop > calls ACTOR stop and sets is_runningS to false', () => {
-      const spy = jest.spyOn($service['actor'], 'stop');
-      const spy2 = jest.spyOn($service['is_runningS'], 'set');
+    test('METHODE: stop > calls ACTOR stop and sets is_runningS to false', () => {
+      const spy = vi.spyOn($service['actor'], 'stop');
+      const spy2 = vi.spyOn($service['is_runningS'], 'set');
       $service.stop();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy2).toHaveBeenCalledWith(false);
     });
-    it('METHODE: create_from_config > call logs warning when actor is running', () => {
-      const spy = jest.spyOn($service['$log'], 'warn');
+    test('METHODE: create_from_config > call logs warning when actor is running', () => {
+      const spy = vi.spyOn($service['$log'], 'warn');
       $service.start();
       expect($service.is_runningS()).toBe(true);
       $service.create_from_config({});
       expect(spy).toHaveBeenCalledTimes(2);
     });
-    it('METHODE: create_from_config > setups new actor from config', () => {
-      const state_subscription_spy = jest.spyOn(
+    test('METHODE: create_from_config > setups new actor from config', () => {
+      const state_subscription_spy = vi.spyOn(
         $service['state_subscription'],
         'unsubscribe'
       );
-      const events_subscription_spy = jest.spyOn(
+      const events_subscription_spy = vi.spyOn(
         $service['events_subscription'],
         'unsubscribe'
       );
@@ -244,7 +242,7 @@ describe('ReactViewCalculationMachineActorService', () => {
       expect($service['state_subscription']).not.toBe(old_state_subscription);
       expect($service['events_subscription']).not.toBe(old_events_subscription);
     });
-    it('METHODE: create_from_config > if no new inspect is passed config contains old inspect', () => {
+    test('METHODE: create_from_config > if no new inspect is passed config contains old inspect', () => {
       const old_config = $service['config'];
       const old_inspect = $service['config'].inspect;
       $service.create_from_config({ systemId: 'NEW_ACTOR' });
@@ -258,7 +256,7 @@ describe('ReactViewCalculationMachineActorService', () => {
       expect(new_inspect).toBeTruthy();
       expect(old_inspect).toBe(new_inspect);
     });
-    it('METHODE: create_from_config > if new inspect is passed config contains new inspect', () => {
+    test('METHODE: create_from_config > if new inspect is passed config contains new inspect', () => {
       const old_config = $service['config'];
       const old_inspect = $service['config'].inspect;
       const new_inspect_mock = { inspect: 'inspect' } as any;
@@ -289,7 +287,7 @@ describe('ReactViewCalculationMachineActorService', () => {
             provide: FgAuthLocalMachineService,
             useValue: fg_auth_local_service_mock,
           },
-          { provide: FgXstateService, useValue: fg_xstate_service_mock },
+          { provide: FgXstateService, useValue: FgXstateServiceMock },
           {
             provide: FgEnvironmentService,
             useValue: fg_environment_service_mock_development_disabled,
@@ -298,10 +296,10 @@ describe('ReactViewCalculationMachineActorService', () => {
         ],
       });
       $service = TestBed.inject(ReactViewCalculationMachineActorService);
-      jest.clearAllMocks();
-      jest.clearAllTimers();
+      vi.clearAllMocks();
+      vi.clearAllTimers();
     });
-    it("MEMBER: config doesn't contain inspect", () => {
+    test("MEMBER: config doesn't contain inspect", () => {
       expect($service['config']).toEqual({});
     });
   });

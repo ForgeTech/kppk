@@ -9,7 +9,6 @@ import {
   provideHttpClientTesting,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { Spy, provideAutoSpy } from 'jest-auto-spies';
 
 import { FgAuthLocalMachineMethodeService } from './fg-auth-local.machine.methode.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
@@ -26,11 +25,12 @@ describe('FgAuthLocalMachine', () => {
   let $service: FgAuthLocalMachineMethodeService;
   let $immer: FgImmutableService;
   let $immer_produce_mock: any;
-  let $cookie_mock: Spy<FgStorageNgxCookieService>;
+  // let $cookie_mock: Spy<FgStorageNgxCookieService>;
+  let $http: HttpClient;
+  let $http_controller: HttpTestingController;
   let context: ContextFgAuthLocal;
   const event: AnyEventObject = { type: 'MockEvent' };
   let auth_cookie_admin: AuthCookieFgAuthLocal;
-  let auth_cookie_invalid: any;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -39,7 +39,7 @@ describe('FgAuthLocalMachine', () => {
         FgAuthLocalMachineMethodeService,
         FgWebcryptoService,
         FgImmutableService,
-        provideAutoSpy(FgStorageNgxCookieService),
+        FgStorageNgxCookieService,
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -56,12 +56,12 @@ describe('FgAuthLocalMachine', () => {
     $http_controller = TestBed.inject(HttpTestingController);
 
     $immer = TestBed.inject(FgImmutableService);
-    $immer_produce_mock = jest.spyOn($immer, 'produce');
+    $immer_produce_mock = vi.spyOn($immer, 'produce');
     // $log_mock = TestBed.inject(NGXLogger);
-    $cookie_mock = TestBed.inject(
-      FgStorageNgxCookieService
-    ) as Spy<FgStorageNgxCookieService>;
-    $cookie_mock.getItem.mockReset();
+    // $cookie_mock = TestBed.inject(
+    //   FgStorageNgxCookieService
+    // ) as Spy<FgStorageNgxCookieService>;
+    // $cookie_mock.mockReset();
 
     context = ContextFgAuthLocalParser.parse({});
     auth_cookie_admin = {
@@ -76,16 +76,16 @@ describe('FgAuthLocalMachine', () => {
         username: 'Test_User_1',
       },
     };
-    auth_cookie_invalid = {
-      invalid: 'invalid',
-    };
+    // auth_cookie_invalid = {
+    //   invalid: 'invalid',
+    // };
   });
   afterEach(async () => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   describe('METHODE: ContextFgAuthLocalParserParser', () => {
-    it('validated default values', () => {
+    test('validated default values', () => {
       expect(context.auth_cookie).toBe(undefined);
       expect(context.auth_cookie_storage_key).toBe('fg-auth-local-cookie');
       expect(context.error).toBe(undefined);
@@ -96,13 +96,13 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: send_authorized_event_to', () => {
-    it("CHECK: returns 'fg.auth.local.event.authorized' event", () => {
+    test("CHECK: returns 'fg.auth.local.event.authorized' event", () => {
       context.auth_cookie = auth_cookie_admin;
       expect($service.send_authorized_event_to({ context, event }).type).toBe(
         'fg.auth.local.event.authorized'
       );
     });
-    it('THROWS if authCookie on context is undefined', () => {
+    test('THROWS if authCookie on context is undefined', () => {
       context.auth_cookie = undefined;
       // CAUTION: If testing if methoed throws error and it's not working read
       // https://stackoverflow.com/a/66109855/1622564
@@ -113,7 +113,7 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: send_unauthorized_event_to', () => {
-    it("CHECK: returns 'fg.auth.local.event.unauthorized' event", () => {
+    test("CHECK: returns 'fg.auth.local.event.unauthorized' event", () => {
       expect($service.send_unauthorized_event_to({ context, event }).type).toBe(
         'fg.auth.local.event.unauthorized'
       );
@@ -121,7 +121,7 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: escalate_auth_local_key_error', () => {
-    it("THROWS 'fg-auth-local-key-error' if auth-local key-file is unable to load", () => {
+    test("THROWS 'fg-auth-local-key-error' if auth-local key-file is unable to load", () => {
       // CAUTION: If testing if methoed throws error and it's not working read
       // https://stackoverflow.com/a/66109855/1622564
       expect(() =>
@@ -139,12 +139,12 @@ describe('FgAuthLocalMachine', () => {
         output: auth_cookie_admin,
       };
     });
-    it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    test('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = $service.assign_auth_cookie({ context, event });
       expect(Object.isFrozen(result)).toBe(true);
       expect($immer_produce_mock).toHaveBeenCalledTimes(1);
     });
-    it('CHECK: if auth-cookie from event is set on context', () => {
+    test('CHECK: if auth-cookie from event is set on context', () => {
       const result = $service.assign_auth_cookie({ context, event });
       expect(result.auth_cookie).toStrictEqual(event.output);
     });
@@ -158,12 +158,12 @@ describe('FgAuthLocalMachine', () => {
   //       output: 'auth-key'
   //     };
   //   })
-  //   it('CHECK: result context is frozen object (IMMER.JS)', () => {
+  //   test('CHECK: result context is frozen object (IMMER.JS)', () => {
   //     const result = $service.assign_auth_key({ context, event });
   //     expect(Object.isFrozen(result)).toBe(true);
   //     expect($immer_produce_mock).toHaveBeenCalledTimes(1);
   //   });
-  //   it('CHECK: if auth-key from event is set on context', () => {
+  //   test('CHECK: if auth-key from event is set on context', () => {
   //     const result = $service.assign_auth_key({ context, event });
   //     expect(result.salt).toStrictEqual(event.output);
   //   });
@@ -178,19 +178,19 @@ describe('FgAuthLocalMachine', () => {
         error: new Error('test-error-authorization'),
       };
     });
-    it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    test('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = $service.assign_authorization_error({ context, event });
       expect(Object.isFrozen(result)).toBe(true);
       expect($immer_produce_mock).toHaveBeenCalledTimes(1);
     });
-    it('CHECK: assigns error message from event to context', () => {
+    test('CHECK: assigns error message from event to context', () => {
       const result = $service.assign_authorization_error({ context, event });
       expect(result.error).toBe((event.error as Error).message);
     });
   });
 
   describe('METHODE: assign_clear_authorization_error', () => {
-    it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    test('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = $service.assign_clear_authorization_error({
         context,
         event,
@@ -198,7 +198,7 @@ describe('FgAuthLocalMachine', () => {
       expect(Object.isFrozen(result)).toBe(true);
       expect($immer_produce_mock).toHaveBeenCalledTimes(1);
     });
-    it('CHECK: removes error message from context', () => {
+    test('CHECK: removes error message from context', () => {
       context.error = 'has-error';
       const result = $service.assign_clear_authorization_error({
         context,
@@ -209,12 +209,12 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: assign_clear_auth_cookie', () => {
-    it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    test('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = $service.assign_clear_auth_cookie({ context, event });
       expect(Object.isFrozen(result)).toBe(true);
       expect($immer_produce_mock).toHaveBeenCalledTimes(1);
     });
-    it('CHECK: removes authCookie from context', () => {
+    test('CHECK: removes authCookie from context', () => {
       context.auth_cookie = auth_cookie_admin;
       const result = $service.assign_clear_auth_cookie({ context, event });
       expect(result.auth_cookie).toBe(undefined);
@@ -230,7 +230,7 @@ describe('FgAuthLocalMachine', () => {
         error: new Error('test-error-revoke-error'),
       };
     });
-    it('CHECK: result context is frozen object (IMMER.JS)', () => {
+    test('CHECK: result context is frozen object (IMMER.JS)', () => {
       const result = $service.assign_revoke_authorization_error({
         context,
         event,
@@ -238,7 +238,7 @@ describe('FgAuthLocalMachine', () => {
       expect(Object.isFrozen(result)).toBe(true);
       expect($immer_produce_mock).toHaveBeenCalledTimes(1);
     });
-    it('CHECK: assigns error message from event to context', () => {
+    test('CHECK: assigns error message from event to context', () => {
       const result = $service.assign_revoke_authorization_error({
         context,
         event,
@@ -248,7 +248,7 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: escalate_auth_load_cookie_error', () => {
-    it("THROWS 'fg-auth-load-cookie-error' on auth-cookie unable to load ", () => {
+    test("THROWS 'fg-auth-load-cookie-error' on auth-cookie unable to load ", () => {
       // CAUTION: If testing if methoed throws error and it's not working read
       // https://stackoverflow.com/a/66109855/1622564
       expect(() =>
@@ -258,18 +258,18 @@ describe('FgAuthLocalMachine', () => {
   });
 
   describe('METHODE: guard_has_auth_cookie', () => {
-    it('CHECK: returns true', () => {
+    test('CHECK: returns true', () => {
       context.auth_cookie = auth_cookie_admin;
       expect($service.guard_has_auth_cookie({ context, event })).toBe(true);
     });
-    it('CHECK: returns false', () => {
+    test('CHECK: returns false', () => {
       context.auth_cookie = undefined;
       expect($service.guard_has_auth_cookie({ context, event })).toBe(false);
     });
   });
 
   // describe('METHODE: actor_load_auth_cookie', () => {
-  //   it('CHECK: returns valid cookie from context.authCookieStorageKey', ( done ) => {
+  //   test('CHECK: returns valid cookie from context.authCookieStorageKey', ( done ) => {
   //     const input = { context, event };
   //     $cookie_mock.getItem.mockReturnValue(of(auth_cookie_admin));
   //     $service.actor_load_auth_cookie( { input } ).subscribe({
@@ -281,7 +281,7 @@ describe('FgAuthLocalMachine', () => {
   //       },
   //     })
   //   });
-  //   it('CHECK: THROWS on invalid cookie from context.authCookieStorageKey', ( done ) => {
+  //   test('CHECK: THROWS on invalid cookie from context.authCookieStorageKey', ( done ) => {
   //     const input = { context, event };
   //     $cookie_mock.getItem.mockReturnValue(of({ auth_cookie_invalid }));
   //     $service.actor_load_auth_cookie( { input } ).subscribe({

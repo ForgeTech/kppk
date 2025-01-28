@@ -4,7 +4,7 @@ import { FgImmutableService } from '../../service';
 import {
   FgBaseService,
   FgEnvironmentService,
-} from '../../../../../../../../libs/fg-lib-new/src';
+} from '@kppk/fg-lib-new';
 import { REACT_ADMIN_TOOLBAR_CONTEXT } from './react-admin-toolbar.machine.types';
 import { FgAuthLocalMachineActorService } from '../fg-auth-local';
 import { boundMethod } from 'autobind-decorator';

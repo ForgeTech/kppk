@@ -74,6 +74,7 @@ export class FgSpinnerMachineActorService
       this.events_subscription.unsubscribe();
       // Create actor
       this.actor = createActor(this.machine, this.config);
+      this.STATE$.next(this.actor.getSnapshot());
       // Push actor snapshot to state-signal
       this.state_subscription = this.actor.subscribe((snapshot) => {
         this.STATE$.next(snapshot);

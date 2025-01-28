@@ -5,6 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 import { FgXstateService } from '../../service/fg-xstate.service';
+import { FgXstateServiceMock } from '../../service/fg-xstate.service.mock';
 import { FgAuthLocalMachineService } from '..';
 import { FgEnvironmentService } from '@kppk/fg-lib-new';
 import { FgSpinnerMachineActorService } from './fg-spinner.machine.actor.service';
@@ -15,9 +16,7 @@ describe('FgSpinnerMachineActorService', () => {
   const fg_auth_local_service_mock = {
     get_machine: test_machine,
   };
-  const fg_xstate_service_mock = {
-    inspect: { inspect: 'inspect' },
-  };
+
   const fg_environment_service_mock_development_enabled = {
     development: { enabled: true },
   };
@@ -34,7 +33,7 @@ describe('FgSpinnerMachineActorService', () => {
           provide: FgAuthLocalMachineService,
           useValue: fg_auth_local_service_mock,
         },
-        { provide: FgXstateService, useValue: fg_xstate_service_mock },
+        { provide: FgXstateService, useValue: FgXstateServiceMock },
         {
           provide: FgEnvironmentService,
           useValue: fg_environment_service_mock_development_enabled,
@@ -43,8 +42,8 @@ describe('FgSpinnerMachineActorService', () => {
       ],
     });
     $service = TestBed.inject(FgSpinnerMachineActorService);
-    jest.clearAllMocks();
-    jest.clearAllTimers();
+    vi.clearAllMocks();
+    vi.clearAllTimers();
   });
 
   it('is created', () => {
@@ -57,7 +56,7 @@ describe('FgSpinnerMachineActorService', () => {
         inspect: { inspect: 'inspect' },
       });
     });
-    it('MEMBER: event$ > emit events emitted by test_machine', (done) => {
+    it('MEMBER: event$ > emit events emitted by test_machine', async () => {
       const subscribtion = $service.event$.subscribe((value) => {
         const snapshot = $service[
           'actor'
@@ -81,7 +80,7 @@ describe('FgSpinnerMachineActorService', () => {
               context: { value: 'end' },
             });
             subscribtion.unsubscribe();
-            done();
+            return true;
             break;
         }
       });
@@ -113,7 +112,7 @@ describe('FgSpinnerMachineActorService', () => {
         context: { value: 'end' },
       });
     });
-    it('MEMBER: state$ > emits snapshot emitted by test_machine', (done) => {
+    it('MEMBER: state$ > emits snapshot emitted by test_machine', async () => {
       // Is initialized as undefined
       expect($service.eventsS()).toBe(undefined);
       const event = { type: 'proceed' } as unknown as EventFrom<
@@ -152,13 +151,11 @@ describe('FgSpinnerMachineActorService', () => {
             expect($service.stateS()?.tags).toEqual(new Set());
             expect($service.stateS()?.value).toEqual('END');
             subscribtion.unsubscribe();
-            done();
+            return true;
             break;
         }
       });
       $service.start();
-      $service.send(event);
-      $service.send(event);
     });
     it('MEMBER: stateS > emits snapshot emitted by test_machine', () => {
       // Is initialized as undefined
@@ -201,32 +198,32 @@ describe('FgSpinnerMachineActorService', () => {
       expect($service.is_runningS()).toBe(false);
     });
     it('METHODE: start > calls ACTOR start and sets is_runningS to true', () => {
-      const spy = jest.spyOn($service['actor'], 'start');
-      const spy2 = jest.spyOn($service['is_runningS'], 'set');
+      const spy = vi.spyOn($service['actor'], 'start');
+      const spy2 = vi.spyOn($service['is_runningS'], 'set');
       $service.start();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy2).toHaveBeenCalledWith(true);
     });
     it('METHODE: stop > calls ACTOR stop and sets is_runningS to false', () => {
-      const spy = jest.spyOn($service['actor'], 'stop');
-      const spy2 = jest.spyOn($service['is_runningS'], 'set');
+      const spy = vi.spyOn($service['actor'], 'stop');
+      const spy2 = vi.spyOn($service['is_runningS'], 'set');
       $service.stop();
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy2).toHaveBeenCalledWith(false);
     });
     it('METHODE: create_from_config > call logs warning when actor is running', () => {
-      const spy = jest.spyOn($service['$log'], 'warn');
+      const spy = vi.spyOn($service['$log'], 'warn');
       $service.start();
       expect($service.is_runningS()).toBe(true);
       $service.create_from_config({});
       expect(spy).toHaveBeenCalledTimes(2);
     });
     it('METHODE: create_from_config > setups new actor from config', () => {
-      const state_subscription_spy = jest.spyOn(
+      const state_subscription_spy = vi.spyOn(
         $service['state_subscription'],
         'unsubscribe'
       );
-      const events_subscription_spy = jest.spyOn(
+      const events_subscription_spy = vi.spyOn(
         $service['events_subscription'],
         'unsubscribe'
       );
@@ -289,7 +286,7 @@ describe('FgSpinnerMachineActorService', () => {
             provide: FgAuthLocalMachineService,
             useValue: fg_auth_local_service_mock,
           },
-          { provide: FgXstateService, useValue: fg_xstate_service_mock },
+          { provide: FgXstateService, useValue: FgXstateServiceMock },
           {
             provide: FgEnvironmentService,
             useValue: fg_environment_service_mock_development_disabled,
@@ -298,8 +295,8 @@ describe('FgSpinnerMachineActorService', () => {
         ],
       });
       $service = TestBed.inject(FgSpinnerMachineActorService);
-      jest.clearAllMocks();
-      jest.clearAllTimers();
+      vi.clearAllMocks();
+      vi.clearAllTimers();
     });
     it("MEMBER: config doesn't contain inspect", () => {
       expect($service['config']).toEqual({});

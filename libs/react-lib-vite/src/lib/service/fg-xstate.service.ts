@@ -60,18 +60,18 @@ export class FgXstateService extends FgBaseService {
   public readonly inspector;
   public readonly inspect;
 
-  public readonly assign = assign;
-  public readonly createActor = createActor;
-  public readonly createBrowserInspector = createBrowserInspector;
-  public readonly emit = emit;
-  public readonly fromCallback = fromCallback;
-  public readonly fromEventObservable = fromEventObservable;
-  public readonly fromObservable = fromObservable;
-  public readonly fromPromise = fromPromise;
-  public readonly raise = raise;
-  public readonly sendParent = sendParent;
-  public readonly sendTo = sendTo;
-  public readonly setup = setup;
+  public assign = assign;
+  public createActor = createActor;
+  public createBrowserInspector = createBrowserInspector;
+  public emit = emit;
+  public fromCallback = fromCallback;
+  public fromEventObservable = fromEventObservable;
+  public fromObservable = fromObservable;
+  public fromPromise = fromPromise;
+  public raise = raise;
+  public sendParent = sendParent;
+  public sendTo = sendTo;
+  public setup = setup;
 
   // CONSTRUCTOR
   constructor() {

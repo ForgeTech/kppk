@@ -1,7 +1,7 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { FgStorageService } from './fg-storage.service';
 import { Observable, of } from 'rxjs';
-import { CookieService, CookieOptions } from 'ngx-cookie';
+import { CookieService, CookieOptions } from 'ngx-cookie-service';
 import { NGXLogger } from 'ngx-logger';
 
 /**
@@ -40,10 +40,10 @@ export class FgStorageNgxCookieService extends FgStorageService {
   protected OPTIONS: CookieOptions = {
     path: '/',
     secure: false,
-    httpOnly: false,
+    // httpOnly: false,
     // domain: '',
     // expires: '',
-    storeUnencoded: false,
+    // storeUnencoded: false,
   };
   /** GETTER for OPTIONS */
   get options(): CookieOptions {

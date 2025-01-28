@@ -5,7 +5,6 @@ import {
   Actor,
   ActorLogicFrom,
   ActorOptions,
-  createActor,
   EmittedFrom,
   EventFrom,
   SnapshotFrom,
@@ -52,7 +51,7 @@ export class ReactInitMachineActorService
       this.config.inspect = this.$xstate.inspect;
     }
     // Create actor
-    this.actor = createActor(this.machine, this.config);
+    this.actor = this.$xstate.createActor(this.machine, this.config);
     // Push actor snapshot to state-signal
     this.state_subscription = this.actor.subscribe((snapshot) => {
       this.STATE$.next(snapshot);
@@ -73,7 +72,7 @@ export class ReactInitMachineActorService
       this.state_subscription.unsubscribe();
       this.events_subscription.unsubscribe();
       // Create actor
-      this.actor = createActor(this.machine, this.config);
+      this.actor = this.$xstate.createActor(this.machine, this.config);
       // Push actor snapshot to state-signal
       this.state_subscription = this.actor.subscribe((snapshot) => {
         this.STATE$.next(snapshot);

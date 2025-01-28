@@ -5,7 +5,7 @@ import { KppkRegisterIconsService } from './kppk-register-icons.service';
 import { importProvidersFrom } from '@angular/core';
 import { LoggerTestingModule } from 'ngx-logger/testing';
 
-describe.only('SERVICE: KppkRegisterIconsService', () => {
+describe('SERVICE: KppkRegisterIconsService', () => {
   let $service: KppkRegisterIconsService;
   const MatIconRegistryMock = {
     addSvgIcon: vitest.fn(),
@@ -29,7 +29,7 @@ describe.only('SERVICE: KppkRegisterIconsService', () => {
       $service['$domSanatizer']['bypassSecurityTrustResourceUrl']
     ).toHaveBeenCalledTimes(7);
   });
-  // it('register seven icons and sanatize them', () => {
+  // test('register seven icons and sanatize them', () => {
   //     expect($service['$iconReg']['addSvgIcon']).toHaveBeenNthCalledWith(1);
   //     expect($service['$domSanatizer']['bypassSecurityTrustResourceUrl']).toHaveBeenNthCalledWith(1);
   // });
