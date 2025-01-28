@@ -19,19 +19,22 @@ export const app_routes: Route[] = [
       {
         path: HOST_ROUTES.CALC,
         loadChildren: () =>
-          import('react_view_calc/Routes').then((m) => m!.remoteRoutes),
+          import('./view/kppk-react-view-calculation/kppk-react-view-calculation.component')
+          .then((m) => m!.KppkReactViewCalculationComponent),
       },
       {
         path: HOST_ROUTES.HOME,
         loadChildren: () =>
-          import('react_view_home/Routes').then((m) => m!.remoteRoutes),
+          import('./view/kppk-react-view-home/kppk-react-view-home.component')
+          .then((m) => m!.KppkReactViewHomeComponent),
       },
     ]
   },
   {
     path: HOST_ROUTES.LOGIN,
     loadChildren: () =>
-      import('react_view_login/Routes').then((m) => m!.remoteRoutes),
+      import('./view/kppk-react-view-login/kppk-react-view-login.component')
+      .then((m) => m!.KppkReactViewLoginComponent),
   },
   {
     path: HOST_ROUTES.WILDCARD,

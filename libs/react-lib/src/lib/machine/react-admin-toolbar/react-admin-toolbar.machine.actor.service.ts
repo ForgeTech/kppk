@@ -15,7 +15,7 @@ import { ReactAdminToolbarService } from './react-admin-toolbar.machine.service'
 import {
   FgBaseService,
   FgEnvironmentService,
-} from '../../../../../../../../libs/fg-lib-new/src';
+} from '@kppk/fg-lib-new';
 
 @Injectable({
   providedIn: 'root',

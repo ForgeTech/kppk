@@ -150,9 +150,9 @@ export class FgStorageNgxCookieService extends FgStorageService {
     const keyToApply = this.getStorageKey(key, storageKey);
     try {
       if (typeof value === 'object') {
-        this.$cookie.putObject(keyToApply, value, optionsToApply);
+        this.$cookie.set(keyToApply, JSON.stringify(value), optionsToApply);
       } else {
-        this.$cookie.put(keyToApply, value, optionsToApply);
+        this.$cookie.set(keyToApply, value, optionsToApply);
       }
     } catch (error) {
       this.$log?.error(
@@ -209,7 +209,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
   ): Observable<boolean> {
     try {
       const keyToApply = this.getStorageKey(key, storageKey);
-      this.$cookie.remove(keyToApply);
+      this.$cookie.delete(keyToApply);
     } catch (error) {
       this.$log?.error(
         `ERROR: FgStorageNgxCookie: removeItem-methode for key: ${key} 
@@ -220,7 +220,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
     return of(true);
   }
   /** Methode to remove item from storage */
-  public removeItem(key: string, storageKey: string = ''): Observable<boolean> {
+  public removeItem(key: string, storageKey = ''): Observable<boolean> {
     const result = this.removeItemNoStorageMapupdate(key, storageKey);
     if (storageKey) {
       this.removeFromStorageMap(key, storageKey);
@@ -239,7 +239,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
         delete this.STORAGE_MAP[storageKey];
         this.setItem(FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY, this.STORAGE_MAP);
       } else {
-        this.$cookie.removeAll();
+        this.$cookie.deleteAll();
         this.STORAGE_MAP = {};
         this.setItem(FG_NGXCOOKIE_STORAGE_STORAGE_MAP_KEY, this.STORAGE_MAP);
       }

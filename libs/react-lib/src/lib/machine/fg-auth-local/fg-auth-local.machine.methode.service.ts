@@ -13,7 +13,7 @@ import { Injectable, inject } from '@angular/core';
 import { AnyEventObject } from 'xstate';
 import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
-import { CookieOptions } from 'ngx-cookie';
+import { CookieOptions } from 'ngx-cookie-service';
 import { FgTimeStringService, FgBaseService } from '@kppk/fg-lib-new';
 import { boundMethod } from 'autobind-decorator';
 import { HMAC } from 'crypto-es/lib/hmac';
