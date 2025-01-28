@@ -1,0 +1,94 @@
+<div class="main-navigation flex h-full min-h-full flex-col">
+  @let s = $shared;
+  @let t = kppk_react_navigation_translationsS();
+  <mat-list>
+    @if( can_install_pwaS() ){
+      <mat-list-item class="pwa-install-item">
+        <fg-pwa-install 
+          [tooltip]="t?.tooltip_install" 
+          [label]="t?.label_install" 
+          color="accent" 
+          class="w-full md:flex-1"/>
+      </mat-list-item>
+    }
+    @if( s.auth_is_authorizedS() ){
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.HOME }}">
+          <mat-icon svgIcon="home"/>
+          {{ t?.route_home }}
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="h-10"></div>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary">
+          <mat-icon svgIcon="download"/>
+          {{ t?.manual }}
+        </a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      @if(true) {
+        <mat-list-item>
+          <a class="w-full" mat-stroked-button color="primary">
+            <mat-icon>add</mat-icon>
+            {{ t?.calculation_start }}
+          </a>
+        </mat-list-item>
+      }
+      @else if (true) {
+        Add List navigation
+      }
+      <mat-divider></mat-divider>
+    } 
+    @else {
+      <mat-list-item>
+        <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.LOGIN }}">
+          <mat-icon>login</mat-icon>
+          {{ t?.route_login }}
+        </a>
+      </mat-list-item>
+    }
+  </mat-list>
+  <!-- <div class="flex-auto"></div> -->
+  <div class="h-10"></div>
+  <mat-list>
+    <mat-list-item>
+      <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.IMPRINT }}">
+        <mat-icon svgIcon="info"/>
+        {{ t?.route_imprint }}
+      </a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.DATA_PROTECTION }}">
+        <mat-icon svgIcon="shield"/>
+        {{ t?.route_data_protection }}
+      </a>
+    </mat-list-item>
+
+    <mat-list-item>
+      <fg-language-switch 
+        class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"
+        [selected]="s.lang_activeS()"
+        [available_langs]="s.langs_availableS()"
+        [icon_path]="s.langs_icons_pathS()"
+        (change)="s.set_language($event)"
+    />
+    </mat-list-item>
+    @if( s.auth_is_authorizedS() ){
+      <mat-list-item>
+        <a 
+          class="w-full" 
+          mat-stroked-button 
+          color="warn" 
+          tabindex="0"
+          (click)="logout($event)"
+          (keydown)="logout($event)"
+        >
+          <mat-icon svgIcon="logout"/>
+          {{ t?.logout }}
+        </a>
+      </mat-list-item>
+    }
+  </mat-list>
+</div>
