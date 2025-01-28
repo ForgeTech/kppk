@@ -2,12 +2,10 @@ import {
   ApplicationConfig,
   ErrorHandler,
   importProvidersFrom,
-  isDevMode,
   makeEnvironmentProviders,
-  provideExperimentalZonelessChangeDetection,
-  providePlatformInitializer, 
+  provideExperimentalZonelessChangeDetection, 
 } from '@angular/core';
-import { PreloadAllModules, provideRouter, withDebugTracing, withPreloading, withViewTransitions } from '@angular/router';
+import { PreloadAllModules, provideRouter, withPreloading, withViewTransitions } from '@angular/router';
 import { app_routes } from './app.routes';
 import {
   provideClientHydration,
@@ -15,12 +13,12 @@ import {
 } from '@angular/platform-browser';
 import { FG_ENVIRONMENT, FgEnvironmentService, FgStorageService, FgStorageLocalforageService, FgStorageNgxCookieService, FgBreakpoint, FgEventService } from '@kppk/fg-lib-new';
 import { LoggerModule } from 'ngx-logger';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import { KppkGlobalError,KppkReactSharedService,TranslocoHttpLoader } from '@kppk/react-lib';
-import { CookieModule } from 'ngx-cookie';
+import { CookieService} from 'ngx-cookie-service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -60,8 +58,8 @@ export const appConfig: ApplicationConfig = {
     { provide: ErrorHandler, useClass: KppkGlobalError },
     { provide: FgStorageService, useClass: FgStorageLocalforageService },
     FgStorageNgxCookieService,
-    importProvidersFrom(CookieModule.forRoot()),
     FgBreakpoint,
     KppkReactSharedService,
+    CookieService,
   ],
 };
