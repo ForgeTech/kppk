@@ -6,7 +6,7 @@ import {
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { PreloadAllModules, provideRouter, withPreloading, withViewTransitions } from '@angular/router';
-// import { app_routes } from './app.routes';
+import { app_routes } from './app.routes';
 import {
   provideClientHydration,
   withEventReplay,

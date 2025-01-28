@@ -1,0 +1,107 @@
+[
+    {
+        "id": 0,
+        "name": { 
+            "value": "5_cubic_meter_container", 
+            "unit": "" 
+        },
+        "capacity_volume": {
+            "value": 5,
+            "unit": "m³" 
+        },
+        "length": {
+            "value": 3100,
+            "unit": "mm" 
+        },
+        "width": {
+            "value": 1820,
+            "unit": "mm" 
+        },
+        "heigth": {
+            "value": 1250,
+            "unit": "mm" 
+        },
+        "massD": {
+            "value": 865,
+            "unit": "mm" 
+        },
+        "weight": {
+            "value": 560,
+            "unit": "kg" 
+        },
+        "capacity_weight": {
+            "value": 7000,
+            "unit": "kg" 
+        }
+    },
+    {
+        "id": 1,
+        "name": { 
+            "value": "7_cubic_meter_container", 
+            "unit": "" 
+        },
+        "capacity_volume": {
+            "value": 7,
+            "unit": "m³" 
+        },
+        "length": {
+            "value": 3300,
+            "unit": "mm" 
+        },
+        "width": {
+            "value": 1820,
+            "unit": "mm" 
+        },
+        "heigth": {
+            "value": 1500,
+            "unit": "mm" 
+        },
+        "massD": {
+            "value": 900,
+            "unit": "mm" 
+        },
+        "weight": {
+            "value": 650,
+            "unit": "kg" 
+        },
+        "capacity_weight": {
+            "value": 8000,
+            "unit": "kg" 
+        }
+    },
+    {
+        "id": 2,
+        "name": { 
+            "value": "10_cubic_meter_container", 
+            "unit": "" 
+        },
+        "capacity_volume": {
+            "value": 10,
+            "unit": "m³" 
+        },
+        "length": {
+            "value": 4100,
+            "unit": "mm" 
+        },
+        "width": {
+            "value": 1820,
+            "unit": "mm" 
+        },
+        "heigth": {
+            "value": 1700,
+            "unit": "mm" 
+        },
+        "massD": {
+            "value": 1120,
+            "unit": "mm" 
+        },
+        "weight": {
+            "value": 950,
+            "unit": "kg" 
+        },
+        "capacity_weight": {
+            "value": 10000,
+            "unit": "kg" 
+        }
+    }
+]

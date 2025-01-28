@@ -1,0 +1,7 @@
+{
+    "development_tools": "Entwicklungs Werkzeuge",
+    "test_calculation": "Test Berechnung",
+    "alt_xstate": "XState Logo"  ,  
+    "tooltip_test_calculation": "Erlaubt das activieren/deactivieren der REACT Test Berechnung",    
+    "tooltip_xstate": "Erlaubt das activieren/deactivieren des XState Statemachine inspektors"    
+}
