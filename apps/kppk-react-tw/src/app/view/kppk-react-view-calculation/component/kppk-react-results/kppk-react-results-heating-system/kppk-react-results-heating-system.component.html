@@ -1,0 +1,40 @@
+<!-- <pre>{{ form() | json }}</pre> -->
+<table 
+    class="table-result col-span-6 table"
+    >
+    <thead>
+        <tr>
+            <th colspan="2">
+                <h2>{{ 'calc.heating_system' }}</h2>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ 'calc.heating_system_system_select' }}</td>
+            <td>{{ 'calc.heating_system_' + form().system_select.value  }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'calc.heating_system_system_co2_year' }}</td>
+            <td class="text-right">
+                {{ form().system_co2_year.value  | number:'1.2-2' }}  
+                <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + form().system_co2_year.unit  }}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>{{ 'calc.heating_system_calc_usage' }}</td>
+            <td class="text-right">
+                {{ form().calc_usage.value  | number:'1.2-2' }}  
+                <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + form().calc_usage.unit  }}</span>
+            </td>
+        </tr>
+        <tr class="sum-divider">
+            <td>{{ 'calc.heating_system_system_co2_usage' }}</td>
+            <td class="text-right">
+                {{ form().results.calc_usage_co2.value  | number:'1.2-2' }}  
+                <span class="unit inline-block w-[75px] text-left">{{ 'calc.' + form().results.calc_usage_co2.unit  }}</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

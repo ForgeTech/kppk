@@ -1,0 +1,106 @@
+:host {
+  display: block;
+}
+
+.mat-mdc-tab-body-wrapper {
+  padding-top: 35px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.mat-mdc-tab {
+  background-color: rgb(243, 246, 250);
+  &.mdc-tab--active {
+    background-color: rgb(233, 247, 214);
+    .mdc-tab__text-label {
+      color: black !important;
+    }
+  }
+}
+.table-result {
+  td:nth-child(1) {
+    // background-color: red !important;
+    width: 400px;
+  }
+}
+tr {
+  &.co2_transport {
+    background-color: rgb(239, 239, 240);
+  }
+  &.co2_creation {
+    background-color: rgb(209 213 219);
+  }
+  &.sum-divider {
+    border-top-style: double !important;
+  }
+}
+td {
+  padding-left: 5px;
+}
+
+.absorbing {
+  .table-legend {
+    left: 165px !important;
+  }
+}
+
+.lg {
+  .result-grid {
+    display:grid;
+    // background-color: red;
+    gap: 14px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas: 
+    "sum sum sum cc cc cc"
+    "emi emi emi cc cc cc"
+    "emi emi emi cv cv cv"
+    "emi emi emi dd dd dd"
+    "abs abs abs ep ep ep"
+    "abs abs abs hs hs hs"
+    "pca pca pca ph ph ph"
+    "op  op  op ph ph ph"
+  }
+}
+.result-grid {
+  display:flex;
+  flex-direction: column;
+  // background-color: red;
+  gap: 14px;
+}
+
+.absorbing {
+  grid-area: abs;
+}
+.emitting {
+  grid-area: emi;
+}
+kppk-react-results-pie-chart-co2-phases {
+  grid-area: ph;
+}
+
+kppk-react-results-pie-chart-absorbing-emitting {
+  grid-area: pca;
+}
+kppk-react-results-material-sums {
+  grid-area: sum;
+}
+
+kppk-react-results-construction-site {
+  grid-area: cc;
+}
+
+kppk-react-results-container-village {
+  grid-area: cv;
+}
+kppk-react-results-demolish-disposal {
+  grid-area: dd;
+}
+kppk-react-results-excavation-pit {
+  grid-area: ep;
+}
+kppk-react-results-heating-system {
+  grid-area: hs
+}
+kppk-react-results-pie-chart-transport-creation-operation {
+  grid-area: op
+}

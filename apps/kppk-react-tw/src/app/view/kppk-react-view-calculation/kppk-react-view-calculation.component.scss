@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+.table tr, .table td {
+  border: 1px black solid;
+}
+
+.table-legend {
+  tr, td {
+    border: none;
+  }
+
+}
+
+.mat-step-label {
+  width: 100%;
+}
+
+
+.error {
+  border: 2px dotted red;
+}
+
+.mat-step-icon {
+  background-color: white !important;
+  border: 1px solid #8f8f8f !important;
+  .mat-icon {
+    color: #afc44e !important
+  }
+}
+
+.mat-stepper-calculation > div > .mat-step-header > .mat-step-icon {
+  .mat-step-icon-content {
+    transform: scale(2.5) translate(-15%, -20%) !important;
+  }
+}
+
+// .mat-vertical-content {
+//   padding: 0 0 24px 0 !important;
+
+// }
+
+// .cdk-virtual-scroll-viewport {
+//   .unit-kg .field {
+//     width: 120px;
+//     background-color: red !important;
+//   }
+// }
+
+// .energy-year-usage {
+//   .unit-kWh {
+//     .field {
+//       // background-color: blue;
+//       width: 120px !important;
+//       [type="number"] {
+//         // background-color: yellow;
+//         padding-right: 20px;
+//         text-align: right;
+//       }
+//     }
+//   }
+// }
+

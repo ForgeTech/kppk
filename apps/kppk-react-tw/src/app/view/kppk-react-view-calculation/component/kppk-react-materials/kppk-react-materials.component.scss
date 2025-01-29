@@ -1,0 +1,61 @@
+:host {
+  display: block;
+}
+.virtual-scroll-container {
+  height: 500px;
+  border: 2px double black;
+}
+.virtual-scroll-item {
+  height: 40px;
+  &.invalid {
+    // background-color: lime !important;
+    height: 62px;
+  }
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid grey;
+}
+
+cdk-virtual-scroll-viewport {
+  // background-color: rgb(156, 156, 156);
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important
+  }
+
+  input[type="number"] {
+    width: 100px !important;
+    text-align: right;
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Firefox */
+    -moz-appearance: textfield;
+  }
+  .unit-tooltip-wrapper {
+    background-color: white;
+  }
+  .unit-tooltip-wrapper.editable {
+    background-color: rgb(233, 247, 214);
+  }
+  // .unit-tooltip-wrapper.readonly {
+    // background-color: rgb(156, 156, 156);
+  // }
+  // .unit-tooltip-wrapper.disabled {
+  //   // background-color: rgb(156, 156, 156);
+  //   opacity: 0.5;
+  // }
+
+  .invalid {
+    .unit-tooltip-wrapper,
+    .unit-tooltip-wrapper.readonly,
+    .unit-tooltip-wrapper.disabled {
+      background-color: transparent;
+    }
+  }
+  // input[readonly="true"] {
+  // }
+}
