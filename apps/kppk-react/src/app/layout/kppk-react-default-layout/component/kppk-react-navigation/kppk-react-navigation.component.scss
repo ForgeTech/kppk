@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+.main-navigation {
+  mat-list-item:not(.pwa-install-item) {
+    .mat-mdc-outlined-button {
+      border: none;
+    }
+    .mdc-button__label,
+    .fg-language-switch-lang-name {
+      font-family: 'Aoki' 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
+      font-size: 16px !important;
+      color: black;
+    }
+  }
+}

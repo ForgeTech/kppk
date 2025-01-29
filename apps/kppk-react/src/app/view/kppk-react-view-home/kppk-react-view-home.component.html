@@ -1,0 +1,84 @@
+@let t = kppk_react_home_translationsS();
+<!-- <fg-layout-default> -->
+<mat-card class="h-full min-h-full">
+  <mat-card-header>
+    <h1 class="!mx-auto">{{ t?.headline_welcome }}</h1>
+  </mat-card-header>
+  <div class="flex h-full flex-col items-center justify-center">
+    <img
+      class="m-6 mr-[16px] aspect-auto h-24"
+      alt="R.E.A.C.T. Reduction Analysis Tool Logo"
+      src="./images/react/react-logo.png"
+    />
+    <div class="flex w-full min-w-[24px] max-w-4xl flex-col px-6">
+      <p class="text-justify text-base">{{ t?.text_welcome }}</p>
+    </div>
+    <div class="relative flex w-full flex-row justify-center">
+      <button
+        class="m-8 !min-w-[240px]"
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        (click)="open_start_calc_modal($event)"
+      >
+        <mat-icon class="right-4">add</mat-icon>
+        {{ t?.calculation_start }}
+      </button>
+    </div>
+  </div>
+  <mat-card-footer>
+    <div
+      footer
+      class="mat-primary-bg flex min-h-8 w-full flex-row items-center justify-center"
+    >
+      <div class="grid grid-cols-3 gap-6 p-6 lg:grid-cols-6">
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_material }}"
+            src="./images/react/material.png"
+          />
+        </div>
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_construction_site }}"
+            src="./images/react/construction_site.png"
+          />
+        </div>
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_container_village }}"
+            src="./images/react/container_village.png"
+          />
+        </div>
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_demolish_disposal }}"
+            src="./images/react/demolish_disposal.png"
+          />
+        </div>
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_excavation_pit }}"
+            src="./images/react/excavation_pit.png"
+          />
+        </div>
+        <div class="">
+          <img
+            class="w-32"
+            alt="{{ t?.alt_pictogram_heating_system }}"
+            src="./images/react/heating_system.png"
+          />
+        </div>
+      </div>
+    </div>
+  </mat-card-footer>
+</mat-card>
+
+<!-- </div> -->
+
+<!-- </fg-layout-default> -->

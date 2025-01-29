@@ -1,0 +1,140 @@
+<!-- <pre>{{ form() | json }}</pre> -->
+<table class="table-result table">
+  <thead>
+    <tr>
+      <th colspan="2">
+        <h2>{{ 'calc.construction_site' }}</h2>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- <tr>
+            <td>{{ 'calc.building_type') }}</td>
+            <td>{{ 'calc.' + form().building_type.value ) }}</td>
+        </tr> -->
+    <tr>
+      <th colspan="2">{{ 'calc.energy_usage_headline' }}</th>
+    </tr>
+    <tr>
+      <td>{{ 'calc.energy_usage_power_type' }}</td>
+      <td>
+        {{
+          'calc.' + form().energy_usage_settings.energy_usage_power_type.value
+        }}
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.power_usage' }}</td>
+      <td class="text-right">
+        {{ form().results.power_supply.energy_usage.value | number : '1.2-2' }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.power_supply.energy_usage.unit
+        }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.power_co2' }}</td>
+      <td class="text-right">
+        {{ form().results.co2_power_supply.value | number : '1.2-2' }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.co2_power_supply.unit
+        }}</span>
+      </td>
+    </tr>
+
+    <tr>
+      <th colspan="2">{{ 'calc.heating_supply' }}</th>
+    </tr>
+    <tr>
+      <td>{{ 'calc.energy_usage_power_type' }}</td>
+      <td>
+        {{
+          'calc.' + form().heating_supply_settings.energy_usage_power_type.value
+        }}
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.power_usage' }}</td>
+      <td class="text-right">
+        {{
+          form().results.heating_supply.energy_usage.value | number : '1.2-2'
+        }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.heating_supply.energy_usage.unit
+        }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.power_co2' }}</td>
+      <td class="text-right">
+        {{
+          form().results.heating_supply.co2_energy_usage.value
+            | number : '1.2-2'
+        }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.heating_supply.co2_energy_usage.unit
+        }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.fuel_oil_usage' }}</td>
+      <td class="text-right">
+        {{
+          form().results.heating_supply.fuel_oil_usage.value | number : '1.2-2'
+        }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.heating_supply.fuel_oil_usage.unit
+        }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.oil_co2' }}</td>
+      <td class="text-right">
+        {{
+          form().results.heating_supply.co2_fuel_oil_usage.value
+            | number : '1.2-2'
+        }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.heating_supply.co2_fuel_oil_usage.unit
+        }}</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr class="sum-divider">
+      <td>{{ 'calc.power_supply_co2' }}</td>
+      <td class="text-right">
+        {{ form().results.co2_power_supply.value | number : '1.2-2' }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.co2_power_supply.unit
+        }}</span>
+      </td>
+    </tr>
+    <tr>
+      <td>{{ 'calc.heating_supply_co2' }}</td>
+      <td class="text-right">
+        {{ form().results.co2_heating_supply.value | number : '1.2-2' }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.co2_heating_supply.unit
+        }}</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr class="sum-divider">
+      <td>{{ 'calc.sum_co2' }}</td>
+      <td class="text-right">
+        {{ form().results.co2_supply.value | number : '1.2-2' }}
+        <span class="unit inline-block w-[75px] text-left">{{
+          'calc.' + form().results.co2_supply.unit
+        }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

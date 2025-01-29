@@ -1,0 +1,105 @@
+{
+  "error": [],
+  "name": "container_village",
+  "valid": true,
+  "value": {
+    "container": {
+      "first_aid": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      },
+      "meeting": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      },
+      "office": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      },
+      "repository": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      },
+      "residency": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      },
+      "sanitary": {
+        "amount": {
+          "edited": false,
+          "type": "number",
+          "unit": "pieces",
+          "value": 0
+        },
+        "usage": {
+          "edited": false,
+          "type": "number",
+          "unit": "month",
+          "value": 18
+        }
+      }
+    },
+    "setting": {
+      "distance": {
+        "edited": false,
+        "type": "number",
+        "unit": "km",
+        "value": 50
+      },
+      "energy_usage_power_type": {
+        "unit": "",
+        "value": "austria_common_energy_mix"
+      }
+    }
+  }
+}

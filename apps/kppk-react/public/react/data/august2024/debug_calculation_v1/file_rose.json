@@ -1,0 +1,17 @@
+{
+  "gas": {
+    "value": 285
+  },
+  "air_water": {
+    "value": 152
+  },
+  "geothermal": {
+    "value": 146
+  },
+  "district": {
+    "value": 277
+  },
+  "pellets": {
+    "value": 130
+  }
+}

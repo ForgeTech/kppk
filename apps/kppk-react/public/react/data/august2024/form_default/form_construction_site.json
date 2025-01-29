@@ -1,0 +1,17 @@
+{
+  "energy_usage_settings": {
+    "energy_usage_build_type": "building_construction",
+    "energy_usage_calculation_type": "estimate",
+    "energy_usage_power_type": "austria_green_power_mix"
+  },
+  "energy_usage_values": {
+    "building_floor_count": 20,
+    "operation_period": 15
+  },
+  "heating_supply": {
+    "building_floor_count": 20,
+    "calculation_type": "estimate",
+    "fuel_oil_usage": 0,
+    "operation_period": 15
+  }
+}

@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+@use './styles/body-height-fix.scss' as body_height_fix;
+@use './styles/ff-wk-hide-input-number-stepper.scss' as
+  ff_wk_hide_input_number_stepper;
+@use './styles/kppk-fonts.scss' as kppk_fonts;
+@use './styles/mat-light-theme.scss' as mat_light_theme;
+@use './styles/mat-form-field-overrides.scss' as mat_form_field_override;
+@use 'material-icons/iconfont/material-icons.css' as material_icons;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

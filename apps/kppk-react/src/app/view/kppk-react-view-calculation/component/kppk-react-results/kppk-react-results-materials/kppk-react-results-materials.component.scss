@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+.graph-materials {
+  ngx-charts-bar-horizontal-2d {
+    position: relative;
+  }
+}
+.table-materials {
+  margin-bottom: 30px;
+  th {
+    .content {
+      text-align: center;
+    }
+  }
+  td {
+    vertical-align: middle;
+    &.id {
+      width: 25px;
+      .content {
+        text-align: center;
+      }
+    }
+    &.name {
+      max-width: 150px;
+      .content {
+        text-align: left;
+      }
+    }
+    &.co2_transport,
+    &.gwp,
+    &.gwp_oeko {
+      max-width: 150px;
+      .content {
+        text-align: right;
+      }
+    }
+    // &.gwp_oeko_reduction {}
+    // &.gwp_percentage {}
+    // &.gwp_oeko_percentage {}
+    // &.gwp_transport_percentag {}
+    .content {
+      width: 100%;
+      display: inline-block;
+      height: 22px !important;
+      line-height: 26px !important;
+      overflow: hidden !important;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

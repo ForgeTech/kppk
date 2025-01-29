@@ -1,0 +1,273 @@
+<mat-card
+  content
+  class="flex h-full flex-col flex-wrap items-center justify-start !shadow-none"
+>
+  <mat-card-header class="w-full">
+    <h1>{{ 'calc.headline' }}</h1>
+  </mat-card-header>
+
+  <mat-card-content class="w-full !px-0">
+    <div class="w-full max-w-lg p-4">
+      <h2>{{ 'calc.common_headline' }}</h2>
+      <formly-form
+        [form]="form_common"
+        [fields]="fields_common"
+        [model]="form_common_model_s()"
+        (modelChange)="handle_common_form_change_event($event)"
+      />
+    </div>
+
+    <form [formGroup]="form_step_selection">
+      <mat-stepper
+        class="mat-stepper-calculation"
+        orientation="vertical"
+        [selectedIndex]="0"
+      >
+        <ng-template #step_icons let-index="index">
+          @if(index === 0) {
+          <img class="w-8" alt="" src="./images/react/material_border.png" />
+          } @if(index === 1) {
+          <img
+            class="w-8"
+            alt=""
+            src="./images/react/construction_site_border.png"
+          />
+          } @if(index === 2) {
+          <img
+            class="w-8"
+            alt=""
+            src="./images/react/container_village_border.png"
+          />
+          } @if(index === 3) {
+          <img
+            class="w-8"
+            alt=""
+            src="./images/react/demolish_disposal_border.png"
+          />
+          } @if(index === 4) {
+          <img
+            class="w-8"
+            alt=""
+            src="./images/react/excavation_pit_border.png"
+          />
+          } @if(index === 5) {
+          <img
+            class="w-8"
+            alt=""
+            src="./images/react/heating_system_border.png"
+          />
+          } @if(index === 6) {
+          <img class="w-8" alt="" src="./images/react/co2_border.png" />
+          }
+        </ng-template>
+        <ng-template matStepperIcon="number" let-index="index">
+          <ng-container
+            *ngTemplateOutlet="step_icons; context: { index }"
+          ></ng-container>
+        </ng-template>
+        <ng-template matStepperIcon="edit" let-index="index">
+          <ng-container
+            *ngTemplateOutlet="step_icons; context: { index }"
+          ></ng-container>
+        </ng-template>
+        <ng-template matStepperIcon="done" let-index="index">
+          <ng-container
+            *ngTemplateOutlet="step_icons; context: { index }"
+          ></ng-container>
+        </ng-template>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.material' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary" 
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="material"
+                >
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <!-- @if( $actor_view_calculation.?.context?.calculation; as transformed_materials_data) { -->
+            @if( $actor_view_calculation.stateS()?.context?.calculation; as
+            transformed_materials_data) {
+            <kppk-react-materials
+              [transformed_materials_data]="transformed_materials_data"
+              [options]="options_s()"
+              (change)="send_event_to_calculation_machine($event)"
+            />
+            }
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.construction_site' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary" 
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="construction_site"
+                >
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <!-- <pre>{{ form_construction_site_model_s()?.energy_usage_settings | json }}</pre>
+                <pre>{{ form_construction_site_model_s()?.heating_supply_settings | json }}</pre> -->
+            <form [formGroup]="form_construction_site">
+              <formly-form
+                [form]="form_construction_site"
+                [fields]="fields_construction_site"
+                [model]="form_construction_site_model_s()"
+                (modelChange)="
+                  handle_construction_site_form_change_event($event)
+                "
+              />
+            </form>
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.container_village' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary" 
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="container_village"
+                >
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <form [formGroup]="form_container_village">
+              <formly-form
+                [form]="form_container_village"
+                [fields]="fields_container_village"
+                [model]="form_container_village_model_s()"
+                (modelChange)="
+                  handle_container_village_form_change_event($event)
+                "
+              />
+            </form>
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.demolish_disposal' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary" 
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="material"
+                >
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <form [formGroup]="form_demolish_disposal">
+              <formly-form
+                [form]="form_demolish_disposal"
+                [fields]="fields_demolish_disposal"
+                [model]="form_demolish_disposal_model_s()"
+                (modelChange)="
+                  handle_demolish_disposal_form_change_event($event)
+                "
+              />
+            </form>
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.excavation_pit' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary"
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="excavation_pit">
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <form [formGroup]="form_excavation_pit">
+              <formly-form
+                [form]="form_excavation_pit"
+                [fields]="fields_excavation_pit"
+                [model]="form_excavation_pit_model_s()"
+                (modelChange)="handle_excavation_pit_form_change_event($event)"
+              />
+            </form>
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.heating_system' }}</h2>
+              <div class="flex-auto"></div>
+              <!-- <mat-checkbox
+                    color="primary" 
+                    [checked]="form_step_selection_s()" 
+                    (change)="handle_form_step_selection_change_event($event)"
+                    formControlName="heating_system"
+                >
+                    {{ 'calc.use_in_calculation' }}
+                </mat-checkbox> -->
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            <form [formGroup]="form_heating_system">
+              <formly-form
+                [form]="form_heating_system"
+                [fields]="fields_heating_system"
+                [model]="form_heating_system_model_s()"
+                (modelChange)="handle_heating_system_form_change_event($event)"
+              />
+            </form>
+          </ng-template>
+        </mat-step>
+
+        <mat-step [editable]="true" [completed]="true">
+          <ng-template matStepLabel>
+            <div class="flex w-full flex-row items-center justify-start gap-6">
+              <h2 class="!mb-0">{{ 'calc.calculation_result' }}</h2>
+            </div>
+          </ng-template>
+          <ng-template matStepContent>
+            @if( this.results_s(); as results ) {
+            <fg-react-demo-kppk-react-results [results]="results" />
+            }
+            <!-- INSERT CALCULATION RESULT -->
+            <!-- <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_concrete | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_material | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_window | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_construction_site | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_container_village | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_demolish_disposal | json }}</pre>
+                <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_excavation_pit | json }}</pre> -->
+            <!-- <pre>{{this.state_react_view_calculation_s()?.context?.calculation?.form_heating_system | json }}</pre> -->
+          </ng-template>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </mat-card-content>
+</mat-card>

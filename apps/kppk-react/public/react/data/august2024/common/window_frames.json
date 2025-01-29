@@ -1,0 +1,40 @@
+[
+  {
+    "id": 0,
+    "name": {
+      "value": "Holz-Alurahmen",
+      "unit": ""
+    },
+    "area_based_mass": {
+      "value": 47.7,
+      "unit": "kg/m2"
+    },
+    "depth": {
+      "value": 0.106,
+      "unit": "m"
+    },
+    "density": {
+      "value": 450,
+      "unit": "kg/m3"
+    }
+  },
+  {
+    "id": 1,
+    "name": {
+      "value": "Holz-Alurahmen(2)",
+      "unit": ""
+    },
+    "area_based_mass": {
+      "value": 667,
+      "unit": "kg/m2"
+    },
+    "depth": {
+      "value": 667,
+      "unit": "m"
+    },
+    "density": {
+      "value": 667,
+      "unit": "kg/m3"
+    }
+  }
+]

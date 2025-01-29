@@ -1,0 +1,57 @@
+[
+  {
+    "id": 0,
+    "material": {
+      "value": "concrete",
+      "unit": ""
+    },
+    "co2_equ": {
+      "value": 0.224,
+      "unit": "kgCo2/kg"
+    }
+  },
+  {
+    "id": 1,
+    "material": {
+      "value": "fuel_oil",
+      "unit": ""
+    },
+    "co2_equ": {
+      "value": 3.31,
+      "unit": "kgCo2/l"
+    }
+  },
+  {
+    "id": 2,
+    "material": {
+      "value": "austria_common_energy_mix",
+      "unit": ""
+    },
+    "co2_equ": {
+      "value": 0.226,
+      "unit": "kgCo2/kWh"
+    }
+  },
+  {
+    "id": 3,
+    "material": {
+      "value": "austria_green_power_mix",
+      "unit": ""
+    },
+    "co2_equ": {
+      "value": 0.1,
+      "unit": "kgCo2/kWh"
+    }
+  },
+  {
+    "id": 4,
+    "material": {
+      "value": "steel",
+      "unit": ""
+    },
+    "co2_equ": {
+      "value": 0.192,
+      "unit": "kgCo2/kg"
+    }
+  }
+]

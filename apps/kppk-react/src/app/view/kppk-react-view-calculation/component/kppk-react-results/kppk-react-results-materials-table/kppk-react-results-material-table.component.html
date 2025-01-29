@@ -1,0 +1,68 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th colspan="5">
+        <ng-content></ng-content>
+      </th>
+    </tr>
+    <tr>
+      <th class="id text-center"></th>
+      <th class="name text-center">
+        <span class="content">{{ 'calc.name' }}</span>
+      </th>
+      <th class="co2_transport text-center">
+        <span class="content">{{ 'calc.co2_transport' }}</span>
+      </th>
+      <th class="gwp text-center">
+        <span class="content">{{ 'calc.gwp' }}</span>
+      </th>
+      <th class="gwp_oeko text-center">
+        <span class="content">{{ 'calc.gwp_oeko' }}</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @for ( row of rows_s(); track idx; let idx = $index) {
+    <tr
+      [ngClass]="{
+        'bg-lime-100': row.gwp.value < 0,
+        'bg-yellow-100': row.gwp.value >= 0 && row.gwp.value <= 5,
+        'bg-red-100': row.gwp.value > 5
+      }"
+    >
+      <td class="id">
+        <span class="content">{{ idx + 1 }}</span>
+      </td>
+      <td class="name text-left">
+        <span class="content"> {{ row.name.value }} </span>
+      </td>
+      <td class="co2_transport text-right">
+        <span class="content">
+          {{ row.co2_transport.value | number : '1.2-2' }}
+          <span class="unit">{{ 'calc.' + row.co2_transport.unit }}</span>
+        </span>
+      </td>
+      <td class="gwp text-right">
+        <span class="content">
+          {{ row.gwp.value | number : '1.2-2' }}
+          <span class="unit">{{ 'calc.' + row.gwp.unit }}</span>
+        </span>
+      </td>
+      @if(row.gwp_oeko.type === 'number') {
+      <td class="gwp_oeko text-right">
+        <span class="content">
+          {{ row.gwp_oeko.value | number : '1.2-2' }}
+          <span class="unit">{{ 'calc.' + row.gwp_oeko.unit }}</span>
+        </span>
+      </td>
+      } @else {
+      <td class="gwp_oeko text-rignt">
+        <span class="content">
+          {{ row.gwp_oeko.value }} <span class="unit"></span
+        ></span>
+      </td>
+      }
+    </tr>
+    }
+  </tbody>
+</table>

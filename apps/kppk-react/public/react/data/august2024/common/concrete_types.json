@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "name": {
+      "value": "Öko Beton",
+      "unit": ""
+    },
+    "gwp": {
+      "value": 0.0987,
+      "unit": "kgCo2/kg"
+    }
+  },
+  {
+    "id": 1,
+    "name": {
+      "value": "Öko Beton 2",
+      "unit": ""
+    },
+    "gwp": {
+      "value": 668,
+      "unit": "kgCo2/kg"
+    }
+  }
+]
