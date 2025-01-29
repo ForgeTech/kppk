@@ -1,9 +1,0 @@
-{
-  "name": "kppk-react-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "sourceRoot": "apps/kppk-react-e2e/src",
-  "implicitDependencies": ["kppk-react"],
-  "// targets": "to see all targets run: nx show project kppk-react-e2e --web",
-  "targets": {}
-}
