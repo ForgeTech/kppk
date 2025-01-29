@@ -1,0 +1,194 @@
+[
+    {
+        "id": 0,
+        "name": { 
+            "value": "3-Achsen Betonmischer: Scania - G 450 Betonmischer", 
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 16800,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 7,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 2400,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 22.45,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 594.92,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.0354122,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["concrete"]
+    },
+    {
+        "id": 1,
+        "name": { 
+            "value": "3-Achsen Aushub-LKW-Transporter", 
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 28000,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 15.385,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 1819.95,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 35,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 927.50,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.033125,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["excavation"]
+    },
+    {
+        "id": 2,
+        "name": { 
+            "value": "3-Achsen Aushub-LKW-Transporter (10 Mulde)", 
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 28000,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 10,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 1819.95,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 35,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 927.50,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.033125,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["demolish_disposal", "10_cubic_meter_container"]
+    },
+    {
+        "id": 3,
+        "name": { 
+            "value": "3-Achsen Aushub-LKW-Transporter (Abrollcontainer)", 
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 28000,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 40,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 1819.95,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 35,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 927.50,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.033125,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["demolish_disposal", "roll_off_container"]
+    },
+    {
+        "id": 4,
+        "name": { 
+            "value": "3-Achsen Aushub-LKW-Transporter", 
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 28000,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 15.385,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 1819.95,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 35,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 927.50,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.033125,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["excavation"]
+    },
+    {
+        "id": 5,
+        "name": { 
+            "value": "3-Achsen LKW-Transporter",
+            "unit": ""
+        },
+        "capacity_weight": {
+            "value": 10000,
+            "unit": "kg"
+        },
+        "capacity_volume": {
+            "value": 90,
+            "unit": "m3"
+        },
+        "max_density": {
+            "value": 111.111111,
+            "unit": "kg/m3"
+        },
+        "consumption": {
+            "value": 35,
+            "unit": "l/100km"
+        },
+        "co2_consumption": {
+            "value": 927.50,
+            "unit": "gCo2/km"
+        },
+        "co2_consumption_weight": {
+            "value": 0.09275,
+            "unit": "gCo2/km*kg"
+        },
+        "category": ["common"]
+    }
+]

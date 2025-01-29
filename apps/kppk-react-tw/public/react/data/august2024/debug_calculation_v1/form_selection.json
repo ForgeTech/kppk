@@ -1,0 +1,8 @@
+{
+    "construction_site": true,
+    "container_village": true,
+    "demolish_disposal": true,
+    "excavation_pit": true,
+    "parts": true,
+    "rose": true
+}

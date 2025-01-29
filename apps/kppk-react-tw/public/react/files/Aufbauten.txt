@@ -1,0 +1,392 @@
+AW	AW01	ZMW + Dämmung	U-Wert vorh.:	0,130	U-Wert erf.:	0,350	Flächenbezogene Masse:	256,60
+		
+	1	Lattung, Lärche vertikal 	0,030	0,130	15,75	0,0000	0,000	
+	2	Lattung/Luftschicht	0,030	0,176	0,03	0,0000	0,000	
+	3.0	Konterlattung	0,030	0,120	14,25	0,7000	0,050	V
+	3.1	Luftschicht	0,030	0,176	0,03	0,0000	0,000	
+	4	Winddichtbahn (z.B. ISOCELL OMEGA SKIN)	0,0001	0,500	0,03	0,0000	0,000	
+	5.0	UK Holz	0,120	0,120	57,00	0,7000	0,050	H
+	5.1	MW Dämmstoff (z.B. ISOVER MULTI KOMBI PH- KLEMMFILZ ?=0,033 W/mK)	0,120	0,033	2,46	0,0000	0,000	
+	6.0	UK Holz	0,120	0,120	57,00	0,7000	0,050	V
+	6.1	MW Dämmstoff (z.B. ISOVER MULTI KOMBI PH- KLEMMFILZ ?=0,033 W/mK)	0,120	0,033	2,46	0,0000	0,000	
+	7	Ziegelwand (z.B.: POROTHERM 25-38 Plan)	0,250	0,237	200,00	0,0000	0,000	
+	8	Innenputz (Kalk-Zement) R = 1800	0,015	1,050	27,00	0,0000	0,000	
+
+FM	AW02	Außenwand Feuermauer	U-Wert vorh.:	0,138	U-Wert erf.:	0,000	Flächenbezogene Masse:	258,44
+		
+	1	Silikatputz	0,0002	0,800	0,36	0,0000	0,000	
+	2	Silikatputz armiert	0,005	0,800	9,00	0,0000	0,000	
+	3	Hanffaserdämmplatte (z.B. Synthesa Capatect NAPOROwall)	0,240	0,040	22,08	0,0000	0,000	
+	4	Ziegelwand (z.B.: POROTHERM 25-38 Plan)	0,250	0,237	200,00	0,0000	0,000	
+	5	Innenputz 	0,015	1,050	27,00	0,0000	0,000	
+
+FM	AW03	Außenwand Müllraum	U-Wert vorh.:	0,146	U-Wert erf.:	0,000	Flächenbezogene Masse:	258,44
+		
+	1	Silikatputz 	0,0002	0,800	0,36	0,0000	0,000	
+	2	Silikatputz armiert	0,005	0,800	9,00	0,0000	0,000	
+	3	Hanffaserdämmplatte (z.B. Synthesa Capatect NAPOROwall)	0,240	0,043	22,08	0,0000	0,000	
+	4	Ziegelwand (z.B.: POROTHERM 25-38 Plan)	0,250	0,237	200,00	0,0000	0,000	
+	5	Innenputz 	0,015	1,050	27,00	0,0000	0,000	
+
+EWu	AW04	Außenwand Sockelbereich, erdberührt	U-Wert vorh.:	0,113	U-Wert erf.:	0,400	Flächenbezogene Masse:	243,74
+		
+	1	z.B. AUSTROTHERM XPS PLUS 30 SF	0,240	0,032	7,20	0,0000	0,000	
+	2	Kleber/Ausgleichsschicht	0,003	0,035	0,00	0,0000	0,000	
+	3	Polymerbitumen-Dichtungsbahn	0,0039	0,230	4,29	0,0000	0,000	
+	4	Bitumenanstrich	0,005	0,230	5,25	0,0000	0,000	
+	5	POROTHERM 25-38 Plan	0,250	0,237	200,00	0,0000	0,000	
+	6	Innenputz (Kalk-Zement) R = 1800	0,015	1,050	27,00	0,0000	0,000	
+
+AW	AW05	BSH + Dämmung	U-Wert vorh.:	0,131	U-Wert erf.:	0,350	Flächenbezogene Masse:	113,60
+		Anfrage Wechsel MWK zu BSP
+	1	Lattung, Lärche vertikal 	0,030	0,130	15,75	0,0000	0,000	
+	2	Lattung/Luftschicht	0,030	0,176	0,03	0,0000	0,000	
+	3.0	Konterlattung	0,030	0,120	14,25	0,7000	0,050	V
+	3.1	Luftschicht	0,030	0,176	0,03	0,0000	0,000	
+	4	Winddichtbahn (z.B. ISOCELL OMEGA SKIN)	0,0001	0,500	0,03	0,0000	0,000	
+	5.0	UK Holz	0,120	0,120	57,00	0,7000	0,050	H
+	5.1	MW Dämmstoff (z.B. ISOVER MULTI KOMBI PH- KLEMMFILZ ?=0,033 W/mK)	0,120	0,033	2,46	0,0000	0,000	
+	6.0	UK Holz	0,120	0,120	57,00	0,7000	0,050	V
+	6.1	MW Dämmstoff (z.B. ISOVER MULTI KOMBI PH- KLEMMFILZ ?=0,033 W/mK)	0,120	0,033	2,46	0,0000	0,000	
+	7	Brettsperrholzplatte z.B. KLH	0,120	0,120	57,00	0,0000	0,000	
+	8	Innenputz (Kalk-Zement) R = 1800	0,015	1,050	27,00	0,0000	0,000	
+
+ADh	DA01	Schrägdach 37 Grad Straßenseite	U-Wert vorh.:	0,098	U-Wert erf.:	0,200	Flächenbezogene Masse:	99,50
+		
+	1	Dacheindeckung (Eternit Planum)	0,015	1,700	32,25	0,0000	0,000	
+	2.0	Lattung	0,030	0,120	14,25	0,8000	0,050	H
+	2.1	Luftschicht 	0,030	0,176	0,03	0,0000	0,000	
+	3.0	Konterlattung	0,050	0,120	23,75	0,5000	0,050	V
+	3.1	Luftschicht 	0,050	0,176	0,06	0,0000	0,000	
+	4	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	5	Holzfaser WF-WD (250 kg/m³)	0,020	0,057	5,00	0,0000	0,000	
+	6.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	6.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	7.0	Steg: Holzhartfaserplatten (1000 kg/m³)	0,322	0,220	322,00	0,8000	0,007	V
+	7.1	Zellulose-Einblasdämmung 	0,322	0,040	16,10	0,0000	0,000	
+	8.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	8.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	9	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	10.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	10.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	11	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	12	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+ADh	DA02	Schrägdach 	U-Wert vorh.:	0,098	U-Wert erf.:	0,200	Flächenbezogene Masse:	78,40
+		
+	1	EPDM 	0,0015	0,170	1,80	0,0000	0,000	
+	2	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	3.0	Konterlattung	0,060	0,120	28,50	0,5000	0,050	V
+	3.1	Hinterlüftung	0,060	0,176	0,07	0,0000	0,000	
+	4	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	5	Holzfaser WF-WD (250 kg/m³)	0,020	0,057	5,00	0,0000	0,000	
+	6.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	6.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	7.0	Steg: Holzhartfaserplatten (1000 kg/m³)	0,322	0,220	322,00	0,8000	0,007	V
+	7.1	Zellulose-Einblasdämmung 	0,322	0,040	16,10	0,0000	0,000	
+	8.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	8.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	9	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	10.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	10.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	11	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	12	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+ADh	DA02a	Schrägdach Prefa Dach	U-Wert vorh.:	0,097	U-Wert erf.:	0,200	Flächenbezogene Masse:	82,00
+		
+	1	PREFA Dachplatte, -Dachschindel, -Dachraute	0,001	160,000	2,80	0,0000	0,000	
+	2	Trennlage Wütop Metall SK	0,0088	0,220	2,64	0,0000	0,000	
+	3	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	4.0	Konterlattung	0,060	0,120	28,50	0,5000	0,050	V
+	4.1	Hinterlüftung	0,060	0,176	0,07	0,0000	0,000	
+	5	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	6	Holzfaser WF-WD (250 kg/m³)	0,020	0,057	5,00	0,0000	0,000	
+	7.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	7.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	8.0	Steg: Holzhartfaserplatten (1000 kg/m³)	0,322	0,220	322,00	0,8000	0,007	V
+	8.1	Zellulose-Einblasdämmung 	0,322	0,040	16,10	0,0000	0,000	
+	9.0	Vollholzgurt: Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrockne	0,039	0,120	18,52	0,8000	0,060	V
+	9.1	Zellulose-Einblasdämmung 	0,039	0,040	1,95	0,0000	0,000	
+	10	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	11.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	11.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	12	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	13	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+ADh	DA02b	Schrägdach Prefa Dach	U-Wert vorh.:	0,095	U-Wert erf.:	0,200	Flächenbezogene Masse:	103,50
+		Leimbinderdach
+	1	PREFA Dachplatte, -Dachschindel, -Dachraute	0,001	160,000	2,80	0,0000	0,000	
+	2	Trennlage Wütop Metall SK	0,0088	0,220	2,64	0,0000	0,000	
+	3	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	4.0	Konterlattung	0,060	0,120	28,50	0,5000	0,050	V
+	4.1	Hinterlüftung	0,060	0,176	0,07	0,0000	0,000	
+	5	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	6	Holzfaser WF-WD (250 kg/m³)	0,020	0,057	5,00	0,0000	0,000	
+	7.0	Holzleimbinder 475 kg/m³	0,480	0,120	228,00	0,9000	0,100	V
+	7.1	Zellulose-Einblasdämmung 	0,480	0,040	24,00	0,0000	0,000	
+	8	OSB-Platten (650 kg/m³; luftdicht verklebt)	0,015	0,130	9,75	0,0000	0,000	
+	9.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	9.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	10	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	11	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+ADh	DA02c	Schrägdach Prefa Dach	U-Wert vorh.:	0,099	U-Wert erf.:	0,200	Flächenbezogene Masse:	94,90
+		Leimbinderdach
+	1	PREFA Dachplatte, -Dachschindel, -Dachraute	0,001	160,000	2,80	0,0000	0,000	
+	2	Trennlage Wütop Metall SK	0,0088	0,220	2,64	0,0000	0,000	
+	3	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	4.0	Konterlattung	0,060	0,120	28,50	0,5000	0,050	V
+	4.1	Hinterlüftung	0,060	0,176	0,07	0,0000	0,000	
+	5	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	6	Holzfaser WF-WD (250 kg/m³)	0,020	0,057	5,00	0,0000	0,000	
+	7.0	Holzleimbinder 475 kg/m³	0,440	0,120	209,00	0,7000	0,060	V
+	7.1	Zellulose-Einblasdämmung 	0,440	0,040	22,00	0,0000	0,000	
+	8	OSB-Platten (650 kg/m³; luftdicht verklebt)	0,015	0,130	9,75	0,0000	0,000	
+	9.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	9.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	10	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	11	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+ADh	DA02d	Schrägdach Prefa Dach	U-Wert vorh.:	0,097	U-Wert erf.:	0,200	Flächenbezogene Masse:	95,30
+		Leimbinderdach
+	1	PREFA Dachplatte, -Dachschindel, -Dachraute	0,001	160,000	2,80	0,0000	0,000	
+	2	Trennlage Wütop Metall SK	0,0088	0,220	2,64	0,0000	0,000	
+	3	OSB-Platten (650 kg/m³)	0,015	0,130	9,75	0,0000	0,000	
+	4.0	Konterlattung	0,060	0,120	28,50	0,5000	0,050	V
+	4.1	Hinterlüftung	0,060	0,176	0,07	0,0000	0,000	
+	5	Unterdeck- und Unterspannbahn (z.B.: Wütop 170 SK)	0,001	0,220	0,30	0,0000	0,000	
+	6	Holzfaserplatte z.B.: STEICO universal	0,024	0,055	6,48	0,0000	0,000	
+	7.0	Holzleimbinder 475 kg/m³	0,440	0,120	209,00	0,7470	0,060	V
+	7.1	Zellulose-Einblasdämmung 	0,440	0,040	22,00	0,0000	0,000	
+	8	OSB-Platten (650 kg/m³; luftdicht verklebt)	0,015	0,130	9,75	0,0000	0,000	
+	9.0	Abhänger	0,045	50,000	351,00	0,6250	0,002	V
+	9.1	Luftschicht 	0,045	0,176	0,05	0,0000	0,000	
+	10	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	11	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+AD	DA03	Flachdach, begrünt	U-Wert vorh.:	0,105	U-Wert erf.:	0,200	Flächenbezogene Masse:	330,80
+		
+	1	Substrat	0,100	2,000	170,00	0,0000	0,000	
+	2	Drainageplatte/-matte (z.B.: Bauder SDF-Matte)	0,020	1,000	0,40	0,0000	0,000	
+	3	Schutzvlies (z.B.: Bauder SV 300 wurzelfest)	0,003	0,500	0,90	0,0000	0,000	
+	4	BauderTHERMOPLAN T 18	0,0018	0,500	2,10	0,0000	0,000	
+	5	Dämmung (z.B.: Steicoroof dry) i.M.	0,360	0,044	50,40	0,0000	0,000	
+	6	Dampfbremse sd?400m (z.B.: Sarnavap 2000 E) 	0,0002	0,350	0,21	0,0000	0,000	
+	7	Massivholzplatte (z.B.: KLH 160_5s_DL)	0,160	0,130	80,00	0,0000	0,000	
+	8.0	Abhänger	0,165	50,000	1.287,00	0,6250	0,002	V
+	8.1	Luftschicht 	0,165	1,056	0,19	0,0000	0,000	
+	9	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	10	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+AD	DA04	Flachdach, begrünt, Eingangsbereich	U-Wert vorh.:	0,095	U-Wert erf.:	0,200	Flächenbezogene Masse:	355,40
+		
+	1	Substrat	0,100	2,000	170,00	0,0000	0,000	
+	2	Drainageplatte/-matte (z.B.: Bauder SDF-Matte)	0,020	1,000	0,40	0,0000	0,000	
+	3	Schutzvlies (z.B.: Bauder SV 300 wurzelfest)	0,003	0,500	0,90	0,0000	0,000	
+	4	BauderTHERMOPLAN T 18	0,0018	0,500	2,10	0,0000	0,000	
+	5	Dämmung (z.B.: Steicoroof dry) i.M.	0,360	0,044	50,40	0,0000	0,000	
+	6	Dampfbremse sd?400m (z.B.: Sarnavap 2000 E) 	0,0002	0,350	0,21	0,0000	0,000	
+	7	Massivholzplatte (z.B.: KLH 200_5s_DL)	0,200	0,130	100,00	0,0000	0,000	
+	8.0	Abhänger	0,315	50,000	2.457,00	0,6250	0,002	V
+	8.1	Luftschicht 	0,265	1,056	0,31	0,0000	0,000	
+	8.2	MW	0,050	0,040	0,75	0,0000	0,000	
+	9	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	10	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+EBu	EB01	Fußboden erdberührend	U-Wert vorh.:	0,095	U-Wert erf.:	0,400	Flächenbezogene Masse:	975,26
+		
+	1	Magerbeton / Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+	2	Vlies PE 2-lagig 3mm	0,003	0,500	0,90	0,0000	0,000	
+	3	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	4	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	5	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	6	WU-Stahlbeton, C25/30	0,250	2,500	600,00	0,0000	0,000	
+	7	Dampfbremse PE flammgeschützt 	0,0004	0,500	0,26	0,0000	0,000	
+	8	Schüttung (Polystyrolschaumstoff-Partikel) gebunden	0,090	0,046	7,20	0,0000	0,000	
+	9	Trittschalldämmung z.B.: Holzfaser WF-T (130 kg/m³)	0,030	0,046	3,90	0,0000	0,000	
+	10	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	11	Estrich (Beton) Fußbodenheizung	0,080	1,100	144,00	0,0000	0,000	
+	12	Bodenbelag (Industrieparkett)	0,016	0,170	11,20	0,0000	0,000	
+
+EBu	EB02	Fußboden erdberührend	U-Wert vorh.:	0,095	U-Wert erf.:	0,400	Flächenbezogene Masse:	971,56
+		
+	1	Magerbeton / Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+	2	Vlies PE 2-lagig 3mm	0,003	0,500	0,90	0,0000	0,000	
+	3	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	4	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	5	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	6	WU-Stahlbeton, C25/30	0,250	2,500	600,00	0,0000	0,000	
+	7	Dampfbremse PE flammgeschützt 	0,0004	0,500	0,26	0,0000	0,000	
+	8	Schüttung (Polystyrolschaumstoff-Partikel) gebunden	0,090	0,046	7,20	0,0000	0,000	
+	9	Trittschalldämmung z.B.: Holzfaser WF-T (130 kg/m³)	0,030	0,046	3,90	0,0000	0,000	
+	10	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	11	Estrich (Beton) Fußbodenheizung	0,080	1,100	144,00	0,0000	0,000	
+	12	Bodenbelag (Enomer-Belag)	0,005	0,230	7,50	0,0000	0,000	
+
+EBu	EB03	Fußboden erdberührend	U-Wert vorh.:	0,095	U-Wert erf.:	0,400	Flächenbezogene Masse:	998,56
+		
+	1	Magerbeton / Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+	2	Vlies PE 2-lagig 3mm	0,003	0,500	0,90	0,0000	0,000	
+	3	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	4	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	5	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	6	WU-Stahlbeton, C25/30	0,250	2,500	600,00	0,0000	0,000	
+	7	Dampfbremse PE flammgeschützt 	0,0004	0,500	0,26	0,0000	0,000	
+	8	Schüttung (Polystyrolschaumstoff-Partikel) gebunden	0,090	0,046	7,20	0,0000	0,000	
+	9	Trittschalldämmung z.B.: Holzfaser WF-T (130 kg/m³)	0,030	0,046	3,90	0,0000	0,000	
+	10	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	11	Estrich (Beton) Fußbodenheizung	0,080	1,100	144,00	0,0000	0,000	
+	12	Bodenbelag (keramischer Belag)	0,015	1,300	34,50	0,0000	0,000	
+
+EBu	EB04	Fußboden erdberührend	U-Wert vorh.:	0,096	U-Wert erf.:	0,400	Flächenbezogene Masse:	964,06
+		
+	1	Magerbeton / Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+	2	Vlies PE 2-lagig 3mm	0,003	0,500	0,90	0,0000	0,000	
+	3	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	4	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	5	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	6	WU-Stahlbeton, C25/30	0,250	2,500	600,00	0,0000	0,000	
+	7	Dampfbremse PE flammgeschützt 	0,0004	0,500	0,26	0,0000	0,000	
+	8	Schüttung (Polystyrolschaumstoff-Partikel) gebunden	0,090	0,046	7,20	0,0000	0,000	
+	9	Trittschalldämmung z.B.: Holzfaser WF-T (130 kg/m³)	0,030	0,046	3,90	0,0000	0,000	
+	10	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	11	Estrich (Beton) Fußbodenheizung	0,080	1,100	144,00	0,0000	0,000	
+	12	Versiegelung	0,000	0,230	0,00	0,0000	0,000	
+
+EBu	EB05	Fußboden erdberührend	U-Wert vorh.:	0,095	U-Wert erf.:	0,400	Flächenbezogene Masse:	967,06
+		
+	1	Magerbeton / Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+	2	Vlies PE 2-lagig 3mm	0,003	0,500	0,90	0,0000	0,000	
+	3	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	4	XPS Dämmung (z.B.: AUSTROTHERM XPS PLUS 30 SF)	0,120	0,032	3,60	0,0000	0,000	
+	5	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	6	WU-Stahlbeton, C25/30	0,250	2,500	600,00	0,0000	0,000	
+	7	Dampfbremse PE flammgeschützt 	0,0004	0,500	0,26	0,0000	0,000	
+	8	Schüttung (Polystyrolschaumstoff-Partikel) gebunden	0,090	0,046	7,20	0,0000	0,000	
+	9	Trittschalldämmung z.B.: Holzfaser WF-T (130 kg/m³)	0,030	0,046	3,90	0,0000	0,000	
+	10	Trennlage (Baupapier 2 Lagig)	0,0006	0,170	0,30	0,0000	0,000	
+	11	Estrich (Beton) Fußbodenheizung	0,080	1,100	144,00	0,0000	0,000	
+	12	Laminatboden DPL (direkt beschichtetes Laminat)	0,005	0,130	3,00	0,0000	0,000	
+
+WBDu	FB01	Fußboden Ruhebereich	U-Wert vorh.:	0,451	U-Wert erf.:	0,900	Flächenbezogene Masse:	168,64
+		
+	1	Bodenbelag (Industrieparkett)	0,016	0,170	11,20	0,0000	0,000	
+	2	Trockenestrich (Fa. Schallfresser)	0,034	0,470	47,60	0,0000	0,000	
+	3	Trittschalldämmung (z.B.: ISOVER Akustic EP 1 20)	0,020	0,031	1,34	0,0000	0,000	
+	4	Vlies PE	0,005	0,500	1,50	0,0000	0,000	
+	5	Schalldämmplatte (z.B.: Schallfresser, Silencium)	0,010	0,470	14,00	0,0000	0,000	
+	6	Massivholzplatte (z.B.: KLH)	0,150	0,130	75,00	0,0000	0,000	
+	7	GK- Trockenputz	0,015	0,700	18,00	0,0000	0,000	
+
+WBDu	FB01a	Fußboden Ruhebereich	U-Wert vorh.:	0,452	U-Wert erf.:	0,900	Flächenbezogene Masse:	170,04
+		
+	1	Bodenbelag (Industrieparkett)	0,016	0,170	11,20	0,0000	0,000	
+	2	Trockenestrich z.B. Schallfresser Silencium Gold 21	0,021	0,470	29,40	0,0000	0,000	
+	3	Faserzementplatten z.B. Cetris Basic	0,014	0,580	19,60	0,0000	0,000	
+	4	Trittschalldämmung (z.B.: ISOVER Akustic EP 1 20)	0,020	0,031	1,34	0,0000	0,000	
+	5	Vlies PE	0,005	0,500	1,50	0,0000	0,000	
+	6	Schalldämmplatte (z.B.: Schallfresser Silencium 10,5)	0,010	0,470	14,00	0,0000	0,000	
+	7	Massivholzplatte (z.B.: KLH)	0,150	0,130	75,00	0,0000	0,000	
+	8	GK- Trockenputz	0,015	0,700	18,00	0,0000	0,000	
+
+WGU	IW01	Massivwand mit GK Vorsatzschale (gegen unbeheizt)	U-Wert vorh.:	0,223	U-Wert erf.:	0,600	Flächenbezogene Masse:	238,00
+		
+	1	1x Hartgipsplatte	0,019	0,250	19,95	0,0000	0,000	
+	2.0	CW 50	0,0575	50,000	448,50	0,6250	0,002	V
+	2.1	Mineralwolle	0,050	0,038	0,90	0,0000	0,000	
+	2.2	Luftschicht senkrecht	0,0075	0,042	0,00	0,0000	0,000	
+	3	Ziegelwand (z.B. POROTHERM 25-38 W.i Objekt Plan)	0,250	0,077	188,75	0,0000	0,000	
+	4	Kalkzementmauermörtel (1800 kg/m³)	0,015	1,050	27,00	0,0000	0,000	
+
+IW	IW02	Massivwand tragend	U-Wert vorh.:	1,387	U-Wert erf.:	0,000	Flächenbezogene Masse:	455,00
+		
+	1	Innenputz	0,015	1,050	27,00	0,0000	0,000	
+	2	Ziegelwand (z.B. POROTHERM 25 SSZ HD)	0,250	0,577	401,00	0,0000	0,000	
+	3	Innenputz	0,015	1,050	27,00	0,0000	0,000	
+
+IW	IW03	Zwischenwand GK	U-Wert vorh.:	0,809	U-Wert erf.:	0,000	Flächenbezogene Masse:	52,10
+		
+	1	Gipskartonplatte GKF	0,0125	0,250	12,50	0,0000	0,000	
+	2	Gipskartonplatte GKF	0,0125	0,250	12,50	0,0000	0,000	
+	3.0	CW 50	0,050	50,000	390,00	0,6250	0,002	V
+	3.1	Mineralwolle	0,050	0,038	0,90	0,0000	0,000	
+	4	Gipskartonplatte GKF	0,0125	0,250	12,50	0,0000	0,000	
+	5	Gipskartonplatte GKF	0,0125	0,250	12,50	0,0000	0,000	
+
+IW	IW04	Zwischenwand GK EI90 (bis 4m Höhe)	U-Wert vorh.:	0,809	U-Wert erf.:	0,000	Flächenbezogene Masse:	41,10
+		
+	1	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	2	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	3.0	CW 50	0,050	50,000	390,00	0,6250	0,002	V
+	3.1	Mineralwolle	0,050	0,038	0,90	0,0000	0,000	
+	4	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	5	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+
+IW	IW05	Schachtwand GK EI90 (bis 4m Höhe)	U-Wert vorh.:	0,843	U-Wert erf.:	0,000	Flächenbezogene Masse:	35,90
+		
+	1	Gipskartonplatte GKF	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskartonplatte GKF	0,0125	0,250	11,25	0,0000	0,000	
+	3	Gipskartonplatte GKF	0,0125	0,250	11,25	0,0000	0,000	
+	4.0	CW 50	0,050	50,000	390,00	0,6250	0,002	V
+	4.1	Mineralwolle	0,050	0,038	0,90	0,0000	0,000	
+
+IW	IW06	Zwischenwand Holzständerwand	U-Wert vorh.:	0,447	U-Wert erf.:	0,000	Flächenbezogene Masse:	50,90
+		
+	1	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	3.0	Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrocknet	0,010	0,120	4,75	0,6250	0,030	V
+	3.1	Glaswolle MW(GW)-W (18 kg/m³)	0,010	0,038	0,18	0,0000	0,000	
+	4.0	Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrocknet	0,080	0,120	38,00	0,8000	0,080	H
+	4.1	Glaswolle MW(GW)-W (18 kg/m³)	0,080	0,038	1,44	0,0000	0,000	
+	5.0	Nutzholz (475 kg/m³ - zB Fichte/Tanne) - rauh, technisch getrocknet	0,010	0,120	4,75	0,6250	0,030	V
+	5.1	Glaswolle MW(GW)-W (18 kg/m³)	0,010	0,038	0,18	0,0000	0,000	
+	6	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+	7	Gipskartonplatte (900 kg/m³)	0,0125	0,250	11,25	0,0000	0,000	
+
+IW	IW06	Zwischenwand Massivholz	U-Wert vorh.:	0,875	U-Wert erf.:	0,000	Flächenbezogene Masse:	58,75
+		
+	1	Gipskartonplatte (bei Feuchtraum GKI)	0,0125	0,250	11,25	0,0000	0,000	
+	2	Massivholzplatte (z.B.: KLH 100_3s_DL	0,100	0,120	47,50	0,0000	0,000	
+
+IW	IW07	Zwischenwand GK (über 4m bis 5,95 Höhe)	U-Wert vorh.:	0,617	U-Wert erf.:	0,000	Flächenbezogene Masse:	42,20
+		
+	1	Gipskartonplatte GKF (bei Feichtraum GKI)	0,0125	0,250	9,75	0,0000	0,000	
+	2	Gipskartonplatte GKF (bei Feichtraum GKI)	0,0125	0,250	9,75	0,0000	0,000	
+	3.0	CW 75	0,075	50,000	585,00	0,6250	0,002	V
+	3.1	Mineralwolle	0,075	0,038	1,35	0,0000	0,000	
+	4	Gipskartonplatte GKF (bei Feichtraum GKI)	0,0125	0,250	9,75	0,0000	0,000	
+	5	Gipskartonplatte GKF (bei Feichtraum GKI)	0,0125	0,250	9,75	0,0000	0,000	
+
+IW	IW08	Zwischenwand GK EI90	U-Wert vorh.:	0,617	U-Wert erf.:	0,000	Flächenbezogene Masse:	42,20
+		
+	1	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	2	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	3.0	CW 75	0,075	50,000	585,00	0,6250	0,002	V
+	3.1	Mineralwolle	0,075	0,038	1,35	0,0000	0,000	
+	4	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	5	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+
+IW	IW09	Zwischenwand Massivholz	U-Wert vorh.:	0,507	U-Wert erf.:	0,000	Flächenbezogene Masse:	69,40
+		
+	1	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	2	Gipskartonplatte GKF	0,0125	0,250	9,75	0,0000	0,000	
+	3.0	CW 50	0,050	50,000	390,00	0,6250	0,002	V
+	3.1	Mineralwolle	0,050	0,038	0,90	0,0000	0,000	
+	4	Hohlraum (Installationsführung)	0,225	1,563	0,27	0,0000	0,000	
+	5	Massivholzplatte (z.B.: KLH 100_3s_DL)	0,100	0,120	47,50	0,0000	0,000	
+
+IW	xxxx	Ersatzbauteil für Innenverglasung	U-Wert vorh.:	3,846	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		Ersatz für resRW für DnTw Berechnung von Zwiaschenwänden
+
+IW	xxxx	Ersatzbauteil für Innenverglasung	U-Wert vorh.:	3,846	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		Ersatz für resRW für DnTw Berechnung von Zwiaschenwänden
+
+IW	xxxx	Ersatzbauteil Trennwand Gangbereich - Gruppenr. 2	U-Wert vorh.:	1,387	U-Wert erf.:	0,000	Flächenbezogene Masse:	455,00
+		Ersatzbauteil
+	1	Kalkzementmauermörtel (1800 kg/m³)	0,015	1,050	27,00	0,0000	0,000	
+	2	POROTHERM 25 SSZ HD	0,250	0,577	401,00	0,0000	0,000	
+	3	Kalkzementmauermörtel (1800 kg/m³)	0,015	1,050	27,00	0,0000	0,000	
+
+IW	xxxx	Ersatzbauteil Trennwand Gruppenr. 2 - Sanitärbereich	U-Wert vorh.:	3,846	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		Ersatzbauteil
+

@@ -1,0 +1,562 @@
+[
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 441.22
+        },
+        "floor": { 
+            "value": 1, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 52.128
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 1290.08855
+        },
+        "floor": { 
+            "value": 2, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 232.1939551
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 2416.524377
+        },
+        "floor": { 
+            "value": 3, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 556.3688296
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 3772.105674
+        },
+        "floor": { 
+            "value": 4, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 1034.262446
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 5328.326881
+        },
+        "floor": { 
+            "value": 5, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 1672.981798
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 7065.705154
+        },
+        "floor": { 
+            "value": 6, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 2478.235863
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 8969.79353
+        },
+        "floor": { 
+            "value": 7, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 3454.827425
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 11029.30588
+        },
+        "floor": { 
+            "value": 8, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 4606.919277
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 13235.09828
+        },
+        "floor": { 
+            "value": 9, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 5938.195875
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 15579.56008
+        },
+        "floor": { 
+            "value": 10, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 7451.969396
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 18056.22374
+        },
+        "floor": { 
+            "value": 11, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 9151.253326
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 20659.50164
+        },
+        "floor": { 
+            "value": 12, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 11038.81574
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 23384.50091
+        },
+        "floor": { 
+            "value": 13, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 13117.21918
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 26226.88891
+        },
+        "floor": { 
+            "value": 14, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 15388.85137
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 29182.7927
+        },
+        "floor": { 
+            "value": 15, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 17855.9493
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 32248.72222
+        },
+        "floor": { 
+            "value": 16, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 20520.61863
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 35421.51038
+        },
+        "floor": { 
+            "value": 17, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 23384.84943
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 38698.26559
+        },
+        "floor": { 
+            "value": 18, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 26450.52921
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 42076.33355
+        },
+        "floor": { 
+            "value": 19, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 29719.4538
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 45553.26609
+        },
+        "floor": { 
+            "value": 20, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 33193.33655
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 49126.79552
+        },
+        "floor": { 
+            "value": 21, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 36873.8162
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 52794.81324
+        },
+        "floor": { 
+            "value": 22, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 40762.46363
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 56555.35172
+        },
+        "floor": { 
+            "value": 23, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 44860.78768
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 60406.5693
+        },
+        "floor": { 
+            "value": 24, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 49170.2403
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 64346.73712
+        },
+        "floor": { 
+            "value": 25, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 53692.22103
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 68374.22796
+        },
+        "floor": { 
+            "value": 26, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 58428.08093
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 72487.50652
+        },
+        "floor": { 
+            "value": 27, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 63379.12617
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 76685.12097
+        },
+        "floor": { 
+            "value": 28, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 68546.6211
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 80965.69557
+        },
+        "floor": { 
+            "value": 29, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 73931.7911
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 85327.92419
+        },
+        "floor": { 
+            "value": 30, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 79535.8251
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 89770.56451
+        },
+        "floor": { 
+            "value": 31, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 85359.8779
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 94292.43297
+        },
+        "floor": { 
+            "value": 32, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 91405.07217
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 98892.40023
+        },
+        "floor": { 
+            "value": 33, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 97672.50043
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 103569.387
+        },
+        "floor": { 
+            "value": 34, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 104163.2267
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 108322.3607
+        },
+        "floor": { 
+            "value": 35, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 110878.288
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 113150.3316
+        },
+        "floor": { 
+            "value": 36, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 117818.6962
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 118052.3506
+        },
+        "floor": { 
+            "value": 37, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 124985.4385
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 123027.5058
+        },
+        "floor": { 
+            "value": 38, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 132379.4798
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 128074.9207
+        },
+        "floor": { 
+            "value": 39, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 140001.7627
+        }
+    },
+    {
+        "energy": {
+            "unit": "kWh/month",
+            "value": 133193.7514
+        },
+        "floor": { 
+            "value": 40, 
+            "unit": "floor" 
+        },
+        "heating": {
+            "unit": "MWh/month",
+            "value": 147853.2094
+        }
+    }
+]
