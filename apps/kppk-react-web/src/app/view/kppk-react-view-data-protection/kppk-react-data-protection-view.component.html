@@ -1,0 +1,19 @@
+
+    <mat-card *transloco="let t;" content class="flex w-full flex-auto flex-col gap-10 !shadow-none md:flex-row">
+        @if( active_language_s() === 'de') {
+        <mat-card-header>
+            <h1>Datenschutzerklärung</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <kppk-react-data-protection-german/>
+        </mat-card-content>
+        } 
+        @else {    
+        <mat-card-header>
+            <h1>Privacy Policy</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <kppk-react-data-protection-english/>
+        </mat-card-content>
+        }
+    </mat-card>
