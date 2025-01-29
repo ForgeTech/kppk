@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation, computed } from '@angular/core';
-import { FgLayoutDrawerOpenDrawerButtonComponent } from '@kppk/fg-lib-new';
+import { FgLayoutDrawerOpenButtonComponent } from '@kppk/fg-lib-new';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 // import { ROUTES_ENUM } from 'apps/fg-react-demo/src/app/app.routes';
 import { CommonModule } from '@angular/common';
 import { HOST_ROUTES } from '@kppk/react-lib';
+import { MatButtonModule } from '@angular/material/button';
 
 /**
  * RoseHeaderComponent -
@@ -22,7 +23,8 @@ import { HOST_ROUTES } from '@kppk/react-lib';
     RouterLink,
     MatToolbarModule,
     MatIconModule,
-    FgLayoutDrawerOpenDrawerButtonComponent,
+    MatButtonModule,
+    FgLayoutDrawerOpenButtonComponent,
     MatTooltipModule
   ],
   templateUrl: './kppk-react-header.component.html',
@@ -34,7 +36,7 @@ export class KppkReactHeaderComponent  {
   // protected $pagedjs = inject(FgPagedjsService)
   // protected route_calc = ROUTES_ENUM.CALC;
   // protected route_calc_print = ROUTES_ENUM.CALC_PRINT;
-  protected is_authorized_s = computed( () => {
+  protected is_authorizedS = computed( () => {
     // return this.state_auth_s()?.matches( {'STATE': 'AUTHORIZED' })
     return true;
   });

@@ -42,7 +42,7 @@ import { FgXstateService } from '../../service';
     MatTooltipModule,
   ],
   templateUrl: './kppk-admin-toolbar.component.html',
-  styleUrls: ['./kppk-admin-toolbar.component.scss'],
+  styles: [''],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,14 +1,7 @@
 <div class="header">
   <mat-toolbar>
     <mat-toolbar-row>
-      <fg-layout-drawer-open-drawer-button class="xs:show hidden" from="start">
-        <button
-          mat-icon-button
-          [attr.aria-label]="'general.menu'"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
-      </fg-layout-drawer-open-drawer-button>
+      <fg-layout-drawer-open-button class="xs:show hidden" from="start"/>
       <a
         class="relative -top-4 left-4 inline-block"
         routerLink="/home"
@@ -39,7 +32,7 @@
       >
         <mat-icon>print</mat-icon>
       </a> -->
-      @if( is_authorized_s() ) {
+      @if( is_authorizedS() ) {
         <button
           class="logout-btn"
           mat-icon-button
@@ -62,15 +55,7 @@
           <mat-icon>login</mat-icon>
         </a>
       } 
-      <fg-layout-drawer-open-drawer-button from="end">
-        <button
-          mat-icon-button
-          [matTooltip]="'general.menu'"
-          [attr.aria-label]="'general.menu'"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
-      </fg-layout-drawer-open-drawer-button>
+      <fg-layout-drawer-open-button from="end"/>
     </mat-toolbar-row>
   </mat-toolbar>
 </div>
