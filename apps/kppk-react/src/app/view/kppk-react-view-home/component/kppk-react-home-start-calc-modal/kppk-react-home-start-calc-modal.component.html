@@ -181,11 +181,11 @@
       }
     </div>
   </section>
-  <footer footer class="flex flex-row gap-4 !px-6">
+  <footer footer class="flex flex-col gap-4 !px-6 sm:flex-row">
     <!-- <div class="flex-auto"></div> -->
     @if( selected_s() ) {
     <button
-      class="flex-1"
+      class="flex-grow"
       mat-stroked-button
       color="accent"
       (click)="back($event)"
@@ -195,7 +195,7 @@
     </button>
     } @else {
     <button
-      class="flex-1"
+      class="flex-grow"
       mat-stroked-button
       color="warn"
       (click)="close_modal($event)"
@@ -205,7 +205,7 @@
     </button>
     }
     <button
-      class="flex-1"
+      class="flex-grow"
       [disabled]="!selected_ready_s()"
       mat-stroked-button
       color="primary"

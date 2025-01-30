@@ -61,16 +61,7 @@ import { z } from 'zod';
     FgLayoutDefaultComponent,
   ],
   templateUrl: './kppk-react-home-start-calc-modal.component.html',
-  styles: [
-    `
-      :host {
-        display: block;
-        min-height: 100%;
-        height: 100%;
-        background-color: red;
-      }
-    `,
-  ],
+  styles: [''],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

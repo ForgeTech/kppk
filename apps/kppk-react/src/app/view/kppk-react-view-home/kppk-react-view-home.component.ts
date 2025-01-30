@@ -83,7 +83,8 @@ export class KppkReactViewHomeComponent {
             enterAnimationDuration: '250ms',
             exitAnimationDuration: '250ms',
             minHeight: '600px',
-            minWidth: '600px',
+            minWidth: '80%',
+            maxWidth: '600px',
             autoFocus: true,
             disableClose: true,
           }
