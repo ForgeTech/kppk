@@ -1,26 +1,17 @@
 @let t = translationS();
 
 @if( showS() ) {
-  <div class="flex flex-row">
-    <!-- <pre>
-        Value
-        {{ $actor_admin_toolbar.stateS()?.value | json}}
-        Context
-        {{ $actor_admin_toolbar.stateS()?.context | json}}
-      </pre>
-      <pre>
-        Value
-        {{ $actor_react_init.stateS()?.value | json}}
-        Context
-        {{ $actor_react_init.stateS()?.context | json}}
-      </pre> -->
-  </div>
-  <mat-toolbar
+  <div class="px-4 flex flex-row justify-start items-center flex-wrap gap-4 mat-warn-bg">
+  <!-- <mat-toolbar
     color="warn"
     class="flex-row justify-start items-center flex-wrap gap-4"
-  >
-    <mat-icon>warning</mat-icon>
-    <span class="xs:hidden">{{ t?.development_tools }}</span>
+  > -->
+    <mat-icon
+    [matTooltip]="t?.development_tools"
+    >
+      warning
+    </mat-icon>
+    <span class="hidden sm:inline-block">{{ t?.development_tools }}</span>
     <div class="flex-auto"></div>
     <mat-slide-toggle
       color="primary"
@@ -45,5 +36,6 @@
         src="./images/other/xstate.svg"
       />
     </mat-slide-toggle>
-  </mat-toolbar>
+  <!-- </mat-toolbar> -->
+  </div>
 }

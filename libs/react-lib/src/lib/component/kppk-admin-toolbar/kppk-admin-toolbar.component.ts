@@ -31,8 +31,7 @@ import { FgXstateService } from '../../service';
  * Admin Toolbar for Kppk React Application
  */
 @Component({
-  selector: 'kppk-admin-toolbar',
-
+  selector: 'kppk-admin-toolbar, [kppk-admin-toolbar]',
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -42,7 +41,13 @@ import { FgXstateService } from '../../service';
     MatTooltipModule,
   ],
   templateUrl: './kppk-admin-toolbar.component.html',
-  styles: [''],
+  styles: [`
+    .xs kppk-admin-toolbar {
+      .headline {
+        display: none;
+      }
+    } 
+  `],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
