@@ -1,7 +1,6 @@
-import { ComponentType } from '@angular/cdk/portal';
+import { ComponentType, Portal } from '@angular/cdk/portal';
 import { 
   Component,
-  TemplateRef,
   ChangeDetectionStrategy,
   inject,
   input,
@@ -10,11 +9,9 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { 
-  FG_LAYOUT_DRAWER_OPTIONS, 
-  fg_layout_drawer_options_parser 
-} from '../fg-layout-drawer.type';
+
 import { FgEventService } from '../../../service';
+import { fg_layout_drawer_event_open_parser, FG_LAYOUT_DRAWER_OPEN_EVENT, FG_LAYOUT_DRAWER_OPEN_OPTIONS } from '../fg-layout-drawer.type';
 
 /**
  * FgLayoutTriggerButtonComponent -
@@ -46,7 +43,7 @@ export class FgLayoutDrawerOpenButtonComponent {
   /** Allows setting name used for source value */ 
   public readonly nameS = input('FgLayoutDrawerOpenButtonComponent', {alias: 'name'});
   /** Allows to change the direction from which the navigation is opened from (default: 'start') */
-  public readonly positionS = input<'start' | 'end'>('start', {alias: 'position'});
+  public readonly fromS = input<'start' | 'end'>('start', { alias: 'from'});
   /** Allows to define the target layout of the open-drawer event (default: undefined)  */
   public readonly targetS = input<string>(undefined, {alias: 'target'});
   /** Allows to change the mode of the drawer (default: 'over') */
@@ -54,26 +51,27 @@ export class FgLayoutDrawerOpenButtonComponent {
   /** Allows to change if drawer should display a backdrop (default: true) */
   public readonly has_backdropS = input(true, {alias: 'has_backdrop'});
   /** Allows to pass the component- or template-reference that should be displayed */
-  public readonly view_refS = input<ComponentType<any> | TemplateRef<any>>( undefined, {alias: 'view_ref'});
+  public readonly contentS = input<Portal<any> | undefined>( undefined, {alias: 'content'});
   /** Outputs the options object */
-  public readonly optionsO = output<FG_LAYOUT_DRAWER_OPTIONS>({alias: 'options'});
+  public readonly eventO = output<FG_LAYOUT_DRAWER_OPEN_EVENT>({alias: 'event'});
   /** Methode used to trigger the dispatch of open drawer event */
   public triggerDrawerOpen(event: Event) {
     event.preventDefault();
-      const options = fg_layout_drawer_options_parser.parse({
+      const options: FG_LAYOUT_DRAWER_OPEN_OPTIONS = {
         target: this.targetS(),
         source: this.nameS(),
-        position: this.positionS(),
+        from: this.fromS(),
         mode: this.modeS(),
         has_backdrop: this.has_backdropS(),
-        view_ref: this.view_refS(),
-      });
-      this.optionsO.emit(options);
-      this.$event?.emit({ 
+        content: this.contentS(),
+      };
+      const parsed_event = fg_layout_drawer_event_open_parser.parse({ 
         type: 'fg.layout.drawer.event.open', 
         source: this.nameS(), 
         target: this.targetS(), 
         data: options
-      });
+      })
+      this.eventO.emit(parsed_event)
+      this.$event?.emit(parsed_event);
     } 
 }

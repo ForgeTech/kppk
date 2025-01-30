@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { FgEventService } from '../../../service';
+import { FG_LAYOUT_DRAWER_CLOSE_OPTIONS, fg_layout_drawer_close_options_parser, fg_layout_drawer_event_open_parser } from '../fg-layout-drawer.type';
 /**
  * FgLayoutDrawerCloseDrawerButtonComponent -
  * Component that can be used to dispatch a close-drawer event
@@ -31,25 +32,21 @@ import { FgEventService } from '../../../service';
 export class FgLayoutDrawerCloseButtonComponent {
   protected $event = inject(FgEventService, { optional: true })
   /** Allows setting name used for source value */ 
-  public readonly nameS = input('FgLayoutDrawerCloseButtonComponent', {alias: 'name'});
+  public readonly nameS = input<string | undefined>(undefined, {alias: 'name'});
   /** Allows to define the target layout of the open-drawer event (default: undefined)  */
-  public readonly targetS = input<string>();
+  public readonly targetS = input<string | undefined>(undefined, {alias: 'target'});
   /** Outputs the options object */
-  public readonly optionsO = output<{source: string, target?: string}>({alias: 'options'});
+  public readonly eventO = output<FG_LAYOUT_DRAWER_CLOSE_OPTIONS>({alias: 'event'});
   /** Methode used to trigger the dispatch of close drawer event */
   public triggerDrawerClose(event: Event) {
     event.preventDefault();
-    const options = {
-      source: this.nameS(), 
-      target: this.targetS(),  
-    }
-    this.optionsO.emit(options);
-    this.$event?.emit({ 
-      type: 'fg.layout.drawer.event.close', 
-      source: this.nameS(), 
-      target: this.targetS(),
-      data: options
-    });
 
+    const event_to_dispatch = fg_layout_drawer_event_open_parser.parse({
+        type: 'fg.layout.drawer.event.close', 
+        source: this.nameS(), 
+        target: this.targetS(),
+    })
+    this.eventO.emit(event_to_dispatch)
+    this.$event?.emit(event_to_dispatch);
   }
 }

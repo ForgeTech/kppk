@@ -1,44 +1,11 @@
-import { Component, ChangeDetectionStrategy, inject, signal, viewChild, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, viewChild, effect, TemplateRef, input } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { Portal, PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
-import { FG_EVENT, FgEventService, fg_event_parser } from '../../service';
-import { filter } from 'rxjs';
+import { FG_EVENT, FgEventService } from '../../service';
+import { filter, map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { date, z } from 'zod';
-
-export const fg_layout_drawer_event_open_parser_data = z.object({
-  portal_content: z.any().optional(),
-  has_backdrop: z.boolean().optional(),
-  mode: z.literal('over').or(z.literal('push')).or(z.literal('side')).default('over'),
-  position: z.literal('start').or(z.literal('end'))
-});
-export type FG_LAYOUT_DRAWER_OPEN_EVENT_DATA = z.infer<typeof fg_layout_drawer_event_open_parser_data>;
-
-export const fg_layout_drawer_event_open_parser = fg_event_parser.extend({
-  type: z.literal('fg.layout.drawer.event.open'),
-  data: fg_layout_drawer_event_open_parser_data
-})
-export type FG_LAYOUT_DRAWER_OPEN_EVENT = z.infer<typeof fg_layout_drawer_event_open_parser>;
-
-export const fg_layout_drawer_event_close_parser = fg_event_parser.extend({
-  type: z.literal('fg.layout.drawer.event.close')
-})
-export type FG_LAYOUT_DRAWER_CLOSE_EVENT = z.infer<typeof fg_layout_drawer_event_close_parser>;
-
-export const fg_layout_event_scroll_to_data_parser = z.object({
-  left: z.number(),
-  top: z.number(),
-  behavior: z.literal('smooth').or(z.literal('auto')).default('smooth')
-})
-export type FG_LAYOUT_SCROLL_TO_EVENT_DATA = z.infer<typeof fg_layout_event_scroll_to_data_parser>;
-
-export const fg_layout_event_scroll_to_parser = fg_event_parser.extend({
-  type: z.literal('fg.layout.event.scroll_to'),
-  date: fg_layout_event_scroll_to_data_parser
-})
-export type FG_LAYOUT_SCROLL_TO_EVENT = z.infer<typeof fg_layout_event_scroll_to_parser>;
-
+import { fg_layout_drawer_event_close_parser, fg_layout_drawer_event_open_parser, FG_LAYOUT_DRAWER_OPEN_OPTIONS, fg_layout_event_scroll_to_parser } from './fg-layout-drawer.type';
 
 @Component({
   selector: 'fg-layout-drawer, [fg-layout-drawer]',
@@ -48,7 +15,7 @@ export type FG_LAYOUT_SCROLL_TO_EVENT = z.infer<typeof fg_layout_event_scroll_to
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FgLayoutDrawerComponent {
-  // override $component = inject(FgComponentBaseService);
+  public readonly nameS = input<string | undefined>(undefined, {alias: 'name'});
   protected $event = inject(FgEventService);
 
   protected drawer_endS = viewChild<MatDrawer>('end');
@@ -60,7 +27,7 @@ export class FgLayoutDrawerComponent {
   public    has_backdropS = signal(true);
   
   protected event_open_navigationS = toSignal<FG_EVENT>(this.$event.event$.pipe(
-    filter(event => event.type === 'fg.layout.drawer.event.open'),
+    filter(event => event.type === 'fg.layout.drawer.event.open' && event.target === this.nameS())
   ), { initialValue: undefined });
   protected open_drawerE = effect( () => {
     const event = this.event_open_navigationS();
@@ -72,7 +39,7 @@ export class FgLayoutDrawerComponent {
   })
 
   protected event_close_navigationS = toSignal<FG_EVENT>(this.$event.event$.pipe(
-    filter(event => event.type === 'fg.layout.drawer.event.close'),
+    filter(event => event.type === 'fg.layout.drawer.event.close' && event.target === this.nameS()),
   ), { initialValue: undefined });
   protected close_drawerE = effect( () => {
     const event = this.event_open_navigationS();
@@ -99,9 +66,9 @@ export class FgLayoutDrawerComponent {
     this.drawer_containerS()?.scrollable.scrollTo(options);
   }
 
-  protected openDrawer(drawer: MatDrawerContainer, options: FG_LAYOUT_DRAWER_OPEN_EVENT_DATA): void {
+  protected openDrawer(drawer: MatDrawerContainer, options: FG_LAYOUT_DRAWER_OPEN_OPTIONS): void {
     if (drawer?.start && drawer?.end) {
-      if (options.position === 'start') {
+      if (options.from === 'start') {
         this.drawer_activeS.set(drawer.start);
       } else {
         this.drawer_activeS.set(drawer.end);
@@ -109,7 +76,7 @@ export class FgLayoutDrawerComponent {
       const drawerActive = this.drawer_activeS();
       if( drawerActive) {
         drawerActive.mode = options.mode
-        this.drawer_contentS.set(options.portal_content);
+        this.drawer_contentS.set(options.content);
         if (options.has_backdrop) {
           this.has_backdropS.set(options.has_backdrop);
         } else {
