@@ -1,4 +1,4 @@
-<div class="main-navigation flex h-full min-h-full flex-col">
+<div class="main-navigation flex h-full min-h-full w-[300px] flex-col">
   @let s = $shared; @let t = kppk_react_navigation_translationsS();
   <mat-list>
     @if( can_install_pwaS() ){
@@ -48,6 +48,7 @@
         mat-stroked-button
         color="primary"
         routerLink="/{{ HOST_ROUTES.LOGIN }}"
+        routerLinkActive="active"
       >
         <mat-icon>login</mat-icon>
         {{ t?.route_login }}
@@ -64,6 +65,7 @@
         mat-stroked-button
         color="primary"
         routerLink="/{{ HOST_ROUTES.IMPRINT }}"
+        routerLinkActive="active"
       >
         <mat-icon svgIcon="info" />
         {{ t?.route_imprint }}
@@ -75,6 +77,7 @@
         mat-stroked-button
         color="primary"
         routerLink="/{{ HOST_ROUTES.DATA_PROTECTION }}"
+        routerLinkActive="active"
       >
         <mat-icon svgIcon="shield" />
         {{ t?.route_data_protection }}
