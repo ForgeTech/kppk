@@ -40,7 +40,6 @@ import {
   TranslocoHttpLoader,
 } from '@kppk/react-lib';
 import { CookieService } from 'ngx-cookie-service';
-
 export const appConfig: ApplicationConfig = {
   providers: [
     makeEnvironmentProviders([

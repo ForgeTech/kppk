@@ -29,6 +29,20 @@ export const app_routes: Route[] = [
             './view/kppk-react-view-home/kppk-react-view-home.component'
           ).then((m) => m!.KppkReactViewHomeComponent),
       },
+      {
+        path: HOST_ROUTES.IMPRINT,
+        loadComponent: () =>
+          import(
+            './view/kppk-react-view-imprint/kppk-react-view-imprint.component'
+          ).then((m) => m!.KppkReactViewImprintComponent),
+      },
+      {
+        path: HOST_ROUTES.DATA_PROTECTION,
+        loadComponent: () =>
+          import(
+            './view/kppk-react-view-data-protection/kppk-react-view-data-protection.component'
+          ).then((m) => m!.KppkReactViewDataProtectionComponent),
+      },
     ],
   },
   {

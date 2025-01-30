@@ -11,7 +11,7 @@ import {
   FgAuthLocalMachineActorService,
   FgSpinnerMachineActorService,
 } from '@kppk/react-lib';
-
+import { Breakpoints as MATERIAL_BREAKPOINTS} from '@angular/cdk/layout';
 /**
  * AppService -
  * Service for setting up and running the main
@@ -48,14 +48,17 @@ export class AppService extends FgBaseService {
       this.$actor_spinner.send(event_spinner_hide);
     });
 
-    const custom_breakpoints = {
-      xs: 'screen and (min-width: 320px)',
-      sm: 'screen and (min-width: 640px)',
-      md: 'screen and (min-width: 768px)',
-      lg: 'screen and (min-width: 1024px)',
-      xl: 'screen and (min-width: 1280px)',
+
+    const breakpoints = {
+      // Tailwind media-queries
+      'xs': 'screen and (min-width: 320px)',
+      'sm': 'screen and (min-width: 640px)',
+      'md': 'screen and (min-width: 768px)',
+      'lg': 'screen and (min-width: 1024px)',
+      'xl': 'screen and (min-width: 1280px)',
       '2xl': 'screen and (min-width: 1536px)',
+      ...MATERIAL_BREAKPOINTS
     };
-    this.$breakpoint.register(custom_breakpoints);
+    this.$breakpoint.register(breakpoints);
   }
 }
