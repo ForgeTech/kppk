@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'kppk-react-view-data-protection',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
