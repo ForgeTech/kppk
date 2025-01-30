@@ -10,9 +10,7 @@
       <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
     }
     @else {
-      <ng-template #start>
-        <ng-content select="[start]"/>
-      </ng-template>  
+      <ng-content select="[start]"/>
     }
   </mat-drawer>
     <!-- LEFT DRAWER -->
@@ -24,9 +22,7 @@
       <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
     }
     @else {
-      <ng-template #end>
-        <ng-content select="[end]"/>
-      </ng-template>
+      <ng-content select="[end]"/>
     }
   </mat-drawer>
   <!-- CONTENT -->
