@@ -47,21 +47,17 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
                 </ng-template>
               </ngx-charts-pie-chart>
               <table class="table-legend absolute bottom-0 right-0 w-[150px]">
-                @for( item of this.graph_data_s().data; track $index; let i =
-                $index ) {
-                <tr
-                  class="text-xs"
-                  [ngStyle]="{
-                    'background-color': graph_data_s().color_scheme.domain[i]
-                  }"
-                >
+              @for( item of this.graph_data_s().data; track $index; let i = $index ) {
+                  <tr
+                    class="text-xs"
+                    [ngStyle]="{
+                      'background-color': graph_data_s().color_scheme.domain[i]
+                    }"
+                  >
                   <td>{{ item.name }}</td>
                   <!-- <td>{{ item.value | number:'1.2-2' }}  kgCO₂</td> -->
                 </tr>
-
-                <tr>
-                  }
-                </tr>
+              }
               </table>
             </div>
           </td>
