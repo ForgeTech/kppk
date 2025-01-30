@@ -4,7 +4,6 @@ import {
   inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { KppkReactDefaultLayoutComponent } from '../../layout/kppk-react-default-layout/kppk-react-default-layout.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { KppkReactDataProtectionGermanComponent } from './component/kppk-react-data-protection-german/kppk-react-data-protection-german.component';
@@ -18,17 +17,16 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     MatCardModule,
-    KppkReactDefaultLayoutComponent,
     KppkReactDataProtectionGermanComponent,
     KppkReactDataProtectionEnglishComponent,
   ],
   templateUrl: './kppk-react-view-data-protection.component.html',
-  styleUrl: './kppk-react-view-data-protection.component.scss',
+  styles: '',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideTranslocoScope('general')],
 })
-export class KppkReactDataProtectionViewComponent {
+export class KppkReactViewDataProtectionComponent {
   protected $transloco = inject(TranslocoService);
   protected active_languageS = toSignal(this.$transloco.langChanges$, {
     initialValue: this.$transloco.getActiveLang(),
