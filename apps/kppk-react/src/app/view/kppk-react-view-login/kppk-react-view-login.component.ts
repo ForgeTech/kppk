@@ -23,6 +23,7 @@ import {
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { HOST_ROUTES } from '@kppk/react-lib';
 
 @Component({
   imports: [
@@ -48,6 +49,8 @@ export class KppkReactViewLoginComponent {
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
   protected $env = inject(FgEnvironmentService);
   protected $shared = inject(KppkReactSharedService);
+  
+  protected HOST_ROUTES = HOST_ROUTES;
   protected kppk_react_login_translationsS = toSignal(
     this.$shared.kppk_react_login_translations$,
     { initialValue: undefined }

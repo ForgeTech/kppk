@@ -27,7 +27,7 @@
       <form [formGroup]="form_login">
         <mat-card-content class="!px-4">
           <formly-form
-            class="form inline-block w-full pb-6 pt-8"
+            class="form inline-block w-full pb-4 pt-6"
             [model]="{ user: '', password: '' }"
             [form]="form_login"
             [fields]="fields_login"
@@ -74,15 +74,21 @@
   <footer footer>
     <menu class="flex list-none flex-col justify-end gap-2 md:flex-row">
       <li class="w-full md:w-64">
-        <a class="w-full !bg-gray-100 !text-base" mat-flat-button>
-          <!-- routerLink="/{{ ROUTES.IMPRINT }}" -->
+        <a class="w-full !bg-gray-100 !text-base" 
+          mat-flat-button
+          routerLink="/{{ HOST_ROUTES.IMPRINT }}"
+          routerLinkActive="active"
+        >
           <mat-icon color="primary" svgIcon="info"></mat-icon>
           {{ t?.route_imprint }}
         </a>
       </li>
       <li class="w-full md:w-64">
-        <a class="w-full !bg-gray-100 !text-base" mat-flat-button>
-          <!-- routerLink="/{{ ROUTES.DATA_PROTECTION }}" -->
+        <a class="w-full !bg-gray-100 !text-base" 
+          mat-flat-button
+          routerLink="/{{ HOST_ROUTES.DATA_PROTECTION }}"
+          routerLinkActive="active"
+        >
           <mat-icon color="primary" svgIcon="shield"></mat-icon>
           {{ t?.route_data_protection }}
         </a>
