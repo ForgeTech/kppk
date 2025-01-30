@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 
+
 @include mat.core();
 
 $my-typography: mat.m2-define-typography-config();
@@ -26,6 +27,17 @@ $mat-light-theme: mat.m2-define-light-theme(
     ),
     typography: $my-typography,
     density: 0,
+  )
+);
+$mat-light-theme-dense: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $mat-light-primary,
+      accent: $mat-light-accent,
+      warn: $mat-light-warn,
+    ),
+    typography: $my-typography,
+    density: -3,
   )
 );
 
@@ -56,10 +68,47 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
   color: white;
 }
 
-@include mat.all-component-themes($mat-light-theme);
 
-// @include mat.input-theme($mat-light-theme-darker);
-// @include mat.form-field-theme($mat-light-theme-darker);
+@include mat.autocomplete-theme($mat-light-theme);
+@include mat.badge-theme($mat-light-theme);
+@include mat.bottom-sheet-theme($mat-light-theme);
+@include mat.button-theme($mat-light-theme);
+@include mat.button-toggle-theme($mat-light-theme);
+@include mat.card-theme($mat-light-theme);
+@include mat.checkbox-theme($mat-light-theme);
+@include mat.chips-theme($mat-light-theme);
+@include mat.datepicker-theme($mat-light-theme);
+@include mat.dialog-theme($mat-light-theme);
+@include mat.divider-theme($mat-light-theme);
+@include mat.expansion-theme($mat-light-theme);
+@include mat.fab-theme($mat-light-theme);
+@include mat.form-field-theme($mat-light-theme-dense);
+@include mat.icon-button-theme($mat-light-theme);
+@include mat.icon-theme($mat-light-theme);
+@include mat.input-theme($mat-light-theme-dense);
+@include mat.list-theme($mat-light-theme);
+@include mat.menu-theme($mat-light-theme);
+@include mat.paginator-theme($mat-light-theme);
+@include mat.progress-bar-theme($mat-light-theme);
+@include mat.progress-spinner-theme($mat-light-theme);
+@include mat.radio-theme($mat-light-theme);
+@include mat.select-theme($mat-light-theme);
+@include mat.sidenav-theme($mat-light-theme);
+@include mat.slide-toggle-theme($mat-light-theme);
+@include mat.slider-theme($mat-light-theme);
+@include mat.snack-bar-theme($mat-light-theme);
+@include mat.sort-theme($mat-light-theme);
+@include mat.stepper-theme($mat-light-theme);
+@include mat.table-theme($mat-light-theme);
+@include mat.tabs-theme($mat-light-theme);
+@include mat.timepicker-theme($mat-light-theme);
+@include mat.toolbar-theme($mat-light-theme);
+@include mat.tooltip-theme($mat-light-theme);
+@include mat.tree-theme($mat-light-theme);
+
+
+
+
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #fafafa !important;
 }
