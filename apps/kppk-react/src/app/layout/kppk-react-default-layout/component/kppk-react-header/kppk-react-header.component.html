@@ -1,7 +1,11 @@
 <div class="header">
   <mat-toolbar>
     <mat-toolbar-row>
-      <fg-layout-drawer-open-button class="xs:show hidden" from="start" />
+      <fg-layout-drawer-open-button 
+        class="sm:hidden" 
+        [from]="'start'"
+        [mode]="'push'"
+      />
       <a
         class="relative -top-4 left-4 inline-block"
         routerLink="/home"
@@ -54,7 +58,11 @@
         <mat-icon>login</mat-icon>
       </a>
       }
-      <fg-layout-drawer-open-button from="end" />
+      <fg-layout-drawer-open-button 
+        class="hidden sm:inline-block" 
+        [from]="'end'" 
+        [mode]="'push'"
+      />
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

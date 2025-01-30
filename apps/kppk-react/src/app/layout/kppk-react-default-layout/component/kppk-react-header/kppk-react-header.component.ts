@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, computed } from '@angular/core';
+import { Component, ElementRef, ViewEncapsulation, computed, inject } from '@angular/core';
 import { FgLayoutDrawerOpenButtonComponent } from '@kppk/fg-lib-new';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { MatButtonModule } from '@angular/material/button';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { KppkReactFooterComponent } from '../kppk-react-footer/kppk-react-footer.component';
 
 /**
  * RoseHeaderComponent -
@@ -33,6 +35,9 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class KppkReactHeaderComponent {
   protected HOST_ROUTES = HOST_ROUTES;
+  protected portal = new ComponentPortal(KppkReactFooterComponent);
+  public $element_ref = inject(ElementRef);
+
   // protected $pagedjs = inject(FgPagedjsService)
   // protected route_calc = ROUTES_ENUM.CALC;
   // protected route_calc_print = ROUTES_ENUM.CALC_PRINT;
