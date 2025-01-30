@@ -131,7 +131,7 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
     const context: CONTEXT_REACT_MAIN_V2 = {
       environment: input,
     };
-    this.$log.warn(
+    this.$log?.warn(
       'TODO: Add parser for ENVIRONMENT_CONFIG/CONTEXT_REACT_MAIN_V2 input'
     );
     return context;
@@ -145,10 +145,10 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
     const input: Partial<ReactAppInitV1Context> = {
       environment: context.environment,
     };
-    this.$log.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
+    this.$log?.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
     console.log(input);
     const result = react_init_context_parser.partial().parse(input);
-    this.$log.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
+    this.$log?.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
     console.log(result);
     return result as Partial<ReactAppInitV1Context>;
   };
@@ -169,38 +169,38 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
   };
 
   public log_react_running = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_react_running');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_react_running');
   };
 
   public log_react_app_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_react_app_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_react_app_done');
   };
 
   public log_react_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_react_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_react_done');
   };
 
   public log_fg_auth_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_fg_auth_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_fg_auth_done');
   };
 
   public log_fg_ui_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_fg_ui_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_fg_ui_done');
   };
 
   public log_fg_spinner_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_fg_spinner_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_fg_spinner_done');
   };
 
   public log_fg_tick_done = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_fg_tickr_done');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_fg_tickr_done');
   };
 
   public log_fatal = ({ context, event }: { context: any; event: any }) => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_fatal');
-    this.$log.fatal('FATAL_ERROR:');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_fatal');
+    this.$log?.fatal('FATAL_ERROR:');
     if (context.error) {
-      this.$log.fatal(context.error);
+      this.$log?.fatal(context.error);
     }
     if (event) {
       console.log(event.input);
@@ -208,14 +208,14 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
   };
 
   public log_error = ({ context, event }: { context: any; event: any }) => {
-    this.$log.info('FG_REACT_PWA_MAIN: log_error');
-    this.$log.error('>>>>>>>>>>>>ERROR>>>>>>>>>>>>');
+    this.$log?.info('FG_REACT_PWA_MAIN: log_error');
+    this.$log?.error('>>>>>>>>>>>>ERROR>>>>>>>>>>>>');
     console.log('context');
     console.log(context);
     console.log('event');
     console.log(event);
     if (context.error) {
-      this.$log.fatal(context.error);
+      this.$log?.fatal(context.error);
     }
     if (event) {
       console.log(event);
@@ -223,47 +223,47 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
   };
 
   public send_to_spinner = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: send_to_spinner');
+    this.$log?.info('FG_REACT_PWA_MAIN: send_to_spinner');
     return forwardTo(REACT_ACTOR_ENUM.FG_SPINNER);
   };
 
   public send_to_auth = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: send_to_aut');
+    this.$log?.info('FG_REACT_PWA_MAIN: send_to_aut');
     return forwardTo(REACT_ACTOR_ENUM.FG_AUTH_LOCAL);
   };
 
   public send_to_running = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: send_to_running');
+    this.$log?.info('FG_REACT_PWA_MAIN: send_to_running');
     return forwardTo(REACT_ACTOR_ENUM.REACT_RUNNING);
   };
 
   public actor_fg_spinner = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_fg_spinner');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_fg_spinner');
     return this.$spinner.machine;
   };
 
   public actor_react_initialize = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_react_initialize');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_react_initialize');
     return this.$react_init.machine;
   };
 
   public actor_react_running = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_react_running');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_react_running');
     return this.$react_running.machine;
   };
 
   public actor_react_recovery = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_react_recovery');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_react_recovery');
     return createMachine({});
   };
 
   public actor_fg_ui = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_fg_ui');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_fg_ui');
     return createMachine({});
   };
 
   public actor_fg_auth_local = () => {
-    this.$log.info('FG_REACT_PWA_MAIN: actor_fg_auth_local');
+    this.$log?.info('FG_REACT_PWA_MAIN: actor_fg_auth_local');
     // console.log( input );
     return this.$auth.machine;
   };
@@ -284,7 +284,7 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
       filter((isStable) => false),
       throttleTime(1000),
       map((event) => {
-        this.$log.warn('>>>THROW_EVENT');
+        this.$log?.warn('>>>THROW_EVENT');
         return {
           type: 'fg.tick.emitted.tick',
           payload: {

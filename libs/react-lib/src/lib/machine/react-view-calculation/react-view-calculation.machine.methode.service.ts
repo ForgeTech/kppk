@@ -230,10 +230,10 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
             result.material_items.push(material_item);
             break;
           default:
-            this.$log.fatal(
+            this.$log?.fatal(
               'ERROR: ReactViewCalculationService => actor_prepare_material_types => item has no valid type '
             );
-            this.$log.fatal(item);
+            this.$log?.fatal(item);
             break;
         }
       });
