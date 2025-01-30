@@ -87,7 +87,7 @@ export type REACT_INIT_LOAD_FROM_REMOTE_DATA = z.infer<
 >;
 
 export const react_init_load_from_remote_parser = z.object({
-  app: react_init_load_from_remote_data_parser,
+  common: react_init_load_from_remote_data_parser,
   calculation_v1: z.any(), // react_view_calculation_parser,
   form_defaults: form_values_parser,
 });
