@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 
+//https://material.angular.io/guide/theming#customizing-tokens
 
 @include mat.core();
 
@@ -75,6 +76,9 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
 @include mat.button-theme($mat-light-theme);
 @include mat.button-toggle-theme($mat-light-theme);
 @include mat.card-theme($mat-light-theme);
+.mat-mdc-card {
+  box-shadow: none;
+}
 @include mat.checkbox-theme($mat-light-theme);
 @include mat.chips-theme($mat-light-theme);
 @include mat.datepicker-theme($mat-light-theme);
