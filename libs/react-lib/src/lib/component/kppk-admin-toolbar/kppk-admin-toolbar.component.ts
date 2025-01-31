@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   ViewEncapsulation,
   computed,
   effect,
@@ -56,6 +57,7 @@ export class KppkAdminToolbarComponent {
   protected $actor_react_init = inject(ReactInitMachineActorService);
   protected $translate = inject(FgTranslate);
   protected $xstate = inject(FgXstateService);
+  public $element_ref = inject(ElementRef);
 
   public showS = input<boolean>(false, { alias: 'show' });
 
