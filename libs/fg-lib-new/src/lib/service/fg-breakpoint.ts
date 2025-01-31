@@ -75,20 +75,20 @@ export class FgBreakpoint extends FgBaseService {
             // remove previous tokens not available in current
             this.pre_body_class_tokens.forEach( token => {
                 if( cur_class_tokens.indexOf( token ) === -1) {
-                  this.$document.body.classList.remove(token);
+                  this.$document.documentElement.classList.remove(token);
                 }
             });
             // add current tokens not available in previous
             cur_class_tokens.forEach( token => {
                 if( this.pre_body_class_tokens.indexOf( token ) === -1) {
-                  this.$document.body.classList.add(token);
+                  this.$document.documentElement.classList.add(token);
                 }
             });
         } 
         // if current tokens exist add them
         else if( cur_class_tokens.length ) {
             cur_class_tokens.forEach( token => {
-                this.$document.body.classList.add( token );
+                this.$document.documentElement.classList.add( token );
             })
         }
         // Set current to previous
