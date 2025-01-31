@@ -1,0 +1,39 @@
+@let s = $shared;
+@let t = translationS();
+<fg-layout-default class="h-svh">
+
+  <!-- <header #header header kppk-react-header class="sticky top-0"></header> -->
+
+    <!-- <nav start class="nav-mobile-start h-full" kppk-react-navigation>
+      <mat-list-item top-list>
+        <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+      </mat-list-item>
+    </nav> -->
+    <!-- <fg-layout-default content class="relative"> -->
+      <div content class="flex flex-col">
+        <kppk-admin-toolbar class="sticky top-0 z-50" [show]="s.show_admin_toolbarS()" />
+        <header kppk-react-header class="sticky top-0 z-50"></header>
+        <div class="flex h-full flex-row">
+          <aside>
+            <nav kppk-react-navigation class="sticky top-0 h-full"></nav>
+          </aside>
+          <main class="flex-auto">
+            <ng-content select="[content]" />
+          </main>
+        </div>
+      </div>
+      <!-- <footer kppk-react-footer footer class="lg:hidden"></footer> -->
+      <!-- <div class="vertical-btn-bar">
+        <ng-content select="[verticalButtonBar]"></ng-content>
+      </div> -->
+    <!-- </fg-layout-default> -->
+    <!-- <ng-template end [cdkPortalOutlet]="drawerContent$ | async"/> -->
+    
+    <!-- <nav end class="nav-mobile-end h-full" kppk-react-navigation>
+      <mat-list-item top-list>
+        <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+      </mat-list-item>
+    </nav> -->
+    
+  <footer kppk-react-footer footer class="lg:hidden"></footer>
+</fg-layout-default>
