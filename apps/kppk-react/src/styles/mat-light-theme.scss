@@ -76,13 +76,17 @@ $mat-light-theme-darker: mat.m2-define-light-theme(
 @include mat.button-theme($mat-light-theme);
 @include mat.button-toggle-theme($mat-light-theme);
 @include mat.card-theme($mat-light-theme);
-.mat-mdc-card {
-  box-shadow: none;
+mat-card.mat-mdc-card {
+  box-shadow: none !important;
 }
 @include mat.checkbox-theme($mat-light-theme);
 @include mat.chips-theme($mat-light-theme);
 @include mat.datepicker-theme($mat-light-theme);
 @include mat.dialog-theme($mat-light-theme);
+.mat-mdc-dialog-component-host {
+  min-height: 98%;
+  display: inline-block !important;
+}
 @include mat.divider-theme($mat-light-theme);
 @include mat.expansion-theme($mat-light-theme);
 @include mat.fab-theme($mat-light-theme);
