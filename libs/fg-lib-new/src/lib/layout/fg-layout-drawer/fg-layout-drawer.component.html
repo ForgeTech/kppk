@@ -1,10 +1,14 @@
-<mat-drawer-container
+<mat-sidenav-container
   #container
-  [hasBackdrop]="has_backdropS()">
+  [hasBackdrop]="has_backdropS()"
+>
   <!-- RIGHT DRAWER -->
-  <mat-drawer
+  <mat-sidenav
     #start
     [autoFocus]="true"
+    [fixedInViewport]="fixed_in_viewportS()" 
+    [fixedTopGap]="fixed_top_gapS()"
+    [fixedBottomGap]="fixed_bottom_gapS()"
     position="start">
     @if( drawer_contentS() ) {
       <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
@@ -12,11 +16,14 @@
     @else {
       <ng-content select="[start]"/>
     }
-  </mat-drawer>
+  </mat-sidenav>
     <!-- LEFT DRAWER -->
-  <mat-drawer
+  <mat-sidenav
     #end
     [autoFocus]="true"
+    [fixedInViewport]="fixed_in_viewportS()" 
+    [fixedTopGap]="fixed_top_gapS()"
+    [fixedBottomGap]="fixed_bottom_gapS()"
     position="end">
     @if( drawer_contentS() ) {
       <ng-template [cdkPortalOutlet]="drawer_contentS()"/>
@@ -24,10 +31,10 @@
     @else {
       <ng-content select="[end]"/>
     }
-  </mat-drawer>
+  </mat-sidenav>
   <!-- CONTENT -->
-  <mat-drawer-content #container class="content">
+  <mat-sidenav-content #content class="content">
     <ng-content select="[content]"/>
-  </mat-drawer-content>
+  </mat-sidenav-content>
 
-</mat-drawer-container>
+</mat-sidenav-container>
