@@ -3,39 +3,44 @@
   <kppk-admin-toolbar [show]="s.admin_show_toolbarS()" header />
   <main
     content
-    class="mt-4 flex h-full w-full flex-col items-center justify-center md:mt-0"
+    class="flex h-full w-full flex-col items-center justify-center"
   >
-    <mat-card class="min-w-xs w-full max-w-lg !p-4 !shadow-none">
-      <div class="flex flex-col items-center justify-center px-4">
+    <mat-card class="min-w-xs flex w-full max-w-lg flex-col items-center justify-center pb-8 pt-10">
+      <form [formGroup]="form_login">
+          
         <img
           class="min-w-xs w-full max-w-md"
           alt="{{ t?.alt_react_logo }}"
           src="./images/react/react-logo.png"
         />
-        @if( s.auth_authorization_errorS() ) {
-        <div class="mat-warn-bg mt-2 inline-block h-full w-full px-4 py-2">
-          {{ t?.authorization_error }}
-        </div>
-        } @if( s.auth_authoirzation_successS() ) {
-        <div class="mat-primary-bg mt-2 inline-block h-full w-full px-4 py-2">
-          {{ t?.authorization_success }}
-        </div>
-        } @if( s.auth_authorization_pendingS() ){
-        <mat-progress-bar mode="indeterminate" />
-        }
-      </div>
-      <form [formGroup]="form_login">
-        <mat-card-content class="!px-4">
+
+        <div class="mb-4 mt-2">
+
+          <div class="relative pb-[2px] pt-10">
+            @if( s.auth_authorization_errorS() ) {
+              <div class="mat-warn-bg absolute top-0 w-full px-4 py-2">
+                {{ t?.authorization_error }}
+              </div>
+            } 
+            @if( s.auth_authoirzation_successS() ) {
+              <div class="mat-primary-bg absolute top-0 w-full px-4 py-2">
+                {{ t?.authorization_success }}
+              </div>
+            } 
+            @if( s.auth_authorization_pendingS() ){
+              <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
+            }
+          </div>
+      
           <formly-form
-            class="form inline-block w-full pb-4 pt-6"
             [model]="{ user: '', password: '' }"
             [form]="form_login"
             [fields]="fields_login"
           ></formly-form>
-        </mat-card-content>
-        <mat-card-actions
-          class="flex !flex-col-reverse gap-2 !px-4 md:!flex-row"
-        >
+        </div>
+
+
+        <div class="flex !flex-col-reverse gap-2 md:!flex-row">
           <fg-pwa-install
             [tooltip]="t?.tooltip_install"
             [label]="t?.label_install"
@@ -53,7 +58,7 @@
             <mat-icon class="right-4">login</mat-icon>
             {{ t?.label_login }}
           </button>
-        </mat-card-actions>
+        </div>
       </form>
     </mat-card>
     <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ s.versionS() }}</div>
