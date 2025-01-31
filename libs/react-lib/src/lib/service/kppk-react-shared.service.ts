@@ -6,7 +6,7 @@ import {
   FgTranslate,
 } from '@kppk/fg-lib-new';
 import { map, startWith, tap } from 'rxjs';
-import { FgAuthLocalMachineActorService } from '../machine';
+import { FgAuthLocalMachineActorService, FgSpinnerMachineActorService } from '../machine';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
@@ -16,41 +16,50 @@ export class KppkReactSharedService extends FgBaseService {
   protected $translate = inject(FgTranslate);
   protected $transloco = inject(TranslocoService);
   protected $env = inject(FgEnvironmentService);
-  protected $auth_actor = inject(FgAuthLocalMachineActorService);
+
+  public $actor_auth = inject(FgAuthLocalMachineActorService);
+  public $actor_spinner = inject(FgSpinnerMachineActorService)
 
   public auth_is_readyS = computed(() => {
     return (
-      this.$auth_actor.stateS()?.matches({ STATE: 'INITIALIZE' }) === false
+      this.$actor_auth.stateS()?.matches({ STATE: 'INITIALIZE' }) === false
     );
   });
   public auth_is_authorizedS = computed(() => {
-    return this.$auth_actor.stateS()?.matches({ STATE: 'AUTHORIZED' }) ?? false;
+    return this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' }) ?? false;
   });
   public auth_is_unauthorizedS = computed(() => {
-    return this.$auth_actor.stateS()?.matches({ STATE: 'UNAUTHORIZED' });
+    return this.$actor_auth.stateS()?.matches({ STATE: 'UNAUTHORIZED' });
   });
   public auth_authorization_pendingS = computed(() => {
-    const result = this.$auth_actor
+    const result = this.$actor_auth
       .stateS()
       ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
     return result;
   });
   public auth_logout_pendingS = computed(() => {
-    const result = this.$auth_actor
+    const result = this.$actor_auth
       .stateS()
       ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
     return result;
   });
   public auth_authorization_errorS = computed(() => {
-    const result = this.$auth_actor
+    const result = this.$actor_auth
       .stateS()
       ?.matches({ STATE: { UNAUTHORIZED: 'ERROR' } });
     return result;
   });
   public auth_authoirzation_successS = computed(() => {
-    const result = this.$auth_actor.stateS()?.matches({ STATE: 'AUTHORIZED' });
+    const result = this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' });
     return result;
   });
+
+  public spinner_is_pendingS = computed(() => {
+    const matches_idel =  this.$actor_spinner.stateS()?.matches({'DISPLAY': {
+      'HIDDEN': 'IDEL'
+    }});
+    return matches_idel ? false : true;
+  })
 
   public admin_show_toolbarS = computed(() => {
     return isDevMode() || this.auth_is_authorizedS();
