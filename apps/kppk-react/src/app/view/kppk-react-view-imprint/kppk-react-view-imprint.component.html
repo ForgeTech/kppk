@@ -1,20 +1,10 @@
 <mat-card
   content
-  class="flex w-full flex-auto flex-col gap-10 !shadow-none md:flex-row"
+  class="flex w-full flex-auto flex-col p-10"
 >
   @if( active_languageS() === 'de') {
-  <mat-card-header class="prose">
-    <h1>Allgemeine Nutzungsbedingungen</h1>
-  </mat-card-header>
-  <mat-card-content>
     <kppk-react-imprint-german />
-  </mat-card-content>
   } @else {
-  <mat-card-header class="prose">
-    <h1>Terms and Conditions</h1>
-  </mat-card-header>
-  <mat-card-content>
     <kppk-react-imprint-english />
-  </mat-card-content>
   }
 </mat-card>
