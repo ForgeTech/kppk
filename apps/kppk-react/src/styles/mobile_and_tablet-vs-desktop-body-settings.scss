@@ -1,0 +1,33 @@
+// Fix for body should have at least 100% screen height
+// https://stackoverflow.com/questions/6654958/make-body-have-100-of-the-browser-height
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  &.xs {
+    border: 5px solid blue;
+    width: 100%;
+    height: 100%;
+    display: table;
+    body {
+      width: 100%;
+      display: table-cell;
+    }
+  }
+  &.xs.lg {
+    // border: 5px solid red;
+    border: none;
+    display: block;
+    height: auto;
+    // overflow: hidden;
+    body {
+      height: 100svh;
+      display: block;
+    }
+  }
+}
+
+
