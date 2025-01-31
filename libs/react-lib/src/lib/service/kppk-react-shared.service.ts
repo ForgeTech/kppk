@@ -5,7 +5,7 @@ import {
   FgEnvironmentService,
   FgTranslate,
 } from '@kppk/fg-lib-new';
-import { map, startWith } from 'rxjs';
+import { map, startWith, tap } from 'rxjs';
 import { FgAuthLocalMachineActorService } from '../machine';
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -57,6 +57,10 @@ export class KppkReactSharedService extends FgBaseService {
   });
 
   public show_admin_toolbarS = signal(isDevMode());
+
+  public kppk_react_default_layout_translation$ = this.$translate.get_translations$({
+    close: 'general',
+  });
 
   public kppk_react_home_translations$ = this.$translate.get_translations$({
     alt_pictogram_construction_site: 'home',
@@ -141,10 +145,14 @@ export class KppkReactSharedService extends FgBaseService {
     });
 
   protected lang_active$ = this.$transloco.langChanges$.pipe(
-    startWith(this.$transloco.getActiveLang())
+    startWith(this.$transloco.getActiveLang()),
+    tap( value => {
+      console.log('>>>>>>>>>>ACTIVE_LANG>>>>>>>');
+      console.log( value )
+    })
   );
   public lang_activeS = toSignal(this.lang_active$, {
-    initialValue: this.$transloco.getDefaultLang(),
+    initialValue: this.$transloco.getActiveLang(),
   });
 
   protected langs_translation$ = this.$translate.get_translations$({
@@ -171,10 +179,11 @@ export class KppkReactSharedService extends FgBaseService {
     initialValue: [],
   });
   public langs_icons_pathS = signal(this.$env.i18n.assetPath);
-  public set_language(event: any) {
+  public set_language(lang: any) {
     console.log('LANUAGE_SWITCH');
-    console.log(event);
-    // this.$transloco.setActiveLang( event );
+    console.log('set: ', lang);
+    this.$transloco.setActiveLang( lang );
+    console.log('active: ', this.$transloco.getActiveLang())
   }
 
   public versionS = signal(this.$env.version);

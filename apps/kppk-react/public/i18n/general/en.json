@@ -3,5 +3,6 @@
   "calculation_start": "Start Calculation",
   "login": "Login",
   "logout": "Logout",
-  "label_version": "Version"
+  "label_version": "Version",
+  "close": "Close"
 }

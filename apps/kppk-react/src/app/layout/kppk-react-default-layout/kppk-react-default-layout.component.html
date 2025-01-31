@@ -1,31 +1,37 @@
 @let s = $shared;
+@let t = translationS();
 <fg-layout-default>
-  <kppk-admin-toolbar header [show]="s.show_admin_toolbarS()" />
-  <fg-layout-drawer #drawer content class="flex h-full min-h-full flex-col">
-    <nav kppk-react-navigation start class="min-w-1/4 h-full"></nav>
-    <!-- <ng-template start [cdkPortalOutlet]="drawerContent$ | async"/> -->
+  <kppk-admin-toolbar #admin header [show]="s.show_admin_toolbarS()" />
+  <fg-layout-drawer #drawer content class="flex h-full min-h-full flex-col" [fixed]="true" [top]="topS()">
+    <div start>
+      <nav class="nav-mobile-start h-full" kppk-react-navigation>
+        <fg-layout-drawer-close-button top-list class="w-full" [label]="t?.close"/>
+      </nav>
+    </div>
     <fg-layout-default content>
-      <header kppk-react-header header></header>
-      <div content class="flex h-full min-h-full flex-col">
-        <!-- <fg-sw-update-banner></fg-sw-update-banner> -->
-        <div class="flex h-full min-h-full flex-auto flex-row">
-          <aside class="md:inline-block">
-            <nav
-              kppk-react-navigation
-              class="nav-desktop h-full min-h-full w-[300px]"
-            ></nav>
+      <header #header kppk-react-header header class="sticky top-0"></header>
+      <!-- <div content class="flex h-full min-h-full flex-col"> -->
+        <!-- <fg-sw-update-banner class="sticky top-0" /> -->
+        <div content class="flex h-full min-h-full flex-auto flex-row">
+          <aside class="hidden lg:inline-block">
+            <nav kppk-react-navigation class="nav-desktop h-full min-h-full"></nav>
           </aside>
           <main class="h-full min-h-full flex-auto">
             <ng-content select="[content]" />
           </main>
         </div>
-      </div>
-      <div class="vertical-btn-bar">
+      <!-- </div> -->
+      <!-- <div class="vertical-btn-bar">
         <ng-content select="[verticalButtonBar]"></ng-content>
-      </div>
+      </div> -->
       <footer kppk-react-footer footer></footer>
     </fg-layout-default>
     <!-- <ng-template end [cdkPortalOutlet]="drawerContent$ | async"/> -->
-    <nav kppk-react-navigation end class="min-w-1/4 h-full"></nav>
+    <div end>
+      <nav class="nav-mobile-end h-full" kppk-react-navigation>
+        <fg-layout-drawer-close-button top-list class="w-full" [label]="t?.close"/>
+      </nav>
+    </div>
   </fg-layout-drawer>
+
 </fg-layout-default>
