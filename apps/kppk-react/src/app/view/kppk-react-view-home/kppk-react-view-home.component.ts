@@ -79,11 +79,11 @@ export class KppkReactViewHomeComponent {
         this.ref_start_calculation_dialog = this.$dialog.open(
           KppkReactHomeStartCalcModalComponent,
           {
-            panelClass: 'kppk_react_home_view_modal_panal',
             enterAnimationDuration: '250ms',
             exitAnimationDuration: '250ms',
-            minHeight: '600px',
-            minWidth: '80%',
+            height: '600px',
+            minWidth: '300px',
+            width: '95%',
             maxWidth: '600px',
             autoFocus: true,
             disableClose: true,
