@@ -1,6 +1,7 @@
 <div class="main-navigation flex h-full min-h-full w-[300px] flex-col">
   @let s = $shared; @let t = kppk_react_navigation_translationsS();
   <mat-list>
+    <ng-content select="[top-list]"/>
     @if( can_install_pwaS() ){
     <mat-list-item class="pwa-install-item">
       <fg-pwa-install
