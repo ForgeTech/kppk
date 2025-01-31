@@ -4,7 +4,6 @@ import {
   HostListener,
   ViewEncapsulation,
   computed,
-  effect,
   inject,
   signal,
   viewChild,
@@ -31,6 +30,7 @@ import {
   KppkReactSharedService,
 } from '@kppk/react-lib';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatListModule } from '@angular/material/list';
 
 export interface FgOpenDrawerInterface {
   drawer: 'inner' | 'outer';
@@ -56,6 +56,7 @@ export interface FgOpenDrawerInterface {
     // KppkReactHeaderOpenNavBtnComponent,
     FgLayoutDrawerCloseButtonComponent,
     KppkAdminToolbarComponent,
+    MatListModule
   ],
   templateUrl: './kppk-react-default-layout.component.html',
   styleUrls: ['./kppk-react-default-layout.component.scss'],

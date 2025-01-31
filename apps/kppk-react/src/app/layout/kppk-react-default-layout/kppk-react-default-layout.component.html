@@ -5,7 +5,9 @@
   <fg-layout-drawer #drawer content class="flex h-full min-h-full flex-col" [fixed]="true" [top]="topS()">
     <div start>
       <nav class="nav-mobile-start h-full" kppk-react-navigation>
-        <fg-layout-drawer-close-button top-list class="w-full" [label]="t?.close"/>
+        <mat-list-item top-list >
+          <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+        </mat-list-item>
       </nav>
     </div>
     <fg-layout-default content>
@@ -29,7 +31,9 @@
     <!-- <ng-template end [cdkPortalOutlet]="drawerContent$ | async"/> -->
     <div end>
       <nav class="nav-mobile-end h-full" kppk-react-navigation>
-        <fg-layout-drawer-close-button top-list class="w-full" [label]="t?.close"/>
+        <mat-list-item top-list >
+          <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+        </mat-list-item>
       </nav>
     </div>
   </fg-layout-drawer>
