@@ -14,7 +14,7 @@
           src="./images/react/react-logo.png"
         />
 
-        <div class="mb-4 mt-2">
+        <div class="mb-6 mt-4">
 
           <div class="relative pb-[2px] pt-10">
             @if( s.auth_authorization_errorS() ) {
@@ -104,7 +104,7 @@
           [selected]="s.lang_activeS()"
           [available_langs]="s.langs_availableS()"
           [icon_path]="s.langs_icons_pathS()"
-          (change)="s.set_language($event)"
+          (selection)="s.set_language($event)"
         />
       </li>
     </menu>
