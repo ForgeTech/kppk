@@ -1,3 +1,4 @@
+@let s = $shared;
 <div class="header">
   <mat-toolbar>
     <mat-toolbar-row>
@@ -36,9 +37,8 @@
       >
         <mat-icon>print</mat-icon>
       </a> -->
-      @if( is_authorizedS() ) {
+      @if( s.auth_is_authorizedS() ) {
       <button
-        class="logout-btn"
         mat-icon-button
         color="warn"
         [matTooltip]="'general.logout'"
@@ -51,7 +51,7 @@
       <a
         mat-icon-button
         color="primary"
-        routerLink="/{{ HOST_ROUTES.HOME }}"
+        routerLink="/{{ HOST_ROUTES.LOGIN }}"
         [matTooltip]="'general.login'"
         [attr.aria-label]="'general.login'"
       >
@@ -59,10 +59,13 @@
       </a>
       }
       <fg-layout-drawer-open-button 
-        class="hidden sm:inline-block" 
+        class="hidden sm:inline-block lg:hidden" 
         [from]="'end'" 
         [mode]="'push'"
       />
     </mat-toolbar-row>
   </mat-toolbar>
+  @if( s.spinner_is_pendingS() ){
+    <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
+  }
 </div>
