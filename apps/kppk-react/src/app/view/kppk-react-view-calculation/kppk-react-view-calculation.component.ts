@@ -65,8 +65,8 @@ export class KppkReactViewCalculationComponent {
     const result =
       this.$actor_view_calculation.stateS()?.context.calculation?.form_common
         .value;
-    this.$log.fatal('UPDATED_COMMON_MODEL');
-    this.$log.fatal(JSON.stringify(result));
+    this.$log?.fatal('UPDATED_COMMON_MODEL');
+    this.$log?.fatal(JSON.stringify(result));
     return result;
   });
 
