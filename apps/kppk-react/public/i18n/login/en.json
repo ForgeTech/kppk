@@ -5,5 +5,15 @@
   "authorization_success": "Login successful!",
   "input_password_label": "Password",
   "input_user_label": "Username",
-  "label_login": "Login"
+  "label_login": "Login",
+  "headline_login": "Log into Account",
+  "error_password_change": "Password couldn't be changed",
+  "success_password_change": "Password changed successfully",
+  "headline_password_change": "Change Password",
+  "headline_password_reset": "Reset Password",
+  "input_password_old": "Current Password",
+  "input_code": "Reset code",
+  "input_password_new": "New password",
+  "input_password_confirm": "Confirm password",
+  "label_change_password": "Request change"
 }

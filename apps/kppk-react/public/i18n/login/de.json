@@ -5,5 +5,15 @@
   "input_password_label": "Passwort",
   "input_user_label": "Benutzername",
   "label_login": "Anmelden",
-  "authorization_success": "Anmeldung erfolgreich!"
+  "authorization_success": "Anmeldung erfolgreich!",
+  "headline_login": "Anmelden",
+  "error_password_change": "Passwort konnte nicht geaendert werden",
+  "success_password_change": "Passwort erfolgreich gäendert",
+  "headline_password_change": "Change Password",
+  "headline_password_reset": "Passwort zurücksetzen",
+  "input_password_old": "Aktuelles Passwort",
+  "input_code": "Änderungscode",
+  "input_password_new": "Neues Passwort",
+  "input_password_confirm": "Neues Passwort bestätigen",
+  "label_change_password": "Passwort ändern"
 }
