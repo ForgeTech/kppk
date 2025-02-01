@@ -8,17 +8,15 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FgEnvironmentService,
-  FgLayoutDefaultComponent,
 } from '@kppk/fg-lib-new';
 import {
+  EventFgAuthLocalLoginParser,
   FgAuthLocalMachineActorService,
-  KppkAdminToolbarComponent,
   KppkFormlyModule,
   KppkReactSharedService,
 } from '@kppk/react-lib';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
-  FgLanguageSwitchComponent,
   FgPwaInstallComponent,
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
@@ -28,10 +26,7 @@ import { HOST_ROUTES } from '@kppk/react-lib';
 @Component({
   imports: [
     CommonModule,
-    FgLanguageSwitchComponent,
-    FgLayoutDefaultComponent,
     FgPwaInstallComponent,
-    KppkAdminToolbarComponent,
     KppkFormlyModule,
     MatButtonModule,
     MatCardModule,
@@ -39,9 +34,9 @@ import { HOST_ROUTES } from '@kppk/react-lib';
     MatProgressBarModule,
     RouterModule,
   ],
-  selector: 'kppk-react-view-login',
-  templateUrl: './kppk-react-view-login.component.html',
-  styleUrl: './kppk-react-view-login.component.scss',
+  selector: 'kppk-react-view-auth-login',
+  templateUrl: './kppk-react-view-auth-login.component.html',
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewLoginComponent {
@@ -92,10 +87,10 @@ export class KppkReactViewLoginComponent {
 
   protected login(event?: Event) {
     event?.preventDefault();
-    const event_to_dispatch = {
-      type: 'fg.auth.local.event.login' as const,
+    const event_to_dispatch = EventFgAuthLocalLoginParser.parse({
+      type: 'fg.auth.local.event.login',
       payload: this.form_login.value as { user: string; password: string },
-    };
+    });
     this.$auth_actor.send(event_to_dispatch);
-  }
+  };
 }

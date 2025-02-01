@@ -1,0 +1,65 @@
+@let s = $shared; 
+@let t = kppk_react_auth_layout_translationsS();
+<fg-layout-default>
+  <ng-container header>
+    @defer(when s.show_admin_toolbarS()) {
+      <kppk-admin-toolbar [show]="s.show_admin_toolbarS()" />
+    }
+  </ng-container>
+  <main
+    content
+    class="flex h-full w-full flex-col items-center justify-center"
+  >
+   <mat-card class="min-w-xs flex w-full max-w-lg flex-col items-center justify-center pb-8 pt-10">
+      <ng-content />
+   </mat-card>
+    <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ s.versionS() }}</div>
+    <a
+      class="m-4 inline-block sm:m-8"
+      href="https://www.kppk.at/"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <img
+        class="kppk-logo"
+        width="100%"
+        alt="{{ t?.alt_kppk_logo }}"
+        src="./images/kppk/kppk-logo.svg"
+      />
+    </a>
+  </main>
+  <footer footer>
+    <menu class="flex list-none flex-col justify-end gap-2 md:flex-row">
+      <li class="w-full md:w-64">
+        <a class="w-full !bg-gray-100 !text-base" 
+          mat-flat-button
+          routerLink="/{{ ROUTES.IMPRINT }}"
+          routerLinkActive="active"
+        >
+          <mat-icon color="primary" svgIcon="info" />
+          {{ t?.route_imprint }}
+        </a>
+      </li>
+      <li class="w-full md:w-64">
+        <a class="w-full !bg-gray-100 !text-base" 
+          mat-flat-button
+          routerLink="/{{ ROUTES.DATA_PROTECTION }}"
+          routerLinkActive="active"
+        >
+          <mat-icon color="primary" svgIcon="shield"/>
+          {{ t?.route_data_protection }}
+        </a>
+      </li>
+      <li class="w-full md:w-64">
+        <fg-language-switch
+          class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"
+          [selected]="s.lang_activeS()"
+          [available_langs]="s.langs_availableS()"
+          [icon_path]="s.langs_icons_pathS()"
+          (selection)="s.set_language($event)"
+        />
+      </li>
+    </menu>
+  </footer>
+</fg-layout-default>
+<div class="bg-image"></div>
