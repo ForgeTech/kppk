@@ -1,5 +1,6 @@
 export * from './fg-auth-local';
 export * from './fg-spinner';
+export * from './machine.utils';
 export * from './react-admin-toolbar';
 export * from './react-init';
 export * from './react-view-calculation-material';
