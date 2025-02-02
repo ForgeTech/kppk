@@ -5,20 +5,16 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { KppkReactDefaultLayoutComponent } from '../kppk-react-default-layout/kppk-react-default-layout.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'kppk-react-default-layout-router-outlet',
-  imports: [CommonModule, RouterModule, KppkReactDefaultLayoutComponent],
-  templateUrl: './kppk-react-default-layout-router-outlet.component.html',
-  styles: [
-    `
-      :host {
-        display: inline-block;
-        min-height: 100%;
-      }
-    `,
-  ],
+  imports: [RouterModule, KppkReactDefaultLayoutComponent],
+  template: `
+  <kppk-react-default-layout>
+    <router-outlet content/>
+  </kppk-react-default-layout>
+  `,
+  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
