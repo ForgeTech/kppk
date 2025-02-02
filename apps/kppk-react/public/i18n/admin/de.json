@@ -1,7 +1,12 @@
 {
-  "development_tools": "Entwicklungs Werkzeuge",
-  "test_calculation": "Test Berechnung",
   "alt_xstate": "XState Logo",
-  "tooltip_test_calculation": "Erlaubt das activieren/deactivieren der REACT Test Berechnung",
+  "headline_admin_toolbar": "Entwicklungs Werkzeuge",
+  "error_admin_toolbar": "Entwicklungswerkzeuge konnten nicht geladen werden",
+  "label_authorization": "Anmeldung",
+  "label_calculation": "Test Berechnung",
+  "label_refresh_admin_toolbar": "Neu Laden",
+  "tooltip_authorization": "Erlaubt das an/abmelden eines Benutzerkontos",
+  "tooltip_calculation": "Erlaubt das activieren/deactivieren der REACT Test Berechnung",
+  "tooltip_refresh_admin_toolbar": "Versuche die Entwicklungs Werkzeuge neu zu laden", 
   "tooltip_xstate": "Erlaubt das activieren/deactivieren des XState Statemachine inspektors"
 }

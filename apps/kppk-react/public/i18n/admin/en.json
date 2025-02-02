@@ -1,7 +1,11 @@
 {
-  "development_tools": "Development Tools",
-  "test_calculation": "Testing Calculation",
   "alt_xstate": "XState Logo",
+  "headline_admin_toolbar": "Development Tools",
+  "headline_error_admin_toolbar": "Development Tools couldn't be loaded",
+  "label_authorization": "Authorization",
+  "label_calculation": "Testing Calculation",
+  "label_refresh_admin_toolbar": "Reload",
+  "tooltip_authorization": "Allows login/logout of a user-account",
   "tooltip_test_calculation": "Allows activation/deactivation of REACT testing calculation",
   "tooltip_xstate": "Allows activation/deactivation of XState statemachine inspector"
 }
