@@ -51,6 +51,7 @@ export const appConfig: ApplicationConfig = {
         })
       ),
       FgEventService,
+      provideHttpClient(withFetch(), withInterceptorsFromDi()),
     ]),
     provideClientHydration(withEventReplay()),
     provideExperimentalZonelessChangeDetection(),
@@ -62,7 +63,7 @@ export const appConfig: ApplicationConfig = {
       // withDebugTracing(),
     ),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+
     provideTransloco({
       config: {
         availableLangs: environment.i18n.availableLangs,
