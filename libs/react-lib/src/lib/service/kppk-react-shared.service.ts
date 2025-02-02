@@ -61,11 +61,7 @@ export class KppkReactSharedService extends FgBaseService {
     return matches_idel ? false : true;
   })
 
-  // public admin_show_toolbarS = computed(() => {
-  //   return isDevMode() || this.auth_is_authorizedS();
-  // });
-
-  public show_admin_toolbarS = computed( () => {
+  public admin_toolbar_showS = computed( () => {
     const user_is_admin = this.$actor_auth.stateS()?.context.auth_cookie?.profile.admin;
     const result = this.$env.development?.enabled || user_is_admin ? true : false;
     return result;
