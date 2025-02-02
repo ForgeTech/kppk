@@ -1,7 +1,11 @@
 @let s = $shared;
 @let t = translationS();
 <fg-layout-default>
-  <kppk-admin-toolbar #admin header [show]="s.show_admin_toolbarS()" />
+  <ng-container header>
+    @defer(when s.show_admin_toolbarS()) {
+      <kppk-admin-toolbar [show]="s.show_admin_toolbarS()" />
+    }
+  </ng-container>
   <fg-layout-drawer #drawer content class="flex h-full min-h-full flex-col" [fixed]="true" [top]="topS()">
     <div start>
       <nav class="nav-mobile-start h-full" kppk-react-navigation>
