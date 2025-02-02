@@ -61,11 +61,15 @@ export class KppkReactSharedService extends FgBaseService {
     return matches_idel ? false : true;
   })
 
-  public admin_show_toolbarS = computed(() => {
-    return isDevMode() || this.auth_is_authorizedS();
-  });
+  // public admin_show_toolbarS = computed(() => {
+  //   return isDevMode() || this.auth_is_authorizedS();
+  // });
 
-  public show_admin_toolbarS = signal(isDevMode());
+  public show_admin_toolbarS = computed( () => {
+    const user_is_admin = this.$actor_auth.stateS()?.context.auth_cookie?.profile.admin;
+    const result = this.$env.development?.enabled || user_is_admin ? true : false;
+    return result;
+  });
 
   public kppk_react_default_layout_translation$ = this.$translate.get_translations$({
     close: 'general',
@@ -124,19 +128,30 @@ export class KppkReactSharedService extends FgBaseService {
     });
 
   public kppk_react_login_translations$ = this.$translate.get_translations$({
-    alt_kppk_logo: 'login',
     alt_react_logo: 'login',
     authorization_error: 'login',
     authorization_success: 'login',
+    headline_login: 'login',
     input_password_label: 'login',
     input_user_label: 'login',
     label_install: 'pwa',
     label_login: 'login',
-    label_version: 'general',
-    route_data_protection: 'route',
-    route_imprint: 'route',
     tooltip_install: 'pwa',
   });
+
+  public kppk_react_change_password_translations$ = this.$translate.get_translations$({
+    alt_react_logo: 'login',
+    error_password_change: 'login',
+    success_password_change: 'login',
+    headline_password_change: 'login',
+    input_password_old: 'login',
+    input_code: 'login',
+    input_password_new: 'login',
+    input_password_confirm: 'login',
+    label_change_password: 'login',
+  });
+
+
 
   public kppk_react_navigation_translations$ =
     this.$translate.get_translations$({

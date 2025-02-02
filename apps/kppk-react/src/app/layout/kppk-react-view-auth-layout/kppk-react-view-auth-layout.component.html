@@ -2,8 +2,8 @@
 @let t = kppk_react_auth_layout_translationsS();
 <fg-layout-default>
   <ng-container header>
-    @defer(when s.show_admin_toolbarS()) {
-      <kppk-admin-toolbar [show]="s.show_admin_toolbarS()" />
+    @defer(when s.admin_toolbar_showS()) {
+      <kppk-admin-toolbar [show]="s.admin_toolbar_showS()" />
     }
   </ng-container>
   <main
