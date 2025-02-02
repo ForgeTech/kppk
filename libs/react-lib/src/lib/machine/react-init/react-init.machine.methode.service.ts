@@ -9,6 +9,7 @@ import {
   REACT_INIT_CONTEXT,
   react_init_load_from_remote_parser,
 } from '../../types';
+import { load_object } from '../machine.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -176,7 +177,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public async actor_load_from_remote({ input }: { input: any }) {
-    const common$ = this.load_object({
+    const common$ = load_object({
       concrete_types: './react/data/august2024/common/concrete_types.json',
       //construction_site_energy_usage: './react/data/august2024/common/construction_site_energy_usage.json',
       container_disposal:
@@ -190,7 +191,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
       window_glass: './react/data/august2024/common/window_glass.json',
     });
 
-    const form_defaults$ = this.load_object({
+    const form_defaults$ = load_object({
       form_common: './react/data/august2024/form_default/form_common.json',
       form_construction_site:
         './react/data/august2024/form_default/form_construction_site.json',
@@ -205,7 +206,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
         './react/data/august2024/form_default/form_selection.json',
     });
 
-    const debug_calculation_v1$ = this.load_object({
+    const debug_calculation_v1$ = load_object({
       file_aufbauten:
         './react/data/august2024/debug_calculation_v1/file_aufbauten.json',
       file_bauteilflaechen:
@@ -265,13 +266,5 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     // console.log('>>>>>>ACTOR_VALIDATE_RESULT');
     // console.log( input );
     return input;
-  }
-
-  private load_object(to_load: Record<string, string>) {
-    const resources: Record<string, Observable<any>> = {};
-    const sources = Object.keys(to_load).forEach((key) => {
-      resources[key] = this.$http.get(to_load[key]);
-    });
-    return forkJoin(resources);
   }
 }
