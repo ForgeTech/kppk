@@ -28,6 +28,7 @@ export const fg_auth_local_generator_user_parser = z.object({
      * Valid values according to https://www.npmjs.com/package/timestring
      */
     cookie_life_time: z.string(),
+    admin: z.boolean(),
     active: z.boolean()
 })
 export type FG_AUTH_LOCAL_GENERATOR_USER = z.infer<typeof fg_auth_local_generator_user_parser>;
