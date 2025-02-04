@@ -10,7 +10,8 @@ import {
   FgEnvironmentService,
 } from '@kppk/fg-lib-new';
 import {
-  EventFgAuthLocalLoginParser,
+  FG_AUTH_LOCAL_CREDENTIALS,
+  fg_auth_local_event_login_parser,
   FgAuthLocalMachineActorService,
   KppkFormlyModule,
   KppkReactSharedService,
@@ -87,9 +88,9 @@ export class KppkReactViewLoginComponent {
 
   protected login(event?: Event) {
     event?.preventDefault();
-    const event_to_dispatch = EventFgAuthLocalLoginParser.parse({
+    const event_to_dispatch = fg_auth_local_event_login_parser.parse({
       type: 'fg.auth.local.event.login',
-      payload: this.form_login.value as { user: string; password: string },
+      data: this.form_login.value,
     });
     this.$auth_actor.send(event_to_dispatch);
   };
