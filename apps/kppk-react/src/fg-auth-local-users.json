@@ -1,0 +1,18 @@
+{
+  "users": [{
+      "username": "ADMIN",
+      "email": "admin@xstate.at",
+      "password": "ADMIN!2023",
+      "admin": true,
+      "cookie_life_time": "1y",
+      "active": true
+  },
+  {   
+      "username": "XSTATE_001", 
+      "email": "xstate_001@xstate.at", 
+      "password": "XSTATE!2023",
+      "admin": false,
+      "cookie_life_time": "2d",
+      "active": true
+  }]
+}
