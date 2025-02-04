@@ -1,11 +1,11 @@
 import {
-  AuthCookieFgAuthLocalParser,
-  ContextFgAuthLocal,
-  ContextFgAuthLocalParser,
-  EventFgAuthLocalAuthorizedParser,
-  EventFgAuthLocalLoginParser,
-  EventFgAuthLocalUnauthorizedParser,
-  SaltFileContentFgAuthLocalParser,
+  fg_auth_local_auth_cookie_parser,
+  FG_AUTH_LOCAL_CONTEXT,
+  fg_auth_local_context_parser,
+  fg_auth_local_event_authorized_parser,
+  fg_auth_local_event_login_parser,
+  fg_auth_local_event_unauthorized_parser,
+  fg_auth_local_salt_file_content_parser,
 } from './fg-auth-local.machine.types';
 import { catchError, map, firstValueFrom, tap } from 'rxjs';
 import { FgStorageNgxCookieService } from '@kppk/fg-lib-new';
@@ -21,7 +21,7 @@ import { SHA256Algo } from 'crypto-es/lib/sha256';
 import Base64 from 'crypto-js/enc-base64';
 
 export type FgAuthLocalV1Params = {
-  context: ContextFgAuthLocal;
+  context: FG_AUTH_LOCAL_CONTEXT;
   event: AnyEventObject;
 };
 
@@ -111,7 +111,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public send_authorized_event_to({ context }: FgAuthLocalV1Params) {
-    const result = EventFgAuthLocalAuthorizedParser.parse({
+    const result = fg_auth_local_event_authorized_parser.parse({
       type: 'fg.auth.local.event.authorized',
       payload: {
         auth_cookie: context.auth_cookie,
@@ -122,7 +122,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public send_unauthorized_event_to({ context }: FgAuthLocalV1Params) {
-    return EventFgAuthLocalUnauthorizedParser.parse({
+    return fg_auth_local_event_unauthorized_parser.parse({
       type: 'fg.auth.local.event.unauthorized',
     });
   }
@@ -134,22 +134,21 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_auth_cookie({ context, event }: FgAuthLocalV1Params) {
-    const auth_cookie = AuthCookieFgAuthLocalParser.optional().parse(
+    const auth_cookie = fg_auth_local_auth_cookie_parser.optional().parse(
       event['output']
     );
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
       draft.auth_cookie = auth_cookie;
-      return draft;
     });
   }
 
   @boundMethod
   public assign_auth_key({ context, event }: FgAuthLocalV1Params) {
-    const event_output = SaltFileContentFgAuthLocalParser.parse(
+    const event_output = fg_auth_local_salt_file_content_parser.parse(
       event['output']
     );
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
-      draft.salt = event_output.publicSalt;
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+      draft.salt = event_output.public_salt;
     });
   }
 
@@ -158,24 +157,24 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     context,
     event,
   }: {
-    context: ContextFgAuthLocal;
+    context: FG_AUTH_LOCAL_CONTEXT;
     event: any;
   }) {
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
       draft.error = (event.error as Error).message;
     });
   }
 
   @boundMethod
   public assign_clear_authorization_error({ context }: FgAuthLocalV1Params) {
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
       draft.error = undefined;
     });
   }
 
   @boundMethod
   public assign_clear_auth_cookie({ context }: FgAuthLocalV1Params) {
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
       draft.auth_cookie = undefined;
     });
   }
@@ -185,7 +184,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     context,
     event,
   }: FgAuthLocalV1Params) {
-    return this.$immer.produce<ContextFgAuthLocal>(context, (draft) => {
+    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
       draft.error = event['error'].message;
     });
   }
@@ -220,7 +219,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
           throw new Error('error_actor_load_auth_local_key_not_found');
         }),
         map((result) => {
-          SaltFileContentFgAuthLocalParser.parse(result);
+          fg_auth_local_salt_file_content_parser.parse(result);
           return result;
         }),
         catchError((error) => {
@@ -247,8 +246,10 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
           throw new Error('error_actor_load_auth_cookie_failed');
         }),
         map((result) => {
-          const auth_cookie = result ? result : undefined;
-          AuthCookieFgAuthLocalParser.optional().parse(auth_cookie);
+          let auth_cookie = result ? result : undefined;
+          if( auth_cookie ) {
+           auth_cookie = fg_auth_local_auth_cookie_parser.optional().parse(auth_cookie);
+          }
           return auth_cookie;
         }),
         catchError((error) => {
@@ -276,12 +277,12 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public async actor_authorization({ input }: { input: FgAuthLocalV1Params }) {
-    const context = ContextFgAuthLocalParser.parse(input.context);
-    const event = EventFgAuthLocalLoginParser.parse(input.event);
+    const context = fg_auth_local_context_parser.parse(input.context);
+    const event = fg_auth_local_event_login_parser.parse(input.event);
     let filename: string;
     if (context.salt) {
       const hash = await this.createHashValidForPathUrl(
-        event.payload.user + event.payload.password,
+        event.data.user + event.data.password,
         context.salt
       );
       filename = hash.concat('.json');
@@ -294,14 +295,14 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
           throw new Error('error_actor_authorization_not_found');
         }),
         map((value) => {
-          const result = AuthCookieFgAuthLocalParser.parse(value);
+          const result = fg_auth_local_auth_cookie_parser.parse(value);
           return result;
         }),
         tap((value) => {
           // Set auth_cookie in browser
           const options: CookieOptions = {
             expires: this.$time.getCookieExpirationDate(
-              value.profile.cookieLifeTime
+              value.profile.cookie_life_time
             ),
           };
           this.$cookie.setItem(context.auth_cookie_storage_key, value, options);

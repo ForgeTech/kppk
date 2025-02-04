@@ -2,26 +2,16 @@ import { FgBaseService } from '@kppk/fg-lib-new';
 import { Injectable, inject } from '@angular/core';
 import { assign, emit, fromPromise, sendParent, setup } from 'xstate';
 import {
-  AuthCookieFgAuthLocalParser,
-  ContextFgAuthLocalParser,
-  EventFgAuthLocalAuthorizedParser,
-  EventFgAuthLocalLoginParser,
-  EventFgAuthLocalUnauthorizedParser,
-  ContextFgAuthLocal,
-  SaltFileContentFgAuthLocalParser,
-  EventFgAuthLocalLogin,
-  EventFgAuthLocalLogout,
-  EventFgAuthLocalAuthorized,
-  EventFgAuthLocalUnauthorized,
-  EventFgAuthLocalStop,
+  fg_auth_local_context_parser,
+  FG_AUTH_LOCAL_CONTEXT,
+  FG_AUTH_LOCAL_EVENT_LOGIN,
+  FG_AUTH_LOCAL_EVENT_LOGOUT,
+  FG_AUTH_LOCAL_EVENT_UNAUTHORIZED,
+  FG_AUTH_LOCAL_EVENT_AUTHORIZED,
+  FG_AUTH_LOCAL_EVENT_STOP,
 } from './fg-auth-local.machine.types';
 import { FgAuthLocalMachineMethodeService } from './fg-auth-local.machine.methode.service';
 import { parent_context_event_input } from '../machine.utils';
-
-// export type FgAuthLocalV3ActorRef = ActorRefFrom<typeof FG_AUTH_LOCAL_V1>;
-// export type FgAuthLocalV3Snapshot = SnapshotFrom<typeof FG_AUTH_LOCAL_V1>;
-// export type FgAuthLocalV3Event = EventFromLogic<typeof FG_AUTH_LOCAL_V1>;
-// export type FgAuthLocalV3Actor = typeof FG_AUTH_LOCAL_V1;
 
 @Injectable({
   providedIn: 'root',
@@ -32,14 +22,14 @@ export class FgAuthLocalV3MachineService extends FgBaseService {
   public get_machine() {
     return setup({
       types: {
-        input: {} as Partial<ContextFgAuthLocal>,
-        context: {} as ContextFgAuthLocal,
+        input: {} as Partial<FG_AUTH_LOCAL_CONTEXT>,
+        context: {} as FG_AUTH_LOCAL_CONTEXT,
         events: {} as
-          | EventFgAuthLocalLogin
-          | EventFgAuthLocalLogout
-          | EventFgAuthLocalAuthorized
-          | EventFgAuthLocalUnauthorized
-          | EventFgAuthLocalStop
+          | FG_AUTH_LOCAL_EVENT_LOGIN
+          | FG_AUTH_LOCAL_EVENT_LOGOUT
+          | FG_AUTH_LOCAL_EVENT_AUTHORIZED
+          | FG_AUTH_LOCAL_EVENT_UNAUTHORIZED
+          | FG_AUTH_LOCAL_EVENT_STOP
           | { type: 'fg.auth.local.event.initialize' },
       },
       actions: {
@@ -89,7 +79,7 @@ export class FgAuthLocalV3MachineService extends FgBaseService {
         actor_authorization: fromPromise(this.$methode.actor_authorization),
       },
     }).createMachine({
-      context: ContextFgAuthLocalParser.parse({}),
+      context: fg_auth_local_context_parser.parse({}),
       id: 'FG_AUTH_LOCAL_V3',
       type: 'parallel',
       states: {

@@ -1,11 +1,11 @@
 import {
-  ContextFgAuthLocal,
-  ContextFgAuthLocalParser,
-  EventFgAuthLocalAuthorized,
-  EventFgAuthLocalLogin,
-  EventFgAuthLocalLogout,
-  EventFgAuthLocalStop,
-  EventFgAuthLocalUnauthorized,
+  FG_AUTH_LOCAL_CONTEXT,
+  fg_auth_local_context_parser,
+  FG_AUTH_LOCAL_EVENT_AUTHORIZED,
+  FG_AUTH_LOCAL_EVENT_LOGIN,
+  FG_AUTH_LOCAL_EVENT_LOGOUT,
+  FG_AUTH_LOCAL_EVENT_STOP,
+  FG_AUTH_LOCAL_EVENT_UNAUTHORIZED,
 } from './fg-auth-local.machine.types';
 import { Injectable, inject } from '@angular/core';
 import { FgBaseService } from '@kppk/fg-lib-new';
@@ -20,18 +20,18 @@ export class FgAuthLocalMachineService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
   protected $methode = inject(FgAuthLocalMachineMethodeService);
 
-  public get_machine(context?: ContextFgAuthLocal) {
+  public get_machine(context?: FG_AUTH_LOCAL_CONTEXT) {
     return this.$xstate
       .setup({
         types: {
-          input: {} as Partial<ContextFgAuthLocal>,
-          context: {} as ContextFgAuthLocal,
+          input: {} as Partial<FG_AUTH_LOCAL_CONTEXT>,
+          context: {} as FG_AUTH_LOCAL_CONTEXT,
           events: {} as
-            | EventFgAuthLocalLogin
-            | EventFgAuthLocalLogout
-            | EventFgAuthLocalAuthorized
-            | EventFgAuthLocalUnauthorized
-            | EventFgAuthLocalStop,
+            | FG_AUTH_LOCAL_EVENT_LOGIN
+            | FG_AUTH_LOCAL_EVENT_LOGOUT
+            | FG_AUTH_LOCAL_EVENT_AUTHORIZED
+            | FG_AUTH_LOCAL_EVENT_UNAUTHORIZED
+            | FG_AUTH_LOCAL_EVENT_STOP
         },
         actions: {
           send_authorized_event_to: this.$xstate.emit(
@@ -80,8 +80,8 @@ export class FgAuthLocalMachineService extends FgBaseService {
         },
       })
       .createMachine({
-        context: ({ input }: { input: any }) => {
-          return ContextFgAuthLocalParser.parse(context || input || {});
+        context: ({ input }) => {
+            return fg_auth_local_context_parser.parse(context || {});
         },
         id: 'FG_AUTH_LOCAL_V1',
         type: 'parallel',
