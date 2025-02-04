@@ -1,7 +1,6 @@
 {
   "name": "@kppk/source",
   "version": "0.0.0",
-  "license": "MIT",
   "scripts": {
     "update:npm:check": "ncu",
     "update:npm:install": "ncu -u",
@@ -24,6 +23,7 @@
     "react-lib-vite:test": "nx run react-lib-vite:test --parallel=true --maxParallel=75% --watch=true --bail=5",
     "react-lib-vite:test:file": "nx run react-lib-vite:test --parallel=true --maxParallel=75% --watch=true --testFile='src/lib/machine/fg-spinner/fg-spinner.machine.actor.service.spec.ts'",
     "kppk-react:serve": "nx run kppk-react:serve --parallel=true --maxParallel=75% --watch=true --hmr=true",
+    "kppk-react:auth-local": "tsx ./scripts/fg-auth-local/fg-auth-local.script.ts ./apps/kppk-react/src/fg-auth-local-users.json ./../../apps/kppk-react/public/auth-local/",
     "start": "npm run kppk-react:serve"
   },
   "private": true,
@@ -135,6 +135,7 @@
     "jest-preset-angular": "~14.4.0",
     "jsdom": "~22.1.0",
     "jsonc-eslint-parser": "^2.1.0",
+    "mkdirp": "^3.0.1",
     "ng-packagr": "~19.0.0",
     "ngx-pipes": "^3.2.2",
     "nx": "20.3.1",
@@ -145,6 +146,7 @@
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.3.0",
+    "tsx": "^4.19.2",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.13.0",
     "vite": "^5.0.0",
