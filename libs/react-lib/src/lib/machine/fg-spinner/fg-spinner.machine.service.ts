@@ -3,20 +3,20 @@ import { FgBaseService } from '@kppk/fg-lib-new';
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { FgSpinnerMachineMethodeService } from './fg-spinner.machine.methode.service';
 import {
-  ContextFgSpinner,
-  ContextFgSpinnerParser,
-  EventFgSpinnerDismissError,
-  EventFgSpinnerGetContext,
-  EventFgSpinnerHide,
-  EventFgSpinnerSetContext,
-  EventFgSpinnerSetProgress,
-  EventFgSpinnerShow,
-  EventFgSpinnerStop,
-  InternalFgSpinnerForceHide,
-  InternalFgSpinnerForceShow,
-  InternalFgSpinnerHide,
-  InternalFgSpinnerResetTimeout,
-  InternalFgSpinnerShow,
+  FG_SPINNER_CONTEXT,
+  fg_spinner_context_parser,
+  FG_SPINNER_EVENT_DISMISS_ERROR,
+  fg_spinner_event_get_context,
+  FG_SPINNER_EVENT_HIDE,
+  FG_SPINNER_EVENT_SET_CONTEXT,
+  FG_SPINNER_EVENT_SET_PROGRESS,
+  FG_SPINNER_EVENT_SHOW,
+  FG_SPINNER_EVENT_STOP,
+  FG_SPINNER_INTERNAL_FORCE_HIDE,
+  FG_SPINNER_INTERNAL_FORCE_SHOW,
+  FG_SPINNER_INTERNAL_HIDE,
+  FG_SPINNER_INTERNAL_RESET_TIMEOUT,
+  FG_SPINNER_INTERNAL_SHOW,
 } from './fg-spinner.machine.types';
 
 @Injectable({
@@ -26,26 +26,26 @@ export class FgSpinnerMachineService extends FgBaseService {
   protected $xstate = inject(FgXstateService);
   protected $methode = inject(FgSpinnerMachineMethodeService);
 
-  public get_machine(context?: ContextFgSpinner) {
+  public get_machine(context?: FG_SPINNER_CONTEXT) {
     return this.$xstate
       .setup({
         types: {
-          input: {} as Partial<ContextFgSpinner> | undefined,
+          input: {} as Partial<FG_SPINNER_CONTEXT> | undefined,
           events: {} as
-            | EventFgSpinnerHide
-            | EventFgSpinnerShow
-            | EventFgSpinnerStop
-            | InternalFgSpinnerHide
-            | InternalFgSpinnerShow
-            | EventFgSpinnerGetContext
-            | EventFgSpinnerSetContext
-            | EventFgSpinnerSetProgress
-            | InternalFgSpinnerForceHide
-            | InternalFgSpinnerForceShow
-            | InternalFgSpinnerResetTimeout
-            | EventFgSpinnerDismissError
-            | EventFgSpinnerSetContext,
-          context: {} as ContextFgSpinner,
+            | FG_SPINNER_EVENT_HIDE
+            | FG_SPINNER_EVENT_SHOW
+            | FG_SPINNER_EVENT_STOP
+            | FG_SPINNER_INTERNAL_HIDE
+            | FG_SPINNER_INTERNAL_SHOW
+            | fg_spinner_event_get_context
+            | FG_SPINNER_EVENT_SET_CONTEXT
+            | FG_SPINNER_EVENT_SET_PROGRESS
+            | FG_SPINNER_INTERNAL_FORCE_HIDE
+            | FG_SPINNER_INTERNAL_FORCE_SHOW
+            | FG_SPINNER_INTERNAL_RESET_TIMEOUT
+            | FG_SPINNER_EVENT_DISMISS_ERROR
+            | FG_SPINNER_EVENT_SET_CONTEXT,
+          context: {} as FG_SPINNER_CONTEXT,
         },
         actions: {
           assign_set_context: this.$xstate.assign(
@@ -88,16 +88,11 @@ export class FgSpinnerMachineService extends FgBaseService {
           guard_force_hide_is_true: this.$methode.guard_force_hide_is_true,
           guard_force_show_is_true: this.$methode.guard_force_show_is_true,
           guard_allow_reuse_is_false: this.$methode.guard_allow_reuse_is_false,
-          guard_delay_timeout_is_not_zero:
-            this.$methode.guard_delay_timeout_is_not_zero,
-          guard_delay_timeout_is_not_false:
-            this.$methode.guard_delay_timeout_is_not_zero,
-          guard_triggers_count_equals_zero:
-            this.$methode.guard_triggers_count_equals_zero,
-          guard_allow_timeout_reset_is_true:
-            this.$methode.guard_allow_timeout_reset_is_true,
-          guard_delay_auto_dismiss_timeout_error_is_not_zero:
-            this.$methode.guard_delay_auto_dismiss_timeout_error_is_not_zero,
+          guard_delay_timeout_is_not_zero: this.$methode.guard_delay_timeout_is_not_zero,
+          guard_delay_timeout_is_not_false: this.$methode.guard_delay_timeout_is_not_zero,
+          guard_triggers_count_equals_zero: this.$methode.guard_triggers_count_equals_zero,
+          guard_allow_timeout_reset_is_true: this.$methode.guard_allow_timeout_reset_is_true,
+          guard_delay_auto_dismiss_timeout_error_is_not_zero: this.$methode.guard_delay_auto_dismiss_timeout_error_is_not_zero,
         },
         delays: {
           delay_min_show_time: this.$methode.delay_min_show_time,
@@ -109,7 +104,7 @@ export class FgSpinnerMachineService extends FgBaseService {
       })
       .createMachine({
         id: 'FG_SPINNER_V4_5_2',
-        context: ContextFgSpinnerParser.parse(context ?? {}),
+        context: fg_spinner_context_parser.parse(context ?? {}),
         type: 'parallel',
         states: {
           DISPLAY: {

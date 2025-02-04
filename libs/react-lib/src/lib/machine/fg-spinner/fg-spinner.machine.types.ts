@@ -1,19 +1,22 @@
+import { fg_event_parser } from '@kppk/fg-lib-new';
+import { ActorRef, ActorSystem, AnyActorRef } from 'xstate';
+import { AnyActorSystem } from 'xstate/dist/declarations/src/system';
 import { z } from 'zod';
 
-export const ProgressItemFgSpinnerParser = z.object({
+export const fg_spinner_progress_item_parser = z.object({
   name: z.string(),
   progress: z.number().min(0).max(100).default(0),
   finished: z.boolean().default(false),
   // .or(z.undefined().transform(() => 0)),
 });
-export type ProgressItemFgSpinner = z.infer<typeof ProgressItemFgSpinnerParser>;
+export type FG_SPINNER_PROGRESS_ITEM = z.infer<typeof fg_spinner_progress_item_parser>;
 
-export const ContextFgSpinnerParser = z.object({
+export const fg_spinner_context_parser = z.object({
   allow_reuse: z.boolean().default(true),
   allow_timeout_reset: z.boolean().default(true),
   trigger_count: z.number().min(0).default(0),
   // .or(z.undefined().transform(() => 0)),
-  progressItems: z.array(ProgressItemFgSpinnerParser).default([]),
+  progressItems: z.array(fg_spinner_progress_item_parser).default([]),
   delay_min_show_time: z.number().min(0).default(1000),
   // .or(z.undefined().transform(() => 1000)),
   delay_timeout: z.number().min(0).default(0),
@@ -24,72 +27,66 @@ export const ContextFgSpinnerParser = z.object({
   // .or(z.undefined().transform(() => 250)),
 });
 
-export const ContextFgSpinnerParserImmutable =
-  ContextFgSpinnerParser.readonly();
+export type FG_SPINNER_CONTEXT = z.infer<typeof fg_spinner_context_parser>;
 
-export type ContextFgSpinner = z.infer<typeof ContextFgSpinnerParser>;
+export const fg_spinner_action_input_parser = z.object({
+  context: fg_spinner_context_parser,
+  event: z.any(),
+  system: z.custom<AnyActorSystem>()
+});
+export type FG_SPINNER_ACTION_INPUT = z.infer<typeof fg_spinner_action_input_parser>;
 
-export const EventFgSpinnerHideParser = z.object({
+export const fg_spinner_guard_input_parser = z.object({
+  context: fg_spinner_context_parser,
+  event: z.any(),
+});
+export type FG_SPINNER_GUARD_INPUT = z.infer<typeof fg_spinner_guard_input_parser>;
+
+export const fg_spinner_event_hide_parser = fg_event_parser.extend({
   type: z.literal('fg.spinner.event.hide').default('fg.spinner.event.hide'),
-  // .or(z.undefined().transform(() => 'fg.spinner.event.hide' as const)),
-  payload: z
-    .object({
-      force: z.boolean().or(z.undefined().transform(() => false)),
-    })
-    .default({}),
+  data: z.object({
+      force: z.literal(true).optional()
+  }).optional()
 });
-export type EventFgSpinnerHide = z.infer<typeof EventFgSpinnerHideParser>;
+export type FG_SPINNER_EVENT_HIDE = z.infer<typeof fg_spinner_event_hide_parser>;
 
-export const EventFgSpinnerShowParser = z.object({
+export const fg_spinner_event_show_parser = fg_event_parser.extend({
   type: z.literal('fg.spinner.event.show').default('fg.spinner.event.show'),
-  // .or(z.undefined().transform(() => 'fg.spinner.event.show' as const)),
-  payload: z
-    .object({
-      force: z.boolean().or(z.undefined().transform(() => false)),
-    })
-    .default({}),
+  data: z.object({
+      force: z.literal(true).optional()
+  }).optional()
 });
-export type EventFgSpinnerShow = z.infer<typeof EventFgSpinnerShowParser>;
+export type FG_SPINNER_EVENT_SHOW = z.infer<typeof fg_spinner_event_show_parser>;
 
-export const EventFgSpinnerStopParser = z.object({
-  type: z.literal('fg.spinner.event.stop').default('fg.spinner.event.stop'),
+export const fg_spinner_event_stop_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.stop').default('fg.spinner.event.stop')
 });
-export type EventFgSpinnerStop = z.infer<typeof EventFgSpinnerStopParser>;
+export type FG_SPINNER_EVENT_STOP = z.infer<typeof fg_spinner_event_stop_parser>;
 
-export const InternalFgSpinnerHideParser = z.object({
-  type: z
-    .literal('fg.spinner.internal.hide')
-    .default('fg.spinner.internal.hide'),
+export const fg_spinner_internal_hide_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.internal.hide').default('fg.spinner.internal.hide')
 });
-export type InternalFgSpinnerHide = z.infer<typeof InternalFgSpinnerHideParser>;
+export type FG_SPINNER_INTERNAL_HIDE = z.infer<typeof fg_spinner_internal_hide_parser>;
 
-export const InternalFgSpinnerShowParser = z.object({
-  type: z
-    .literal('fg.spinner.internal.show')
-    .default('fg.spinner.internal.show'),
+export const fg_spinner_internal_show_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.internal.show').default('fg.spinner.internal.show')
 });
-export type InternalFgSpinnerShow = z.infer<typeof InternalFgSpinnerShowParser>;
+export type FG_SPINNER_INTERNAL_SHOW = z.infer<typeof fg_spinner_internal_show_parser>;
 
-export const EventFgSpinnerGetContextSendToMachineIdParser = z.object({
-  type: z
-    .literal('fg.spinner.event.get_context')
-    .default('fg.spinner.event.get_context'),
-  payload: z.object({
-    machineId: z.string(),
+export const fg_spinner_event_get_context_send_to_machine_id_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.get_context').default('fg.spinner.event.get_context'),
+  data: z.object({
+    machine_id: z.string(),
   }),
 });
-export const EventFgSpinnerGetContextSendToMachineRefParser = z.object({
-  type: z
-    .literal('fg.spinner.event.get_context')
-    .default('fg.spinner.event.get_context'),
-  payload: z.object({
-    machineRef: z.object({}).passthrough(),
+export const fg_spinner_event_get_context_send_to_machine_ref_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.get_context').default('fg.spinner.event.get_context'),
+  data: z.object({
+    machine_ref: z.custom<AnyActorRef>()
   }),
 });
-export const EventFgSpinnerGetContextParser =
-  EventFgSpinnerGetContextSendToMachineIdParser.or(
-    EventFgSpinnerGetContextSendToMachineRefParser
-  );
+export const fg_spinner_event_get_context_parser =  fg_spinner_event_get_context_send_to_machine_id_parser
+.or( fg_spinner_event_get_context_send_to_machine_ref_parser );
 // export const EventFgSpinnerGetContextParser =  z.object({
 //   type: z
 //     .literal('fg.spinner.event.get_context')
@@ -103,89 +100,47 @@ export const EventFgSpinnerGetContextParser =
 //     })
 //   )
 // });
-export type EventFgSpinnerGetContext = z.infer<
-  typeof EventFgSpinnerGetContextParser
->;
+export type fg_spinner_event_get_context = z.infer<typeof fg_spinner_event_get_context_parser>;
 
-export const EventFgSpinnerRespondContextParser = z.object({
-  type: z
-    .literal('fg.spinner.event.respond_context')
-    .default('fg.spinner.event.respond_context'),
-  payload: z.object({
-    context: ContextFgSpinnerParser,
-  }),
+export const fg_spinner_event_respond_context_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.respond_context').default('fg.spinner.event.respond_context'),
+  data: fg_spinner_context_parser,
 });
-export type EventFgSpinnerRespondContext = z.infer<
-  typeof EventFgSpinnerRespondContextParser
->;
+export type FG_SPINNER_EVENT_RESPOND_CONTEXT = z.infer<typeof fg_spinner_event_respond_context_parser>;
 
-export const EventFgSpinnerSetContextParser = z.object({
-  type: z
-    .literal('fg.spinner.event.set_context')
-    .default('fg.spinner.event.set_context'),
-  payload: ContextFgSpinnerParser.partial().default({}),
+export const fg_spinner_event_set_context_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.set_context').default('fg.spinner.event.set_context'),
+  data: fg_spinner_context_parser.partial(),
 });
-export type EventFgSpinnerSetContext = z.infer<
-  typeof EventFgSpinnerSetContextParser
->;
+export type FG_SPINNER_EVENT_SET_CONTEXT = z.infer<typeof fg_spinner_event_set_context_parser>;
 
-export const PayloadEventFgSpinnerSetProgressParser = z.object({
-  items: ProgressItemFgSpinnerParser.or(z.array(ProgressItemFgSpinnerParser)),
+export const fg_spinner_event_set_progress_data_parser = z.object({
+  items: fg_spinner_progress_item_parser.or(z.array(fg_spinner_progress_item_parser)),
 });
-export type PayloadEventFgSpinnerSetProgress = z.infer<
-  typeof PayloadEventFgSpinnerSetProgressParser
->;
+export type FG_SPINNER_EVENT_SET_PROGRESS_DATA = z.infer<typeof fg_spinner_event_set_progress_data_parser>;
 
-export const EventFgSpinnerSetProgressParser = z.object({
-  type: z
-    .literal('fg.spinner.event.set_progress')
-    .default('fg.spinner.event.set_progress'),
-  payload: PayloadEventFgSpinnerSetProgressParser,
+export const fg_spinner_event_set_progress_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.set_progress').default('fg.spinner.event.set_progress'),
+  data: fg_spinner_event_set_progress_data_parser,
 });
-export type EventFgSpinnerSetProgress = z.infer<
-  typeof EventFgSpinnerSetProgressParser
->;
+export type FG_SPINNER_EVENT_SET_PROGRESS = z.infer<typeof fg_spinner_event_set_progress_parser>;
 
-export const InternalFgSpinnerForceHideParser = z.object({
-  type: z
-    .literal('fg.spinner.internal.force_hide')
-    .default('fg.spinner.internal.force_hide'),
+export const fg_spinner_internal_force_hide_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.internal.force_hide').default('fg.spinner.internal.force_hide')
 });
-export type InternalFgSpinnerForceHide = z.infer<
-  typeof InternalFgSpinnerForceHideParser
->;
+export type FG_SPINNER_INTERNAL_FORCE_HIDE = z.infer<typeof fg_spinner_internal_force_hide_parser>;
 
-export const InternalFgSpinnerForceShowParser = z.object({
-  type: z
-    .literal('fg.spinner.internal.force_show')
-    .or(
-      z.undefined().transform(() => 'fg.spinner.internal.force_show' as const)
-    ),
+export const fg_spinner_internal_force_show_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.internal.force_show').default('fg.spinner.internal.force_show')
 });
-export type InternalFgSpinnerForceShow = z.infer<
-  typeof InternalFgSpinnerForceShowParser
->;
+export type FG_SPINNER_INTERNAL_FORCE_SHOW = z.infer<typeof fg_spinner_internal_force_show_parser>;
 
-export const InternalFgSpinnerResetTimeoutParser = z.object({
-  type: z
-    .literal('fg.spinner.internal.reset_timeout')
-    .or(
-      z
-        .undefined()
-        .transform(() => 'fg.spinner.internal.reset_timeout' as const)
-    ),
+export const fg_spinner_internal_reset_timeout_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.internal.reset_timeout').default('fg.spinner.internal.reset_timeout')
 });
-export type InternalFgSpinnerResetTimeout = z.infer<
-  typeof InternalFgSpinnerResetTimeoutParser
->;
+export type FG_SPINNER_INTERNAL_RESET_TIMEOUT = z.infer<typeof fg_spinner_internal_reset_timeout_parser>;
 
-export const EventFgSpinnerDismissErrorParser = z.object({
-  type: z
-    .literal('fg.spinner.event.dismiss_error')
-    .or(
-      z.undefined().transform(() => 'fg.spinner.event.dismiss_error' as const)
-    ),
+export const fg_spinner_event_dismiss_error_parser = fg_event_parser.extend({
+  type: z.literal('fg.spinner.event.dismiss_error').default('fg.spinner.event.dismiss_error')
 });
-export type EventFgSpinnerDismissError = z.infer<
-  typeof EventFgSpinnerDismissErrorParser
->;
+export type FG_SPINNER_EVENT_DISMISS_ERROR = z.infer<typeof fg_spinner_event_dismiss_error_parser>;
