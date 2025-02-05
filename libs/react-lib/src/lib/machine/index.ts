@@ -6,3 +6,4 @@ export * from './react-init';
 export * from './react-view-calculation-material';
 export * from './react-view-calculation';
 export * from './react-view-home';
+export * from './react-running_v7';
