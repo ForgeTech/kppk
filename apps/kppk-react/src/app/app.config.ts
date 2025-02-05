@@ -8,6 +8,7 @@ import {
 import {
   PreloadAllModules,
   provideRouter,
+  withDebugTracing,
   withPreloading,
   withViewTransitions,
 } from '@angular/router';
@@ -42,7 +43,10 @@ import {
 import { CookieService } from 'ngx-cookie-service';
 export const appConfig: ApplicationConfig = {
   providers: [
-    makeEnvironmentProviders([
+    // makeEnvironmentProviders([
+      FgEventService,
+      FgEnvironmentService,
+      { provide: FG_ENVIRONMENT, useValue: environment },
       importProvidersFrom(
         LoggerModule.forRoot({
           // serverLoggingUrl: '/api/logs',
@@ -50,17 +54,16 @@ export const appConfig: ApplicationConfig = {
           // serverLogLevel: NgxLoggerLevel.ERROR
         })
       ),
-      FgEventService,
-      provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    ]),
+    // ]),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideClientHydration(withEventReplay()),
     provideExperimentalZonelessChangeDetection(),
     provideRouter(
       app_routes,
       withViewTransitions(),
-      withPreloading(PreloadAllModules)
+      withPreloading(PreloadAllModules),
       // Provides debug output
-      // withDebugTracing(),
+      withDebugTracing(),
     ),
     provideAnimations(),
 
@@ -73,8 +76,8 @@ export const appConfig: ApplicationConfig = {
       },
       loader: TranslocoHttpLoader,
     }),
-    FgEnvironmentService,
-    { provide: FG_ENVIRONMENT, useValue: environment },
+    // FgEnvironmentService,
+    // { provide: FG_ENVIRONMENT, useValue: environment },
     { provide: ErrorHandler, useClass: KppkGlobalError },
     { provide: FgStorageService, useClass: FgStorageLocalforageService },
     FgStorageNgxCookieService,
