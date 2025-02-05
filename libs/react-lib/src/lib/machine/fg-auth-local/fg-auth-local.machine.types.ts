@@ -58,7 +58,7 @@ export type FG_AUTH_LOCAL_EVENT_LOGOUT = z.infer<
 
 export const fg_auth_local_event_authorized_parser = z.object({
   type: z.literal('fg.auth.local.event.authorized'),
-  payload: z.object({
+  data: z.object({
     auth_cookie: fg_auth_local_auth_cookie_parser,
   }),
 });

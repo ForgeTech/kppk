@@ -95,22 +95,14 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public emit_unauthorized_event({ context, event }: FgAuthLocalV1Params) {
-    console.log('>>>>>>>>>>>>>emit_unauthorized_event>>>>>>>>>>>>');
-    console.log(event);
-    console.log(context);
-    return { type: 'emit_authorized_event' };
+    const result = fg_auth_local_event_unauthorized_parser.parse({
+      type: 'fg.auth.local.event.unauthorized',
+    });
+    return result;
   }
 
   @boundMethod
   public emit_authorized_event({ context, event }: FgAuthLocalV1Params) {
-    console.log('>>>>>>>>>>>>>emit_authorized_event>>>>>>>>>>>>');
-    console.log(event);
-    console.log(context);
-    return { type: 'emit_authorized_event' };
-  }
-
-  @boundMethod
-  public send_authorized_event_to({ context }: FgAuthLocalV1Params) {
     const result = fg_auth_local_event_authorized_parser.parse({
       type: 'fg.auth.local.event.authorized',
       payload: {
@@ -121,10 +113,22 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
   }
 
   @boundMethod
+  public send_authorized_event_to({ context }: FgAuthLocalV1Params) {
+    const result = fg_auth_local_event_authorized_parser.parse({
+      type: 'fg.auth.local.event.authorized',
+      data: {
+        auth_cookie: context.auth_cookie,
+      },
+    });
+    return result;
+  }
+
+  @boundMethod
   public send_unauthorized_event_to({ context }: FgAuthLocalV1Params) {
-    return fg_auth_local_event_unauthorized_parser.parse({
+    const result = fg_auth_local_event_unauthorized_parser.parse({
       type: 'fg.auth.local.event.unauthorized',
     });
+    return result;
   }
 
   @boundMethod

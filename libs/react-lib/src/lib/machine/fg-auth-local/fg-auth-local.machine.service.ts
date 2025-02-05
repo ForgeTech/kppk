@@ -34,49 +34,25 @@ export class FgAuthLocalMachineService extends FgBaseService {
             | FG_AUTH_LOCAL_EVENT_STOP
         },
         actions: {
-          send_authorized_event_to: this.$xstate.emit(
-            this.$methode.send_authorized_event_to
-          ),
-          send_unauthorized_event_to: this.$xstate.emit(
-            this.$methode.send_unauthorized_event_to
-          ),
-          escalate_auth_local_key_error:
-            this.$methode.escalate_auth_load_cookie_error,
-          assign_auth_cookie: this.$xstate.assign(
-            this.$methode.assign_auth_cookie
-          ),
+          assign_auth_cookie: this.$xstate.assign(this.$methode.assign_auth_cookie),
           assign_auth_key: this.$xstate.assign(this.$methode.assign_auth_key),
-          assign_authorization_error: this.$xstate.assign(
-            this.$methode.assign_authorization_error
-          ),
-          assign_clear_authorization_error: this.$xstate.assign(
-            this.$methode.assign_clear_authorization_error
-          ),
-          assign_clear_auth_cookie: this.$xstate.assign(
-            this.$methode.assign_clear_auth_cookie
-          ),
-          assign_revoke_authorization_error: this.$xstate.assign(
-            this.$methode.assign_revoke_authorization_error
-          ),
-          escalate_auth_load_cookie_error:
-            this.$methode.escalate_auth_load_cookie_error,
+          assign_authorization_error: this.$xstate.assign(this.$methode.assign_authorization_error),
+          assign_clear_auth_cookie: this.$xstate.assign(this.$methode.assign_clear_auth_cookie),
+          assign_clear_authorization_error: this.$xstate.assign(this.$methode.assign_clear_authorization_error),
+          assign_revoke_authorization_error: this.$xstate.assign(this.$methode.assign_revoke_authorization_error),
+          escalate_auth_load_cookie_error: this.$methode.escalate_auth_load_cookie_error,
+          escalate_auth_local_key_error: this.$methode.escalate_auth_load_cookie_error,
+          send_authorized_event_to: this.$xstate.emit(this.$methode.send_authorized_event_to),
+          send_unauthorized_event_to: this.$xstate.emit(this.$methode.send_unauthorized_event_to),
         },
         guards: {
           guard_has_auth_cookie: this.$methode.guard_has_auth_cookie,
         },
         actors: {
-          actor_load_auth_local_key: this.$xstate.fromPromise(
-            this.$methode.actor_load_auth_local_key
-          ),
-          actor_load_auth_cookie: this.$xstate.fromPromise(
-            this.$methode.actor_load_auth_cookie
-          ),
-          actor_revoke_authorization: this.$xstate.fromPromise(
-            this.$methode.actor_revoke_authorization
-          ),
-          actor_authorization: this.$xstate.fromPromise(
-            this.$methode.actor_authorization
-          ),
+          actor_load_auth_local_key: this.$xstate.fromPromise(this.$methode.actor_load_auth_local_key),
+          actor_load_auth_cookie: this.$xstate.fromPromise(this.$methode.actor_load_auth_cookie),
+          actor_revoke_authorization: this.$xstate.fromPromise(this.$methode.actor_revoke_authorization),
+          actor_authorization: this.$xstate.fromPromise(this.$methode.actor_authorization),
         },
       })
       .createMachine({
