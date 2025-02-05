@@ -2,17 +2,18 @@ import { Injectable, InjectionToken, inject } from '@angular/core';
 import { FgBaseService } from '@kppk/fg-lib-new';
 import { createBrowserInspector } from '@statelyai/inspect';
 import {
-  setup,
   assign,
-  emit,
-  fromPromise,
-  fromObservable,
   createActor,
-  raise,
-  sendTo,
-  sendParent,
-  fromEventObservable,
+  createMachine,
+  emit,
   fromCallback,
+  fromEventObservable,
+  fromObservable,
+  fromPromise,
+  raise,
+  sendParent,
+  sendTo,
+  setup,
 } from 'xstate';
 /**
  * FgXstateInspectorConfig -
@@ -63,6 +64,7 @@ export class FgXstateService extends FgBaseService {
   public readonly assign = assign;
   public readonly createActor = createActor;
   public readonly createBrowserInspector = createBrowserInspector;
+  public readonly createMachine = createMachine;
   public readonly emit = emit;
   public readonly fromCallback = fromCallback;
   public readonly fromEventObservable = fromEventObservable;
