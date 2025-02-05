@@ -1,7 +1,28 @@
 import { Route } from '@angular/router';
-import { HOST_ROUTES } from '@kppk/react-lib';
+import { HOST_ROUTES, KppkReactNavigationGuard } from '@kppk/react-lib';
 
-export const app_routes: Route[] = [
+export const append_routes_with_default_guards = function( routes: Route[]): Route[] {
+  routes.forEach( route => {
+    if( route.children ) {
+      append_routes_with_default_guards( route.children );
+    } else {
+      if(route.redirectTo === undefined){
+        if(route.canActivate === undefined) {
+          route.canActivate = [];
+        }
+        route.canActivate.push(KppkReactNavigationGuard);
+        if(route.canDeactivate === undefined) {
+          route.canDeactivate = [];
+        }
+        route.canDeactivate.push(KppkReactNavigationGuard)
+      }
+    }
+  });
+  console.log('>>>>>>>>>>>ROUTES>>>>>>>>>>>>');
+  return routes;
+}
+
+export const app_routes: Route[] = append_routes_with_default_guards([
   {
     pathMatch: 'prefix',
     path: HOST_ROUTES.ROOT,
@@ -45,10 +66,8 @@ export const app_routes: Route[] = [
       },
     ],
   },
-  
   {
     path: HOST_ROUTES.LOGIN,
-
     loadComponent: () =>
       import(
         './layout/kppk-react-view-auth-layout-router-outlet/kppk-react-view-auth-layout-router-outlet.component'
@@ -68,4 +87,4 @@ export const app_routes: Route[] = [
     path: HOST_ROUTES.WILDCARD,
     redirectTo: HOST_ROUTES.LOGIN,
   },
-];
+]);
