@@ -22,7 +22,7 @@ import { FgFormlyWrapperSectionH4Component } from './fg-formly-wrapper-section-h
 import { MaterialFileInputModule } from 'ngx-custom-material-file-input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
-import { TranslocoService } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { KppkEnergyUsageYearlyArrayTypeComponent } from './kppk-energy-usage-yearly-formly-array.type';
 import { CommonModule } from '@angular/common';
 
@@ -154,7 +154,7 @@ export function isWindowPartTypeValidator(control: AbstractControl) {
     }),
   ],
   exports: [
-    // FgFileValueAccessor,
+    FgFileValueAccessor,
     // FgFormlyFieldDigitTypeAccessor,
     // FgFormlyFieldFile,
     // FgFormlyFieldNumberDigitInputComponent,
@@ -166,7 +166,7 @@ export function isWindowPartTypeValidator(control: AbstractControl) {
     ReactiveFormsModule,
   ],
   providers: [
-    // provideTranslocoScope('form')
+    provideTranslocoScope('form')
   ],
 })
 export class KppkFormlyModule {
