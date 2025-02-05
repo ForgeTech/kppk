@@ -1,5 +1,5 @@
 import { filter, map, of, throttleTime } from 'rxjs';
-import { ApplicationRef, Injectable, OnDestroy, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   createActor,
   createMachine,
@@ -8,29 +8,16 @@ import {
   setup,
 } from 'xstate';
 import { AppConfigInterface } from './../../interface/app.config.interface';
-import {
-  FgBaseService,
-  FgEnvironmentConfigInterface,
-  FgEnvironmentService,
-  FgImmutableService,
-} from '@kppk/fg-lib-new';
+
 import { FgXstateService } from '../../service/fg-xstate.service';
-import { FgSpinnerService } from '../fg-spinner/fg-spinner.service';
-import { FgAuthLocalService } from '../fg-auth-local/fg-auth-local.service';
-import { ReactInitService } from '../react-init/react-init.service';
-import { ReactRunningService } from '../react-running/react-running.service';
-import { react_init_context_parser } from '../react-init/react-init.types';
-import { ReactAppInitV1Context } from '../react-init/react-init.machine';
-import { ReactAppRunningV2Context } from '../react-running/react-running.machine';
-import {
-  EventFgSpinnerHide,
-  EventFgSpinnerShow,
-} from '../fg-spinner/fg-spinner.machine.types';
-import {
-  EventFgAuthLocalLogin,
-  EventFgAuthLocalLogout,
-} from '../fg-auth-local/fg-auth-local.machine.types';
-import { ReactRunningV5Service } from '../react-running/react-runningv5.service';
+import { FG_SPINNER_EVENT_HIDE, FG_SPINNER_EVENT_SHOW, FgSpinnerMachineService } from '../fg-spinner';
+import { FG_AUTH_LOCAL_EVENT_LOGIN, FG_AUTH_LOCAL_EVENT_LOGOUT, FgAuthLocalMachineService } from '../fg-auth-local';
+import { ReactInitMachineService } from '../react-init';
+import { FgImmutableService } from '../../service';
+import { FgEnvironmentConfigInterface } from '@kppk/fg-lib-new';
+import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
+import { REACT_INIT_CONTEXT, react_init_context_parser } from '../../types';
+import { ReactRunningV7MachineService } from '../react-running_v7';
 
 export enum REACT_ACTOR_ENUM {
   FG_AUTH_LOCAL = 'fg_auth_local',
@@ -62,11 +49,11 @@ export type EVENT_REACT_MAIN =
     }
   | { type: 'fg.ui.emitted.*' }
   | { type: 'fg.spinner.event.*' }
-  | EventFgSpinnerHide
-  | EventFgSpinnerShow
+  | FG_SPINNER_EVENT_HIDE
+  | FG_SPINNER_EVENT_SHOW
   | { type: 'fg.auth.local.emitted.*' }
-  | EventFgAuthLocalLogin
-  | EventFgAuthLocalLogout;
+  | FG_AUTH_LOCAL_EVENT_LOGIN
+  | FG_AUTH_LOCAL_EVENT_LOGOUT
 
 export type CONFIG_ENVIRONMENT =
   FgEnvironmentConfigInterface<AppConfigInterface>;
@@ -82,12 +69,12 @@ export type CONTEXT_REACT_MAIN_V2 = {
 @Injectable({
   providedIn: 'root',
 })
-export class ReactMainV2Service extends FgBaseService implements OnDestroy {
+export class ReactMainV2Service extends FgBaseService {
   protected $env = inject(FgEnvironmentService);
-  protected $spinner = inject(FgSpinnerService);
-  protected $auth = inject(FgAuthLocalService);
-  protected $react_init = inject(ReactInitService);
-  protected $react_running = inject(ReactRunningV5Service);
+  protected $spinner = inject(FgSpinnerMachineService);
+  protected $auth = inject(FgAuthLocalMachineService);
+  protected $react_init = inject(ReactInitMachineService);
+  protected $react_running = inject(ReactRunningV7MachineService);
   protected $xstate = inject(FgXstateService);
   protected $immutable = inject(FgImmutableService);
   // protected $appRef = inject(ApplicationRef);
@@ -142,30 +129,15 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
   }: {
     context: CONTEXT_REACT_MAIN_V2;
   }) => {
-    const input: Partial<ReactAppInitV1Context> = {
-      environment: context.environment,
+    const input: Partial<REACT_INIT_CONTEXT> = {
+      // environment: context.environment,
     };
     this.$log?.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
     console.log(input);
     const result = react_init_context_parser.partial().parse(input);
     this.$log?.error('>>>>>>>>>>INPUT>>>>>>>>>>>');
     console.log(result);
-    return result as Partial<ReactAppInitV1Context>;
-  };
-
-  public input_react_running_actor = ({
-    context,
-    event,
-  }: {
-    context: CONTEXT_REACT_MAIN_V2;
-    event: any;
-  }) => {
-    const input: Partial<ReactAppRunningV2Context> = {
-      environment: context.environment,
-      init_output: event.output,
-    };
-    // const result = react_running_input_parser.partial().parse(input)
-    return input as Partial<ReactAppRunningV2Context>;
+    return result as Partial<REACT_INIT_CONTEXT>;
   };
 
   public log_react_running = () => {
@@ -239,17 +211,17 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
 
   public actor_fg_spinner = () => {
     this.$log?.info('FG_REACT_PWA_MAIN: actor_fg_spinner');
-    return this.$spinner.machine;
+    return this.$spinner.get_machine();
   };
 
   public actor_react_initialize = () => {
     this.$log?.info('FG_REACT_PWA_MAIN: actor_react_initialize');
-    return this.$react_init.machine;
+    return this.$react_init.get_machine();
   };
 
   public actor_react_running = () => {
     this.$log?.info('FG_REACT_PWA_MAIN: actor_react_running');
-    return this.$react_running.machine;
+    return this.$react_running.get_machine();
   };
 
   public actor_react_recovery = () => {
@@ -265,7 +237,7 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
   public actor_fg_auth_local = () => {
     this.$log?.info('FG_REACT_PWA_MAIN: actor_fg_auth_local');
     // console.log( input );
-    return this.$auth.machine;
+    return this.$auth.get_machine();
   };
 
   // public actor_fg_tick = () => {
@@ -382,8 +354,7 @@ export class ReactMainV2Service extends FgBaseService implements OnDestroy {
                   },
                   invoke: {
                     id: REACT_ACTOR_ENUM.REACT_RUNNING,
-                    // @ts-ignore
-                    input: this.input_react_running_actor,
+                    input: undefined,
                     onDone: {
                       target: 'DONE',
                       actions: [{ type: 'log_error' }],
