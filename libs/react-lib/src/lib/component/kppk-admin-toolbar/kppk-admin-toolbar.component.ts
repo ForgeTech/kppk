@@ -4,11 +4,8 @@ import {
   ElementRef,
   ViewEncapsulation,
   computed,
-  effect,
   inject,
   input,
-  signal,
-  untracked,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -51,97 +48,133 @@ import { FgXstateService } from '../../service';
   `],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    ReactAdminToolbarMachineActorService
+  ]
 })
 export class KppkAdminToolbarComponent {
   protected $actor_admin_toolbar = inject(ReactAdminToolbarMachineActorService);
-  protected $actor_react_init = inject(ReactInitMachineActorService);
   protected $translate = inject(FgTranslate);
   protected $xstate = inject(FgXstateService);
   public $element_ref = inject(ElementRef);
-
-  public showS = input<boolean>(false, { alias: 'show' });
-
-  protected disabled_test_calculationS = computed(() => {
-    let disabled = true;
-    const status = this.$actor_react_init.stateS()?.status;
-    if (status === 'done') {
-      disabled = false;
-    }
-    return disabled;
-  });
+  public showS = input<boolean>(true, {alias: 'show'});
 
   protected translationS = toSignal(
     this.$translate.get_translations$({
       alt_xstate: 'admin',
-      development_tools: 'admin',
-      test_calculation: 'admin',
-      tooltip_test_calculation: 'admin',
+      headline_admin_toolbar: 'admin',
+      headline_error_admin_toolbar: 'admin',
+      label_authorization: 'admin',
+      label_calculation: 'admin',
+      label_refresh_admin_toolbar: 'admin',
+      tooltip_authorization: 'admin',
+      tooltip_calculation: 'admin',
+      tooltip_refresh_admin_toolbar: 'admin',
       tooltip_xstate: 'admin',
     }),
     { initialValue: undefined }
   );
 
-  protected xstate_is_onS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches({ X_STATE: 'ON' })
+  protected admin_toolbar_disabledS = computed(() => {
+    return this.$actor_admin_toolbar.stateS()?.matches('RUNNING')
+    ? false
+    : true;
+  });
+  protected admin_toolbar_errorS = computed(() => {
+    return this.$actor_admin_toolbar.stateS()?.matches('ERROR')
+    ? true
+    : false;
+  });
+
+  protected authorization_is_onS = computed(() => {
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'AUTHORIZATION': 'ON'}})
       ? true
       : false;
   });
+
   protected test_calculation_is_onS = computed(() => {
-    return this.$actor_admin_toolbar
-      .stateS()
-      ?.matches({ TEST_CALCULATION: 'ON' })
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'TEST_CALCULATION': 'ON'}})
       ? true
       : false;
   });
-  protected inspector_activesS = signal(false);
+
+  protected xstate_is_onS = computed(() => {
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'X_STATE': 'ON'}})
+      ? true
+      : false;
+  });
 
   constructor() {
     this.$actor_admin_toolbar.start();
-    if (this.$actor_react_init.is_runningS() === false) {
-      this.$actor_react_init.start();
+    this.$actor_admin_toolbar.state$.subscribe({
+      next: value => {
+        console.log('FARK_FARK_FARK');
+        console.log( value )
+      }
+    })
+    // effect( () => {
+    //   if( this.authorization_is_onS() ){
+    //     console.log('AUTHORIZATION: ON')
+    //   } else {
+    //     console.log('AUTHORIZATION: OFF')
+    //   }
+    // });
+    // effect( () => {
+    //     if( this.test_calculation_is_onS() ){
+    //       console.log('TEST_CALCULATION: ON')
+    //     } else {
+    //       console.log('TEST_CALCULATION: OFF')
+    //     }
+    // });
+    // effect(() => {
+    //   if (this.xstate_is_onS()) {
+    //     this.$xstate.start();
+    //   } else {
+    //     this.$xstate.stop();
+    //   }
+    // });
+  }
+
+  protected toggle_authorization(event: MatSlideToggleChange) {
+    this.$actor_admin_toolbar.send({
+      type: 'react.admin_toolbox.event.x_state.toggle',
+    });
+    if( this.authorization_is_onS() ){
+      console.log('AUTHORIZATION: ON')
+    } else {
+      console.log('AUTHORIZATION: OFF')
     }
-    effect(() => {
-      const init = this.$actor_admin_toolbar.stateS();
-      if (init) {
-        console.log('>>>>>>>>>>>>>>ADMIN_TOOLBAR>>>>>>>>');
-        console.log(init.context);
-      }
-    });
-    effect(() => {
-      if (this.xstate_is_onS()) {
-        this.$xstate.start();
-      } else {
-        this.$xstate.stop();
-      }
-    });
-    effect(
-      () => {
-        // console.log('>>>>>>>>>>>>>>TEST_CALCILATION>>>>>>>>>>>');
-        // console.log( this.test_calculation_is_on_s() );
-        const test_calculation_is_on = this.test_calculation_is_onS();
-        untracked(() => {
-          // const payload = this.state_react_running_s()?.context.init_output?.debug_calculation_v1;
-          // const calculation = this.state_react_running_s()?.context.calculation;
-          // if( test_calculation_is_on === true && calculation === undefined && payload  ) {
-          //   const event: { type: "react.running.event.calculation.start",  payload: REACT_VIEW_CALCULATION_CONTEXT } = { type: 'react.running.event.calculation.start', payload }
-          //   this.actor_react_running_s()?.send(event);
-          // } else if ( test_calculation_is_on === false) {
-          //   this.actor_react_running_s()?.send({ type: 'react.running.event.calculation.cancel'});
-          // }
-        });
-      },
-      { allowSignalWrites: true }
-    );
   }
 
   protected toggle_xstate(event: MatSlideToggleChange) {
     this.$actor_admin_toolbar.send({
       type: 'react.admin_toolbox.event.x_state.toggle',
     });
+    if( this.xstate_is_onS() ){
+      console.log('XSTATE: ON');
+      this.$xstate.start();
+    } else {
+      console.log('XSTATE: OFF')
+      this.$xstate.stop();
+    }
   }
+
   protected toggle_test_calculation(event: MatSlideToggleChange) {
     this.$actor_admin_toolbar?.send({
       type: 'react.admin_toolbox.event.test_calculation.toggle',
     });
+    // if (this.xstate_is_onS()) {
+    //   this.$xstate.start();
+    // } else {
+    //   this.$xstate.stop();
+    // }
   }
+
+  protected refresh_admin_toolbar(event: Event) {
+    event.preventDefault();
+    this.$actor_admin_toolbar?.send({
+      type: 'react.admin_toolbox.event.refresh',
+    });
+  }
+
 }

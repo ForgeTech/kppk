@@ -1,41 +1,62 @@
 @let t = translationS();
-
+<!-- <pre>
+  {{ this.$actor_admin_toolbar.stateS()?.value | json}}
+</pre> -->
 @if( showS() ) {
   <div class="px-4 flex flex-row justify-start items-center flex-wrap gap-4 mat-warn-bg">
-  <!-- <mat-toolbar
-    color="warn"
-    class="flex-row justify-start items-center flex-wrap gap-4"
-  > -->
-    <mat-icon
-    [matTooltip]="t?.development_tools"
-    >
-      warning
-    </mat-icon>
-    <span class="hidden sm:inline-block">{{ t?.development_tools }}</span>
-    <div class="flex-auto"></div>
-    <mat-slide-toggle
-      color="primary"
-      [disabled]="disabled_test_calculationS()"
-      [checked]="test_calculation_is_onS()"
-      [matTooltip]="t?.tooltip_test_calculation"
-      labelPosition="before"
-      (change)="toggle_test_calculation($event)"
-    >
-      {{ t?.test_calculation }}
-    </mat-slide-toggle>
-    <mat-slide-toggle
-      color="primary"
-      [checked]="xstate_is_onS()"
-      [matTooltip]="t?.tooltip_xstate"
-      labelPosition="before"
-      (change)="toggle_xstate($event)"
-    >
-      <img
-        class="h-12"
-        alt="{{ t?.alt_xstate }}"
-        src="./images/other/xstate.svg"
-      />
-    </mat-slide-toggle>
-  <!-- </mat-toolbar> -->
+    @if( admin_toolbar_errorS() ) {
+      <button
+        class="w-full"
+        mat-stroked-button
+        color="warn"
+        [matTooltip]="t?.headline_admin_toolbar"
+        (click)="refresh_admin_toolbar($event)"
+        (keyup.enter)="refresh_admin_toolbar($event)"
+      >
+        <mat-icon class="right-4">close</mat-icon>
+        {{ t?.label_refresh_admin_toolbar }}
+      </button>
+    }
+    @else {
+      <mat-icon [matTooltip]="t?.headline_admin_toolbar">
+        warning
+      </mat-icon>
+      <span class="hidden sm:inline-block">{{ t?.headline_admin_toolbar }}</span>
+      <div class="flex-auto"></div>
+      <mat-slide-toggle
+        color="primary"
+        [disabled]="admin_toolbar_disabledS()"
+        [checked]="authorization_is_onS()"
+        [matTooltip]="t?.tooltip_authorization"
+        labelPosition="before"
+        (change)="toggle_authorization($event)"
+      >
+        {{ t?.label_authorization }}
+      </mat-slide-toggle>
+      <mat-slide-toggle
+        color="primary"
+        [disabled]="admin_toolbar_disabledS()"
+        [checked]="test_calculation_is_onS()"
+        [matTooltip]="t?.tooltip_calculation"
+        labelPosition="before"
+        (change)="toggle_test_calculation($event)"
+      >
+        {{ t?.label_calculation }}
+      </mat-slide-toggle>
+      <mat-slide-toggle
+        color="primary"
+        [disabled]="admin_toolbar_disabledS()"
+        [checked]="xstate_is_onS()"
+        [matTooltip]="t?.tooltip_xstate"
+        labelPosition="before"
+        (change)="toggle_xstate($event)"
+      >
+        <img
+          class="h-12"
+          alt="{{ t?.alt_xstate }}"
+          src="./images/other/xstate.svg"
+        />
+      </mat-slide-toggle>
+    }
   </div>
 }
