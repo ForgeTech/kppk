@@ -25,8 +25,10 @@ export enum HOST_ROUTES {
   CALC = 'react_view_calc',
   HOME = 'react_view_home',
   LOGIN = 'react_view_login',
+  LOGOUT = 'react_view_logout',
   IMPRINT = 'react_view_imprint',
   DATA_PROTECTION = 'react_view_data_protection',
+  DEMO = 'react_view_demo',
   WILDCARD = '**',
 }
 
