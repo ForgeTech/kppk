@@ -35,7 +35,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
     ],
   },
   development: {
-    enabled: false,
+    enabled: true,
     authorize: {
       credentials: {
         username: 'ADMIN',
@@ -53,6 +53,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
     // ],
     event: {
       eventsTolog: [
+        // 'fg.error.event'
         // FgBaseEvent.AFTER_VIEW_INIT,
         // FgBaseEvent.ON_INIT,
         // FgBreakpointEvent.DETECTED,
