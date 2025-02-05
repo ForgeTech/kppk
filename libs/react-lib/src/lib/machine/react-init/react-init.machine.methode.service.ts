@@ -9,7 +9,6 @@ import {
   REACT_INIT_CONTEXT,
   react_init_load_from_remote_parser,
 } from '../../types';
-import { load_object } from '../machine.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -177,7 +176,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public async actor_load_from_remote({ input }: { input: any }) {
-    const common$ = load_object({
+    const common$ = this.load_object({
       concrete_types: './react/data/august2024/common/concrete_types.json',
       //construction_site_energy_usage: './react/data/august2024/common/construction_site_energy_usage.json',
       container_disposal:
@@ -191,7 +190,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
       window_glass: './react/data/august2024/common/window_glass.json',
     });
 
-    const form_defaults$ = load_object({
+    const form_defaults$ = this.load_object({
       form_common: './react/data/august2024/form_default/form_common.json',
       form_construction_site:
         './react/data/august2024/form_default/form_construction_site.json',
@@ -206,32 +205,9 @@ export class ReactInitMachineMethodeService extends FgBaseService {
         './react/data/august2024/form_default/form_selection.json',
     });
 
-    const debug_calculation_v1$ = load_object({
-      file_aufbauten:
-        './react/data/august2024/debug_calculation_v1/file_aufbauten.json',
-      file_bauteilflaechen:
-        './react/data/august2024/debug_calculation_v1/file_bauteilflaechen.json',
-      file_oi3: './react/data/august2024/debug_calculation_v1/file_oi3.json',
-      file_rose: './react/data/august2024/debug_calculation_v1/file_rose.json',
-      form_common:
-        './react/data/august2024/debug_calculation_v1/form_common.json',
-      form_construction_site:
-        './react/data/august2024/debug_calculation_v1/form_construction_site.json',
-      form_container_village:
-        './react/data/august2024/debug_calculation_v1/form_container_village.json',
-      form_demolish_disposal:
-        './react/data/august2024/debug_calculation_v1/form_demolish_disposal.json',
-      form_excavation_pit:
-        './react/data/august2024/debug_calculation_v1/form_excavation_pit.json',
-      form_rose: './react/data/august2024/debug_calculation_v1/form_rose.json',
-      form_selection:
-        './react/data/august2024/debug_calculation_v1/form_selection.json',
-    });
-
     const load_from_remote$ = forkJoin({
       common: common$,
       form_defaults: form_defaults$,
-      debug_calculation_v1: debug_calculation_v1$,
     });
     const result = await firstValueFrom(load_from_remote$);
     return result;
@@ -266,5 +242,14 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     // console.log('>>>>>>ACTOR_VALIDATE_RESULT');
     // console.log( input );
     return input;
+  }
+
+  @boundMethod  
+  private load_object(to_load: Record<string, string>) {
+    const resources: Record<string, Observable<any>> = {};
+    const sources = Object.keys(to_load).forEach((key) => {
+        resources[key] = this.$http.get(to_load[key]);
+    });
+    return forkJoin(resources);
   }
 }
