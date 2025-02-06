@@ -35,16 +35,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 })
 export class KppkReactHeaderComponent {
   protected $shared = inject(KppkReactSharedService);
-  public $element_ref = inject(ElementRef);
   protected HOST_ROUTES = HOST_ROUTES;
+  public $element_ref = inject(ElementRef);
 
-  // protected $pagedjs = inject(FgPagedjsService)
-  // protected route_calc_print = ROUTES_ENUM.CALC_PRINT;
 
-  public logout(event: Event) {
-    event.preventDefault();
-    this.$shared.$actor_auth.send({ type: 'fg.auth.local.event.logout' } );
-  }
 
   public print(event: Event) {
     event.preventDefault();

@@ -1,18 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  FgEnvironmentService,
+  FgTranslate,
 } from '@kppk/fg-lib-new';
 import {
-  FG_AUTH_LOCAL_CREDENTIALS,
   fg_auth_local_event_login_parser,
   FgAuthLocalMachineActorService,
   KppkFormlyModule,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import {
   FgPwaInstallComponent,
@@ -36,20 +33,45 @@ import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KppkReactViewLoginComponent {
-  protected $translate = inject(TranslocoService);
-  protected $auth_actor = inject(FgAuthLocalMachineActorService);
-  protected $env = inject(FgEnvironmentService);
-  protected $shared = inject(KppkReactSharedService);
-  
+export class KppkReactViewAuthLoginComponent {
   protected HOST_ROUTES = HOST_ROUTES;
+  protected $translate = inject(FgTranslate);
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
+  protected translations$ = this.$translate.get_translations$({
+    "alt_react_logo": 'general',
+    "error_auth_login": "auth",
+    "headline_auth_login": "auth",
+    "input_password_label": 'auth',
+    "input_user_label": 'auth',
+    "label_install": 'pwa',
+    "label_login": 'auth',
+    "success_auth_login": "auth",
+    "tooltip_install": 'pwa',
+  });
   protected translationsS = toSignal(
-    this.$shared.kppk_react_login_translations$,
+    this.translations$,
     { initialValue: undefined }
   );
 
-  protected form = new FormGroup({});
+  protected errorS = computed( () => {
+    const result = this.$actor_auth
+    .stateS()
+    ?.matches({ STATE: { UNAUTHORIZED: 'ERROR' } });
+    return result;
+  })
+  protected successS = computed( () => {
+    const result = this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' });
+    return result;
+  })
+  protected pendingS = computed( () => {
+    const result = this.$actor_auth
+    .stateS()
+    ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
+    return result;
+  })
+  
   protected model = {};
+  protected form = new FormGroup({});
   protected fields = [
     {
       key: 'user',
@@ -61,7 +83,7 @@ export class KppkReactViewLoginComponent {
         type: 'string',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_login_translations$.pipe(
+        'props.label': this.translations$.pipe(
           map((trans) => trans['input_user_label'])
         ),
       },
@@ -76,7 +98,7 @@ export class KppkReactViewLoginComponent {
         type: 'password',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_login_translations$.pipe(
+        'props.label': this.translations$.pipe(
           map((trans) => trans['input_password_label'])
         ),
       },
@@ -89,6 +111,6 @@ export class KppkReactViewLoginComponent {
       type: 'fg.auth.local.event.login',
       data: this.form.value,
     });
-    this.$auth_actor.send(event_to_dispatch);
+    this.$actor_auth.send(event_to_dispatch);
   };
 }

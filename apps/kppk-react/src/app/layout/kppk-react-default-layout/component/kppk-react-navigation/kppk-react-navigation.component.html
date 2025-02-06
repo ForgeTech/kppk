@@ -48,7 +48,7 @@
         class="w-full"
         mat-stroked-button
         color="primary"
-        routerLink="/{{ HOST_ROUTES.LOGIN }}"
+        routerLink="/{{ HOST_ROUTES.AUTH_LOGIN }}"
         routerLinkActive="active"
       >
         <mat-icon>login</mat-icon>
@@ -100,9 +100,8 @@
         class="w-full"
         mat-stroked-button
         color="warn"
-        tabindex="0"
-        (click)="logout($event)"
-        (keydown)="logout($event)"
+        routerLink="/{{ HOST_ROUTES.AUTH_LOGOUT }}"
+        routerLinkActive="active"
       >
         <mat-icon svgIcon="logout" />
         {{ t?.logout }}

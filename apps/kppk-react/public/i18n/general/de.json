@@ -1,8 +1,12 @@
 {
-  "manual": "Anleitung",
-  "calculation_start": "Berechnung starten",
-  "login": "Anmelden",
-  "logout": "Abmelden",
-  "label_version": "Version",
-  "close": "Schliessen"
+  "alt_kppk_logo": "Logo KPPK",
+  "alt_react_logo": "Logo REACT",
+  "label_back": "Schliessen",
+  "Label_calculation_start": "Berechnung starten",
+  "label_close": "Schliessen",
+  "label_login": "Anmelden",
+  "label_logout": "Abmelden",
+  "label_manual": "Anleitung",
+  "label_send": "Abschicken",
+  "label_version": "Version"
 }

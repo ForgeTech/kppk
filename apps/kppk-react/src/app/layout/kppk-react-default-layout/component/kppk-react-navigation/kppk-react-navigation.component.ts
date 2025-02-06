@@ -59,9 +59,4 @@ export class KppkReactNavigationComponent {
     this.$pwa.pwa_deferred_promt_available$,
     { initialValue: false }
   );
-
-  protected logout(event: Event) {
-    event.preventDefault();
-    this.$auth_local?.send({ type: 'fg.auth.local.event.logout' });
-  }
 }

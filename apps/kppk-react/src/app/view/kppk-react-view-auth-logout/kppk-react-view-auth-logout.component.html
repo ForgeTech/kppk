@@ -1,33 +1,28 @@
 @let t = translationsS();
 
-<kppk-react-view-auth-layout-content 
-  [form]="form" 
+<kppk-react-view-auth-layout-content
   [error]="errorS()" 
   [success]=" successS()"
   [pending]=" pendingS()"
 >
   <ng-container header>
     <div class="prose">
-      <h1>{{ t?.headline_auth_mfa }}</h1>
+      <h1>{{ t?.headline_auth_logout }}</h1>
     </div>
   </ng-container>
 
   <ng-container error>
-    {{ t?.error_auth_mfa }}
+    {{ t?.error_auth_logout  }}
   </ng-container>
 
   <ng-container success>
-    {{ t?.success_auth_mfa }}
+    {{ t?.success_auth_logout  }}
   </ng-container>
 
-  <formly-form
-    [model]="model"
-    [form]="form"
-    [fields]="fields"
-  />
+  <p>CONTENT</p>
 
   <ng-container buttons>
-    <a 
+    <a
       class="w-full md:flex-1"
       mat-stroked-button
       color="warn"

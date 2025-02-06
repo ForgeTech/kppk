@@ -21,14 +21,18 @@ export enum HEAT_SUPPLY_CALCULATION_TYPE_ENUM {
 }
 
 export enum HOST_ROUTES {
-  ROOT = '',
+  AUTH_LOGIN = 'react_view_auth_login',
+  AUTH_LOGOUT = 'react_view_auth_logout',
+  AUTH_MFA = 'react_view_auth_mfa',
+  AUTH_PASSWORD_CHANGE = 'react_view_auth_password_change',
+  AUTH_PASSWORD_FORGOT = 'react_view_auth_password_forgot',
+  AUTH_PASSWORD_RESET = 'react_view_auth_password_reset',
   CALC = 'react_view_calc',
-  HOME = 'react_view_home',
-  LOGIN = 'react_view_login',
-  LOGOUT = 'react_view_logout',
-  IMPRINT = 'react_view_imprint',
   DATA_PROTECTION = 'react_view_data_protection',
   DEMO = 'react_view_demo',
+  HOME = 'react_view_home',
+  IMPRINT = 'react_view_imprint',
+  ROOT = '',
   WILDCARD = '**',
 }
 

@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FgAuthLocalMachineActorService,
   KppkFormlyModule,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { HOST_ROUTES } from '@kppk/react-lib';
 
 @Component({
   imports: [
@@ -27,20 +27,37 @@ import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewAuthPasswordForgotComponent {
-  protected $translate = inject(TranslocoService);
+  protected HOST_ROUTES = HOST_ROUTES;
+  protected $translate = inject(FgTranslate);
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
-  protected $shared = inject(KppkReactSharedService);
-
+  protected translations$ = this.$translate.get_translations$({
+    "headline_auth_password_forgot": "auth",
+    "error_auth_password_forgot": "auth",
+    "success_auth_password_forgot": "auth",
+    "input_email_label": "auth",
+    "label_back": "general",
+    "label_send": "general",
+  });
   protected translationsS = toSignal(
-    this.$shared.kppk_react_login_translations$,
+    this.translations$,
     { initialValue: undefined }
   );
 
-  protected model = new FormGroup({});
+  protected errorS = computed( () => {
+    return false;
+  })
+  protected successS = computed( () => {
+    return false;
+  })
+  protected pendingS = computed( () => {
+    return false;
+  })
+  
+  protected model = {};
   protected form = new FormGroup({});
   protected fields = [
     {
-      key: 'user',
+      key: 'email',
       type: 'input',
       wrappers: ['form-field'],
       defaultValue: '',
@@ -49,8 +66,8 @@ export class KppkReactViewAuthPasswordForgotComponent {
         type: 'string',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_login_translations$.pipe(
-          map((trans) => trans['input_user_label'])
+        'props.label': this.translations$.pipe(
+          map((trans) => trans['input_email_label'])
         ),
       },
     }
@@ -58,10 +75,10 @@ export class KppkReactViewAuthPasswordForgotComponent {
 
   protected action(event?: Event) {
     event?.preventDefault();
-    const event_to_dispatch = {
-      type: 'fg.auth.local.event.login' as const,
-      payload: this.form.value as { user: string; password: string },
-    };
-    this.$auth_actor.send(event_to_dispatch);
+    // const event_to_dispatch = {
+    //   type: 'fg.auth.local.event.login' as const,
+    //   data: this.form.value as { user: string; password: string },
+    // };
+    // this.$auth_actor.send(event_to_dispatch);
   }
 }

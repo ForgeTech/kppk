@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
@@ -13,6 +13,7 @@ import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   imports: [
@@ -28,19 +29,40 @@ import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewAuthPasswordChangeComponent {
-  protected $translate = inject(TranslocoService);
-  protected $auth_actor = inject(FgAuthLocalMachineActorService);
-  protected $shared = inject(KppkReactSharedService);
-  
   protected HOST_ROUTES = HOST_ROUTES;
+  protected $translate = inject(FgTranslate);
+  protected $auth_actor = inject(FgAuthLocalMachineActorService);
+  protected translations$ = this.$translate.get_translations$({
+    "error_auth_password_change": 'auth',
+    "success_auth_password_change": 'auth',
+    "headline_auth_password_change": 'auth',
+    "input_password_old_label": 'auth',
+    "input_password_new_label": 'auth',
+    "input_password_confirm_label": 'auth',
+    "label_back": "general",
+    "label_send": "general",
+  });
   protected translationsS = toSignal(
-    this.$shared.kppk_react_change_password_translations$,
+    this.translations$,
     { initialValue: undefined }
   );
 
+  protected errorS = computed( () => {
+    return false;
+  })
+  protected successS = computed( () => {
+    return false;
+  })
+  protected pendingS = computed( () => {
+    return false;
+  })
   
   protected model = {};
   protected form = new FormGroup({});
+  // protected translationsS = toSignal(
+  //   this.$shared.kppk_react_change_password_translations$,
+  //   { initialValue: undefined }
+  // );
   protected fields = [
     {
       key: 'password_old',
@@ -52,8 +74,8 @@ export class KppkReactViewAuthPasswordChangeComponent {
         type: 'string',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_old'])
+        'props.label': this.translations$.pipe(
+          map((trans) => trans['input_password_old_label'])
         ),
       },
     },
@@ -67,8 +89,8 @@ export class KppkReactViewAuthPasswordChangeComponent {
         type: 'password',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_new'])
+        'props.label': this.translations$.pipe(
+          map((trans) => trans['input_password_new_label'])
         ),
       },
     },
@@ -82,8 +104,8 @@ export class KppkReactViewAuthPasswordChangeComponent {
         type: 'password',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_confirm'])
+        'props.label': this.translations$.pipe(
+          map((trans) => trans['input_password_confirm_label'])
         ),
       },
     },

@@ -42,7 +42,7 @@ export class KppkReactViewAuthLayoutComponent {
   protected ROUTES = HOST_ROUTES;
   protected kppk_react_auth_layout_translationsS = toSignal(
     this.$translate.get_translations$({
-      alt_kppk_logo: 'login',
+      alt_kppk_logo: 'general',
       label_version: 'general',
       route_data_protection: 'route',
       route_imprint: 'route',

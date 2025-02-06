@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
@@ -11,6 +11,7 @@ import {
 } from '@kppk/react-lib';
 import {
   FgPwaInstallComponent,
+  FgTranslate,
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -31,22 +32,38 @@ import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewAuthMfaComponent {
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
-  protected $shared = inject(KppkReactSharedService);
   
   protected HOST_ROUTES = HOST_ROUTES;
+  protected translations$ = this.$translate.get_translations$({
+    "error_auth_mfa": "auth",
+    "headline_auth_mfa": "auth",
+    "input_mfa_code_label": "auth",
+    "label_back": "general",
+    "label_send": "general",
+    "success_auth_mfa": "auth",
+  });
   protected translationsS = toSignal(
-    this.$shared.kppk_react_change_password_translations$,
+    this.translations$,
     { initialValue: undefined }
   );
 
+  protected errorS = computed( () => {
+    return false;
+  })
+  protected successS = computed( () => {
+    return false;
+  })
+  protected pendingS = computed( () => {
+    return false;
+  })
   
   protected model = {};
   protected form = new FormGroup({});
   protected fields = [
     {
-      key: 'password_old',
+      key: 'mfa_code',
       type: 'input',
       wrappers: ['form-field'],
       defaultValue: '',
@@ -55,38 +72,8 @@ export class KppkReactViewAuthMfaComponent {
         type: 'string',
       },
       expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_old'])
-        ),
-      },
-    },
-    {
-      key: 'password_new',
-      type: 'input',
-      wrappers: ['form-field'],
-      defaultValue: '',
-      props: {
-        required: true,
-        type: 'password',
-      },
-      expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_new'])
-        ),
-      },
-    },
-    {
-      key: 'password_confirm',
-      type: 'input',
-      wrappers: ['form-field'],
-      defaultValue: '',
-      props: {
-        required: true,
-        type: 'password',
-      },
-      expressions: {
-        'props.label': this.$shared.kppk_react_change_password_translations$.pipe(
-          map((trans) => trans['input_password_confirm'])
+        'props.label': this.translations$.pipe(
+          map((trans) => trans['input_mfa_code_label'])
         ),
       },
     },

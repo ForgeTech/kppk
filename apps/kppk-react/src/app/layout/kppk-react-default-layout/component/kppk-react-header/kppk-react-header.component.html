@@ -38,20 +38,20 @@
         <mat-icon>print</mat-icon>
       </a> -->
       @if( s.auth_is_authorizedS() ) {
-      <button
+      <a
         mat-icon-button
         color="warn"
         [matTooltip]="'general.logout'"
         [attr.aria-label]="'general.logout'"
-        (click)="logout($event)"
+        routerLink="/{{ HOST_ROUTES.AUTH_LOGOUT }}"
       >
         <mat-icon>logout</mat-icon>
-      </button>
+      </a>
       } @else {
       <a
         mat-icon-button
         color="primary"
-        routerLink="/{{ HOST_ROUTES.LOGIN }}"
+        routerLink="/{{ HOST_ROUTES.AUTH_LOGIN }}"
         [matTooltip]="'general.login'"
         [attr.aria-label]="'general.login'"
       >
