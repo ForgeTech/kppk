@@ -12,6 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 import { FgTranslate } from '@kppk/fg-lib-new';
 import { HOST_ROUTES } from '@kppk/react-lib';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -56,7 +57,7 @@ export class KppkReactViewAuthPasswordForgotComponent {
   
   protected model = {};
   protected form = new FormGroup({});
-  protected fields = [
+  protected fields: FormlyFieldConfig[] = [
     {
       key: 'email',
       type: 'input',

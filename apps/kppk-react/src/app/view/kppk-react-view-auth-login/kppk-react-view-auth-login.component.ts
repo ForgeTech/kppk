@@ -18,6 +18,7 @@ import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -43,6 +44,8 @@ export class KppkReactViewAuthLoginComponent {
     "headline_auth_login": "auth",
     "input_password_label": 'auth',
     "input_user_label": 'auth',
+    "label_go_to_account_create": "auth",
+    "label_go_to_password_forgot": "auth",
     "label_install": 'pwa',
     "label_login": 'auth',
     "success_auth_login": "auth",
@@ -72,7 +75,7 @@ export class KppkReactViewAuthLoginComponent {
   
   protected model = {};
   protected form = new FormGroup({});
-  protected fields = [
+  protected fields: FormlyFieldConfig[] = [
     {
       key: 'user',
       type: 'input',

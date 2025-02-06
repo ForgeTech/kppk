@@ -9,7 +9,7 @@
   <ng-container header>
     <div class="relative">
       <img
-        class="min-w-xs w-full max-w-md"
+        class="w-full px-8 pb-8"
         alt="{{ t?.alt_react_logo }}"
         src="./images/react/react-logo.png"
       />
@@ -32,15 +32,8 @@
   />
 
   <ng-container buttons>
-    <fg-pwa-install
-      class="order-2 w-full md:order-1 md:flex-1"
-      [tooltip]="t?.tooltip_install"
-      [label]="t?.label_install"
-      [visible]="true"
-      color="accent"
-    />
     <button
-      class="order-1 w-full md:order-2 md:flex-1"
+      class="w-full md:order-2 md:flex-1"
       mat-stroked-button
       color="primary"
       type="submit"
@@ -49,6 +42,13 @@
       <mat-icon class="right-4">login</mat-icon>
       {{ t?.label_login }}
     </button>
+    <fg-pwa-install
+      class="w-full md:order-1 md:flex-1"
+      [tooltip]="t?.tooltip_install"
+      [label]="t?.label_install"
+      [visible]="true"
+      color="accent"
+    />
   </ng-container>
 
   <div footer class="prose-sm flex flex-row flex-wrap items-start justify-between pt-4">

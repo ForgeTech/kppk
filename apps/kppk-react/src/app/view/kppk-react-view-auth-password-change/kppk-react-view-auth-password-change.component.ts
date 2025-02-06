@@ -14,6 +14,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 import { FgTranslate } from '@kppk/fg-lib-new';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -34,13 +35,14 @@ export class KppkReactViewAuthPasswordChangeComponent {
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
   protected translations$ = this.$translate.get_translations$({
     "error_auth_password_change": 'auth',
-    "success_auth_password_change": 'auth',
     "headline_auth_password_change": 'auth',
-    "input_password_old_label": 'auth',
-    "input_password_new_label": 'auth',
+    "headline_sub_auth_password_change": 'auth',
     "input_password_confirm_label": 'auth',
+    "input_password_new_label": 'auth',
+    "input_password_old_label": 'auth',
     "label_back": "general",
     "label_send": "general",
+    "success_auth_password_change": 'auth',
   });
   protected translationsS = toSignal(
     this.translations$,
@@ -63,7 +65,7 @@ export class KppkReactViewAuthPasswordChangeComponent {
   //   this.$shared.kppk_react_change_password_translations$,
   //   { initialValue: undefined }
   // );
-  protected fields = [
+  protected fields: FormlyFieldConfig[] = [
     {
       key: 'password_old',
       type: 'input',

@@ -17,6 +17,7 @@ import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -61,7 +62,7 @@ export class KppkReactViewAuthMfaComponent {
   
   protected model = {};
   protected form = new FormGroup({});
-  protected fields = [
+  protected fields: FormlyFieldConfig[] = [
     {
       key: 'mfa_code',
       type: 'input',

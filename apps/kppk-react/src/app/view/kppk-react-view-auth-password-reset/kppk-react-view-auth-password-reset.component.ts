@@ -12,6 +12,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
 import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 import { FgTranslate } from '@kppk/fg-lib-new';
+import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
@@ -26,20 +27,20 @@ import { FgTranslate } from '@kppk/fg-lib-new';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KppkReactViewPasswordChangeComponent {
+export class KppkReactViewAuthPasswordResetComponent {
   protected HOST_ROUTES = HOST_ROUTES;
   protected $translate = inject(FgTranslate);
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
   protected translations$ = this.$translate.get_translations$({
-    "headline_auth_password_reset": "auth",
     "error_auth_password_reset": "auth",
-    "success_auth_password_reset": "auth",
-    "input_password_reset_code": "auth",
-    "input_password_new": "auth",
-    "input_password_confirm": "auth",
-    "input_email": "auth",
+    "headline_auth_password_reset": "auth",
+    "headline_sub_auth_password_reset": "auth",
+    "input_password_confirm_label": "auth",
+    "input_password_new_label": "auth",
+    "input_password_reset_code_label": "auth",
     "label_back": "general",
     "label_send": "general",
+    "success_auth_password_reset": "auth",
   });
   protected translationsS = toSignal(
     this.translations$,
@@ -58,7 +59,7 @@ export class KppkReactViewPasswordChangeComponent {
   
   protected model = {};
   protected form = new FormGroup({});
-  protected fields = [
+  protected fields: FormlyFieldConfig[] = [
     {
       key: 'password_reset_code',
       type: 'input',
@@ -67,10 +68,11 @@ export class KppkReactViewPasswordChangeComponent {
       props: {
         required: true,
         type: 'string',
+        disabled: true,
       },
       expressions: {
         'props.label': this.translations$.pipe(
-          map((trans) => trans['input_password_reset_code'])
+          map((trans) => trans['input_password_reset_code_label'])
         ),
       },
     },
@@ -85,7 +87,7 @@ export class KppkReactViewPasswordChangeComponent {
       },
       expressions: {
         'props.label': this.translations$.pipe(
-          map((trans) => trans['input_password_new'])
+          map((trans) => trans['input_password_new_label'])
         ),
       },
     },
@@ -100,7 +102,7 @@ export class KppkReactViewPasswordChangeComponent {
       },
       expressions: {
         'props.label': this.translations$.pipe(
-          map((trans) => trans['input_password_confirm'])
+          map((trans) => trans['input_password_confirm_label'])
         ),
       },
     },
