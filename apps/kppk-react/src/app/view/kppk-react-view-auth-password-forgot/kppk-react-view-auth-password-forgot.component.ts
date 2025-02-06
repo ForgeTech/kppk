@@ -32,6 +32,7 @@ export class KppkReactViewAuthPasswordForgotComponent {
   protected $auth_actor = inject(FgAuthLocalMachineActorService);
   protected translations$ = this.$translate.get_translations$({
     "headline_auth_password_forgot": "auth",
+    "headline_sub_auth_password_forgot": "auth",
     "error_auth_password_forgot": "auth",
     "success_auth_password_forgot": "auth",
     "input_email_label": "auth",
