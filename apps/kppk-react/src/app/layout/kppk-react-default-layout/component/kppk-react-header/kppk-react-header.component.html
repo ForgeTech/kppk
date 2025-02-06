@@ -43,7 +43,7 @@
         color="warn"
         [matTooltip]="'general.logout'"
         [attr.aria-label]="'general.logout'"
-        routerLink="/{{ HOST_ROUTES.AUTH_LOGOUT }}"
+        routerLink="/{{ [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/') }}"
       >
         <mat-icon>logout</mat-icon>
       </a>
@@ -51,7 +51,7 @@
       <a
         mat-icon-button
         color="primary"
-        routerLink="/{{ HOST_ROUTES.AUTH_LOGIN }}"
+        routerLink="/{{ [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/') }}"
         [matTooltip]="'general.login'"
         [attr.aria-label]="'general.login'"
       >
