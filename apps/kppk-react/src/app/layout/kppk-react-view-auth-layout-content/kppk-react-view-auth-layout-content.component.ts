@@ -28,6 +28,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
     </div>
     <div class="mb-6 mt-4">
       <div class="relative pb-[2px] pt-10">
+
         @if( errorS() ) {
           <div class="mat-warn-bg absolute top-0 w-full px-4 py-2">
 
@@ -52,9 +53,15 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
     </div>
     <div class="flex flex-col gap-2 md:!flex-row">
     
-      <ng-content select="[buttons]"></ng-content>
+      <ng-content select="[buttons]"/>
 
-    </div>  
+    </div>   
+
+    <div>
+
+      <ng-content select="[footer]"/>
+      
+    </div>
   </ng-template>
 
   

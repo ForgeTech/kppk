@@ -51,5 +51,23 @@
     </button>
   </ng-container>
 
+  <div footer class="prose-sm flex flex-row flex-wrap items-start justify-between pt-4">
+    <!-- <p> -->
+      <a 
+        mat-button 
+        href="/{{ [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_PASSWORD_FORGOT].join('/') }}"
+      >
+        {{ t?.label_go_to_password_forgot }}
+      </a>
+      <br/>
+      <a
+        mat-button
+        href="/{{[HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_PASSWORD_FORGOT].join('/')}}"
+      >
+        {{ t?.label_go_to_account_create }}
+      </a>
+    <!-- </p> -->
+  </div>
+
 </kppk-react-view-auth-layout-content>
     
