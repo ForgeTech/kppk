@@ -2,33 +2,28 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FgAuthLocalMachineActorService,
   KppkFormlyModule,
   KppkReactSharedService,
 } from '@kppk/react-lib';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   FgPwaInstallComponent,
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
+import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 
 @Component({
   imports: [
     CommonModule,
-    FgPwaInstallComponent,
     KppkFormlyModule,
     MatButtonModule,
-    MatCardModule,
-    MatIcon,
-    MatProgressBarModule,
-    RouterModule,
+    MatIconModule,
+    KppkReactViewAuthLayoutContentComponent
   ],
   selector: 'kppk-react-view-auth-mfa',
   templateUrl: './kppk-react-view-auth-mfa.component.html',

@@ -2,40 +2,24 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  FgLayoutDefaultComponent,
-} from '@kppk/fg-lib-new';
-import {
   FgAuthLocalMachineActorService,
-  KppkAdminToolbarComponent,
   KppkFormlyModule,
   KppkReactSharedService,
 } from '@kppk/react-lib';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {
-  FgLanguageSwitchComponent,
-  FgPwaInstallComponent,
-} from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 
 @Component({
   imports: [
     CommonModule,
-    FgLanguageSwitchComponent,
-    FgLayoutDefaultComponent,
-    FgPwaInstallComponent,
-    KppkAdminToolbarComponent,
     KppkFormlyModule,
     MatButtonModule,
-    MatCardModule,
-    MatIcon,
-    MatProgressBarModule,
-    RouterModule,
+    MatIconModule,
+    KppkReactViewAuthLayoutContentComponent
   ],
   selector: 'kppk-react-view-auth-password-forgot',
   templateUrl: './kppk-react-view-auth-password-forgot.component.html',

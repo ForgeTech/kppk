@@ -1,42 +1,38 @@
-@let s = $shared; @let t = kppk_react_login_translationsS();
+@let s = $shared; 
+@let t = translationsS();
 
-<form [formGroup]="form_login">
-    
-  <img
-    class="min-w-xs w-full max-w-md"
-    alt="{{ t?.alt_react_logo }}"
-    src="./images/react/react-logo.png"
+<kppk-react-view-auth-layout-content 
+  [form]="form" 
+  [error]="s.auth_authorization_errorS()" 
+  [success]=" s.auth_authoirzation_successS()"
+  [pending]=" s.auth_authorization_pendingS()"
+>
+  <ng-container header>
+    <div class="relative">
+      <img
+        class="min-w-xs w-full max-w-md"
+        alt="{{ t?.alt_react_logo }}"
+        src="./images/react/react-logo.png"
+      />
+      <h1 class="invisible absolute top-0">{{ t?.headline_login }}</h1>
+    </div>
+  </ng-container>
+
+  <ng-container error>
+    {{ t?.authorization_error }}
+  </ng-container>
+
+  <ng-container success>
+    {{ t?.authorization_success }}
+  </ng-container>
+
+  <formly-form
+    [model]="model"
+    [form]="form"
+    [fields]="fields"
   />
 
-  <h1>{{ t?.headline_login }}</h1>
-
-  <div class="mb-6 mt-4">
-
-    <div class="relative pb-[2px] pt-10">
-      @if( s.auth_authorization_errorS() ) {
-        <div class="mat-warn-bg absolute top-0 w-full px-4 py-2">
-          {{ t?.authorization_error }}
-        </div>
-      } 
-      @if( s.auth_authoirzation_successS() ) {
-        <div class="mat-primary-bg absolute top-0 w-full px-4 py-2">
-          {{ t?.authorization_success }}
-        </div>
-      } 
-      @if( s.auth_authorization_pendingS() ){
-        <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
-      }
-    </div>
-
-    <formly-form
-      [model]="{ user: '', password: '' }"
-      [form]="form_login"
-      [fields]="fields_login"
-    ></formly-form>
-  </div>
-
-
-  <div class="flex !flex-col-reverse gap-2 md:!flex-row">
+  <ng-container buttons>
     <fg-pwa-install
       [tooltip]="t?.tooltip_install"
       [label]="t?.label_install"
@@ -49,11 +45,12 @@
       mat-stroked-button
       color="primary"
       type="submit"
-      (click)="login($event)"
+      (click)="action($event)"
     >
       <mat-icon class="right-4">login</mat-icon>
       {{ t?.label_login }}
     </button>
-  </div>
-</form>
+  </ng-container>
+
+</kppk-react-view-auth-layout-content>
     

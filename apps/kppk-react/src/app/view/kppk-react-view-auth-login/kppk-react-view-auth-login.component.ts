@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FgEnvironmentService,
@@ -16,13 +14,13 @@ import {
   KppkFormlyModule,
   KppkReactSharedService,
 } from '@kppk/react-lib';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {
   FgPwaInstallComponent,
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HOST_ROUTES } from '@kppk/react-lib';
+import { KppkReactViewAuthLayoutContentComponent } from '../../layout';
 
 @Component({
   imports: [
@@ -30,10 +28,8 @@ import { HOST_ROUTES } from '@kppk/react-lib';
     FgPwaInstallComponent,
     KppkFormlyModule,
     MatButtonModule,
-    MatCardModule,
-    MatIcon,
-    MatProgressBarModule,
-    RouterModule,
+    MatIconModule,
+    KppkReactViewAuthLayoutContentComponent
   ],
   selector: 'kppk-react-view-auth-login',
   templateUrl: './kppk-react-view-auth-login.component.html',
@@ -47,13 +43,14 @@ export class KppkReactViewLoginComponent {
   protected $shared = inject(KppkReactSharedService);
   
   protected HOST_ROUTES = HOST_ROUTES;
-  protected kppk_react_login_translationsS = toSignal(
+  protected translationsS = toSignal(
     this.$shared.kppk_react_login_translations$,
     { initialValue: undefined }
   );
 
-  protected form_login = new FormGroup({});
-  protected fields_login = [
+  protected form = new FormGroup({});
+  protected model = {};
+  protected fields = [
     {
       key: 'user',
       type: 'input',
@@ -86,11 +83,11 @@ export class KppkReactViewLoginComponent {
     },
   ];
 
-  protected login(event?: Event) {
+  protected action(event?: Event) {
     event?.preventDefault();
     const event_to_dispatch = fg_auth_local_event_login_parser.parse({
       type: 'fg.auth.local.event.login',
-      data: this.form_login.value,
+      data: this.form.value,
     });
     this.$auth_actor.send(event_to_dispatch);
   };
