@@ -1,8 +1,9 @@
 {
-  "error_auth_login": "Error appeared at application login!",
-  "error_auth_password_change": "Password couldn't be changed due to an error!",
-  "error_auth_password_reset": "Password could not be reset due to an error!",
-  "error_password_change": "Password couldn't be changed",
+  "error_auth_login": "You couldn't be logged in due to an error!",
+  "error_auth_logout": "You couldn't be logged out due to an error!",
+  "error_auth_password_change": "Your password couldn't be changed due to an error!",
+  "error_auth_password_reset": "Your password could't be reset due to an error!",
+  "headline_auth_logout": "Logout in progress",
   "headline_auth_password_change": "Change Password",
   "headline_auth_password_forgot": "Request password reset",
   "headline_auth_password_reset": "Reset Password",
@@ -24,7 +25,11 @@
   "label_go_to_account_create": "Create an Account?",
   "label_go_to_password_forgot": "Forgot password?",
   "label_login": "Login",
-  "success_auth_login": "Login successful!",
-  "success_auth_password_change": "Password changed successfully!",
-  "success_auth_password_reset": "Password successfully reset!"
+  "success_auth_login": "You were logged in successful!",
+  "success_auth_logout": "You were logged out successfully!",
+  "success_auth_password_change": "Your password was changed successfully!",
+  "success_auth_password_reset": "Your password was reset successfully!",
+  "text_auth_logout_error": "You can try again shortly - or manually delete your user-data from the browser directly.",
+  "text_auth_logout_pending":  "Please standby while possible cleanup processes are running.",
+  "text_auth_logout_success": "You will be automatically redirected to login-page shortly."
 }
