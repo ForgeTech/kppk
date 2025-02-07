@@ -63,7 +63,7 @@ export class KppkReactViewAuthLogoutComponent {
       map(snapshot => snapshot.matches({'STATE': 'UNAUTHORIZED'})),
       filter( is_success => is_success ? true : false),
       tap( is_success => this.show_successS.set(is_success)),
-      delay(3500)
+      delay(2500)
     ), 
     { initialValue: false}
   );
@@ -80,9 +80,9 @@ export class KppkReactViewAuthLogoutComponent {
   );
 
   constructor() {
-    if( !this.$env.development?.enabled ) {
+    // if( !this.$env.development?.enabled ) {
       this.logout();
-    }
+    // }
   }
 
   protected logout(event?: Event) {
