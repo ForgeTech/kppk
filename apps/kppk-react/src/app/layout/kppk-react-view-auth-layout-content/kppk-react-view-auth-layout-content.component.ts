@@ -12,59 +12,59 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   selector: 'kppk-react-view-auth-layout-content',
   template: `
-  @if( formS(); as form ) {
+  <!-- @if( formS(); as form ) {
     <form [formGroup]="form" [action]="form_actionS()">
       <ng-container *ngTemplateOutlet="content" />
     </form>
   } 
   @else {
     <ng-container *ngTemplateOutlet="content" />
-  }
-  <ng-template #content>
-    <div class="flex flex-col items-center justify-center">
+  } -->
+  <!-- <ng-template #content> -->
+    <div class="w-full"> 
+      <div class="flex flex-col items-center justify-center">
 
-      <ng-content select="[header]" />
+        <ng-content select="[header]" />
 
-    </div>
-    <div class="mb-6 mt-4">
-      <div class="relative pb-[2px] pt-10">
-
-        @if( errorS() ) {
-          <div class="mat-warn-bg absolute top-0 w-full px-4 py-2">
-
-            <ng-content select="[error]"/>
-
-          </div>
-        } 
-        @if( successS() ) {
-          <div class="mat-primary-bg absolute top-0 w-full px-4 py-2">
-
-            <ng-content select="[success]"/>
-
-          </div>
-        } 
-        @if( pendingS() ){
-          <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
-        }
       </div>
+      <div class="mb-6 mt-4">
+        <div class="relative pb-[2px] pt-10">
 
-      <ng-content/>
+          @if( errorS() ) {
+            <div class="mat-warn-bg absolute top-0 w-full px-4 py-2 text-xs sm:text-base">
 
-    </div>
-    <div class="flex flex-col gap-2 md:!flex-row">
-    
-      <ng-content select="[buttons]"/>
+              <ng-content select="[error]"/>
 
-    </div>   
+            </div>
+          } 
+          @if( successS() ) {
+            <div class="mat-primary-bg absolute top-0 w-full px-4 py-2 text-xs sm:text-base">
 
-    <div>
+              <ng-content select="[success]"/>
 
-      <ng-content select="[footer]"/>
+            </div>
+          } 
+          @if( pendingS() ){
+            <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
+          }
+        </div>
+
+        <ng-content/>
+
+      </div>
+      <div class="flex flex-col gap-2 md:!flex-row">
       
-    </div>
-  </ng-template>
+        <ng-content select="[buttons]"/>
 
-  
+      </div>   
+
+      <div>
+
+        <ng-content select="[footer]"/>
+        
+      </div>
+    </div>
+  <!-- </ng-template> -->
   `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,

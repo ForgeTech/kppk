@@ -10,7 +10,7 @@
     content
     class="flex h-full w-full flex-col items-center justify-center"
   >
-   <mat-card class="min-w-xs flex w-full max-w-lg flex-col items-center justify-center px-4 pb-8 pt-10">
+   <mat-card class="mt-8 flex w-[96%] flex-col items-center justify-center px-4 pb-8 pt-10 md:w-full md:max-w-lg">
       <ng-content />
    </mat-card>
     <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ s.versionS() }}</div>
@@ -21,7 +21,7 @@
       target="_blank"
     >
       <img
-        class="kppk-logo"
+        class="kppk-logo mb-4 w-full max-w-[150px] md:max-w-[250px]"
         width="100%"
         alt="{{ t?.alt_kppk_logo }}"
         src="./images/kppk/kppk-logo.svg"
