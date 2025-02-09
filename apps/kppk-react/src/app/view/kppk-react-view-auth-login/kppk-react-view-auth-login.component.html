@@ -9,7 +9,7 @@
   <ng-container header>
     <div class="relative">
       <img
-        class="w-full px-8 pb-8"
+        class="w-full px-8"
         alt="{{ t?.alt_react_logo }}"
         src="./images/react/react-logo.png"
       />
@@ -32,16 +32,12 @@
   />
 
   <ng-container buttons>
-    <button
+    <fg-button-form-submit 
       class="w-full md:order-2 md:flex-1"
-      mat-stroked-button
-      color="primary"
-      type="submit"
-      (click)="action($event)"
-    >
-      <mat-icon class="right-4">login</mat-icon>
-      {{ t?.label_login }}
-    </button>
+      [label]="t?.label_login" 
+      (submit)="action($event)" 
+      [form_group]="form" 
+    />
     <fg-pwa-install
       class="w-full md:order-1 md:flex-1"
       [tooltip]="t?.tooltip_install"
@@ -51,7 +47,7 @@
     />
   </ng-container>
 
-  <div footer class="prose-sm flex flex-row flex-wrap items-start justify-between pt-4">
+  <div footer class="prose-sm flex flex-row flex-wrap items-start justify-between pt-8">
     <!-- <p> -->
       <a 
         mat-button 
@@ -59,13 +55,12 @@
       >
         {{ t?.label_go_to_password_forgot }}
       </a>
-      <br/>
-      <a
+      <!-- <a
         mat-button
         href="/{{[HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_PASSWORD_FORGOT].join('/')}}"
       >
         {{ t?.label_go_to_account_create }}
-      </a>
+      </a> -->
     <!-- </p> -->
   </div>
 

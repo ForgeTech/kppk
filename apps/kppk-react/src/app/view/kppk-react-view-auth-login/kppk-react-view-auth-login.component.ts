@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FgTranslate,
 } from '@kppk/fg-lib-new';
 import {
-  fg_auth_local_event_login_parser,
+  FG_AUTH_EVENT_LOGIN,
+  fg_auth_event_login_parser,
   FgAuthLocalMachineActorService,
+  FgButtonFormSubmitComponent,
   KppkFormlyModule,
 } from '@kppk/react-lib';
 import {
@@ -22,12 +21,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
-    CommonModule,
+    FgButtonFormSubmitComponent,
     FgPwaInstallComponent,
     KppkFormlyModule,
-    MatButtonModule,
-    MatIconModule,
-    KppkReactViewAuthLayoutContentComponent
+    KppkReactViewAuthLayoutContentComponent,
   ],
   selector: 'kppk-react-view-auth-login',
   templateUrl: './kppk-react-view-auth-login.component.html',
@@ -49,6 +46,9 @@ export class KppkReactViewAuthLoginComponent {
     "label_install": 'pwa',
     "label_login": 'auth',
     "success_auth_login": "auth",
+    "text_auth_logout_error": "auth",
+    "text_auth_logout_pending": "auth",
+    "text_auth_logout_success": "auth",
     "tooltip_install": 'pwa',
   });
   protected translationsS = toSignal(
@@ -57,19 +57,17 @@ export class KppkReactViewAuthLoginComponent {
   );
 
   protected errorS = computed( () => {
-    const result = this.$actor_auth
-    .stateS()
-    ?.matches({ STATE: { UNAUTHORIZED: 'ERROR' } });
+    const result = this.$actor_auth.stateS()?.matches({ 'STATE': { 'UNAUTHORIZED': 'ERROR' }});
     return result;
   })
   protected successS = computed( () => {
-    const result = this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' });
+    const result = this.$actor_auth.stateS()?.matches({ 'STATE': 'AUTHORIZED' });
     return result;
   })
   protected pendingS = computed( () => {
     const result = this.$actor_auth
     .stateS()
-    ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
+    ?.matches({'STATE': {'UNAUTHORIZED': 'AUTHORIZATION'}});
     return result;
   })
   
@@ -110,10 +108,10 @@ export class KppkReactViewAuthLoginComponent {
 
   protected action(event?: Event) {
     event?.preventDefault();
-    const event_to_dispatch = fg_auth_local_event_login_parser.parse({
-      type: 'fg.auth.local.event.login',
+    const event_to_dispatch = fg_auth_event_login_parser.parse({
+      type: 'fg.auth.event.login',
       data: this.form.value,
-    });
+    } as FG_AUTH_EVENT_LOGIN);
     this.$actor_auth.send(event_to_dispatch);
   };
 }
