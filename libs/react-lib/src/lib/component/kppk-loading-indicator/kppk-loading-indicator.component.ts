@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -12,16 +14,27 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'kppk-react-loading-indicator',
 
-  imports: [MatProgressSpinnerModule],
+  imports: [MatProgressSpinnerModule, CommonModule],
   template: `
-    <div class="relative">
+    <div class="relative"
+      [ngClass]="{
+        'grayscale': disabledS()
+      }"
+    >
       <mat-progress-spinner
         class="z-0 h-32 w-32"
-        color="accent"
-        mode="indeterminate"
+        [ngClass]="{
+          'opacity-15': disabledS()
+        }"
+        [color]="colorS()"
+        [value]="100"
+        [mode]="disabledS() ? 'determinate' : 'indeterminate'"
       ></mat-progress-spinner>
       <img
         class="absolute right-[2px] top-[30px] z-10 w-24"
+        [ngClass]="{
+          'opacity-75': disabledS()
+        }"
         alt="KPPK Logo"
         src="./images/kppk/kppk-logo.svg"
       />
@@ -44,4 +57,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class KppkReactLoadingIndicatorComponent {}
+export class KppkReactLoadingIndicatorComponent {
+  public colorS = input('accent', { alias: 'color'});
+  public disabledS = input(false, { alias: 'disabled'});
+}
