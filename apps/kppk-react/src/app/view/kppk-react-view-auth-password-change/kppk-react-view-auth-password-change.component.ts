@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FgAuthLocalMachineActorService,
+  FgButtonBackNavigationComponent,
+  FgButtonFormSubmitComponent,
   KppkFormlyModule,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -18,11 +15,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
-    CommonModule,
+    FgButtonBackNavigationComponent,
+    FgButtonFormSubmitComponent,
     KppkFormlyModule,
-    MatButtonModule,
-    MatIconModule,
-    KppkReactViewAuthLayoutContentComponent
+    KppkReactViewAuthLayoutContentComponent,
   ],
   selector: 'kppk-react-view-auth-password-change',
   templateUrl: './kppk-react-view-auth-password-change.component.html',
