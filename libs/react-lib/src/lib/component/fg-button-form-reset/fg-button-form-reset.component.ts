@@ -39,7 +39,7 @@ import { is_empty_obj } from '../../utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FgButtonFormSubmitComponent {
+export class FgButtonFormResetComponent {
 
   public form_groupS = input.required<FormGroup>({alias: 'form_group'});
   public modelS = input<any | undefined>(undefined, {alias: 'model'});
