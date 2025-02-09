@@ -64,7 +64,7 @@
     "lodash-es": "^4.17.21",
     "lodash-joins": "^3.1.1",
     "material-icons": "^1.13.12",
-    "ngx-cookie-service": "19.0.0",
+    "ngx-cookie-service": "19.1.0",
     "ngx-custom-material-file-input": "^19.0.0",
     "ngx-device-detector": "^9.0.0",
     "ngx-logger": "^5.0.12",
