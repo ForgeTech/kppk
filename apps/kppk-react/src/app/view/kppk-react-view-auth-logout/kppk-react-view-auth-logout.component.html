@@ -53,14 +53,7 @@
         </button>
       }
       @if( show_successS() || errorS() ) {
-        <a
-          class="w-full"
-          mat-stroked-button
-          color="accent"
-          href="/{{[HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/')}}"
-        >
-          {{ t?.label_back }}
-        </a>
+        <fg-button-back-navigation color="accent" [label]="t?.label_back" />
       }
     </ng-container>
 

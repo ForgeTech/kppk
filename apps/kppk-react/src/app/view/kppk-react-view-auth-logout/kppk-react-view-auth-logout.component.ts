@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   FG_AUTH_LOCAL_EVENT_LOGOUT,
   FgAuthLocalMachineActorService,
+  FgButtonBackNavigationComponent,
   KppkFormlyModule,
   KppkReactLoadingIndicatorComponent,
 } from '@kppk/react-lib';
@@ -18,11 +19,12 @@ import { Router } from '@angular/router';
 @Component({
   imports: [
     CommonModule,
+    FgButtonBackNavigationComponent,
     KppkFormlyModule,
+    KppkReactLoadingIndicatorComponent,
+    KppkReactViewAuthLayoutContentComponent,
     MatButtonModule,
     MatIconModule,
-    KppkReactViewAuthLayoutContentComponent,
-    KppkReactLoadingIndicatorComponent
   ],
   selector: 'kppk-react-view-auth-logout',
   templateUrl: './kppk-react-view-auth-logout.component.html',
@@ -67,11 +69,12 @@ export class KppkReactViewAuthLogoutComponent {
     ), 
     { initialValue: false}
   );
-  protected successE = effect( () => {
-    if( this.successS() ) {
-      this.$router.navigate([HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN]);
-    }
-  })
+  // protected successE = effect( () => {
+  //   if( this.successS() ) {
+  //     this.$router.navigate([HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN]);
+  //   }
+  // })
+
   protected pendingS = toSignal(
     this.$actor_auth.state$.pipe(
       map(snapshot => snapshot.matches({ 'STATE':{'AUTHORIZED': 'REVOKE_AUTHORIZATION' }}))
@@ -80,15 +83,13 @@ export class KppkReactViewAuthLogoutComponent {
   );
 
   constructor() {
-    // if( !this.$env.development?.enabled ) {
       this.logout();
-    // }
   }
 
   protected logout(event?: Event) {
     event?.preventDefault();
     const event_to_dispatch: FG_AUTH_LOCAL_EVENT_LOGOUT = {
-      type: 'fg.auth.local.event.logout'
+      type: 'fg.auth.event.logout'
     };
     this.$actor_auth.send(event_to_dispatch);
   }
