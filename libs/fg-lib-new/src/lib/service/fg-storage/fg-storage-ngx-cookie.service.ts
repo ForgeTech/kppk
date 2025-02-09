@@ -38,8 +38,8 @@ export class FgStorageNgxCookieService extends FgStorageService {
    * Injection-Token and by using options-parameter of setItem-methode
    */
   protected OPTIONS: CookieOptions = {
-    path: '/',
-    secure: false,
+    // path: '/',
+    // secure: false,
     // httpOnly: false,
     // domain: '',
     // expires: '',
@@ -98,10 +98,15 @@ export class FgStorageNgxCookieService extends FgStorageService {
     if (storageKey) {
       if (Object.keys(this.STORAGE_MAP).indexOf(storageKey) === -1) {
         this.STORAGE_MAP[storageKey] = [];
-        key ? this.STORAGE_MAP[storageKey].push(key) : null;
+        if(key){
+          this.STORAGE_MAP[storageKey].push(key)
+
+        }
       } else {
         if (this.STORAGE_MAP[storageKey].indexOf(key) === -1) {
-          key ? this.STORAGE_MAP[storageKey].push(key) : null;
+          if(key){
+            this.STORAGE_MAP[storageKey].push(key);
+          }
         }
       }
     }
@@ -209,7 +214,7 @@ export class FgStorageNgxCookieService extends FgStorageService {
   ): Observable<boolean> {
     try {
       const keyToApply = this.getStorageKey(key, storageKey);
-      this.$cookie.delete(keyToApply);
+      this.$cookie.delete(keyToApply, this.options.path, this.options.domain, this.options.secure, this.options.sameSite);
     } catch (error) {
       this.$log?.error(
         `ERROR: FgStorageNgxCookie: removeItem-methode for key: ${key} 
