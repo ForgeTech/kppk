@@ -31,28 +31,28 @@ export class KppkReactSharedService extends FgBaseService {
   public auth_is_unauthorizedS = computed(() => {
     return this.$actor_auth.stateS()?.matches({ STATE: 'UNAUTHORIZED' });
   });
-  public auth_authorization_pendingS = computed(() => {
-    const result = this.$actor_auth
-      .stateS()
-      ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
-    return result;
-  });
-  public auth_logout_pendingS = computed(() => {
-    const result = this.$actor_auth
-      .stateS()
-      ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
-    return result;
-  });
-  public auth_authorization_errorS = computed(() => {
-    const result = this.$actor_auth
-      .stateS()
-      ?.matches({ STATE: { UNAUTHORIZED: 'ERROR' } });
-    return result;
-  });
-  public auth_authoirzation_successS = computed(() => {
-    const result = this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' });
-    return result;
-  });
+  // public auth_authorization_pendingS = computed(() => {
+  //   const result = this.$actor_auth
+  //     .stateS()
+  //     ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
+  //   return result;
+  // });
+  // public auth_authorization_errorS = computed(() => {
+  //   const result = this.$actor_auth
+  //     .stateS()
+  //     ?.matches({ STATE: { UNAUTHORIZED: 'ERROR' } });
+  //   return result;
+  // });
+  // public auth_authoirzation_successS = computed(() => {
+  //   const result = this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' });
+  //   return result;
+  // });
+  // public auth_logout_pendingS = computed(() => {
+  //   const result = this.$actor_auth
+  //     .stateS()
+  //     ?.matches({ STATE: { UNAUTHORIZED: 'AUTHORIZATION' } });
+  //   return result;
+  // });
 
   public spinner_is_pendingS = computed(() => {
     const matches_idel =  this.$actor_spinner.stateS()?.matches({'DISPLAY': {
@@ -109,43 +109,43 @@ export class KppkReactSharedService extends FgBaseService {
 
   public kppk_react_admin_toolbar_translations$ =
     this.$translate.get_translations$({
-      alt_kppk_logo: 'login',
-      alt_react_logo: 'login',
-      authorization_error: 'login',
-      authorization_success: 'login',
-      input_password_label: 'login',
-      input_user_label: 'login',
+      alt_kppk_logo: 'auth',
+      alt_react_logo: 'auth',
+      authorization_error: 'auth',
+      authorization_success: 'auth',
+      input_password_label: 'auth',
+      input_user_label: 'auth',
       label_install: 'pwa',
-      label_login: 'login',
+      label_login: 'auth',
       label_version: 'general',
       route_data_protection: 'route',
       route_imprint: 'route',
       tooltip_install: 'pwa',
     });
 
-  public kppk_react_login_translations$ = this.$translate.get_translations$({
-    alt_react_logo: 'login',
-    authorization_error: 'login',
-    authorization_success: 'login',
-    headline_login: 'login',
-    input_password_label: 'login',
-    input_user_label: 'login',
-    label_install: 'pwa',
-    label_login: 'login',
-    tooltip_install: 'pwa',
-  });
+  // public kppk_react_login_translations$ = this.$translate.get_translations$({
+  //   alt_react_logo: 'auth',
+  //   authorization_error: 'auth',
+  //   authorization_success: 'auth',
+  //   headline_login: 'auth',
+  //   input_password_label: 'auth',
+  //   input_user_label: 'auth',
+  //   label_install: 'pwa',
+  //   label_login: 'auth',
+  //   tooltip_install: 'pwa',
+  // });
 
-  public kppk_react_change_password_translations$ = this.$translate.get_translations$({
-    alt_react_logo: 'login',
-    error_password_change: 'login',
-    success_password_change: 'login',
-    headline_password_change: 'login',
-    input_password_old: 'login',
-    input_code: 'login',
-    input_password_new: 'login',
-    input_password_confirm: 'login',
-    label_change_password: 'login',
-  });
+  // public kppk_react_change_password_translations$ = this.$translate.get_translations$({
+  //   alt_react_logo: 'auth',
+  //   error_password_change: 'auth',
+  //   success_password_change: 'auth',
+  //   headline_password_change: 'auth',
+  //   input_password_old: 'auth',
+  //   input_code: 'auth',
+  //   input_password_new: 'auth',
+  //   input_password_confirm: 'auth',
+  //   label_change_password: 'auth',
+  // });
 
 
 
