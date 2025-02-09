@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormGroup } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FgAuthLocalMachineActorService,
+  FgButtonBackNavigationComponent,
+  FgButtonFormSubmitComponent,
   KppkFormlyModule,
 } from '@kppk/react-lib';
 import { map } from 'rxjs';
@@ -16,11 +15,10 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 
 @Component({
   imports: [
-    CommonModule,
+    FgButtonBackNavigationComponent,
     KppkFormlyModule,
-    MatButtonModule,
-    MatIconModule,
-    KppkReactViewAuthLayoutContentComponent
+    KppkReactViewAuthLayoutContentComponent,
+    FgButtonFormSubmitComponent
   ],
   selector: 'kppk-react-view-auth-password-reset',
   templateUrl: './kppk-react-view-auth-password-reset.component.html',
