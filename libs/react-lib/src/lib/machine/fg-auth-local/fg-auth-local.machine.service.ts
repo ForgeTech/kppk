@@ -1,11 +1,11 @@
 import {
   FG_AUTH_LOCAL_CONTEXT,
   fg_auth_local_context_parser,
-  FG_AUTH_LOCAL_EVENT_AUTHORIZED,
-  FG_AUTH_LOCAL_EVENT_LOGIN,
+  FG_AUTH_LOCAL_EMITTED_AUTHORIZED,
+  FG_AUTH_EVENT_LOGIN,
   FG_AUTH_LOCAL_EVENT_LOGOUT,
   FG_AUTH_LOCAL_EVENT_STOP,
-  FG_AUTH_LOCAL_EVENT_UNAUTHORIZED,
+  FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED,
 } from './fg-auth-local.machine.types';
 import { Injectable, inject } from '@angular/core';
 import { FgBaseService } from '@kppk/fg-lib-new';
@@ -27,10 +27,10 @@ export class FgAuthLocalMachineService extends FgBaseService {
           input: {} as Partial<FG_AUTH_LOCAL_CONTEXT>,
           context: {} as FG_AUTH_LOCAL_CONTEXT,
           events: {} as
-            | FG_AUTH_LOCAL_EVENT_LOGIN
+            | FG_AUTH_EVENT_LOGIN
             | FG_AUTH_LOCAL_EVENT_LOGOUT
-            | FG_AUTH_LOCAL_EVENT_AUTHORIZED
-            | FG_AUTH_LOCAL_EVENT_UNAUTHORIZED
+            | FG_AUTH_LOCAL_EMITTED_AUTHORIZED
+            | FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED
             | FG_AUTH_LOCAL_EVENT_STOP
         },
         actions: {
@@ -65,7 +65,7 @@ export class FgAuthLocalMachineService extends FgBaseService {
           STATE: {
             initial: 'INITIALIZE',
             on: {
-              'fg.auth.local.event.stop': {
+              'fg.auth.event.stop': {
                 target: '#FG_AUTH_LOCAL_V1.STATE.DONE',
               },
             },
@@ -150,7 +150,7 @@ export class FgAuthLocalMachineService extends FgBaseService {
                 states: {
                   PENDING: {
                     on: {
-                      'fg.auth.local.event.logout': {
+                      'fg.auth.event.logout': {
                         target: 'REVOKE_AUTHORIZATION',
                       },
                     },
@@ -179,7 +179,7 @@ export class FgAuthLocalMachineService extends FgBaseService {
                   },
                   ERROR: {
                     on: {
-                      'fg.auth.local.event.logout': {
+                      'fg.auth.event.logout': {
                         target: 'REVOKE_AUTHORIZATION',
                         actions: {
                           type: 'assign_clear_authorization_error',
@@ -200,7 +200,7 @@ export class FgAuthLocalMachineService extends FgBaseService {
                 states: {
                   PENDING: {
                     on: {
-                      'fg.auth.local.event.login': {
+                      'fg.auth.event.login': {
                         target: 'AUTHORIZATION',
                       },
                     },
@@ -229,7 +229,7 @@ export class FgAuthLocalMachineService extends FgBaseService {
                   },
                   ERROR: {
                     on: {
-                      'fg.auth.local.event.login': {
+                      'fg.auth.event.login': {
                         target: 'AUTHORIZATION',
                         actions: {
                           type: 'assign_clear_authorization_error',

@@ -43,37 +43,36 @@ export type FG_AUTH_LOCAL_CREDENTIALS = z.infer<
   typeof fg_auth_local_credentials_parser
 >;
 
-export const fg_auth_local_event_login_parser = z.object({
-  type: z.literal('fg.auth.local.event.login'),
+export const fg_auth_event_login_parser = z.object({
+  type: z.literal('fg.auth.event.login'),
   data: fg_auth_local_credentials_parser,
 });
-export type FG_AUTH_LOCAL_EVENT_LOGIN = z.infer<typeof fg_auth_local_event_login_parser>;
+export type FG_AUTH_EVENT_LOGIN = z.infer<typeof fg_auth_event_login_parser>;
 
-export const fg_auth_local_event_logout_parser = z.object({
-  type: z.literal('fg.auth.local.event.logout'),
+export const fg_auth_event_logout_parser = z.object({
+  type: z.literal('fg.auth.event.logout'),
 });
-export type FG_AUTH_LOCAL_EVENT_LOGOUT = z.infer<
-  typeof fg_auth_local_event_logout_parser
+export type FG_AUTH_LOCAL_EVENT_LOGOUT = z.infer<typeof fg_auth_event_logout_parser
 >;
 
-export const fg_auth_local_event_authorized_parser = z.object({
-  type: z.literal('fg.auth.local.event.authorized'),
+export const fg_auth_local_emitted_authorized_parser = z.object({
+  type: z.literal('fg.auth.emitted.authorized'),
   data: z.object({
     auth_cookie: fg_auth_local_auth_cookie_parser,
   }),
 });
-export type FG_AUTH_LOCAL_EVENT_AUTHORIZED = z.infer<
-  typeof fg_auth_local_event_authorized_parser
+export type FG_AUTH_LOCAL_EMITTED_AUTHORIZED = z.infer<
+  typeof fg_auth_local_emitted_authorized_parser
 >;
 
-export const fg_auth_local_event_unauthorized_parser = z.object({
-  type: z.literal('fg.auth.local.event.unauthorized'),
+export const fg_auth_local_emitted_unauthorized_parser = z.object({
+  type: z.literal('fg.auth.emitted.unauthorized'),
 });
-export type FG_AUTH_LOCAL_EVENT_UNAUTHORIZED = z.infer<
-  typeof fg_auth_local_event_unauthorized_parser
+export type FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED = z.infer<
+  typeof fg_auth_local_emitted_unauthorized_parser
 >;
 
 export const fg_auth_local_event_stop_parser = z.object({
-  type: z.literal('fg.auth.local.event.stop'),
+  type: z.literal('fg.auth.event.stop'),
 });
 export type FG_AUTH_LOCAL_EVENT_STOP = z.infer<typeof fg_auth_local_event_stop_parser>;
