@@ -15,7 +15,7 @@ import {
   FgBaseService,
   FgEnvironmentService,
 } from '@kppk/fg-lib-new';
-import { ReactNavigationMachineService } from './fg-navigation.machine.service';
+import { FgNavigationMachineService } from './fg-navigation.machine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class ReactRunningV7MachineActorService
 {
   protected $env = inject(FgEnvironmentService);
   protected $xstate = inject(FgXstateService);
-  protected $machine = inject(ReactNavigationMachineService);
+  protected $machine = inject(FgNavigationMachineService);
 
   protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};

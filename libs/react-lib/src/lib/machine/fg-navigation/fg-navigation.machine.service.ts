@@ -20,7 +20,7 @@ import { FgBaseService } from '@kppk/fg-lib-new';
 @Injectable({
   providedIn: 'root',
 })
-export class ReactNavigationMachineService extends FgBaseService {
+export class FgNavigationMachineService extends FgBaseService {
   protected $methode = inject(FgNavigationMachineMethodeService);
   protected $xstate = inject(FgXstateService);
 
@@ -42,21 +42,21 @@ export class ReactNavigationMachineService extends FgBaseService {
           | FG_NAVIGATION_INTERNAL_START
       },
       actions: {
-        // action_navigation_redirect_to_target_url: this.$methode.action_navigation_redirect_to_target_url,
+        action_navigation_redirect_to_target_url: this.$methode.action_navigation_redirect_to_target_url,
         assign_active_url: this.$xstate.assign(this.$methode.assign_active_url),
         assign_target_url: this.$xstate.assign(this.$methode.assign_target_url),
         send_navigation_emitted_ended: this.$xstate.emit(this.$methode.send_navigation_emitted_ended),
         send_navigation_emitted_started: this.$xstate.emit(this.$methode.send_navigation_emitted_started),
         log_error: this.$methode.log_error,
-        raise_navigation_internal_check: this.$methode.raise_navigation_internal_check,
-        raise_navigation_internal_end: this.$methode.raise_navigation_internal_end,
-        raise_navigation_internal_redirect: this.$methode.raise_navigation_internal_redirect,
-        raise_navigation_internal_start: this.$methode.raise_navigation_internal_start,
+        raise_navigation_internal_check: this.$xstate.raise(this.$methode.raise_navigation_internal_check),
+        raise_navigation_internal_end: this.$xstate.raise(this.$methode.raise_navigation_internal_end),
+        raise_navigation_internal_redirect: this.$xstate.raise(this.$methode.raise_navigation_internal_redirect),
+        raise_navigation_internal_start: this.$xstate.raise(this.$methode.raise_navigation_internal_start),
       },
       guards: {
         guard_target_url_not_matching_active_url: this.$xstate.not(this.$methode.guard_target_url_matching_active_url),
         guard_navigation_is_idel: this.$xstate.stateIn({'NAVIGATION': 'IDEL'}),
-        guard_navigation_is_waiting: this.$xstate.stateIn({'NAVIGATION': 'WAITING'})
+        guard_navigation_is_waiting: this.$xstate.stateIn({'NAVIGATION': { 'RUNNING': 'WAITING' }})
       },
     }).createMachine({
       context: fg_navigation_context_parser.parse( context ?? {}),
@@ -97,17 +97,17 @@ export class ReactNavigationMachineService extends FgBaseService {
                     type: "raise_navigation_internal_redirect",
                   },
                 ],
-                guard: {
-                  type: "guard_navigation_is_waiting",
-                },
-              },
-              {
-                // actions: {
-                //   type: "log_error",
+                // guard: {
+                //   type: "guard_navigation_is_waiting",
                 // },
-                description:
-                  "This is an unexpected navigation event and shouldn't appear. Inspect what is trying to interrupt navigation before it is finished",
               },
+              // {
+              //   actions: {
+              //     type: "log_error",
+              //   },
+              //   description:
+              //     "This is an unexpected navigation event and shouldn't appear. Inspect what is trying to interrupt navigation before it is finished",
+              // },
             ],
             "fg.navigation.event.disable": {
               target: "#FG_NAVIGATION.SETTINGS.DISABLED",
@@ -120,11 +120,10 @@ export class ReactNavigationMachineService extends FgBaseService {
             ENABLED: {
               on: {
                 "fg.navigation.internal.check": {
-                  target: "ENABLED",
+                  actions: [{
+                    type: "raise_navigation_internal_start",
+                  }]
                 },
-              },
-              entry: {
-                type: "raise_navigation_internal_start",
               },
             },
             BLOCKED: {
@@ -208,9 +207,9 @@ export class ReactNavigationMachineService extends FgBaseService {
                   always: {
                     target: "WAITING",
                   },
-                  // entry: {
-                  //   type: "action_navigation_redirect_to_target_url",
-                  // },
+                  entry: {
+                    type: "action_navigation_redirect_to_target_url",
+                  },
                 },
                 ENDED: {
                   on: {

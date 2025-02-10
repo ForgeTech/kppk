@@ -30,7 +30,7 @@ export class ReactRunningV7MachineActorService
 
   protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
-  protected actor: Actor<typeof this.machine>;
+  public actor: Actor<typeof this.machine>;
 
   protected EVENT$ = new Subject<EmittedFrom<typeof this.machine>>();
   public readonly event$ = this.EVENT$.asObservable();
