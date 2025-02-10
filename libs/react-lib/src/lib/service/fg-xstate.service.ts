@@ -14,6 +14,10 @@ import {
   sendParent,
   sendTo,
   setup,
+  not,
+  and,
+  or,
+  stateIn
 } from 'xstate';
 /**
  * FgXstateInspectorConfig -
@@ -74,6 +78,10 @@ export class FgXstateService extends FgBaseService {
   public readonly sendParent = sendParent;
   public readonly sendTo = sendTo;
   public readonly setup = setup;
+  public readonly not = not;
+  public readonly and = and;
+  public readonly or = or;
+  public readonly stateIn = stateIn;
 
   // CONSTRUCTOR
   constructor() {
