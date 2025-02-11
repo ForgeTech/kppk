@@ -27,7 +27,10 @@ export class ReactViewHomeMachineActorService
 
   protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
-  protected actor: Actor<typeof this.machine>;
+  protected ACTOR: Actor<typeof this.machine>;
+  public get actor() {
+    return this.ACTOR;
+  }
 
   protected EVENT$ = new Subject<EmittedFrom<typeof this.machine>>();
   public readonly event$ = this.EVENT$.asObservable();
@@ -52,13 +55,13 @@ export class ReactViewHomeMachineActorService
       this.config.inspect = this.$xstate.inspect;
     }
     // Create actor
-    this.actor = createActor(this.machine, this.config);
+    this.ACTOR = createActor(this.machine, this.config);
     // Push actor snapshot to state-signal
-    this.state_subscription = this.actor.subscribe((snapshot) => {
+    this.state_subscription = this.ACTOR.subscribe((snapshot) => {
       this.STATE$.next(snapshot);
     });
     // Push emitted actor events to subject
-    this.events_subscription = this.actor.on('*', (snapshot) => {
+    this.events_subscription = this.ACTOR.on('*', (snapshot) => {
       this.EVENT$.next(snapshot);
     });
   }
@@ -73,34 +76,34 @@ export class ReactViewHomeMachineActorService
       this.state_subscription.unsubscribe();
       this.events_subscription.unsubscribe();
       // Create actor
-      this.actor = createActor(this.machine, this.config);
+      this.ACTOR = createActor(this.machine, this.config);
       // Push actor snapshot to state-signal
-      this.state_subscription = this.actor.subscribe((snapshot) => {
+      this.state_subscription = this.ACTOR.subscribe((snapshot) => {
         this.STATE$.next(snapshot);
       });
       // Push emitted actor events to subject
-      this.events_subscription = this.actor.on('*', (snapshot) => {
+      this.events_subscription = this.ACTOR.on('*', (snapshot) => {
         this.EVENT$.next(snapshot);
       });
     }
   }
   public start() {
-    this.actor.start();
+    this.ACTOR.start();
     this.is_runningS.set(true);
   }
 
   public send(event: EventFrom<typeof this.machine>) {
-    this.actor.send(event);
+    this.ACTOR.send(event);
   }
 
   public stop() {
-    this.actor.stop();
+    this.ACTOR.stop();
     this.is_runningS.set(false);
   }
 
   public override ngOnDestroy(): void {
     // Stop actor
-    this.actor.stop();
+    this.ACTOR.stop();
     // Unsubscribe
     this.state_subscription.unsubscribe();
     this.events_subscription.unsubscribe();
