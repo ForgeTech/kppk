@@ -1,4 +1,3 @@
-@let s = $shared;
 <div class="header">
   <mat-toolbar>
     <mat-toolbar-row>
@@ -37,7 +36,7 @@
       >
         <mat-icon>print</mat-icon>
       </a> -->
-      @if( s.auth_is_authorizedS() ) {
+      @if( auth_is_authorizedS() ) {
       <a
         mat-icon-button
         color="warn"
@@ -65,7 +64,7 @@
       />
     </mat-toolbar-row>
   </mat-toolbar>
-  @if( s.spinner_is_pendingS() ){
+  @if( spinner_is_pendingS() ){
     <mat-progress-bar class="absolute bottom-0 w-full" mode="indeterminate" />
   }
 </div>

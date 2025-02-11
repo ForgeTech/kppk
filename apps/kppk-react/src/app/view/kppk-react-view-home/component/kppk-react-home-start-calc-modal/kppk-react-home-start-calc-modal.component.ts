@@ -28,7 +28,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   KppkFormlyModule,
-  KppkReactSharedService,
   oi3_bgf_bzg_m2_parser,
   oi3_table_header_type_parser,
   oi3_table_headline_parser,
@@ -66,12 +65,28 @@ import { z } from 'zod';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactHomeStartCalcModalComponent {
-  protected $shared = inject(KppkReactSharedService);
   protected $translate = inject(FgTranslate);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
 
   protected kppk_react_home_translationsS = toSignal(
-    this.$shared.kppk_react_home_translations$
+    this.$translate.get_translations$({
+      headline_start_calc_modal: "home",
+      content_provide_calculation_data: "home",
+      content_provide_calculation_data_choose_option: "home",
+      content_provide_calculation_data_from_files: "home",
+      content_provide_calculation_data_from_storage: "home",
+      headline_selected_from_files: "home",
+      placeholder_oi3_file: "home",
+      error_required: "home",
+      error_max_file_size: "home",
+      placeholder_aufbauten_file: "home",
+      placeholder_bauteilflaechen_file: "home",
+      placeholder_heating_system_file: "home",
+      headline_selected_from_stored: "home",
+      button_back: "home",
+      button_cancel: "home",
+      button_start_calc: "home",
+    })
   );
   // protected pdf_parser = new PDFParser();
 

@@ -1,6 +1,5 @@
 <div class="main-navigation flex h-full min-h-full flex-col">
-  @let s = $shared;
-  @let t = kppk_react_navigation_translationsS();
+  @let t = translationsS();
   <mat-list>
     @if( can_install_pwaS() ){
       <mat-list-item class="pwa-install-item">
@@ -11,7 +10,7 @@
           class="w-full md:flex-1"/>
       </mat-list-item>
     }
-    @if( s.auth_is_authorizedS() ){
+    @if( auth_is_authorizedS() ){
       <mat-list-item>
         <a class="w-full" mat-stroked-button color="primary" routerLink="/{{ HOST_ROUTES.HOME }}">
           <mat-icon svgIcon="home"/>
@@ -24,7 +23,7 @@
       <mat-list-item>
         <a class="w-full" mat-stroked-button color="primary">
           <mat-icon svgIcon="download"/>
-          {{ t?.manual }}
+          {{ t?.label_manual }}
         </a>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -32,7 +31,7 @@
         <mat-list-item>
           <a class="w-full" mat-stroked-button color="primary">
             <mat-icon>add</mat-icon>
-            {{ t?.calculation_start }}
+            {{ t?.label_calculation_start }}
           </a>
         </mat-list-item>
       }
@@ -67,15 +66,15 @@
     </mat-list-item>
 
     <mat-list-item>
-      <fg-language-switch 
+      <!-- <fg-language-switch 
         class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"
         [selected]="s.lang_activeS()"
         [available_langs]="s.langs_availableS()"
         [icon_path]="s.langs_icons_pathS()"
         (change)="s.set_language($event)"
-    />
+      /> -->
     </mat-list-item>
-    @if( s.auth_is_authorizedS() ){
+    @if( auth_is_authorizedS() ){
       <mat-list-item>
         <a 
           class="w-full" 

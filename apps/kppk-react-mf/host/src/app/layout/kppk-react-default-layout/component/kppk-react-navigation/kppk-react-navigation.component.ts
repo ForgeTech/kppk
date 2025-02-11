@@ -1,4 +1,4 @@
-import { FgEnvironmentService, FgLanguageSwitchComponent, FgPwaInstallComponent, FgPwaInstallService } from '@kppk/fg-lib-new';
+import { FgEnvironmentService, FgLanguageSwitchComponent, FgPwaInstallComponent, FgPwaInstallService, FgTranslate } from '@kppk/fg-lib-new';
 import { MatIconModule } from '@angular/material/icon';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, inject } from '@angular/core';
 
@@ -33,16 +33,21 @@ export class KppkReactNavigationComponent  {
   protected $auth_local = inject(FgAuthLocalMachineActorService);
   protected $env = inject(FgEnvironmentService);
   protected $pwa = inject(FgPwaInstallService);
-  protected $shared = inject(KppkReactSharedService);
+  protected $translate = inject(FgTranslate);
 
-  protected kppk_react_navigation_translationsS = toSignal(this.$shared.kppk_react_navigation_translations$, { initialValue: undefined})
+  protected translationsS = toSignal(this.$translate.get_translations$({
+    "tooltip_install": "general",
+    "label_install": "general",
+    "route_home": "general",
+    "label_manual": "general",
+    "label_calculation_start": "general",
+    "route_login": "general",
+    "route_imprint": "general",
+    "route_data_protection": "general",
+    "logout": "general",
+  }), { initialValue: undefined})
 
   protected HOST_ROUTES = HOST_ROUTES;
 
   protected can_install_pwaS = toSignal( this.$pwa.pwa_deferred_promt_available$, { initialValue: false } );
-
-  protected logout( event: Event ) {
-    event.preventDefault();
-    this.$auth_local?.send({ type: 'fg.auth.local.event.logout' } );
-  }
 }

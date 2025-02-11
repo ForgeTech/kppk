@@ -263,6 +263,6 @@ export class KppkReactViewCalculationComponent {
 
   protected logout(event?: Event) {
     event?.preventDefault();
-    this.$actor_auth?.send({ type: 'fg.auth.local.event.logout' });
+    this.$actor_auth?.send({ type: 'fg.auth.event.logout' });
   }
 }

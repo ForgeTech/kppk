@@ -1,13 +1,16 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { TranslocoService } from "@jsverse/transloco";
 import { combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
 import { FgBaseService } from "../base";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { FgEnvironmentService } from "./fg-environment/fg-environment.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FgTranslate extends FgBaseService {
     protected $transloco = inject(TranslocoService); 
+    protected $env = inject(FgEnvironmentService); 
 
     public supplant = function (template_string?: string, value_object?: Record<string, string>) {
         if(template_string === undefined || value_object === undefined) {
@@ -47,5 +50,40 @@ export class FgTranslate extends FgBaseService {
             }),
         )
         return translation$; 
-    }
+    };
+
+    protected lang_active$ = this.$transloco.langChanges$.pipe(
+        startWith(this.$transloco.getActiveLang()),
+      );
+      public lang_activeS = toSignal(this.lang_active$, {
+        initialValue: this.$transloco.getActiveLang(),
+      });
+    
+      protected langs_translation$ = this.get_translations$({
+        de: 'language',
+        en: 'language',
+      });
+      protected langs_available$ = this.langs_translation$.pipe(
+        map((trans: any) => {
+          return this.$env.i18n.availableLangs.map((item) => {
+            let id: string;
+            if (typeof item === 'string') {
+              id = item;
+            } else {
+              id = item.id;
+            }
+            return {
+              id,
+              label: trans[id],
+            };
+          });
+        })
+      );
+      public langs_availableS = toSignal(this.langs_available$, {
+        initialValue: [],
+      });
+      public langs_icons_pathS = signal(this.$env.i18n.assetPath);
+      public set_language(lang: any) {
+        this.$transloco.setActiveLang( lang );
+      }
 } 

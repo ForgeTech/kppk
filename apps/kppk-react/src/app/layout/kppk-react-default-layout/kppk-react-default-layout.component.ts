@@ -11,11 +11,13 @@ import {
 import { Portal, PortalModule } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 import {
+  FgEnvironmentService,
   FgEventService,
   // FgLayoutBaseEvent,
   FgLayoutDefaultComponent,
   FgLayoutDrawerCloseButtonComponent,
   FgLayoutDrawerComponent,
+  FgTranslate,
   // FgLayoutDrawerEvent,
   // FgSwUpdateBannerComponent
 } from '@kppk/fg-lib-new';
@@ -26,8 +28,8 @@ import { KppkReactNavigationComponent } from './component/kppk-react-navigation/
 
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
+  FgAuthLocalMachineActorService,
   KppkAdminToolbarComponent,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatListModule } from '@angular/material/list';
@@ -65,39 +67,49 @@ export interface FgOpenDrawerInterface {
 })
 export class KppkReactDefaultLayoutComponent {
   protected $event = inject(FgEventService);
-  protected $shared = inject(KppkReactSharedService);
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
+  protected $env = inject(FgEnvironmentService);
+  protected $translate = inject(FgTranslate);
   protected $document = inject(DOCUMENT);
 
   public drawerContent$: Subject<Portal<any>> = new Subject();
-    protected translationS = toSignal(this.$shared.kppk_react_default_layout_translation$, {initialValue: undefined})
+  protected translationS = toSignal(this.$translate.get_translations$({
+    "label_close": 'general',
+  }), {initialValue: undefined});
+
+  protected admin_toolbar_showS = computed( () => {
+    const user_is_admin = this.$actor_auth.stateS()?.context.auth_cookie?.profile.admin;
+    const result = this.$env.development?.enabled || user_is_admin ? true : false;
+    return result;
+  });
+
+  protected window = this.$document.defaultView;
+  protected headerC = viewChild(KppkReactHeaderComponent);
+  protected adminC = viewChild(KppkAdminToolbarComponent);
+  protected drawerC = viewChild(FgLayoutDrawerComponent);
+
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll(event: Event) {
+    console.log('>>>>SCROLL_WINDOW_EVENT>>>>>>')
+    console.log(event);
+    const offset = this.window?.screenY;
+    this.offsetS.set(offset);
+  }
+  protected offsetS = signal<any | undefined>(undefined);
   
-      protected window = this.$document.defaultView;
-      protected headerC = viewChild(KppkReactHeaderComponent);
-      protected adminC = viewChild(KppkAdminToolbarComponent);
-      protected drawerC = viewChild(FgLayoutDrawerComponent);
-    
-      @HostListener('window:scroll', ['$event']) // for window scroll events
-      onScroll(event: Event) {
-        console.log('>>>>SCROLL_WINDOW_EVENT>>>>>>')
-        console.log(event);
-        const offset = this.window?.screenY;
-        this.offsetS.set(offset);
-      }
-      protected offsetS = signal<any | undefined>(undefined);
-    
-      public topS = computed( () => {
-        let offset = this.offsetS();
-        let height = 0;
-    
-        height += this.adminC()?.$element_ref.nativeElement.offsetHeight;
-        // height += this.headerC()?.$element_ref.nativeElement.offsetHeight;
-        const top = height - offset;
-        console.log('>>>>TOP>>>>>>')
-        console.log( top );
-        console.log('>>>>OFFSET>>>>>>')
-        console.log( top );
-        return top <= 0 ? 0 : top;
-      });
+  public topS = computed( () => {
+    let offset = this.offsetS();
+    let height = 0;
+
+    height += this.adminC()?.$element_ref.nativeElement.offsetHeight;
+    // height += this.headerC()?.$element_ref.nativeElement.offsetHeight;
+    const top = height - offset;
+    console.log('>>>>TOP>>>>>>')
+    console.log( top );
+    console.log('>>>>OFFSET>>>>>>')
+    console.log( top );
+    return top <= 0 ? 0 : top;
+  });
   /** Flags if layout is bigger then medium */
   // public breakPointLayout$: Observable<boolean> = this.$component.$breakpoint.matchedBreakpoints$.pipe(
   //   map( breakpoints => breakpoints.indexOf( 'fx-gt-md' ) !== -1 ),

@@ -6,11 +6,8 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { FgLayoutDefaultComponent } from '@kppk/fg-lib-new';
 import { KppkReactHomeStartCalcModalComponent } from './component/kppk-react-home-start-calc-modal/kppk-react-home-start-calc-modal.component';
 import {
-  KppkReactSharedService,
-  ReactInitMachineActorService,
   ReactViewHomeMachineActorService,
 } from '@kppk/react-lib';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +20,7 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { NGXLogger } from 'ngx-logger';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   imports: [
@@ -55,20 +53,30 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class KppkReactViewHomeComponent {
   protected $active_route = inject(ActivatedRoute);
   protected $dialog = inject(MatDialog);
+  protected $translate = inject(FgTranslate);
   protected $log = inject(NGXLogger);
-  protected $shared = inject(KppkReactSharedService);
   protected $actor_react_view_home = inject(ReactViewHomeMachineActorService);
-  protected $actor_react_init = inject(ReactInitMachineActorService);
+  
   protected kppk_react_home_translationsS = toSignal(
-    this.$shared.kppk_react_home_translations$
+    this.$translate.get_translations$({
+      "headline_welcome": "home",
+      "text_welcome": "home",
+      "label_calculation_start": "general",
+      "alt_pictogram_material": "home",
+      "alt_pictogram_construction_site": "home",
+      "alt_pictogram_container_village": "home",
+      "alt_pictogram_demolish_disposal": "home",
+      "alt_pictogram_excavation_pit": "home",
+      "alt_pictogram_heating_system": "home",
+    }), {initialValue: undefined}
   );
   protected ref_start_calculation_dialog: undefined | MatDialogRef<any, any>;
 
   constructor() {
-    if (this.$actor_react_init.is_runningS() === false) {
-      this.$actor_react_init.start();
-    }
-    this.$actor_react_view_home.start();
+    // if (this.$actor_react_init.is_runningS() === false) {
+    //   this.$actor_react_init.start();
+    // }
+    // this.$actor_react_view_home.start();
 
     effect(() => {
       const state = this.$actor_react_view_home.stateS();

@@ -3,12 +3,14 @@ import {
   FgLanguageSwitchComponent,
   FgPwaInstallComponent,
   FgPwaInstallService,
+  FgTranslate,
 } from '@kppk/fg-lib-new';
 import { MatIconModule } from '@angular/material/icon';
 import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
+  computed,
   inject,
 } from '@angular/core';
 
@@ -19,7 +21,6 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   FgAuthLocalMachineActorService,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import { HOST_ROUTES } from '@kppk/react-lib';
 /**
@@ -43,15 +44,29 @@ import { HOST_ROUTES } from '@kppk/react-lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactNavigationComponent {
-  protected $auth_local = inject(FgAuthLocalMachineActorService);
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
   protected $env = inject(FgEnvironmentService);
   protected $pwa = inject(FgPwaInstallService);
-  protected $shared = inject(KppkReactSharedService);
+  protected $translate = inject(FgTranslate);
 
-  protected kppk_react_navigation_translationsS = toSignal(
-    this.$shared.kppk_react_navigation_translations$,
+  protected translationsS = toSignal(
+    this.$translate.get_translations$({
+      "tooltip_install": "home",
+      "label_install": "pwa",
+      "route_home": "route",
+      "label_manual": "general",
+      "label_calculation_start": "general",
+      "route_login": "route",
+      "route_imprint": "route",
+      "route_data_protection": "route",
+      "label_logout": "general",
+    }),
     { initialValue: undefined }
   );
+
+  protected auth_is_authorizedS = computed(() => {
+    return this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' }) ?? false;
+  }); 
 
   protected HOST_ROUTES = HOST_ROUTES;
 

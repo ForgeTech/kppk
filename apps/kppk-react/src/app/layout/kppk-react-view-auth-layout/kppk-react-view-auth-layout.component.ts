@@ -1,16 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import {
+  FgEnvironmentService,
   FgLayoutDefaultComponent,
   FgTranslate,
 } from '@kppk/fg-lib-new';
 import {
+  FgAuthLocalMachineActorService,
   KppkAdminToolbarComponent,
   KppkFormlyModule,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import {
   FgLanguageSwitchComponent,
@@ -37,8 +38,9 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewAuthLayoutComponent {
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
   protected $translate = inject(FgTranslate);
-  protected $shared = inject(KppkReactSharedService);
+  protected $env = inject(FgEnvironmentService);
   protected ROUTES = HOST_ROUTES;
   protected kppk_react_auth_layout_translationsS = toSignal(
     this.$translate.get_translations$({
@@ -49,4 +51,10 @@ export class KppkReactViewAuthLayoutComponent {
     }),
     { initialValue: undefined }
   );
+  protected versionS = signal(this.$env.version);
+  protected admin_toolbar_showS = computed( () => {
+    const user_is_admin = this.$actor_auth.stateS()?.context.auth_cookie?.profile.admin;
+    const result = this.$env.development?.enabled || user_is_admin ? true : false;
+    return result;
+  });
 }

@@ -1,14 +1,12 @@
-import { Component, ElementRef, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ElementRef, ViewEncapsulation, computed, inject } from '@angular/core';
 import { FgLayoutDrawerOpenButtonComponent } from '@kppk/fg-lib-new';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
-// import { FgPagedjsService } from 'apps/fg-react-demo/src/app/service/fg-pagedjs.service';
-// import { ROUTES_ENUM } from 'apps/fg-react-demo/src/app/app.routes';
 import { CommonModule } from '@angular/common';
-import { HOST_ROUTES, KppkReactSharedService } from '@kppk/react-lib';
+import { FgAuthLocalMachineActorService, FgSpinnerMachineActorService, HOST_ROUTES } from '@kppk/react-lib';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -34,11 +32,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styles: [``],
 })
 export class KppkReactHeaderComponent {
-  protected $shared = inject(KppkReactSharedService);
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
+  protected $actor_spinner = inject(FgSpinnerMachineActorService);
   protected HOST_ROUTES = HOST_ROUTES;
   public $element_ref = inject(ElementRef);
 
+ protected auth_is_authorizedS = computed(() => {
+    return this.$actor_auth.stateS()?.matches({ STATE: 'AUTHORIZED' }) ?? false;
+  }); 
 
+  protected spinner_is_pendingS = computed(() => {
+    const matches_idel =  this.$actor_spinner.stateS()?.matches({'DISPLAY': {
+      'HIDDEN': 'IDEL'
+    }});
+    return matches_idel ? false : true;
+  })
 
   public print(event: Event) {
     event.preventDefault();

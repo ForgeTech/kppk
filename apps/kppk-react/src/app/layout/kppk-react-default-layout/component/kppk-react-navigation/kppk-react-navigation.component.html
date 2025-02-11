@@ -1,5 +1,6 @@
+@let ts = $translate;
+@let t = translationsS();
 <div class="main-navigation flex h-full min-h-full w-[300px] flex-col">
-  @let s = $shared; @let t = kppk_react_navigation_translationsS();
   <mat-list>
     <ng-content select="[top-list]"/>
     @if( can_install_pwaS() ){
@@ -11,7 +12,7 @@
         class="w-full md:flex-1"
       />
     </mat-list-item>
-    } @if( s.auth_is_authorizedS() ){
+    } @if( auth_is_authorizedS() ){
     <mat-list-item>
       <a
         class="w-full"
@@ -29,7 +30,7 @@
     <mat-list-item>
       <a class="w-full" mat-stroked-button color="primary">
         <mat-icon svgIcon="download" />
-        {{ t?.manual }}
+        {{ t?.label_manual }}
       </a>
     </mat-list-item>
     <mat-divider></mat-divider>
@@ -37,7 +38,7 @@
     <mat-list-item>
       <a class="w-full" mat-stroked-button color="primary">
         <mat-icon>add</mat-icon>
-        {{ t?.calculation_start }}
+        {{ t?.label_calculation_start }}
       </a>
     </mat-list-item>
     } @else if (true) { Add List navigation }
@@ -88,13 +89,13 @@
     <mat-list-item>
       <fg-language-switch
         class="mdc-button mat-mdc-unelevated-button !bg-white-100 w-full"
-        [selected]="s.lang_activeS()"
-        [available_langs]="s.langs_availableS()"
-        [icon_path]="s.langs_icons_pathS()"
-        (selection)="s.set_language($event)"
+        [selected]="ts.lang_activeS()"
+        [available_langs]="ts.langs_availableS()"
+        [icon_path]="ts.langs_icons_pathS()"
+        (selection)="ts.set_language($event)"
       />
     </mat-list-item>
-    @if( s.auth_is_authorizedS() ){
+    @if( auth_is_authorizedS() ){
     <mat-list-item>
       <a
         class="w-full"
@@ -104,7 +105,7 @@
         routerLinkActive="active"
       >
         <mat-icon svgIcon="logout" />
-        {{ t?.logout }}
+        {{ t?.label_logout }}
       </a>
     </mat-list-item>
     }

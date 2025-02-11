@@ -1,9 +1,9 @@
-@let s = $shared; 
+@let ts = $translate; 
 @let t = kppk_react_auth_layout_translationsS();
 <fg-layout-default>
   <ng-container header>
-    @defer(when s.admin_toolbar_showS()) {
-      <kppk-admin-toolbar [show]="s.admin_toolbar_showS()" />
+    @defer(when admin_toolbar_showS()) {
+      <kppk-admin-toolbar [show]="admin_toolbar_showS()" />
     }
   </ng-container>
   <main
@@ -13,7 +13,7 @@
    <mat-card class="mt-8 flex w-[96%] flex-col items-center justify-center px-4 pb-8 pt-10 md:w-full md:max-w-lg">
       <ng-content />
    </mat-card>
-    <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ s.versionS() }}</div>
+    <div class="mt-4 sm:mt-8">{{ t?.label_version }} {{ versionS() }}</div>
     <a
       class="m-4 inline-block sm:m-8"
       href="https://www.kppk.at/"
@@ -53,10 +53,10 @@
       <li class="w-full md:w-64">
         <fg-language-switch
           class="mdc-button mat-mdc-unelevated-button md:-full xs:mb-4 mb-0 w-full !bg-gray-100 outline-2 active:!bg-gray-200"
-          [selected]="s.lang_activeS()"
-          [available_langs]="s.langs_availableS()"
-          [icon_path]="s.langs_icons_pathS()"
-          (selection)="s.set_language($event)"
+          [selected]="ts.lang_activeS()"
+          [available_langs]="ts.langs_availableS()"
+          [icon_path]="ts.langs_icons_pathS()"
+          (selection)="ts.set_language($event)"
         />
       </li>
     </menu>

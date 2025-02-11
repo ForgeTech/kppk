@@ -1,16 +1,15 @@
-@let s = $shared;
 @let t = translationS();
 <fg-layout-default>
   <ng-container header>
-    @defer(when s.admin_toolbar_showS()) {
-      <kppk-admin-toolbar [show]="s.admin_toolbar_showS()" />
+    @defer(when admin_toolbar_showS()) {
+      <kppk-admin-toolbar [show]="admin_toolbar_showS()" />
     }
   </ng-container>
   <fg-layout-drawer #drawer content class="flex h-full min-h-full flex-col" [fixed]="true" [top]="topS()">
     <div start>
       <nav class="nav-mobile-start h-full" kppk-react-navigation>
         <mat-list-item top-list >
-          <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+          <fg-layout-drawer-close-button class="w-full" [label]="t?.label_close"/>
         </mat-list-item>
       </nav>
     </div>
@@ -36,7 +35,7 @@
     <div end>
       <nav class="nav-mobile-end h-full" kppk-react-navigation>
         <mat-list-item top-list >
-          <fg-layout-drawer-close-button class="w-full" [label]="t?.close"/>
+          <fg-layout-drawer-close-button class="w-full" [label]="t?.label_close"/>
         </mat-list-item>
       </nav>
     </div>
