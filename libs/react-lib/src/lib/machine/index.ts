@@ -8,3 +8,4 @@ export * from './react-view-calculation';
 export * from './react-view-home';
 export * from './react-running_v7';
 export * from './react-main';
+export * from './fg-machine-utils';
