@@ -17,7 +17,8 @@ import {
   not,
   and,
   or,
-  stateIn
+  stateIn,
+  forwardTo
 } from 'xstate';
 /**
  * FgXstateInspectorConfig -
@@ -65,22 +66,23 @@ export class FgXstateService extends FgBaseService {
   public readonly inspector;
   public readonly inspect;
 
+  public readonly and = and;
   public readonly assign = assign;
   public readonly createActor = createActor;
   public readonly createBrowserInspector = createBrowserInspector;
   public readonly createMachine = createMachine;
   public readonly emit = emit;
+  public readonly forwardTo = forwardTo;
   public readonly fromCallback = fromCallback;
   public readonly fromEventObservable = fromEventObservable;
   public readonly fromObservable = fromObservable;
   public readonly fromPromise = fromPromise;
+  public readonly not = not;
+  public readonly or = or;
   public readonly raise = raise;
   public readonly sendParent = sendParent;
   public readonly sendTo = sendTo;
   public readonly setup = setup;
-  public readonly not = not;
-  public readonly and = and;
-  public readonly or = or;
   public readonly stateIn = stateIn;
 
   // CONSTRUCTOR
