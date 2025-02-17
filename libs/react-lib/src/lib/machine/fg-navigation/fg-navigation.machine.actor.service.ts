@@ -1,6 +1,6 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs';
+import { shareReplay, Subject } from 'rxjs';
 import {
   Actor,
   ActorLogicFrom,
@@ -43,7 +43,7 @@ export class ReactRunningV7MachineActorService
   protected events_subscription;
 
   protected STATE$ = new Subject<SnapshotFrom<typeof this.machine>>();
-  public readonly state$ = this.STATE$.asObservable();
+  public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
   public readonly stateS = toSignal<
     SnapshotFrom<typeof this.machine> | undefined
   >(this.STATE$, { initialValue: undefined });
@@ -72,7 +72,7 @@ export class ReactRunningV7MachineActorService
   public create_from_config(config: ActorOptions<ActorLogicFrom<any>>) {
     if (this.is_runningS()) {
       this.$log?.warn(
-        'WARNING: ReactInitMachineActorService > create_from_with_config'
+        'WARNING: ReactRunningV7MachineActorService > create_from_with_config'
       );
       this.$log?.warn("Methode should be called when actor isn't running!");
     } else {

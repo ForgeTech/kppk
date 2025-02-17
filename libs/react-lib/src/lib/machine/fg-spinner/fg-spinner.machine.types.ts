@@ -42,19 +42,20 @@ export const fg_spinner_guard_input_parser = z.object({
 });
 export type FG_SPINNER_GUARD_INPUT = z.infer<typeof fg_spinner_guard_input_parser>;
 
+export const fg_spinner_event_option_parser = z.object({
+  force: z.literal(true).optional()
+}).optional()
+export type FG_SPINNER_EVENT_OPTION = z.infer<typeof fg_spinner_event_option_parser>;
+
 export const fg_spinner_event_hide_parser = fg_event_parser.extend({
   type: z.literal('fg.spinner.event.hide').default('fg.spinner.event.hide'),
-  data: z.object({
-      force: z.literal(true).optional()
-  }).optional()
+  data: fg_spinner_event_option_parser
 });
 export type FG_SPINNER_EVENT_HIDE = z.infer<typeof fg_spinner_event_hide_parser>;
 
 export const fg_spinner_event_show_parser = fg_event_parser.extend({
   type: z.literal('fg.spinner.event.show').default('fg.spinner.event.show'),
-  data: z.object({
-      force: z.literal(true).optional()
-  }).optional()
+  data: fg_spinner_event_option_parser
 });
 export type FG_SPINNER_EVENT_SHOW = z.infer<typeof fg_spinner_event_show_parser>;
 

@@ -71,22 +71,22 @@ export class FgSpinnerMachineMethodeService extends FgBaseService {
   }
 
   @boundMethod
-  public escalate_timeout_error() {
+  public escalate_timeout_error({ context, event }: FG_SPINNER_ACTION_INPUT) {
     throw new Error('fg_spinner_timeout_error');
   }
 
   @boundMethod
-  public raise_spinner_event_stop() {
+  public raise_spinner_event_stop({ context, event }: FG_SPINNER_ACTION_INPUT) {
     return fg_spinner_event_stop_parser.parse({});
   }
 
   @boundMethod
-  public raise_spinner_internal_hide() {
+  public raise_spinner_internal_hide({ context, event }: FG_SPINNER_ACTION_INPUT) {
     return fg_spinner_internal_hide_parser.parse({});
   }
 
   @boundMethod
-  public raise_spinner_internal_show() {
+  public raise_spinner_internal_show({ context, event }: FG_SPINNER_ACTION_INPUT) {
     return fg_spinner_internal_show_parser.parse({});
   }
 

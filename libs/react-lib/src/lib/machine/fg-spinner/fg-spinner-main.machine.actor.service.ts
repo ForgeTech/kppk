@@ -1,35 +1,37 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
-import { shareReplay, Subject } from 'rxjs';
+import { BehaviorSubject, map, shareReplay, Subject } from 'rxjs';
 import {
   Actor,
-  ActorLogicFrom,
   ActorOptions,
-  createActor,
   EmittedFrom,
   EventFrom,
   SnapshotFrom,
+  Subscription
 } from 'xstate';
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { FgSpinnerMachineService } from './fg-spinner.machine.service';
+import { ReactMainV3MachineActorService } from '../react-main';
+import { REACT_ACTOR_ENUM } from '../../enum';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FgSpinnerMachineActorService
+export class FgSpinnerMainMachineActorService
   extends FgBaseService
   implements OnDestroy
 {
   protected $env = inject(FgEnvironmentService);
   protected $xstate = inject(FgXstateService);
   protected $machine = inject(FgSpinnerMachineService);
+  protected $source = inject(ReactMainV3MachineActorService);
 
   protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
-  protected ACTOR: Actor<typeof this.machine>;
+  protected ACTOR = new BehaviorSubject( undefined ) as BehaviorSubject<Actor<typeof this.machine> | undefined>;
   public get actor() {
-    return this.ACTOR;
+    return this.ACTOR.getValue();
   }
 
   protected EVENT$ = new Subject<EmittedFrom<typeof this.machine>>();
@@ -37,14 +39,14 @@ export class FgSpinnerMachineActorService
   public readonly eventsS = toSignal<
     EmittedFrom<typeof this.machine> | undefined
   >(this.EVENT$, { initialValue: undefined });
-  protected events_subscription;
+  protected events_subscription: Subscription | undefined;
 
   protected STATE$ = new Subject<SnapshotFrom<typeof this.machine>>();
   public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
   public readonly stateS = toSignal<
     SnapshotFrom<typeof this.machine> | undefined
   >(this.STATE$, { initialValue: undefined });
-  protected state_subscription;
+  protected state_subscription: Subscription | undefined;
 
   public readonly is_runningS = signal(false);
 
@@ -55,59 +57,55 @@ export class FgSpinnerMachineActorService
       this.config.inspect = this.$xstate.inspect;
     }
     // Create actor
-    this.ACTOR = createActor(this.machine, this.config);
-    // Push actor snapshot to state-signal
-    this.state_subscription = this.ACTOR.subscribe((snapshot) => {
-      this.STATE$.next(snapshot);
+    // this.ACTOR = 
+    this.$source.state$.pipe(
+      takeUntilDestroyed(),
+      map( () => this.$source.actor)
+    ).subscribe({
+      next: source_actor => {
+        console.log('>>>>>>>>>>>>>>>>>>SYSTEM>>>>>>>>>>>>>>');
+        const actor =  source_actor.system.get(REACT_ACTOR_ENUM.FG_SPINNER) as Actor<typeof this.machine> | undefined;
+        console.log( actor );
+        if( actor ) {
+          this.ACTOR.next( actor );
+          // Push actor snapshot to state-signal
+          this.state_subscription = actor.subscribe( snapshot => {
+            this.STATE$.next(snapshot);
+          });
+          // Push emitted actor events to subject
+          this.events_subscription = actor.on('*', snapshot => {
+            this.EVENT$.next(snapshot);
+          });
+        } else {
+          // Unsubscribe
+          this.state_subscription?.unsubscribe();
+          this.events_subscription?.unsubscribe();
+        }
+      }
     });
-    // Push emitted actor events to subject
-    this.events_subscription = this.ACTOR.on('*', (snapshot) => {
-      this.EVENT$.next(snapshot);
-    });
-  }
 
-  public create_from_config(config: ActorOptions<ActorLogicFrom<any>>) {
-    if (this.is_runningS()) {
-      this.$log?.warn(
-        'WARNING: KppkSpinnerActorService > create_from_with_config'
-      );
-      this.$log?.warn("Methode should be called when actor isn't running!");
-    } else {
-      this.state_subscription.unsubscribe();
-      this.events_subscription.unsubscribe();
-      // Create actor
-      this.ACTOR = createActor(this.machine, this.config);
-      // Push actor snapshot to state-signal
-      this.state_subscription = this.ACTOR.subscribe((snapshot) => {
-        this.STATE$.next(snapshot);
-      });
-      // Push emitted actor events to subject
-      this.events_subscription = this.ACTOR.on('*', (snapshot) => {
-        this.EVENT$.next(snapshot);
-      });
-    }
   }
 
   public start() {
-    this.ACTOR.start();
+    this.ACTOR.getValue()?.start();
     this.is_runningS.set(true);
   }
 
   public send(event: EventFrom<typeof this.machine>) {
-    this.ACTOR.send(event);
+    this.ACTOR.getValue()?.send(event);
   }
 
   public stop() {
-    this.ACTOR.stop();
+    this.ACTOR.getValue()?.stop();
     this.is_runningS.set(false);
   }
 
   public override ngOnDestroy(): void {
     // Stop actor
-    this.ACTOR.stop();
+    this.ACTOR.getValue()?.stop();
     // Unsubscribe
-    this.state_subscription.unsubscribe();
-    this.events_subscription.unsubscribe();
+    this.state_subscription?.unsubscribe();
+    this.events_subscription?.unsubscribe();
     // Call parent ngOnDestroy
     super.ngOnDestroy();
   }
