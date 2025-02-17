@@ -1,6 +1,6 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Subject } from 'rxjs';
+import { shareReplay, Subject } from 'rxjs';
 import {
   Actor,
   ActorLogicFrom,
@@ -27,7 +27,7 @@ export class ReactViewHomeMachineActorService
 
   protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
-  protected ACTOR: Actor<typeof this.machine>;
+protected ACTOR: Actor<typeof this.machine>;
   public get actor() {
     return this.ACTOR;
   }
@@ -40,7 +40,7 @@ export class ReactViewHomeMachineActorService
   protected events_subscription;
 
   protected STATE$ = new Subject<SnapshotFrom<typeof this.machine>>();
-  public readonly state$ = this.STATE$.asObservable();
+  public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
   public readonly stateS = toSignal<
     SnapshotFrom<typeof this.machine> | undefined
   >(this.STATE$, { initialValue: undefined });

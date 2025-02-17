@@ -133,6 +133,25 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     return result;
   }
 
+  // @boundMethod
+  // public emit_authorized_event_to({ context }: FgAuthLocalV1Params) {
+  //   const result = fg_auth_local_emitted_authorized_parser.parse({
+  //     type: 'fg.auth.emitted.authorized',
+  //     data: {
+  //       auth_cookie: context.auth_cookie,
+  //     },
+  //   } as FG_AUTH_LOCAL_EMITTED_AUTHORIZED);
+  //   return result;
+  // }
+
+  // @boundMethod
+  // public emit_unauthorized_event_to({ context }: FgAuthLocalV1Params) {
+  //   const result = fg_auth_local_emitted_unauthorized_parser.parse({
+  //     type: 'fg.auth.emitted.unauthorized',
+  //   } as FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED);
+  //   return result;
+  // }
+
   @boundMethod
   public escalate_auth_local_key_error({ context }: FgAuthLocalV1Params) {
     throw new Error('fg-auth-local-key-error');

@@ -12,7 +12,7 @@ import { ReactCalculationMaterialService } from '../react-view-calculation-mater
 @Injectable({
   providedIn: 'root',
 })
-export class ReactViewCalculationService extends FgBaseService {
+export class ReactViewCalculationMachineService extends FgBaseService {
   public $methode = inject(ReactViewCalculationMachineMethodeService);
   public $calculation_material = inject(ReactCalculationMaterialService);
   public $xstate = inject(FgXstateService);

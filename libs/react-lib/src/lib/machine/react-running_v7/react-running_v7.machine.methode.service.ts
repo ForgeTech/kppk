@@ -16,6 +16,7 @@ import {
 import { fg_auth_local_emitted_authorized_parser, fg_auth_local_emitted_unauthorized_parser } from '../fg-auth-local';
 import { FG_NAVIGATION_EVENT_BLOCK, fg_navigation_event_block_parser, FG_NAVIGATION_EVENT_ENABLE, fg_navigation_event_enable, fg_navigation_event_navigate, FG_NAVIGATION_EVENT_NAVIGATE, FgNavigationMachineMethodeService } from '../fg-navigation';
 import { fg_router_emitted_start_parser } from '../fg-router/fg-router.machine.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,7 @@ import { fg_router_emitted_start_parser } from '../fg-router/fg-router.machine.s
 export class ReactRunningV7MachineMethodeService extends FgBaseService {
   protected $immer = inject(FgImmutableService);
   protected $xstate = inject(FgXstateService);
+  protected $router = inject(Router);
   // protected $http = inject(HttpClient);
   // protected $env = inject(FgEnvironmentService);
   // protected $storage = inject(FgStorageService);
@@ -62,17 +64,10 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
   };
 
   @boundMethod
-  public log_info({ context, event }: REACT_RUNNING_ACTION_INPUT, methode_name?: string, log_event = true, log_context = true ) {
-    if( methode_name ) {
-      this.$log?.info('METHODE:' + methode_name.toUpperCase)
-    }
-    if( event && log_event ) {
-      this.$log?.info('EVENT: ' + event.type.toUpperCase)
-    }
-    if( context && log_context ) {
-      this.$log?.info('CONTEXT: ');
-      this.$log?.info(context)
-    }
+  public raise_initial_navigation(input: REACT_RUNNING_ACTION_INPUT ) {
+    // const url = this.$router.url;
+    // const result = this.raise_navigation_navigate( input, { url })
+    // return result;
   };
 
   @boundMethod

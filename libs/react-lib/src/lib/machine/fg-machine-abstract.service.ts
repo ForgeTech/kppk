@@ -35,7 +35,7 @@ export abstract class FgMachineActorAbstract<
   });
 
   protected STATE$ = new Subject<SnapshotFrom<T>>();
-  public readonly state$ = this.STATE$.asObservable();
+  public readonly state$ =  public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
   public readonly stateS = toSignal<EmittedFrom<T> | undefined>(this.event$, {
     initialValue: undefined,
   });

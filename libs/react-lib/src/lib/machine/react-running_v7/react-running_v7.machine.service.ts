@@ -18,11 +18,13 @@ import { forwardTo } from 'xstate';
 import { HOST_ROUTES } from '../../enum';
 import { ReactViewCalculationMachineService } from '../react-view-calculation';
 import { ReactViewHomeMachineService } from '../react-view-home';
+import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReactRunningV7MachineService extends FgBaseService {
+  protected $common = inject(FgMachineUtilsMethodeService);
   protected $methode = inject(ReactRunningV7MachineMethodeService);
   protected $router = inject(Router);
   protected $xstate = inject(FgXstateService);
@@ -60,7 +62,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
         assign_auth_cookie_unset: this.$xstate.assign(this.$methode.assign_auth_cookie_unset),
         assign_calculation_set: this.$xstate.assign(this.$methode.assign_calculation_set),
         assign_calculation_unset: this.$xstate.assign(this.$methode.assign_calculation_unset),
-        log_info: this.$methode.log_info,
+        log_info: this.$common.log_info,
+        // raise_initial_navigation: this.$xstate.raise(this.$methode.raise_initial_navigation),
         raise_navigation_block: this.$xstate.raise(this.$methode.raise_navigation_block),
         raise_navigation_enable: this.$xstate.raise(this.$methode.raise_navigation_enable),
         raise_navigation_navigate: this.$xstate.raise(this.$methode.raise_navigation_navigate),
@@ -89,6 +92,9 @@ export class ReactRunningV7MachineService extends FgBaseService {
       states: {
         ACTIVE_VIEW: {
           initial: "UNAUTHORIZED",
+          // entry: [{
+          //   type: 'raise_initial_navigation'
+          // }],
           on: {
             "react.running.event.calculation.start": {
               actions: [
@@ -300,20 +306,23 @@ export class ReactRunningV7MachineService extends FgBaseService {
                 {
                   type: "raise_react_running_select_active_view",
                 },
-                {
-                  type: "log_info",
-                },
+                // {
+                //   type: "log_info",
+                //   params: {
+                    
+                //   }
+                // },
               ],
             },
             "fg.router.emitted.end": {
-              actions: {
-                type: "log_info",
-              },
+              // actions: {
+              //   type: "log_info",
+              // },
             },
             "fg.router.emitted.cancel": {
-              actions: {
-                type: "log_info",
-              },
+              // actions: {
+              //   type: "log_info",
+              // },
             },
           },
           invoke: {
@@ -322,29 +331,27 @@ export class ReactRunningV7MachineService extends FgBaseService {
             input: {},
             src: "actor_router",
           },
-          description:
-            "The router of the external environment signaling changes to it's state",
         },
         NAVIGATION: {
           on: {
             "fg.navigation.emitted.started": {
-              actions: {
-                type: "log_info",
-              },
+              // actions: {
+              //   type: "log_info",
+              // },
             },
             "fg.navigation.emitted.ended": {
-              actions: {
-                type: "log_info",
-              },
+              // actions: {
+              //   type: "log_info",
+              // },
             },
             "fg.navigation.event.*": {
               actions: [
                 {
                   type: "send_to_navigation",
                 },
-                {
-                  type: "log_info",
-                }
+                // {
+                //   type: "log_info",
+                // }
               ],
             },
           },
