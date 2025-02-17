@@ -24,6 +24,7 @@ export enum HOST_ROUTES {
   AUTH_LOGIN = 'react_view_auth_login',
   AUTH_LOGOUT = 'react_view_auth_logout',
   AUTH_MFA = 'react_view_auth_mfa',
+  AUTH = 'auth',
   AUTH_PASSWORD_CHANGE = 'react_view_auth_password_change',
   AUTH_PASSWORD_FORGOT = 'react_view_auth_password_forgot',
   AUTH_PASSWORD_RESET = 'react_view_auth_password_reset',
@@ -37,18 +38,13 @@ export enum HOST_ROUTES {
 }
 
 export enum REACT_ACTOR_ENUM {
-  FG_AUTH_LOCAL = 'fg_auth_local',
-  FG_SPINNER = 'fg_spinner',
-  FG_TICK = 'fg_tick',
-  FG_UI_DISPLAY_MODE = 'fg_ui_display_mode',
-  FG_UI_SCHEME_THEME = 'fg_ui_scheme_theme',
-  FG_UI = 'fg_ui',
-  REACT_INIT = 'react_init',
+  FG_AUTH = 'actor_fg_auth',
+  FG_SPINNER = 'actor_fg_spinner',
+  FG_UI = 'actor_fg_ui',
   REACT_MAIN = 'react_main',
-  REACT_RECOVERY = 'react_recovery',
   REACT_RUNNING = 'react_running',
-  REACT_RUNNING_ADMIN_TOOLBAR = 'react_running_admin_toolbar',
-  REACT_RUNNING_NAVIGATION = 'react_running_navigation',
+  REACT_ADMIN_TOOLBAR = 'react_admin_toolbar',
+  REACT_NAVIGATION = 'react_navigation',
   REACT_VIEW_HOME = 'react_view_home',
   REACT_VIEW_CALCULATION = 'react_view_calculation',
 }
