@@ -1,4 +1,5 @@
 export * from './fg-auth-local';
+export * from './fg-navigation';
 export * from './fg-spinner';
 export * from './machine.utils';
 export * from './react-admin-toolbar';
