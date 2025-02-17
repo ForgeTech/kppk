@@ -43,6 +43,7 @@ export enum REACT_ACTOR_ENUM {
   FG_UI = 'actor_fg_ui',
   REACT_MAIN = 'react_main',
   REACT_RUNNING = 'react_running',
+  REACT_ROUTER = 'react_router',
   REACT_ADMIN_TOOLBAR = 'react_admin_toolbar',
   REACT_NAVIGATION = 'react_navigation',
   REACT_VIEW_HOME = 'react_view_home',
