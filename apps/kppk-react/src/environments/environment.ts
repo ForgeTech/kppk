@@ -22,7 +22,7 @@ export const environment: FgEnvironmentConfigInterface<AppConfigInterface> = {
     // pushServerPublicKey: 'BHIGrJyrJC7NW0RZSgJ6cnpws_9nm-NpQDxnAK8FiTTRwIvrhmiC2b5T9elNdr2x0M19rgSMP0CT-dI2v9kmX6c',
   },
   logger: {
-    level: NgxLoggerLevel.WARN,
+    level: NgxLoggerLevel.DEBUG,
   },
   request: {
     apiBaseUrl: 'api/',

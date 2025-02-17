@@ -1,4 +1,5 @@
-export type FgNgxLoggerMethodeType = 'debug' | 'error' | 'fatal' | 'info' | 'log' | 'trace' | 'warn';
+export type FgNgxLoggerMethodeType = 'trace' | 'debug' | 'info' | 'log' | 'warn' | 'error' | 'fatal';
+
 
 /**
  * FgEnvironmentDevelopmentEventConfigInterface -
