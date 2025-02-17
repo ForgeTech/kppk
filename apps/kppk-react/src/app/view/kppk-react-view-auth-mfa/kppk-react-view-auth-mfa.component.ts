@@ -1,16 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FgAuthLocalMachineActorService,
   KppkFormlyModule,
-  KppkReactSharedService,
 } from '@kppk/react-lib';
 import {
-  FgPwaInstallComponent,
   FgTranslate,
 } from '@kppk/fg-lib-new';
 import { map } from 'rxjs';
