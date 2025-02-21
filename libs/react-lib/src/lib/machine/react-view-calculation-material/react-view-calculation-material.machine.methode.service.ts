@@ -26,7 +26,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_oi3 = event.output;
     });
     return result;
@@ -40,7 +40,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_bauteilflaechen = event.output;
     });
     return result;
@@ -54,7 +54,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -68,7 +68,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -82,7 +82,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -96,7 +96,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -110,7 +110,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -124,7 +124,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     context: REACT_CALCULATION_MATERIALS_CONTEXT;
     event: any;
   }) {
-    const result = this.$immer.produce(context, (draft) => {
+    const result = this.$immer.produce(context, draft => {
       draft.output.transformed_aufbauten = event.output;
     });
     return result;
@@ -137,8 +137,8 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
     input: REACT_CALCULATION_MATERIALS_INPUT;
   }) {
     if (
-      input.context.input.file_oi3?.data &&
-      input.context.input.file_oi3?.area
+      input.context?.input?.file_oi3?.data &&
+      input.context?.input?.file_oi3?.area
     ) {
       return transform_oi3(
         input.context.input.file_oi3.data,
@@ -155,7 +155,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
   }: {
     input: REACT_CALCULATION_MATERIALS_INPUT;
   }) {
-    if (input.context.input.file_bauteilflaechen) {
+    if (input.context?.input?.file_bauteilflaechen) {
       return transform_bauteilflaechen(
         input.context.input.file_bauteilflaechen.data
       );
@@ -170,7 +170,7 @@ export class ReactCalculationMaterialMachineMethodeService extends FgBaseService
   }: {
     input: REACT_CALCULATION_MATERIALS_INPUT;
   }) {
-    if (input.context.input.file_aufbauten) {
+    if (input.context?.input?.file_aufbauten) {
       const result = transform_aufbauten(
         input.context.input.file_aufbauten.data
       );
