@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import { ActorSystem } from 'xstate';
 import { fg_auth_local_auth_cookie_parser } from '../fg-auth-local/fg-auth-local.machine.types'
-import { fg_event_parser } from '@kppk/fg-lib-new';
-import { method } from 'lodash-es';
 
 
 // export const assign_active_url_param_parser = z.object({
@@ -12,6 +10,7 @@ import { method } from 'lodash-es';
 
 export const react_main_context_parser = z.object({
   environment: z.any().optional(),
+  auth_cookie: fg_auth_local_auth_cookie_parser.optional(),
 });
 export type REACT_MAIN_CONTEXT = z.infer<typeof react_main_context_parser>;
 

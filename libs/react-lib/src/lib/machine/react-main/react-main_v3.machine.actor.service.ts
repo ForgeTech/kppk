@@ -59,6 +59,7 @@ export class ReactMainV3MachineActorService
     }
     // Create actor
     this.ACTOR = createActor(this.machine, this.config);
+    this.STATE$.next(this.ACTOR.getSnapshot());
     // Push actor snapshot to state-signal
     this.state_subscription = this.ACTOR.subscribe((snapshot) => {
       this.STATE$.next(snapshot);

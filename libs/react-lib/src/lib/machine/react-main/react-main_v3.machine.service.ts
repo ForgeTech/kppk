@@ -11,6 +11,7 @@ import { REACT_ACTOR_ENUM } from '../../enum';
 import { ReactRunningV7MachineService } from '../react-running_v7';
 import { FG_SPINNER_EVENT_HIDE, FG_SPINNER_EVENT_SHOW, FgSpinnerMachineService } from '../fg-spinner';
 import { FgAuthLocalMachineMethodeService, FgAuthLocalMachineService } from '../fg-auth-local';
+import { parent_context_event_input } from '../machine.utils';
 
 
 @Injectable({
@@ -42,11 +43,12 @@ export class ReactMainV3MachineService extends FgBaseService {
           | FG_SPINNER_EVENT_HIDE
       },
       actions: {
-        log_info: this.$common.log_info,
+        assign_auth_emitted: this.$xstate.assign(this.$methode.assign_auth_emitted),
         log_error: this.$common.log_error,
+        log_info: this.$common.log_info,
         log_warn: this.$common.log_warn,
-        // raise_spinner_show: this.$xstate.raise(this.$common.raise_spinner_event_show),
-        // raise_spinner_hide: this.$xstate.raise(this.$common.raise_spinner_event_hide),
+        raise_spinner_hide: this.$xstate.raise(this.$common.raise_spinner_event_hide),
+        raise_spinner_show: this.$xstate.raise(this.$common.raise_spinner_event_show),
         send_to_auth: forwardTo(REACT_ACTOR_ENUM.FG_AUTH),
         send_to_running: forwardTo(REACT_ACTOR_ENUM.REACT_RUNNING),
         sent_to_spinner: forwardTo(REACT_ACTOR_ENUM.FG_SPINNER),
@@ -84,7 +86,7 @@ export class ReactMainV3MachineService extends FgBaseService {
               params: {
                 message: 'ACTOR_REACT_MAIN_RUNNING_STARTED'
               }
-            }
+            },
           ],
           states: {
             APP: {
@@ -92,19 +94,19 @@ export class ReactMainV3MachineService extends FgBaseService {
               states: {
                 STARTUP: {
                   type: "parallel",
-                  // entry: [
-                  //   {
-                  //     type: "raise_spinner_show",
-                  //     params: {
-                  //       force: true
-                  //     }
-                  //   }
-                  // ],
-                  // exit: [
-                  //   {
-                  //     type: "raise_spinner_hide",
-                  //   }
-                  // ],
+                  entry: [
+                    {
+                      type: "raise_spinner_show",
+                      params: {
+                        force: true
+                      }
+                    }
+                  ],
+                  exit: [
+                    {
+                      type: "raise_spinner_hide",
+                    }
+                  ],
                   onDone: {
                     target: "RUNNING",
                   },
@@ -115,7 +117,7 @@ export class ReactMainV3MachineService extends FgBaseService {
                         PENDING: {
                           invoke: {
                             id: "actor_app_ready",
-                            input: {},
+                            input: parent_context_event_input,
                             onDone: {
                               target: "DONE",
                             },
@@ -134,6 +136,9 @@ export class ReactMainV3MachineService extends FgBaseService {
                           on: {
                             "fg.auth.emitted.*": {
                               target: "DONE",
+                              actions: [
+                                { type: 'assign_auth_emitted' }
+                              ]
                             },
                           },
                         },
@@ -147,9 +152,17 @@ export class ReactMainV3MachineService extends FgBaseService {
                 RUNNING: {
                   on: {
                     "fg.auth.emitted.*": {
-                      actions: {
+                      actions: [
+                      {
                         type: "send_to_running",
                       },
+                      {
+                        type: "log_error",
+                        params: {
+                          message: "FORWARD_TO_RUNNING"
+                        }
+                      }
+                    ],
                     },
                     "fg.ui.emitted.*": {
                       actions: {
@@ -160,7 +173,9 @@ export class ReactMainV3MachineService extends FgBaseService {
                   invoke: {
                     id: REACT_ACTOR_ENUM.REACT_RUNNING,
                     systemId: REACT_ACTOR_ENUM.REACT_RUNNING,
-                    input: {},
+                    input: ({ context }) => {
+                      return context;
+                    },
                     onDone: {
                       target: "DONE",
                       actions: {
@@ -170,15 +185,15 @@ export class ReactMainV3MachineService extends FgBaseService {
                         }
                       },
                     },
-                    // onError: {
-                    //   target: "#REACT_MAIN_V3.ERROR",
-                    //   actions: {
-                    //     type: "log_error",
-                    //     params: {
-                    //       message: 'ACTOR_REACT_RUNNING_ERROR'
-                    //     }
-                    //   },
-                    // },
+                    onError: {
+                      target: "#REACT_MAIN_V3.ERROR",
+                      actions: {
+                        type: "log_error",
+                        params: {
+                          message: 'ACTOR_REACT_RUNNING_ERROR'
+                        }
+                      },
+                    },
                     src: "actor_react_running",
                   },
                 },
@@ -204,7 +219,7 @@ export class ReactMainV3MachineService extends FgBaseService {
               invoke: {
                 id: REACT_ACTOR_ENUM.FG_UI,
                 systemId: REACT_ACTOR_ENUM.FG_UI,
-                input: {},
+                input: parent_context_event_input,
                 onDone: {
                   actions: {
                     type: "log_info",
@@ -213,15 +228,15 @@ export class ReactMainV3MachineService extends FgBaseService {
                     }
                   },
                 },
-                // onError: {
-                //   target: "#REACT_MAIN_V3.ERROR",
-                //   actions: {
-                //     type: "log_error",
-                //     params: {
-                //       message: 'ACTOR_FG_UI_ERROR'
-                //     }
-                //   },
-                // },
+                onError: {
+                  target: "#REACT_MAIN_V3.ERROR",
+                  actions: {
+                    type: "log_error",
+                    params: {
+                      message: 'ACTOR_FG_UI_ERROR'
+                    }
+                  },
+                },
                 src: "actor_fg_ui",
               },
             },
@@ -236,7 +251,7 @@ export class ReactMainV3MachineService extends FgBaseService {
               invoke: {
                 id: REACT_ACTOR_ENUM.FG_AUTH,
                 systemId: REACT_ACTOR_ENUM.FG_AUTH,
-                input: {},
+                input: undefined,
                 onDone: {
                   actions: {
                     type: "log_info",
@@ -245,15 +260,15 @@ export class ReactMainV3MachineService extends FgBaseService {
                     }
                   },
                 },
-                // onError: {
-                //   target: "#REACT_MAIN_V3.ERROR",
-                //   actions: {
-                //     type: "log_error",
-                //     params: {
-                //       message: 'ACTOR_FG_UI_ERROR'
-                //     }
-                //   },
-                // },
+                onError: {
+                  target: "#REACT_MAIN_V3.ERROR",
+                  actions: {
+                    type: "log_error",
+                    params: {
+                      message: 'ACTOR_FG_UI_ERROR'
+                    }
+                  },
+                },
                 src: "actor_fg_auth_local",
               },
             },
@@ -277,7 +292,7 @@ export class ReactMainV3MachineService extends FgBaseService {
               invoke: {
                 id: REACT_ACTOR_ENUM.FG_SPINNER,
                 systemId: REACT_ACTOR_ENUM.FG_SPINNER,
-                input: {},
+                input: undefined,
                 onDone: {
                   actions: {
                     type: "log_info",
@@ -286,15 +301,15 @@ export class ReactMainV3MachineService extends FgBaseService {
                     }
                   },
                 },
-                // onError: {
-                //   target: "#REACT_MAIN_V3.ERROR",
-                //   actions: {
-                //     type: "log_error",
-                //     params: {
-                //       message: 'ACTOR_FG_SPINNER_ERROR'
-                //     }
-                //   },
-                // },
+                onError: {
+                  target: "#REACT_MAIN_V3.ERROR",
+                  actions: {
+                    type: "log_error",
+                    params: {
+                      message: 'ACTOR_FG_SPINNER_ERROR'
+                    }
+                  },
+                },
                 src: "actor_fg_spinner",
               },
               description:

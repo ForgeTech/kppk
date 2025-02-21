@@ -11,8 +11,8 @@ import {
   log_option_params_parser,
   LOG_OPTIONS,
 } from './fg-machine-utils.machine.types';
-import { fg_spinner_event_hide_parser, FG_SPINNER_EVENT_OPTION, fg_spinner_event_option_parser, fg_spinner_event_show_parser, fg_spinner_event_stop_parser } from '../fg-spinner';
-import { NGXLogger, NgxLoggerLevel } from 'ngx-logger';
+import { fg_spinner_event_hide_parser, FG_SPINNER_EVENT_OPTION, fg_spinner_event_option_parser, fg_spinner_event_show_parser } from '../fg-spinner';
+
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +34,7 @@ export class FgMachineUtilsMethodeService extends FgBaseService {
   @boundMethod
   public log_info(input: ANY_ACTION_INPUT, params: LOG_OPTIONS ) {
    const params_level: LOG_LEVEL_OPTIONS = {
-    level: 'info',
+    level: 'warn',
     ...params
    }
    this.log(input, params_level);
