@@ -9,7 +9,9 @@ import {
   PreloadAllModules,
   provideRouter,
   withDebugTracing,
+  withDisabledInitialNavigation,
   withPreloading,
+  withRouterConfig,
   withViewTransitions,
 } from '@angular/router';
 import { app_routes } from './app.routes';
@@ -36,11 +38,18 @@ import {
 } from '@angular/common/http';
 import { provideTransloco } from '@jsverse/transloco';
 import {
+  FgAuthLocalMachineActorService,
+  FgAuthLocalMainMachineActorService,
+  FgSpinnerMachineActorService,
+  FgSpinnerMainMachineActorService,
   KppkGlobalError,
-  KppkReactSharedService,
+  ReactMainV3MachineActorService,
+  ReactRunningV7MachineActorService,
+  ReactRunningV7MainMachineActorService,
   TranslocoHttpLoader,
 } from '@kppk/react-lib';
 import { CookieService } from 'ngx-cookie-service';
+import { FgNavigationMainMachineActorService, FgNavigationMachineActorService } from '@kppk/react-lib';
 export const appConfig: ApplicationConfig = {
   providers: [
     // makeEnvironmentProviders([
@@ -62,6 +71,10 @@ export const appConfig: ApplicationConfig = {
       app_routes,
       withViewTransitions(),
       withPreloading(PreloadAllModules),
+      withDisabledInitialNavigation(),
+      withRouterConfig({
+        onSameUrlNavigation: 'ignore'
+      }),
       // Provides debug output
       withDebugTracing(),
     ),
@@ -79,10 +92,15 @@ export const appConfig: ApplicationConfig = {
     // FgEnvironmentService,
     // { provide: FG_ENVIRONMENT, useValue: environment },
     { provide: ErrorHandler, useClass: KppkGlobalError },
-    { provide: FgStorageService, useClass: FgStorageLocalforageService },
+    // { provide: FgStorageService, useClass: FgStorageLocalforageService },
     FgStorageNgxCookieService,
     FgBreakpoint,
-    KppkReactSharedService,
     CookieService,
+    ReactMainV3MachineActorService,
+    { provide: FgSpinnerMachineActorService, useClass: FgSpinnerMainMachineActorService},
+    { provide: ReactRunningV7MachineActorService, useClass: ReactRunningV7MainMachineActorService},
+    { provide: FgAuthLocalMachineActorService, useClass: FgAuthLocalMainMachineActorService},
+   
+    { provide: FgNavigationMachineActorService, useClass: FgNavigationMainMachineActorService}
   ],
 };

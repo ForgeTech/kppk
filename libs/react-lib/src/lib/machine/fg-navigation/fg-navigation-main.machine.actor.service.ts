@@ -1,7 +1,7 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
-import { BehaviorSubject, map, shareReplay, Subject } from 'rxjs';
+import { BehaviorSubject, map, shareReplay, startWith, Subject } from 'rxjs';
 import {
   Actor,
   ActorOptions,
@@ -14,7 +14,7 @@ import {
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { ReactMainV3MachineActorService } from '../react-main';
 import { REACT_ACTOR_ENUM } from '../../enum';
-// import { FgNavigationMachineService } from './fg-navigation.machine.service';
+import { FgNavigationMachineService } from './fg-navigation.machine.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +25,12 @@ export class FgNavigationMainMachineActorService
 {
   protected $env = inject(FgEnvironmentService);
   protected $xstate = inject(FgXstateService);
-  // protected $machine = inject(FgNavigationMachineService);
+  protected $machine = inject(FgNavigationMachineService);
   protected $source = inject(ReactMainV3MachineActorService);
 
-  // protected machine = this.$machine.get_machine();
+  protected machine = this.$machine.get_machine();
   protected config: ActorOptions<any> = {};
-  protected ACTOR = new BehaviorSubject( undefined ) as BehaviorSubject<Actor<AnyStateMachine> | undefined>;
+  protected ACTOR = new BehaviorSubject( undefined ) as BehaviorSubject<Actor<typeof this.machine> | undefined>;
   public get actor() {
     return this.ACTOR.getValue();
   }
@@ -61,20 +61,28 @@ export class FgNavigationMainMachineActorService
     // this.ACTOR = 
     this.$source.state$.pipe(
       takeUntilDestroyed(),
+      startWith(this.$source.actor.getSnapshot()),
       map( () => {
         return this.$source.actor;
-      })
+      }),
     ).subscribe({
       next: source_actor => {
-        const actor =  source_actor.system.get(REACT_ACTOR_ENUM.REACT_NAVIGATION) as Actor<AnyStateMachine> | undefined;
+        const actor =  source_actor.system.get(REACT_ACTOR_ENUM.REACT_NAVIGATION) as Actor<typeof this.machine> | undefined;
+        // console.log('>>>>>>>>>>>>>FgNavigationMainMachineActorService: ACTOR>>>>>>>>>>>>>')
+        // console.log(actor);
         if( actor ) {
           this.ACTOR.next( actor );
           // Push actor snapshot to state-signal
+          this.STATE$.next(actor.getSnapshot())
           this.state_subscription = actor.subscribe( snapshot => {
+            console.log('>>>>>>>>>>>>>FgNavigationMainMachineActorService: STATE>>>>>>>>>>>>>')
+            console.log(snapshot);
             this.STATE$.next(snapshot);
           });
           // Push emitted actor events to subject
           this.events_subscription = actor.on('*', snapshot => {
+            console.log('>>>>>>>>>>>>>FgNavigationMainMachineActorService: EVENT>>>>>>>>>>>>>')
+            console.log(actor);
             this.EVENT$.next(snapshot);
           });
         } else {
@@ -82,8 +90,15 @@ export class FgNavigationMainMachineActorService
           this.state_subscription?.unsubscribe();
           this.events_subscription?.unsubscribe();
         }
+      },
+      complete: () => {
+        console.log('>>>>>>>>>>>>>FgNavigationMainMachineActorService: COMPLETE>>>>>>>>>>>>>')
+      },
+      error: () => {
+        console.log('>>>>>>>>>>>>>FgNavigationMainMachineActorService: ERROR>>>>>>>>>>>>>')
       }
     });
+    
   }
 
   public start() {

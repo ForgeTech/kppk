@@ -20,7 +20,7 @@ import { FgNavigationMachineService } from './fg-navigation.machine.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ReactRunningV7MachineActorService
+export class FgNavigationMachineActorService
   extends FgBaseService
   implements OnDestroy
 {
