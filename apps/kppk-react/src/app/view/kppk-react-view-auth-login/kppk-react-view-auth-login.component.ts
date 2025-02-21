@@ -56,20 +56,35 @@ export class KppkReactViewAuthLoginComponent {
     { initialValue: undefined }
   );
 
-  protected errorS = computed( () => {
-    const result = this.$actor_auth.stateS()?.matches({ 'STATE': { 'UNAUTHORIZED': 'ERROR' }});
-    return result;
-  })
-  protected successS = computed( () => {
-    const result = this.$actor_auth.stateS()?.matches({ 'STATE': 'AUTHORIZED' });
-    return result;
-  })
-  protected pendingS = computed( () => {
-    const result = this.$actor_auth
-    .stateS()
-    ?.matches({'STATE': {'UNAUTHORIZED': 'AUTHORIZATION'}});
-    return result;
-  })
+  // protected errorS = computed( () => {
+  //   const result = this.$actor_auth.stateS()?.matches({ 'STATE': { 'UNAUTHORIZED': 'ERROR' }});
+  //   return result;
+  // })
+  protected errorS = toSignal(this.$actor_auth.state$.pipe(
+    map( snapshot => {
+      return snapshot.matches({ 'STATE': { 'UNAUTHORIZED': 'ERROR' }});
+    })
+  ), { initialValue: false });
+  protected successS = toSignal(this.$actor_auth.state$.pipe(
+    map( snapshot => {
+      return snapshot.matches({ 'STATE': 'AUTHORIZED' });
+    })
+  ), { initialValue: false });
+  // protected successS = computed( () => {
+  //   const result = this.$actor_auth.stateS()?.matches({ 'STATE': 'AUTHORIZED' });
+  //   return result;
+  // })
+  protected pendingS = toSignal(this.$actor_auth.state$.pipe(
+    map( snapshot => {
+      return snapshot.matches({'STATE': {'UNAUTHORIZED': 'AUTHORIZATION'}})
+    })
+  ), { initialValue: false });
+  // protected pendingS = computed( () => {
+  //   const result = this.$actor_auth
+  //   .stateS()
+  //   ?.matches({'STATE': {'UNAUTHORIZED': 'AUTHORIZATION'}});
+  //   return result;
+  // })
   
   protected model = {};
   protected form = new FormGroup({});
