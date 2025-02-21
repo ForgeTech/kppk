@@ -65,9 +65,9 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
 
   @boundMethod
   public raise_initial_navigation(input: REACT_RUNNING_ACTION_INPUT ) {
-    // const url = this.$router.url;
-    // const result = this.raise_navigation_navigate( input, { url })
-    // return result;
+    const url = this.$router.url;
+    const result = this.raise_react_running_select_active_view( input, { url })
+    return result;
   };
 
   @boundMethod
@@ -122,11 +122,11 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
     return result;
   }
 
-  @boundMethod
-  public guard_has_calculation({ context, event }: REACT_RUNNING_GUARD_INPUT ) {
-    const result = context.calculation ? true : false;
-    return result;
-  }
+  // @boundMethod
+  // public guard_has_calculation({ context, event }: REACT_RUNNING_GUARD_INPUT ) {
+  //   const result = context.calculation ? true : false;
+  //   return result;
+  // }
   
   @boundMethod
   public guard_view_calculation(input: REACT_RUNNING_GUARD_INPUT,  param: ASSIGN_ACTIVE_URL_PARAM ) {

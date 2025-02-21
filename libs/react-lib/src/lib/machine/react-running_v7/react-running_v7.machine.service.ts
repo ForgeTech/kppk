@@ -14,11 +14,11 @@ import {
 import { FG_AUTH_LOCAL_EMITTED_AUTHORIZED, FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED } from '../fg-auth-local';
 import { FG_NAVIGATION_EMITTED_ENDED, FG_NAVIGATION_EMITTED_STARTED, FG_NAVIGATION_EVENT_BLOCK, FG_NAVIGATION_EVENT_ENABLE, FG_NAVIGATION_EVENT_NAVIGATE, FgNavigationMachineMethodeService, FgNavigationMachineService } from '../fg-navigation';
 import { REACT_RUNNING_CONTEXT, react_running_context_parser, REACT_RUNNING_EVENT_CALCULATION_START, REACT_RUNNING_EVENT_SELECT_ACTIVE_VIEW } from './react-running_v7.machine.types';
-import { forwardTo } from 'xstate';
-import { HOST_ROUTES } from '../../enum';
+import { HOST_ROUTES, REACT_ACTOR_ENUM } from '../../enum';
 import { ReactViewCalculationMachineService } from '../react-view-calculation';
 import { ReactViewHomeMachineService } from '../react-view-home';
 import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
+import { REACT_MAIN_CONTEXT } from '../react-main';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +42,7 @@ export class ReactRunningV7MachineService extends FgBaseService {
       return this.$xstate.setup({
       types: {
         context: {} as REACT_RUNNING_CONTEXT,
+        input: {} as Partial<REACT_RUNNING_CONTEXT>,
         events: {} as
           | FG_ROUTER_EMITTED_CANCEL
           | FG_ROUTER_EMITTED_END
@@ -63,17 +64,19 @@ export class ReactRunningV7MachineService extends FgBaseService {
         assign_calculation_set: this.$xstate.assign(this.$methode.assign_calculation_set),
         assign_calculation_unset: this.$xstate.assign(this.$methode.assign_calculation_unset),
         log_info: this.$common.log_info,
-        // raise_initial_navigation: this.$xstate.raise(this.$methode.raise_initial_navigation),
+        log_error: this.$common.log_error,
+        raise_initial_navigation: this.$xstate.raise(this.$methode.raise_initial_navigation),
         raise_navigation_block: this.$xstate.raise(this.$methode.raise_navigation_block),
         raise_navigation_enable: this.$xstate.raise(this.$methode.raise_navigation_enable),
         raise_navigation_navigate: this.$xstate.raise(this.$methode.raise_navigation_navigate),
         raise_react_running_select_active_view: this.$xstate.raise(this.$methode.raise_react_running_select_active_view),
-        send_to_navigation: forwardTo('actor_navigation')
+        send_to_navigation: this.$xstate.forwardTo(REACT_ACTOR_ENUM.REACT_NAVIGATION)
       },
       actors: {
         // actor_calculation: this.$machine_calc.get_machine(),
         actor_calculation: this.$xstate.createMachine({}),
-        actor_home: this.$machine_home.get_machine(),
+        // actor_home: this.$machine_home.get_machine(),
+        actor_home: this.$xstate.createMachine({}),
         actor_navigation: this.$machine_navigation.get_machine(),
         actor_router:  this.$machine_router.getMachine(),
       },
@@ -86,15 +89,21 @@ export class ReactRunningV7MachineService extends FgBaseService {
         guard_view_logout: this.$methode.guard_view_logout,
       },
     }).createMachine({
-      context: react_running_context_parser.parse(context ?? {}),
+      context: ({input}) =>{
+        console.log( input );
+        let result = {};
+        result = react_running_context_parser.parse( input ?? context ?? {});
+
+        return result;
+      },
       id: "REACT_RUNNING_V7",
       type: "parallel",
       states: {
         ACTIVE_VIEW: {
-          initial: "UNAUTHORIZED",
-          // entry: [{
-          //   type: 'raise_initial_navigation'
-          // }],
+          initial: "PENDING",
+          entry: [{
+            type: 'raise_initial_navigation'
+          }],
           on: {
             "react.running.event.calculation.start": {
               actions: [
@@ -112,6 +121,12 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   type: "assign_auth_cookie_set",
                 },
                 {
+                  type: "log_error",
+                  params: {
+                    message: "AUTHORIZED_RECEIVED_BY_RUNNING"
+                  }
+                },
+                {
                   type: "raise_react_running_select_active_view",
                   params: {
                     url: '/' + [HOST_ROUTES.HOME].join('/')
@@ -125,6 +140,12 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   type: "assign_auth_cookie_unset",
                 },
                 {
+                  type: "log_error",
+                  params: {
+                    message: "UNAUTHORIZED_RECEIVED_BY_RUNNING"
+                  }
+                },
+                {
                   type: "raise_react_running_select_active_view",
                   params: {
                     url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN ].join('/')
@@ -134,7 +155,7 @@ export class ReactRunningV7MachineService extends FgBaseService {
             },
             "react.running.select_active_view": [
               {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED.CALCULATION",
+                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.PENDING",
                 guard: {
                   type: "guard_view_calculation",
                   params: {
@@ -142,58 +163,73 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   }
                 },
               },
-              {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED.LOGOUT",
-                guard: {
-                  type: "guard_view_logout",
-                  params: {
-                    url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/')
-                  }
-                },
-              },
-              {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.IMPRINT",
-                guard: {
-                  type: "guard_view_imprint",
-                  params: {
-                    url: '/' + [HOST_ROUTES.IMPRINT].join('/')
-                  }
-                },
-                meta: {
-                  url: "imprint",
-                },
-              },
-              {
-                target:
-                  "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.DATA_PROTECTION",
-                guard: {
-                  type: "guard_view_data_protection",
-                  params: {
-                    url: '/' + [HOST_ROUTES.DATA_PROTECTION].join('/')
-                  }
-                },
-              },
-              {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED",
-                guard: {
-                  type: "guard_is_authorized",
-                },
-              },
-              {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.LOGIN",
-                guard: {
-                  type: "guard_view_login",
-                  params: {
-                    url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/')
-                  }
-                },
-              },
-              {
-                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED",
-              },
-            ],
+            ]
           },
           states: {
+            PENDING: {
+              // on: {
+                always: [
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED.CALCULATION",
+                    guard: {
+                      type: "guard_view_calculation",
+                      params: {
+                        url: '/' + [HOST_ROUTES.CALC].join('/')
+                      }
+                    },
+                  },
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED.LOGOUT",
+                    guard: {
+                      type: "guard_view_logout",
+                      params: {
+                        url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/')
+                      }
+                    },
+                  },
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.IMPRINT",
+                    guard: {
+                      type: "guard_view_imprint",
+                      params: {
+                        url: '/' + [HOST_ROUTES.IMPRINT].join('/')
+                      }
+                    },
+                    meta: {
+                      url: "imprint",
+                    },
+                  },
+                  {
+                    target:
+                      "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.DATA_PROTECTION",
+                    guard: {
+                      type: "guard_view_data_protection",
+                      params: {
+                        url: '/' + [HOST_ROUTES.DATA_PROTECTION].join('/')
+                      }
+                    },
+                  },
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED",
+                    guard: {
+                      type: "guard_is_authorized",
+                    },
+                  },
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED.LOGIN",
+                    guard: {
+                      type: "guard_view_login",
+                      params: {
+                        url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/')
+                      }
+                    },
+                  },
+                  {
+                    target: "#REACT_RUNNING_V7.ACTIVE_VIEW.UNAUTHORIZED",
+                  },
+                ],
+              // },
+            },
             UNAUTHORIZED: {
               initial: "LOGIN",
               states: {
@@ -242,19 +278,19 @@ export class ReactRunningV7MachineService extends FgBaseService {
                     }
                   ],
                   invoke: {
-                    id: "actor_home",
-                    systemId: "actor_home",
+                    id: REACT_ACTOR_ENUM.REACT_VIEW_HOME,
+                    systemId: REACT_ACTOR_ENUM.REACT_VIEW_HOME,
                     input: {},
-                    onDone: {
-                      actions: [
-                        {
-                          type: "assign_calculation_set",
-                        },
-                        {
-                          type: "raise_react_running_select_active_view",
-                        },
-                      ],
-                    },
+                    // onDone: {
+                    //   actions: [
+                    //     {
+                    //       type: "assign_calculation_set",
+                    //     },
+                    //     // {
+                    //     //   type: "raise_react_running_select_active_view",
+                    //     // },
+                    //   ],
+                    // },
                     src: "actor_home",
                   },
                 },
@@ -279,8 +315,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
                     },
                   ],
                   invoke: {
-                    id: "actor_calculation",
-                    systemId: "actor_calculation",
+                    id: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
+                    systemId: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
                     input: {},
                     src: "actor_calculation",
                   },
@@ -306,28 +342,26 @@ export class ReactRunningV7MachineService extends FgBaseService {
                 {
                   type: "raise_react_running_select_active_view",
                 },
-                // {
-                //   type: "log_info",
-                //   params: {
-                    
-                //   }
-                // },
+                {
+                  type: "log_info",
+                 
+                },
               ],
             },
             "fg.router.emitted.end": {
-              // actions: {
-              //   type: "log_info",
-              // },
+              actions: {
+                type: "log_info",
+              },
             },
             "fg.router.emitted.cancel": {
-              // actions: {
-              //   type: "log_info",
-              // },
+              actions: {
+                type: "log_info",
+              },
             },
           },
           invoke: {
-            id: "actor_router",
-            systemId: "actor_router",
+            id: REACT_ACTOR_ENUM.REACT_ROUTER,
+            systemId: REACT_ACTOR_ENUM.REACT_ROUTER,
             input: {},
             src: "actor_router",
           },
@@ -335,29 +369,29 @@ export class ReactRunningV7MachineService extends FgBaseService {
         NAVIGATION: {
           on: {
             "fg.navigation.emitted.started": {
-              // actions: {
-              //   type: "log_info",
-              // },
+              actions: {
+                type: "log_info",
+              },
             },
             "fg.navigation.emitted.ended": {
-              // actions: {
-              //   type: "log_info",
-              // },
+              actions: {
+                type: "log_info",
+              },
             },
             "fg.navigation.event.*": {
               actions: [
                 {
                   type: "send_to_navigation",
                 },
-                // {
-                //   type: "log_info",
-                // }
+                {
+                  type: "log_info",
+                }
               ],
             },
           },
           invoke: {
-            id: "actor_navigation",
-            systemId: "actor_navigation",
+            id: REACT_ACTOR_ENUM.REACT_NAVIGATION,
+            systemId: REACT_ACTOR_ENUM.REACT_NAVIGATION,
             input: {},
             src: "actor_navigation",
           },

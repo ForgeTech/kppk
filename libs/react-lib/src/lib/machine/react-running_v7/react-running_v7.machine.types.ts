@@ -10,8 +10,6 @@ export const assign_active_url_param_parser = z.object({
 export type ASSIGN_ACTIVE_URL_PARAM = z.infer<typeof assign_active_url_param_parser>;
 
 export const react_running_context_parser = z.object({
-  // target_url: z.string().default(''),
-  // actived_url: z.string().default(''),
   auth_cookie: fg_auth_local_auth_cookie_parser.optional(),
   calculation: z.object({}).passthrough().optional()
 });
