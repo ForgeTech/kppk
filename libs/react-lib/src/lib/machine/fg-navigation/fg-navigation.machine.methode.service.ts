@@ -19,11 +19,13 @@ import {
   fg_navigation_emitted_started_parser
 } from './fg-navigation.machine.types';
 import { Router } from '@angular/router';
+import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FgNavigationMachineMethodeService extends FgBaseService {
+  protected $common = inject(FgMachineUtilsMethodeService);
   protected $immer = inject(FgImmutableService);
   protected $router = inject(Router);
 
@@ -65,20 +67,6 @@ export class FgNavigationMachineMethodeService extends FgBaseService {
   public send_navigation_emitted_started({ context, event }: FG_NAVIGATION_ACTION_INPUT ) {
     const result = fg_navigation_emitted_started_parser.parse({type: 'fg.navigation.emitted.started'} as FG_NAVIGATION_EMITTED_STARTED);
     return result;
-  };
-
-  @boundMethod
-  public log_error({ context, event }: FG_NAVIGATION_ACTION_INPUT, methode_name?: string, log_event = true, log_context = true ) {
-    if( methode_name ) {
-      this.$log?.error('METHODE:' + methode_name.toUpperCase())
-    }
-    if( event && log_event ) {
-      this.$log?.error('EVENT: ' + event.type.toUpperCase())
-    }
-    if( context && log_context ) {
-      this.$log?.error('CONTEXT: ');
-      this.$log?.error(context)
-    }
   };
 
   @boundMethod

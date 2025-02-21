@@ -16,12 +16,14 @@ import {
   FG_NAVIGATION_INTERNAL_START,
 } from './fg-navigation.machine.types';
 import { FgBaseService } from '@kppk/fg-lib-new';
+import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FgNavigationMachineService extends FgBaseService {
   protected $methode = inject(FgNavigationMachineMethodeService);
+  protected $common = inject(FgMachineUtilsMethodeService);
   protected $xstate = inject(FgXstateService);
 
   public get_machine(context?: Partial<FG_NAVIGATION_CONTEXT>) {
@@ -47,7 +49,7 @@ export class FgNavigationMachineService extends FgBaseService {
         assign_target_url: this.$xstate.assign(this.$methode.assign_target_url),
         send_navigation_emitted_ended: this.$xstate.emit(this.$methode.send_navigation_emitted_ended),
         send_navigation_emitted_started: this.$xstate.emit(this.$methode.send_navigation_emitted_started),
-        log_error: this.$methode.log_error,
+        log_error: this.$common.log_error,
         raise_navigation_internal_check: this.$xstate.raise(this.$methode.raise_navigation_internal_check),
         raise_navigation_internal_end: this.$xstate.raise(this.$methode.raise_navigation_internal_end),
         raise_navigation_internal_redirect: this.$xstate.raise(this.$methode.raise_navigation_internal_redirect),
@@ -81,6 +83,14 @@ export class FgNavigationMachineService extends FgBaseService {
                   {
                     type: "raise_navigation_internal_check",
                   },
+                  {
+                    type: "log_error",
+                    params: {
+                      message: 'NAVIGATION_START',
+                      log_context: true,
+                      log_event: true
+                    }
+                  }
                 ],
                 guard: {
                   type: "guard_navigation_is_idel",
@@ -96,18 +106,31 @@ export class FgNavigationMachineService extends FgBaseService {
                   {
                     type: "raise_navigation_internal_redirect",
                   },
+                  {
+                    type: "log_error",
+                    params: {
+                      message: 'NAVIGATION_REDIRECT',
+                      log_context: true,
+                      log_event: true
+                    }
+                  }
                 ],
-                // guard: {
-                //   type: "guard_navigation_is_waiting",
-                // },
+                guard: {
+                  type: "guard_navigation_is_waiting",
+                },
               },
-              // {
-              //   actions: {
-              //     type: "log_error",
-              //   },
-              //   description:
-              //     "This is an unexpected navigation event and shouldn't appear. Inspect what is trying to interrupt navigation before it is finished",
-              // },
+              {
+                actions: [{
+                  type: "log_error",
+                  params: {
+                    message: 'NAVIGATION_ERROR',
+                    log_context: true,
+                    log_event: true
+                  }
+                }],
+                description:
+                  "This is an unexpected navigation event and shouldn't appear. Inspect what is trying to interrupt navigation before it is finished",
+              },
             ],
             "fg.navigation.event.disable": {
               target: "#FG_NAVIGATION.SETTINGS.DISABLED",
