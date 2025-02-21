@@ -58,7 +58,7 @@ export class ReactAdminToolbarMachineMethodeService extends FgBaseService {
       context: REACT_ADMIN_TOOLBAR_CONTEXT;
       event: any;
     }) {
-    const result = this.$immer.produce<REACT_ADMIN_TOOLBAR_CONTEXT>(context, draft => {
+    const result = this.$immer.produce(context, draft => {
       const data =  load_admin_data_parser.parse(event.output);
       draft.debug_culculation_v1 = data.debug_calculation_v1;
     });
