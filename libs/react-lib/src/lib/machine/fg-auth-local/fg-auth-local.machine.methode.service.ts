@@ -162,7 +162,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     const auth_cookie = fg_auth_local_auth_cookie_parser.optional().parse(
       event['output']
     );
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.auth_cookie = auth_cookie;
     });
   }
@@ -172,7 +172,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     const event_output = fg_auth_local_salt_file_content_parser.parse(
       event['output']
     );
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.salt = event_output.public_salt;
     });
   }
@@ -185,21 +185,21 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     context: FG_AUTH_LOCAL_CONTEXT;
     event: any;
   }) {
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.error = (event.error as Error).message;
     });
   }
 
   @boundMethod
   public assign_clear_authorization_error({ context }: FgAuthLocalV1Params) {
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.error = undefined;
     });
   }
 
   @boundMethod
   public assign_clear_auth_cookie({ context }: FgAuthLocalV1Params) {
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.auth_cookie = undefined;
     });
   }
@@ -209,7 +209,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
     context,
     event,
   }: FgAuthLocalV1Params) {
-    return this.$immer.produce<FG_AUTH_LOCAL_CONTEXT>(context, draft => {
+    return this.$immer.produce(context, draft => {
       draft.error = event['error'].message;
     });
   }

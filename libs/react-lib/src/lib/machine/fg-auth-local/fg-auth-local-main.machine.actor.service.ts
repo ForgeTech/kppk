@@ -69,6 +69,7 @@ export class FgAuthLocalMainMachineActorService
         if( actor ) {
           this.ACTOR.next( actor );
           // Push actor snapshot to state-signal
+          this.STATE$.next( actor.getSnapshot() );
           this.state_subscription = actor.subscribe( snapshot => {
             this.STATE$.next(snapshot);
           });

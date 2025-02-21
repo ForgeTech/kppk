@@ -67,9 +67,17 @@ export type FG_AUTH_LOCAL_EMITTED_AUTHORIZED = z.infer<
 
 export const fg_auth_local_emitted_unauthorized_parser = z.object({
   type: z.literal('fg.auth.emitted.unauthorized'),
+  data: z.object({
+    auth_cookie: z.undefined()
+  }).default({ auth_cookie: undefined }),
 });
 export type FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED = z.infer<
   typeof fg_auth_local_emitted_unauthorized_parser
+>;
+
+export const fg_auth_emitted_parser = fg_auth_local_emitted_authorized_parser.or(fg_auth_local_emitted_unauthorized_parser)
+export type FG_AUTH_LOCAL_EMITTED = z.infer<
+  typeof fg_auth_emitted_parser
 >;
 
 export const fg_auth_local_event_stop_parser = z.object({
