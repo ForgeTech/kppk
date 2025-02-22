@@ -1,3 +1,4 @@
+@let t = translationsS();
 <div class="header">
   <mat-toolbar>
     <mat-toolbar-row>
@@ -14,7 +15,7 @@
       >
         <img
           class="mr-[16px] aspect-auto h-5"
-          alt="R.E.A.C.T. Reduction Analysis Tool Logo"
+          alt="{{ t?.alt_react_logo }}"
           src="./images/react/react-logo-small.png"
         />
         <div class="absolute -top-[12px] right-0">®</div>
@@ -30,8 +31,8 @@
         mat-mini-fab
         color="primary"
         [disabled]="this.$pagedjs.print_enabled_s()"
-        [matTooltip]="general.print'"
-        [attr.aria-label]="general.print'"
+        [matTooltip]="t?.label_print"
+        [attr.aria-label]="t?.label_print"
         (click)="print($event)"
       >
         <mat-icon>print</mat-icon>
@@ -40,8 +41,8 @@
       <a
         mat-icon-button
         color="warn"
-        [matTooltip]="'general.logout'"
-        [attr.aria-label]="'general.logout'"
+        [matTooltip]="t?.label_logout"
+        [attr.aria-label]="t?.label_logout"
         routerLink="/{{ [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/') }}"
       >
         <mat-icon>logout</mat-icon>
@@ -51,8 +52,8 @@
         mat-icon-button
         color="primary"
         routerLink="/{{ [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/') }}"
-        [matTooltip]="'general.login'"
-        [attr.aria-label]="'general.login'"
+        [matTooltip]="t?.label_login"
+        [attr.aria-label]="t?.label_login"
       >
         <mat-icon>login</mat-icon>
       </a>
