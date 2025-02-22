@@ -19,6 +19,11 @@
           {
             "glob": "**/*",
             "input": "apps/kppk-react/public"
+          },
+          {
+            "glob": "pdf.worker.*",
+            "input": "node_modules/pdfjs-dist/build/",
+            "output": "/"
           }
         ],
         "styles": ["apps/kppk-react/src/styles.scss"],

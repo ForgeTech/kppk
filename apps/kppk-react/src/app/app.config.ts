@@ -46,10 +46,16 @@ import {
   ReactMainV3MachineActorService,
   ReactRunningV7MachineActorService,
   ReactRunningV7MainMachineActorService,
+  ReactViewHomeMachineActorService,
+  ReactViewHomeMainMachineActorService,
   TranslocoHttpLoader,
 } from '@kppk/react-lib';
 import { CookieService } from 'ngx-cookie-service';
 import { FgNavigationMainMachineActorService, FgNavigationMachineActorService } from '@kppk/react-lib';
+
+import { GlobalWorkerOptions } from 'pdfjs-dist';
+GlobalWorkerOptions.workerSrc = './pdf.worker.min.js';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     // makeEnvironmentProviders([
@@ -72,9 +78,9 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withPreloading(PreloadAllModules),
       withDisabledInitialNavigation(),
-      withRouterConfig({
-        onSameUrlNavigation: 'ignore'
-      }),
+      // withRouterConfig({
+      //   onSameUrlNavigation: 'ignore'
+      // }),
       // Provides debug output
       withDebugTracing(),
     ),
@@ -100,6 +106,7 @@ export const appConfig: ApplicationConfig = {
     { provide: FgSpinnerMachineActorService, useClass: FgSpinnerMainMachineActorService},
     { provide: ReactRunningV7MachineActorService, useClass: ReactRunningV7MainMachineActorService},
     { provide: FgAuthLocalMachineActorService, useClass: FgAuthLocalMainMachineActorService},
+    { provide: ReactViewHomeMachineActorService, useClass: ReactViewHomeMainMachineActorService},
    
     { provide: FgNavigationMachineActorService, useClass: FgNavigationMainMachineActorService}
   ],
