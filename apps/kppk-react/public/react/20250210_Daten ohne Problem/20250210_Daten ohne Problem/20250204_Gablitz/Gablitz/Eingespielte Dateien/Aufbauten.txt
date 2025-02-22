@@ -1,0 +1,214 @@
+WBDu	B1	Innendecke  	U-Wert vorh.:	0,430	U-Wert erf.:	0,900	Flächenbezogene Masse:	382,61
+		
+	1	Massivparkett	0,015	0,160	11,10	0,0000	0,000	
+	2	Heizestrich 	0,075	1,330	150,00	0,0000	0,000	
+	3	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	4	Trettschalldämmunf (z.B. ISOVER TRITTSCHALL-DÄMMPLATTE T o.glw.)	0,025	0,033	2,62	0,0000	0,000	
+	5	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	6	Splittschüttung elast. gebunden	0,100	0,700	150,00	0,0000	0,000	
+	7	Rieselschutz	0,002	0,000	0,00	0,0000	0,000	
+	8	Brettsperholz	0,140	0,120	68,88	0,0000	0,000	
+
+DGT	B2	Fußboden EG zur Garage 	U-Wert vorh.:	0,137	U-Wert erf.:	0,300	Flächenbezogene Masse:	995,75
+		
+	1	Wärmedämmung (z.B. KI Tektalan A2-SmartTec Protect, Protect (Steinwolle-Platte) 	0,175	0,035	17,50	0,0000	0,000	
+	2	Stahlbetondecke	0,350	2,300	805,00	0,0000	0,000	
+	3	Rieselschutz	0,002	0,000	0,00	0,0000	0,000	
+	4	Perlitschüttung	0,100	0,120	9,00	0,0000	0,000	
+	5	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	6	Trettschalldämmunf (z.B. ISOVER TRITTSCHALL-DÄMMPLATTE T o.glw.)	0,030	0,033	3,15	0,0000	0,000	
+	7	Trennschicht (sd>40m)	0,002	0,000	0,00	0,0000	0,000	
+	8	Heizestrich 	0,075	1,330	150,00	0,0000	0,000	
+	9	Massivparkett	0,015	0,160	11,10	0,0000	0,000	
+
+DD	B3	Decke ü. Überfahrt 	U-Wert vorh.:	0,168	U-Wert erf.:	0,200	Flächenbezogene Masse:	776,09
+		
+	1	Außenputz	0,010	0,570	13,00	0,0000	0,000	
+	2	Wärmedämmung (z.B. ROCKWOOL Coverrock o.glw.)	0,160	0,034	19,36	0,0000	0,000	
+	3	Stahlbetondecke	0,200	2,300	460,00	0,0000	0,000	
+	4	Splittschüttung elast. gebunden	0,080	0,700	120,00	0,0000	0,000	
+	5	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	6	Trettschalldämmunf (z.B. ISOVER TRITTSCHALL-DÄMMPLATTE T o.glw.)	0,025	0,033	2,62	0,0000	0,000	
+	7	Trennschicht sd>40m	0,002	0,000	0,00	0,0000	0,000	
+	8	Heizestrich 	0,075	1,330	150,00	0,0000	0,000	
+	9	Massivparkett	0,015	0,160	11,10	0,0000	0,000	
+
+DGUo	B4	Decke ü.Müll 	U-Wert vorh.:	0,203	U-Wert erf.:	0,400	Flächenbezogene Masse:	756,23
+		
+	1	Wärmedämmung (z.B. Tektalan A2 SmartTec Protect o.glw.)	0,125	0,035	12,50	0,0000	0,000	
+	2	Stahlbetondecke	0,200	2,300	460,00	0,0000	0,000	
+	3	Rieselschutz	0,002	0,000	0,00	0,0000	0,000	
+	4	Splittschüttung elast. gebunden	0,080	0,700	120,00	0,0000	0,000	
+	5	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	6	Trettschalldämmunf (z.B. ISOVER TRITTSCHALL-DÄMMPLATTE T o.glw.)	0,025	0,033	2,62	0,0000	0,000	
+	7	Trennschicht sd>40m	0,002	0,000	0,00	0,0000	0,000	
+	8	Heizestrich 	0,075	1,330	150,00	0,0000	0,000	
+	9	Massivparkett	0,015	0,160	11,10	0,0000	0,000	
+
+DU	B5	Garten g. Garage 	U-Wert vorh.:	0,122	U-Wert erf.:	0,000	Flächenbezogene Masse:	1.048,80
+		
+	1	Pflanzensubstrat	0,000	2,000	0,00	0,0000	0,000	
+	2	Filtervlies	0,001	0,500	0,30	0,0000	0,000	
+	3	Drän- und Wasserspeicherelement	0,060	0,100	16,20	0,0000	0,000	
+	4	Trennlage (diffusionsoffen/wurzelschutz)	0,004	0,220	1,20	0,0000	0,000	
+	5	Wärmedämmung (z.B. AUSTROTHERM XPS TOP 30 SF o.glw.)	0,100	0,036	3,00	0,0000	0,000	
+	6	Abdichtung lt.ÖN	0,010	0,230	10,50	0,0000	0,000	
+	7	Voranstrich	0,002	0,000	2,00	0,0000	0,000	
+	8	Gefällebeton 2% von 3 bis ?cm	0,030	2,300	69,00	0,0000	0,000	
+	9	Stahlbetondecke	0,400	2,300	920,00	0,0000	0,000	
+	10	Wärmedämmung (z.B. Tektalan A2 SmartTec Protect o.glw.)	0,175	0,035	26,60	0,0000	0,000	
+
+EBKu	B6	Keller Fußbodenplatte	U-Wert vorh.:	5,882	U-Wert erf.:	0,000	Flächenbezogene Masse:	1.580,00
+		
+	1	Stahlbetondecke	0,600	2,300	1.380,00	0,0000	0,000	
+	2	Sauberkeitsschicht	0,100	1,350	200,00	0,0000	0,000	
+
+UE	B7	Fußboden Müllraum	U-Wert vorh.:	0,165	U-Wert erf.:	0,000	Flächenbezogene Masse:	1.019,32
+		
+	1	Wärmedämmung (z.B. KI Tektalan A2 SmartTec Protect 150mm o.glw.)	0,175	0,035	22,16	0,0000	0,000	
+	2	Stahlbetondecke	0,350	2,300	805,00	0,0000	0,000	
+	3	Rieselschutz	0,002	0,000	0,00	0,0000	0,000	
+	4	Perlitschüttung 	0,100	0,000	9,00	0,0000	0,000	
+	5	PAE-Folie	0,002	0,000	0,00	0,0000	0,000	
+	6	Trittschalldämmung (z.B. ISOVER TDPT 30)	0,030	0,033	3,15	0,0000	0,000	
+	7	Trennschicht (sd>100m)	0,002	0,000	0,00	0,0000	0,000	
+	8	Estrich	0,090	1,330	180,00	0,0000	0,000	
+
+AD	D1	Hauptdach, Sattel-Dachaufbau, Dachneigung 	U-Wert vorh.:	0,083	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		
+	1	Massivholz-Rauschalung	0,030	0,110	12,75	0,0000	0,000	
+	2.0	Holz Lattung	0,080	0,110	34,00	0,6250	0,050	V
+	2.1	Luftschicht 	0,080	0,194	0,09	0,0000	0,000	
+	3	Holzfaserdämmplatte Gutex Multiplex top 	0,022	0,044	4,40	0,0000	0,000	
+	4.0	Konstruktionsholz	0,060	0,110	25,50	0,8500	0,060	H
+	4.1	dazw. Zellulose-Einblasdämmung 	0,060	0,039	3,30	0,0000	0,000	
+	5.0	Konstruktionsholz	0,240	0,110	102,00	0,6250	0,060	V
+	5.1	dazw. Zellulose-Einblasdämmung 	0,240	0,039	13,20	0,0000	0,000	
+	6	Abdichtungsbahn (strömungsdicht) lt.ÖN	0,002	0,000	0,00	0,0000	0,000	
+	7	Brettsperrholz	0,120	0,120	59,04	0,0000	0,000	
+
+IW	IW01a	Innengangwand tragend, R60 	U-Wert vorh.:	0,496	U-Wert erf.:	0,000	Flächenbezogene Masse:	65,60
+		zimmerseitig Sichtqualität mit Installations-VS
+	1	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	2.0	Konstruktionsholz	0,040	0,120	19,00	0,6250	0,060	V
+	2.1	Wärmedämmung (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,040	0,039	0,52	0,0000	0,000	
+	3	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+
+IW	IW01b	Innengangwand tragend, R60	U-Wert vorh.:	0,890	U-Wert erf.:	0,000	Flächenbezogene Masse:	63,26
+		zimmerseitig Sichtqualität, E-Installat. senkt. eingefräst
+	1	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+	2	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+IW	IW02	Innengangwand tragend, R60, zweiseitig (Schlafzimmer- und Wo	U-Wert vorh.:	0,915	U-Wert erf.:	0,000	Flächenbezogene Masse:	49,20
+		Sichtqualität, E-Installat. senkrecht eingebohrt
+	1	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+WBW	IW03	Wohnungstrennwand tragend, REI60 o. Installations-VS	U-Wert vorh.:	0,228	U-Wert erf.:	0,900	Flächenbezogene Masse:	130,84
+		
+	1	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	2	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	3	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	4	Luftschicht 	0,030	0,045	0,03	0,0000	0,000	
+	5	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	6	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	7	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+WBW	IW04	Wohnungstrennwand tragend, REI60 mit einseit. E-Install.-VS 	U-Wert vorh.:	0,173	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		gangseit. im Wohnungsverband
+	1	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+	2.0	Konstruktionsholz	0,040	0,120	19,00	0,6250	0,060	V
+	2.1	Wärmedämmung (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,040	0,039	0,52	0,0000	0,000	
+	3	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	4	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	5	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	6	Luftschicht 	0,030	0,045	0,03	0,0000	0,000	
+	7	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	8	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	9	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+WBW	IW05	Wohnungstrennwand tragend, REI60 mit beidseit. E-Install.-VS	U-Wert vorh.:	0,140	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		beidseits (Küche-Küche)
+	1	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+	2.0	Konstruktionsholz	0,040	0,120	19,00	0,6250	0,060	V
+	2.1	Wärmedämmung (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,040	0,039	0,52	0,0000	0,000	
+	3	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	4	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	5	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	6	Luftschicht 	0,030	0,045	0,03	0,0000	0,000	
+	7	Glaswollemit mit Vlies kaschiert 40 kg/m³	0,030	0,035	1,20	0,0000	0,000	
+	8	FERMACELL Powerpanel HD	0,015	0,400	15,00	0,0000	0,000	
+	9	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	10.0	Konstruktionsholz	0,040	0,120	19,00	0,6250	0,060	V
+	10.1	Wärmedämmung (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,040	0,039	0,52	0,0000	0,000	
+	11	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+
+IW	IW06	Innenwand nichttragend o. Installations-VS 	U-Wert vorh.:	0,321	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		
+	1	Gipsfaserplatte 	0,015	0,400	16,87	0,0000	0,000	
+	2.0	Konstruktionsholz	0,080	0,110	34,00	0,6250	0,060	V
+	2.1	Wärmedämmung Glaswolle z.B. (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,080	0,039	1,04	0,0000	0,000	
+	3	Gipsfaserplatte 	0,015	0,400	16,87	0,0000	0,000	
+
+IW	IW07	Liftschachtwand R60	U-Wert vorh.:	0,884	U-Wert erf.:	0,000	Flächenbezogene Masse:	66,08
+		
+	1	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+	2	Gipsfaserplatte 	0,015	0,400	16,87	0,0000	0,000	
+
+WGU	IW08	Wohnungstrennwand zu Müll STB	U-Wert vorh.:	0,206	U-Wert erf.:	0,600	Flächenbezogene Masse:	495,40
+		
+	1	Wärmedämmung (z.B. Tektalan A2 SmartTec Protect o.glw.)	0,125	0,035	19,00	0,0000	0,000	
+	2	Stahlbetonwand	0,200	2,300	460,00	0,0000	0,000	
+	3.0	Konstruktionsholz	0,040	0,120	19,00	0,6250	0,060	V
+	3.1	Wärmedämmung (z.B. ISOVER TW- KF Trennwandklemmfilz o.glw.)	0,040	0,039	0,52	0,0000	0,000	
+	4	Gipsfaserplatte 	0,0125	0,400	14,06	0,0000	0,000	
+
+AW	W1.1	Massivholz Außenwand 	U-Wert vorh.:	0,129	U-Wert erf.:	0,350	Flächenbezogene Masse:	99,40
+		Holzweichfaserplatte, Holzfassade hinterlüftet, REI 60 
+	1	senkrechte Holzverkleidung 	0,020	0,130	10,50	0,0000	0,000	
+	2.0	Holz Lattung senkrechte	0,030	0,110	12,75	0,6250	0,050	V
+	2.1	Luftschicht 	0,030	0,194	0,03	0,0000	0,000	
+	3.0	Holz Lattung waagrechte	0,030	0,110	12,75	0,6250	0,050	H
+	3.1	Luftschicht 	0,030	0,194	0,03	0,0000	0,000	
+	4	Windbremse sd ? 0,3m	0,002	0,500	1,96	0,0000	0,000	
+	5	Wärmedämmung (z.B. Holzfaserdämmplatte Gutex Multitherm o.glw.)	0,060	0,044	12,00	0,0000	0,000	
+	6.0	Konstruktionsholz	0,240	0,110	102,00	0,6250	0,060	V
+	6.1	dazw. Zellulose-Einblasdämmung 	0,240	0,039	13,20	0,0000	0,000	
+	7	Dampfbremse sd?2m	0,002	0,500	1,96	0,0000	0,000	
+	8	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+AW	W1.2	Massivholz Außenwand 	U-Wert vorh.:	0,093	U-Wert erf.:	0,000	Flächenbezogene Masse:	0,00
+		Var.Gifsfaserplatte, Holzfassade hinterlüftet, REI 60 
+	1	senkrechte Holzverkleidung 	0,020	0,130	10,50	0,0000	0,000	
+	2.0	Holz Lattung senkrechte	0,030	0,110	12,75	0,6250	0,050	V
+	2.1	Luftschicht 	0,030	0,194	0,03	0,0000	0,000	
+	3.0	Holz Lattung waagrechte	0,030	0,110	12,75	0,6250	0,050	H
+	3.1	Luftschicht 	0,030	0,194	0,03	0,0000	0,000	
+	4	Windbremse sd ? 0,3m	0,002	0,500	1,96	0,0000	0,000	
+	5	Gipsfaserplatte 	0,015	0,400	16,87	0,0000	0,000	
+	6.0	Konstruktionsholz	0,280	0,110	119,00	0,6250	0,060	V
+	6.1	dazw. Zellulose-Einblasdämmung 	0,280	0,039	15,40	0,0000	0,000	
+	7	Dampfbremse sd?2m	0,002	0,500	1,96	0,0000	0,000	
+	8	Brettsperrholz	0,100	0,120	49,20	0,0000	0,000	
+
+EWu	W1a	STB-Sockelbereich EG von W1, 15cm über FOK reichend	U-Wert vorh.:	0,195	U-Wert erf.:	0,400	Flächenbezogene Masse:	561,62
+		
+	1	Dünn Putzsystem	0,060	0,800	108,00	0,0000	0,000	
+	2	Wärmedämmung (z.B. AUSTROTHERM XPS TOP 30 SF o.glw,)	0,160	0,036	4,80	0,0000	0,000	
+	3	Kleber 	0,001	1,000	1,80	0,0000	0,000	
+	4	Abdichtung lt.ÖN	0,010	0,230	10,50	0,0000	0,000	
+	5	Stahlbetonwand	0,180	2,300	414,00	0,0000	0,000	
+	6	Luftschicht 	0,014	0,045	0,01	0,0000	0,000	
+	7	Sockel-Innenverkleidung (Material klären) mit Brettsperrholzelement innen flücht	0,020	0,400	22,50	0,0000	0,000	
+
+AW	W2	Garagenaußenwand	U-Wert vorh.:	0,320	U-Wert erf.:	0,350	Flächenbezogene Masse:	696,00
+		
+	1	Schutzschicht	0,010	0,220	3,00	0,0000	0,000	
+	2	Wärmedämmung (z.B. AUSTROTHERM XPS TOP 30 SF o.glw.)	0,100	0,036	3,00	0,0000	0,000	
+	3	Stahlbetonwand	0,300	2,300	690,00	0,0000	0,000	
+
+AW	W3	Wand zu Überfahrt	U-Wert vorh.:	0,163	U-Wert erf.:	0,350	Flächenbezogene Masse:	496,80
+		
+	1	Außenputz	0,007	0,800	12,60	0,0000	0,000	
+	2	Wärmedämmung (z.B. ROCKWOOL Coverrock o.glw.)	0,200	0,034	24,20	0,0000	0,000	
+	3	Stahlbetonwand	0,200	2,300	460,00	0,0000	0,000	
+

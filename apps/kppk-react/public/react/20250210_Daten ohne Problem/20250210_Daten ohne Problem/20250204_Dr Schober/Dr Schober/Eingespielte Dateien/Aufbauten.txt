@@ -1,0 +1,319 @@
+AD	AD01	Warmdach Gr¸ndach ¸ber Wohnraum (extensiv)	U-Wert vorh.:	0,100	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	950,00
+		(beheizt/ Auﬂenluft)
+	1	Substrat	0,230	2,000	391,00	0,0000	0,000	
+	2	Schutz- und Filtervlies	0,0005	0,500	0,15	0,0000	0,000	
+	3	Wasserspeicher und Drainschicht	0,050	0,500	49,00	0,0000	0,000	
+	4	Faserschutzmatte	0,005	0,500	1,50	0,0000	0,000	
+	5	Feuchtigkeitsabdichtung (lt. ÷NORM)	0,015	0,230	15,75	0,0000	0,000	
+	6	Trenn-, Druck- und Ausgleichsschicht	0,0005	0,500	0,49	0,0000	0,000	
+	7	Gef‰lled‰mmung i.M. Polystyrol EPS-W 25 [?=0,031W/mK]	0,295	0,031	6,78	0,0000	0,000	
+	8	Dampfsperre [sd>1500m]	0,0005	0,500	0,32	0,0000	0,000	
+	9	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	10	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+ADh	AD02	Steildach hinterl¸ftet 45∞ 	U-Wert vorh.:	0,158	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	547,90
+		(beheizt/ Auﬂenluft)
+	1	PREFA Dachraute	0,010	160,000	28,00	0,0000	0,000	
+	2	strukturierte Trennlage	0,002	0,170	2,30	0,0000	0,000	
+	3	Vollschalung	0,025	0,110	10,62	0,0000	0,000	
+	4.0	Konterlattung dazw. 	0,060	0,110	25,50	0,6000	0,040	V
+	4.1	Hinterl¸ftung	0,060	0,375	0,07	0,0000	0,000	
+	5	Unterdeckbahn	0,001	0,230	1,05	0,0000	0,000	
+	6	Vollschalung	0,025	0,110	10,62	0,0000	0,000	
+	7.0	Sparren dazw.	0,260	0,110	110,50	0,7000	0,120	H
+	7.1	Multi-Kombi Klemmfilz [?=0,033W/mK]	0,260	0,033	5,59	0,0000	0,000	
+	8	Stahlbeton	0,200	2,300	465,00	0,0000	0,000	
+	9	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+AD	AD03	Warmdach Kies ¸ber Erker	U-Wert vorh.:	0,106	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	611,59
+		(beheizt/ Auﬂenluft)
+	1	Kiessch¸ttung	0,060	2,000	102,00	0,0000	0,000	
+	2	Schutz- und Filtervlies	0,0005	0,500	0,15	0,0000	0,000	
+	3	Feuchtigkeitsabdichtung 2-lagig (lt. ÷NORM)	0,015	0,230	15,75	0,0000	0,000	
+	4	Trenn-, Druck- und Ausgleichsschicht	0,002	0,500	1,96	0,0000	0,000	
+	5	D‰mmung und Gef‰lled‰mmung PUR-DD [?=0,022W/mK] >	0,200	0,022	6,40	0,0000	0,000	
+	6	Dampfsperre [sd>1500m]	0,0005	0,500	0,32	0,0000	0,000	
+	7	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	8	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+AD	AD04	Warmdach Terrasse	U-Wert vorh.:	0,096	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	702,93
+		(beheizt/ Auﬂenluft)
+	1	Plattenbelag	0,040	2,000	96,00	0,0000	0,000	
+	2	Kies	0,055	2,000	93,50	0,0000	0,000	
+	3	Gummimatte [s'<100MN/m≥]	0,005	0,170	3,20	0,0000	0,000	
+	4	Schutz- und Filtervlies	0,0005	0,500	0,15	0,0000	0,000	
+	5	Feuchtigkeitsabdichtung 2-lagig (lt. ÷NORM)	0,015	0,230	15,75	0,0000	0,000	
+	6	Trenn-, Druck- und Ausgleichsschicht	0,002	0,500	1,96	0,0000	0,000	
+	7	D‰mmung und Gef‰lled‰mmung PUR-DD [?=0,022W/mK] >	0,220	0,022	7,04	0,0000	0,000	
+	8	Dampfsperre [sd>1500m]	0,0005	0,500	0,32	0,0000	0,000	
+	9	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	10	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+DU	AD05	Dach ¸ber Stellplatz	U-Wert vorh.:	4,902	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	948,56
+		Auﬂenluftbereich
+	1	Blechdach	0,0002	160,000	0,56	0,0000	0,000	
+	2	Metallkonstruktion	0,120	30,000	948,00	0,0000	0,000	
+
+AD	AD07	Zugang ¸ber Keller	U-Wert vorh.:	0,165	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	782,26
+		(beheizt/ Auﬂenluft)
+	1	Pflasterstein	0,060	2,000	144,00	0,0000	0,000	
+	2	Kies	0,050	2,000	85,00	0,0000	0,000	
+	3	Schutz- und Filtervlies	0,0002	0,500	0,06	0,0000	0,000	
+	4	Extrudiertes Polystyrol XPS-G [?=0,035W/mK]	0,200	0,035	7,60	0,0000	0,000	
+	5	Feuchtigkeitsabdichtung 2-lagig (lt. ÷NORM)	0,010	0,230	10,50	0,0000	0,000	
+	6	Trenn- und Ausgleichsschicht (Voranstrich)	0,002	0,230	2,10	0,0000	0,000	
+	7	Stahlbeton im Gef‰lle i.M.	0,220	2,500	528,00	0,0000	0,000	
+	8	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+DD	AD08	Fuﬂboden Erker (20cm STB-Decke+20cm MW)	U-Wert vorh.:	0,135	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	734,89
+		 (beheizt/ Auﬂenluft)
+	1	Silikatputz armiert	0,010	0,800	18,00	0,0000	0,000	
+	2	Putztr‰gerplatte Steinwolle MW-PT [?=0,034W/mK]	0,200	0,034	24,00	0,0000	0,000	
+	3	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	4	EPS-Ausgleichssch¸ttung	0,045	0,200	36,00	0,0000	0,000	
+	5	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	6	Trittschall-D‰mmplatte TDPS [s'=10MN/m≥]	0,030	0,032	2,13	0,0000	0,000	
+	7	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	8	Estrich	0,070	1,400	140,00	0,0000	0,000	
+	9	Bodenbelag (Parkett versiegelt, Fliesen)	0,015	1,300	34,50	0,0000	0,000	
+
+DD	AD08a	Fuﬂboden Erker (20cm STB-Decke+17cm MW)	U-Wert vorh.:	0,153	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	731,29
+		 (beheizt/ Auﬂenluft)
+	1	Systemputz armiert	0,010	0,800	18,00	0,0000	0,000	
+	2	Putztr‰gerplatte Steinwolle MW-PT [?=0,034W/mK]	0,170	0,034	20,40	0,0000	0,000	
+	3	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	4	EPS-Ausgleichssch¸ttung	0,045	0,200	36,00	0,0000	0,000	
+	5	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	6	Trittschall-D‰mmplatte TDPS [s'=10MN/m≥]	0,030	0,032	2,13	0,0000	0,000	
+	7	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	8	Estrich	0,070	1,400	140,00	0,0000	0,000	
+	9	Bodenbelag (Parkett versiegelt, Fliesen)	0,015	1,300	34,50	0,0000	0,000	
+
+DD	AD08b	Fuﬂboden Erker (22cm STB-Decke+15cm MW)	U-Wert vorh.:	0,168	U-Wert erf.:	0,200	Fl‰chenbezogene Masse:	776,89
+		 (beheizt/ Auﬂenluft)
+	1	Systemputz armiert	0,010	0,800	18,00	0,0000	0,000	
+	2	Putztr‰gerplatte Steinwolle MW-PT [?=0,034W/mK]	0,150	0,034	18,00	0,0000	0,000	
+	3	Stahlbeton	0,220	2,500	528,00	0,0000	0,000	
+	4	EPS-Ausgleichssch¸ttung	0,045	0,200	36,00	0,0000	0,000	
+	5	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	6	Trittschall-D‰mmplatte TDPS [s'=10MN/m≥]	0,030	0,032	2,13	0,0000	0,000	
+	7	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	8	Estrich	0,070	1,400	140,00	0,0000	0,000	
+	9	Bodenbelag (Parkett versiegelt, Fliesen)	0,015	1,300	34,50	0,0000	0,000	
+
+EB	AD09	Bodenplatte ¸ber Erdreich Wohnen	U-Wert vorh.:	0,098	U-Wert erf.:	0,400	Fl‰chenbezogene Masse:	1.170,64
+		(beheizt/ Erdreich)
+	1	Sauberkeitsschicht	0,100	2,000	240,00	0,0000	0,000	
+	2	Extrudiertes Polystyrol XPS-G [?=0,035W/mK]	0,300	0,035	9,00	0,0000	0,000	
+	3	Stahlbeton	0,300	2,300	697,50	0,0000	0,000	
+	4	Feuchtigkeitsabdichtung (lt. ÷NORM)	0,015	0,230	15,75	0,0000	0,000	
+	5	EPS-Ausgleichssch¸ttung	0,045	0,190	31,50	0,0000	0,000	
+	6	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	7	Trittschall-D‰mmplatte TDPS/ TDPT [?=0,032]	0,030	0,032	2,13	0,0000	0,000	
+	8	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	9	Estrich	0,070	1,400	140,00	0,0000	0,000	
+	10	Bodenbelag (Parkett/ Fliesen) 	0,015	1,300	34,50	0,0000	0,000	
+
+ATw	AT	Holz-Auﬂent¸r mit Holzrahmenkonstruktion	U-Wert vorh.:	1,087	U-Wert erf.:	1,400	Fl‰chenbezogene Masse:	39,00
+		(beheizt/ Auﬂenluft)
+	1	Haust¸re aus Holz mit Holzzarge [?=0,090W/mK]	0,060	0,080	39,00	0,0000	0,000	
+
+AW	AW01	Auﬂenwand STB+WDVS (EPS)	U-Wert vorh.:	0,153	U-Wert erf.:	0,350	Fl‰chenbezogene Masse:	515,91
+		(beheizt/ Auﬂenluft)
+	1	Silikatputz armiert	0,005	0,800	9,00	0,0000	0,000	
+	2	Polysterol EPS-F Plus [?=0,032W/mK]	0,200	0,032	3,16	0,0000	0,000	
+	3	Kleber mineralisch	0,010	1,000	18,00	0,0000	0,000	
+	4	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	5	Spachtelung	0,005	0,600	5,75	0,0000	0,000	
+
+AW	AW01a	Auﬂenwand STB+WDVS (EPS)	U-Wert vorh.:	0,153	U-Wert erf.:	0,350	Fl‰chenbezogene Masse:	563,91
+		(beheizt/ Auﬂenluft)
+	1	Silikathputz armiert	0,005	0,800	9,00	0,0000	0,000	
+	2	Polysterol EPS-F Plus [?=0,032W/mK]	0,200	0,032	3,16	0,0000	0,000	
+	3	Kleber mineralisch	0,010	1,000	18,00	0,0000	0,000	
+	4	Stahlbeton	0,220	2,500	528,00	0,0000	0,000	
+	5	Spachtelung	0,005	0,600	5,75	0,0000	0,000	
+
+EW	AW02a	Auﬂenwand STB - erdber¸hrt - Keller	U-Wert vorh.:	0,201	U-Wert erf.:	0,400	Fl‰chenbezogene Masse:	620,75
+		(beheizt/ Erdreich)
+	1	Extrudiertes Polystyrol XPS PLUS 30 SF [?=0,032]	0,150	0,032	4,50	0,0000	0,000	
+	2	Feuchtigkeitsabdichtung 2-lagig (lt. ÷NORM)	0,010	0,230	10,50	0,0000	0,000	
+	3	Stahlbeton	0,250	2,500	600,00	0,0000	0,000	
+	4	Spachtelung	0,005	0,600	5,75	0,0000	0,000	
+
+EW	AW02b	Auﬂenwand STB - erdber¸hrt - Keller	U-Wert vorh.:	0,153	U-Wert erf.:	0,400	Fl‰chenbezogene Masse:	622,25
+		(beheizt/ Erdreich)
+	1	Extrudiertes Polystyrol XPS PLUS 30 SF [?=0,032]	0,200	0,032	6,00	0,0000	0,000	
+	2	Feuchtigkeitsabdichtung 2-lagig (lt. ÷NORM)	0,010	0,230	10,50	0,0000	0,000	
+	3	Stahlbeton	0,250	2,500	600,00	0,0000	0,000	
+	4	Spachtelung	0,005	0,600	5,75	0,0000	0,000	
+
+UW	AW03	Auﬂenwand Garage	U-Wert vorh.:	1,065	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	258,50
+		(unbeheizt/ Garage)
+	1	Systemputz	0,005	0,800	9,00	0,0000	0,000	
+	2	Steinwolle-Trennfugenplatte	0,025	0,040	3,75	0,0000	0,000	
+	3	Stahlbeton	0,100	2,500	240,00	0,0000	0,000	
+	4	Spachtelung	0,005	0,600	5,75	0,0000	0,000	
+
+Awh	AW04	Auﬂenwand Dachaufbau	U-Wert vorh.:	0,241	U-Wert erf.:	0,350	Fl‰chenbezogene Masse:	501,60
+		(beheizt/ Auﬂenluft)
+	1	Prefa Dachraute	0,010	221,000	28,00	0,0000	0,000	
+	2	Trennlage	0,001	0,500	0,98	0,0000	0,000	
+	3	Holzschalung	0,025	0,110	10,62	0,0000	0,000	
+	4	Lattung dazw. Hinterl¸ftung	0,030	0,110	12,75	0,0000	0,000	
+	5	Unterdeckbahn [sd=0,08m]	0,001	0,230	1,05	0,0000	0,000	
+	6.0	Holzkonstruktion 16/8 dazw.	0,160	0,110	68,00	0,7000	0,080	V
+	6.1	Zwischensparren-Klemmfilz, vlieskaschiert [?=0,034W/mK]	0,160	0,034	3,84	0,0000	0,000	
+	7	Stahlbeton	0,180	2,500	432,00	0,0000	0,000	
+	8	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+AA	ID01	Decke Wohnraum ¸ber Wohnraum	U-Wert vorh.:	0,759	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	697,89
+		 (beheizt/ beheizt)
+	1	Bodenbelag (Parkett/ Fliesen)	0,015	1,300	34,50	0,0000	0,000	
+	2	Estrich (Fuﬂbodenheizung)	0,070	1,400	140,00	0,0000	0,000	
+	3	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	4	Trittschall-D‰mmplatte TDPS/ TDPT [s'=10MN/m≥]	0,030	0,032	2,13	0,0000	0,000	
+	5	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	6	EPS-Ausgleichssch¸ttung	0,045	0,200	36,00	0,0000	0,000	
+	7	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	8	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+DGS	ID02	Decke Wohnraum ¸ber Stiegenhaus	U-Wert vorh.:	0,317	U-Wert erf.:	0,400	Fl‰chenbezogene Masse:	710,89
+		 (beheizt/ unbeheizt)
+	1	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+	2	Gipskartonplatten	0,015	0,210	10,50	0,0000	0,000	
+	3	C-Profilkonstruktion mit Mineralfaser MW (GW)-WF [?=0,035W/mK]	0,050	0,035	2,50	0,0000	0,000	
+	4	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	5	EPS-Ausgleichssch¸ttung	0,045	0,200	36,00	0,0000	0,000	
+	6	PE-Folie [sd=100m]	0,0002	0,500	0,13	0,0000	0,000	
+	7	Trittschall-D‰mmplatte TDPS [s'=10MN/m≥]	0,030	0,032	2,13	0,0000	0,000	
+	8	Folie	0,0002	0,500	0,13	0,0000	0,000	
+	9	Estrich (Fuﬂbodenheizung)	0,070	1,400	140,00	0,0000	0,000	
+	10	Bodenbelag (Parkett/ Fliesen)	0,015	1,300	34,50	0,0000	0,000	
+
+IDu	ID03	Treppenl‰ufe	U-Wert vorh.:	2,674	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	486,10
+		(beheizt/ beheizt)
+	1	Parkett	0,015	0,160	11,10	0,0000	0,000	
+	2	Stahlbeton (schalltechnisch entkoppelt)	0,200	2,500	475,00	0,0000	0,000	
+
+AA	IW	IW-LB 22	U-Wert vorh.:	0,246	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	57,59
+		(beheizt/ beheizt)
+	1	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	3	7,5cm St‰nderwerk dazw. Luftschicht und	0,025	0,042	0,03	0,0000	0,000	
+	4	   - Mineralfaserfilz TW-KF rutschsicher	0,050	0,039	0,62	0,0000	0,000	
+	5	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	6	D‰mmstoff selbstklebend	0,0025	0,040	0,03	0,0000	0,000	
+	7	7,5cm St‰nderwerk dazw. Luftschicht und	0,025	0,042	0,03	0,0000	0,000	
+	8	   - Mineralfaserfilz TW-KF rutschsicher	0,050	0,039	0,62	0,0000	0,000	
+	9	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	10	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	IW	IW-STB 18	U-Wert vorh.:	13,333	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	423,00
+		(beheizt/ beheizt)
+	1	Stahlbeton gespachtelt	0,180	2,400	423,00	0,0000	0,000	
+
+AA	IW01	Innenwand Wohnung	U-Wert vorh.:	0,494	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	23,44
+		(beheizt/ beheizt)
+	1	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+	2	7,5cm St‰nderwerk dazw. Mineralfaserfilz TW-KF rutschsicher	0,075	0,039	0,93	0,0000	0,000	
+	3	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	IW02	Innenwand Wohnung Bad verfliest	U-Wert vorh.:	0,471	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	45,94
+		(beheizt/ beheizt)
+	1	Gipskartonplatten GKB	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskartonplatten GKB	0,0125	0,250	11,25	0,0000	0,000	
+	3	7,5cm St‰nderwerk dazw. Mineralfaserfilz TW-KF rutschsicher	0,075	0,039	0,93	0,0000	0,000	
+	4	Gipskartonplatten (Feuchtraumplatten)	0,0125	0,250	11,25	0,0000	0,000	
+	5	Gipskartonplatten (Feuchtraumplatten)	0,0125	0,250	11,25	0,0000	0,000	
+
+IW	IW03	Innenwand zwischen KIWA und Gang	U-Wert vorh.:	0,420	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	45,94
+		(unbeheizt/ unbeheizt)
+	1	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	3	7,5cm St‰nderwerk dazw. Mineralfaserfilz TW-KF rutschsicher	0,075	0,039	0,93	0,0000	0,000	
+	4	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	5	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+
+DU	OAD01	Balkon mit 6cm Kies (thermisch entkoppelt)	U-Wert vorh.:	2,591	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	693,50
+		Auﬂenluftbereich
+	1	Plattenbelag	0,040	2,000	96,00	0,0000	0,000	
+	2	Kies	0,060	2,000	102,00	0,0000	0,000	
+	3	Feuchtigkeitsabdichtung (lt. ÷NORM)	0,010	0,230	10,50	0,0000	0,000	
+	4	Stahlbeton im Gef‰lle (20 bis 25cm) >	0,200	2,500	480,00	0,0000	0,000	
+	5	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+DU	OAD02	Balkon Verl‰ngerung der Terrassen	U-Wert vorh.:	0,077	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	730,74
+		Auﬂenluftbereich
+	1	Plattenbelag	0,040	2,000	96,00	0,0000	0,000	
+	2	Kies	0,060	2,000	102,00	0,0000	0,000	
+	3	Trittschallschutzmatte [s'=21MN/m≥]	0,015	0,170	9,60	0,0000	0,000	
+	4	Schutz- und Filtervlies	0,0002	0,500	0,06	0,0000	0,000	
+	5	Feuchtigkeitsabdichtung (lt. ÷NORM)	0,015	0,230	15,75	0,0000	0,000	
+	6	Trenn-, Druck- und Ausgleichsschicht	0,002	0,500	1,96	0,0000	0,000	
+	7	D‰mmung und Gef‰lled‰mmung PUR-DD [?=0,022W/mK] >	0,220	0,022	7,04	0,0000	0,000	
+	8	Dampfsperre [sd>1500m]	0,0005	0,500	0,32	0,0000	0,000	
+	9	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	10	Mineralfaser MW-PT (W‰rmebr¸ckend‰mmung unterhalb)	0,100	0,040	9,00	0,0000	0,000	
+	11	Systemd¸nnputz	0,005	0,800	9,00	0,0000	0,000	
+
+DU	OAD03	Balkon mit 11cm Kies (thermisch entkoppelt)	U-Wert vorh.:	2,433	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	778,50
+		Auﬂenluftbereich
+	1	Plattenbelag	0,040	2,000	96,00	0,0000	0,000	
+	2	Kies	0,110	2,000	187,00	0,0000	0,000	
+	3	Feuchtigkeitsabdichtung (lt. ÷NORM)	0,010	0,230	10,50	0,0000	0,000	
+	4	Stahlbeton im Gef‰lle (20 bis 25cm) >	0,200	2,500	480,00	0,0000	0,000	
+	5	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+AA	SW01	Schachtwand	U-Wert vorh.:	0,724	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	23,13
+		(beheizt/ Schacht)
+	1	5,0 cm St‰nderwerk freistehend dazw. TW-KF rutschsicher >	0,050	0,039	0,62	0,0000	0,000	
+	2	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+	3	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	TW01	Trennwand Wohnung-Wohnung-STB	U-Wert vorh.:	0,717	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	450,15
+		(beheizt/ beheizt)
+	1	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+	3	5cm St‰nderwerk dazw. Mineralfaserfilz TW-KF rutschsicher	0,050	0,041	4,65	0,0000	0,000	
+	4	Stahlbeton gespachtelt	0,180	2,400	423,00	0,0000	0,000	
+
+WBW	TW01a	Trennwand Wohnung mit VS f¸r K¸che - STB	U-Wert vorh.:	0,442	U-Wert erf.:	1,300	Fl‰chenbezogene Masse:	452,48
+		(beheizt/ beheizt)
+	1	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskartonplatten	0,0125	0,250	11,25	0,0000	0,000	
+	3	7,5cm St‰nderwerk dazw. Mineralfaserfilz TW-KF rutschsicher	0,075	0,041	6,97	0,0000	0,000	
+	4	Stahlbeton gespachtelt	0,180	2,400	423,00	0,0000	0,000	
+
+AA	TW02	Trennwand leicht Wohnung	U-Wert vorh.:	0,246	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	57,59
+		(beheizt/ beheizt)
+	1	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	2	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	3	7,5cm St‰nderwerk dazw. Luftschicht und	0,025	0,042	0,03	0,0000	0,000	
+	4	   - Mineralfaserfilz TW-KF rutschsicher	0,050	0,039	0,62	0,0000	0,000	
+	5	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	6	D‰mmstoff selbstklebend	0,0025	0,040	0,03	0,0000	0,000	
+	7	7,5cm St‰nderwerk dazw. Luftschicht und	0,025	0,042	0,03	0,0000	0,000	
+	8	   - Mineralfaserfilz TW-KF rutschsicher	0,050	0,039	0,62	0,0000	0,000	
+	9	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+	10	Gipskarton-Feuerschutzplatten GKF	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	VS01	Vorsatzschale WC	U-Wert vorh.:	0,369	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	23,28
+		(beheizt/ Schacht)
+	1	Schacht (Luftschicht)	0,125	0,094	0,15	0,0000	0,000	
+	2	5,0 cm St‰nderwerk freistehend dazw. TW-KF rutschsicher >	0,050	0,039	0,62	0,0000	0,000	
+	3	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+	4	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	VS02	Vorsatzschale (Installationswand)	U-Wert vorh.:	0,656	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	23,16
+		(beheizt/ Schacht)
+	1	7,5cm St‰nderwerk (Luftschicht stehend) dazw.	0,025	0,176	0,03	0,0000	0,000	
+	2	   TW-KF rutschsicher >	0,050	0,039	0,62	0,0000	0,000	
+	3	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+	4	Gipskartonplatte	0,0125	0,250	11,25	0,0000	0,000	
+
+AA	VS03	Vorsatzschale (Installationswand)	U-Wert vorh.:	0,745	U-Wert erf.:	0,000	Fl‰chenbezogene Masse:	14,13
+		(beheizt/ Schacht)
+	1	5,0 cm St‰nderwerk freistehend dazw. TW-KF rutschsicher >	0,050	0,039	0,62	0,0000	0,000	
+	2	Gipskartonplatte	0,015	0,250	13,50	0,0000	0,000	
+

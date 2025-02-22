@@ -1,0 +1,105 @@
+AD	AD	AD Terrassen / Balkon 	U-Wert vorh.:	0,137	U-Wert erf.:	0,200	Flächenbezogene Masse:	714,30
+		
+	1	Plattenbelag	0,040	2,000	96,00	0,0000	0,000	
+	2	Kies i.M.	0,060	2,000	102,00	0,0000	0,000	
+	3	Gummimatte [s'<100MN/m³]	0,015	0,170	9,60	0,0000	0,000	
+	4	Schutz- und Filtervlies	0,0005	0,500	0,15	0,0000	0,000	
+	5	Feuchtigkeitsabdichtung (lt. ÖNORM)	0,015	0,230	15,75	0,0000	0,000	
+	6	Dampfdruck-Ausgleichsschicht / Entspannungsschicht	0,0005	0,170	0,53	0,0000	0,000	
+	7	Gefälledämmung EPS-W 25 [?=0,031W/mK] i.M.	0,215	0,031	4,94	0,0000	0,000	
+	8	Dampfsperre [sd>1500m]	0,0005	0,500	0,32	0,0000	0,000	
+	9	Stahlbeton	0,200	2,500	480,00	0,0000	0,000	
+	10	Spachtelung	0,005	0,400	5,00	0,0000	0,000	
+
+AD	AD	Dach DG	U-Wert vorh.:	0,126	U-Wert erf.:	0,200	Flächenbezogene Masse:	89,45
+		
+	1	Dachabdichtungsbahn	0,005	0,250	7,50	0,0000	0,000	
+	2	 Polystyrol EPS	0,200	0,040	3,00	0,0000	0,000	
+	3	Bitumen	0,005	0,230	5,25	0,0000	0,000	
+	4	Brettsperrholz 	0,125	0,130	62,50	0,0000	0,000	
+	5	Minaralwolle	0,060	0,034	1,20	0,0000	0,000	
+	6	Gipsplatte 	0,0125	0,250	10,00	0,0000	0,000	
+
+AW	AW01	AW Altbau Saniert  	U-Wert vorh.:	0,189	U-Wert erf.:	0,350	Flächenbezogene Masse:	471,20
+		
+	1	Putze	0,005	0,400	5,00	0,0000	0,000	
+	2	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,280	0,660	420,00	0,0000	0,000	
+	3	Putze	0,005	0,400	5,00	0,0000	0,000	
+	4.0	Holz 	0,170	0,120	76,50	0,5000	0,001	V
+	4.1	ISOCELL Zellulosefaserdämmstoff	0,170	0,038	9,18	0,0000	0,000	
+	5	Holzspandämmplatte zementgebunden ( Isozell All-in Prozect Fassadenplatte)	0,035	0,160	22,75	0,0000	0,000	
+	6	Unterputz	0,005	0,910	9,00	0,0000	0,000	
+	7	Oberputz	0,005	0,910	0,00	0,0000	0,000	
+
+AW	AW02	AW Altbau Saniert EG 	U-Wert vorh.:	0,183	U-Wert erf.:	0,350	Flächenbezogene Masse:	651,20
+		
+	1	Oberputz	0,005	0,910	0,00	0,0000	0,000	
+	2	Unterputz	0,005	0,910	9,00	0,0000	0,000	
+	3	Holzspandämmplatte zementgebunden ( Isozell All-in Prozect Fassadenplatte)	0,035	0,160	22,75	0,0000	0,000	
+	4.0	Holz 	0,170	0,120	76,50	0,5000	0,001	V
+	4.1	ISOCELL Zellulosefaserdämmstoff	0,170	0,038	9,18	0,0000	0,000	
+	5	Putze	0,005	0,400	5,00	0,0000	0,000	
+	6	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,400	0,660	600,00	0,0000	0,000	
+	7	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+AW	AW10	AW Neubau (Aussenwand -awmhhi02a-00)	U-Wert vorh.:	0,102	U-Wert erf.:	0,350	Flächenbezogene Masse:	114,80
+		
+	1	Holz Lärche Außenwandverkleidung 	0,020	0,155	12,00	0,0000	0,000	
+	2.0	Hoz Fichte Lattung (30/60) Hinterlüftet 	0,030	0,120	13,50	0,6000	0,060	V
+	2.1	Luft	0,030	0,025	0,03	0,0000	0,000	
+	3	MDF	0,015	0,140	9,00	0,0000	0,000	
+	4.0	Konstruktionsholz quer ( 60/160)	0,160	0,120	72,00	0,6000	0,060	H
+	4.1	Zellulose	0,160	0,040	8,00	0,0000	0,000	
+	5.0	Konstruktionsholz quer ( 60/160)	0,160	0,120	72,00	0,6000	0,060	V
+	5.1	Zellulose	0,160	0,040	8,00	0,0000	0,000	
+	6	Brettsperrholz (verklebt) ( min 3-lagig, Decklage mom 30mm)	0,094	0,130	47,00	0,0000	0,000	
+	7.0	Holz Fichte Lattung (50/80) auf Schwingbügel 	0,080	0,120	36,00	0,6000	0,050	V
+	7.1	Zellulose	0,080	0,040	4,00	0,0000	0,000	
+	8	Gipsplatte 	0,0125	0,250	10,00	0,0000	0,000	
+
+DGKd	EB	Decke gegen Keller 	U-Wert vorh.:	0,199	U-Wert erf.:	1,200	Flächenbezogene Masse:	817,50
+		
+	1	PAROC CGL 20cy Kellerdeckendämmplatte	0,160	0,037	9,60	0,0000	0,000	
+	2	Stahlbeton 140 kg/m³ Armierungsstahl (1,75 Vol.%)	0,300	2,500	712,50	0,0000	0,000	
+	3	Dämmkork (100 kg/m³)	0,030	0,000	3,00	0,0000	0,000	
+	4	Zement- und Zementfließestrich (1800 kg/m³)	0,050	1,100	90,00	0,0000	0,000	
+	5	Textil-Belag, Teppich (200 kg/m³)	0,012	0,060	2,40	0,0000	0,000	
+
+EW	EW	AW Altbau EG Erdanliegend 	U-Wert vorh.:	1,605	U-Wert erf.:	0,400	Flächenbezogene Masse:	440,50
+		
+	1	Bitumen	0,010	0,230	10,50	0,0000	0,000	
+	2	Putze	0,005	0,400	5,00	0,0000	0,000	
+	3	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,280	0,660	420,00	0,0000	0,000	
+	4	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+EW	EW	AW Altbau Erdanliegend 	U-Wert vorh.:	1,605	U-Wert erf.:	0,400	Flächenbezogene Masse:	440,50
+		
+	1	Bitumen	0,010	0,230	10,50	0,0000	0,000	
+	2	Putze	0,005	0,400	5,00	0,0000	0,000	
+	3	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,280	0,660	420,00	0,0000	0,000	
+	4	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+WBW	AW01	AW Altbau Feuermauer 	U-Wert vorh.:	1,408	U-Wert erf.:	1,300	Flächenbezogene Masse:	430,00
+		
+	1	Putze	0,005	0,400	5,00	0,0000	0,000	
+	2	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,280	0,660	420,00	0,0000	0,000	
+	3	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+WBW	AW02	AW Altbau  EG Feuermauer 	U-Wert vorh.:	1,121	U-Wert erf.:	1,300	Flächenbezogene Masse:	610,00
+		
+	1	Putze	0,005	0,400	5,00	0,0000	0,000	
+	2	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,400	0,660	600,00	0,0000	0,000	
+	3	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+WggG	WggG	AW Altbau an Garage	U-Wert vorh.:	1,408	U-Wert erf.:	0,600	Flächenbezogene Masse:	430,00
+		
+	1	Putze	0,005	0,400	5,00	0,0000	0,000	
+	2	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,280	0,660	420,00	0,0000	0,000	
+	3	Putze	0,005	0,400	5,00	0,0000	0,000	
+
+WggG	WggG	AW Altbau EG an Garage	U-Wert vorh.:	1,121	U-Wert erf.:	0,600	Flächenbezogene Masse:	610,00
+		
+	1	Putze	0,005	0,400	5,00	0,0000	0,000	
+	2	Mauerziegel voll + Normalmauermörtel (1500 kg/m³)	0,400	0,660	600,00	0,0000	0,000	
+	3	Putze	0,005	0,400	5,00	0,0000	0,000	
+

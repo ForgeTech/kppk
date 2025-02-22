@@ -1,0 +1,55 @@
+﻿;;;;;;W/m²K;m²;m²;Stk
+LfdNr;Bauteiltyp;Bauteilkürzel;Bauteilbezeichnung;Bauteilbeschreibung;Status;U-Wert;FlächeBauteilEinzel;FlächeBauteilGesamt;StückGesamt
+1;AD;AD01;Warmdach Gründach über Wohnraum (extensiv);(beheizt/ Außenluft);;0,100;;71,64;
+2;ADh;AD02;Steildach hinterlüftet 45°;(beheizt/ Außenluft);;0,158;;41,61;
+3;AD;AD03;Warmdach Kies über Erker;(beheizt/ Außenluft);;0,106;;8,84;
+4;AD;AD04;Warmdach Terrasse;(beheizt/ Außenluft);;0,096;;17,01;
+5;DU;AD05;Dach über Stellplatz;Außenluftbereich;;4,902;;0,00;
+6;AD;AD07;Zugang über Keller;(beheizt/ Außenluft);;0,165;;14,04;
+7;DD;AD08;Fußboden Erker (20cm STB-Decke+20cm MW); (beheizt/ Außenluft);;0,135;;26,18;
+8;DD;AD08a;Fußboden Erker (20cm STB-Decke+17cm MW); (beheizt/ Außenluft);;0,153;;5,78;
+9;DD;AD08b;Fußboden Erker (22cm STB-Decke+15cm MW); (beheizt/ Außenluft);;0,168;;0,00;
+10;EB;AD09;Bodenplatte über Erdreich Wohnen;(beheizt/ Erdreich);;0,098;;117,74;
+11;ATw;AT;Holz-Außentür mit Holzrahmenkonstruktion;(beheizt/ Außenluft);;1,087;;3,60;
+12;AW;AW01;Außenwand STB+WDVS (EPS);(beheizt/ Außenluft);;0,153;;205,49;
+13;AW;AW01a;Außenwand STB+WDVS (EPS);(beheizt/ Außenluft);;0,153;;0,00;
+14;EW;AW02a;Außenwand STB - erdberührt - Keller;(beheizt/ Erdreich);;0,201;;0,00;
+15;EW;AW02b;Außenwand STB - erdberührt - Keller;(beheizt/ Erdreich);;0,153;;79,26;
+16;UW;AW03;Außenwand Garage;(unbeheizt/ Garage);;1,065;;0,00;
+17;Awh;AW04;Außenwand Dachaufbau;(beheizt/ Außenluft);;0,241;;119,87;
+18;AF;DF01;Dachflächenfenster;;;0,990;1,82;10,92;6
+19;AF;DF02;Dachflächenfenster;;;0,990;22,62;0,00;0
+20;AF;FE01;Holzfenster;;;0,810;2,26;38,42;17
+21;AF;FE02;Holzfenster;;;0,810;9,63;9,63;1
+22;AF;FE03;Holzfenster;;;0,810;5,99;5,99;1
+23;AF;FE04;Holzfenster;;;0,810;5,35;5,35;1
+24;AF;FE05;Holzfenster;;;0,810;3,19;3,19;1
+25;AF;FE06;Holzfenster;;;0,810;1,73;0,00;0
+26;AF;FE07;Holzfenster;;;0,810;9,20;9,20;1
+27;AF;FE08;Holzfenster;;;0,810;2,05;2,05;1
+28;AF;FE09;Holzfenster;;;0,810;1,40;0,00;0
+29;AF;FE10;Holzfenster;;;0,810;1,39;0,00;0
+30;AF;FE11;Holzfenster;;;0,810;1,82;0,00;0
+31;AF;FE12;Holzfenster;;;0,810;1,73;0,00;0
+32;AF;FE13;Holzfenster;;;0,810;1,55;3,10;2
+33;AF;FE14;Holzfenster;;;0,810;1,73;3,46;2
+34;AF;FE15;Holzfenster;;;0,810;1,73;0,00;0
+35;AA;ID01;Decke Wohnraum über Wohnraum; (beheizt/ beheizt);;0,759;;273,79;
+36;DGS;ID02;Decke Wohnraum über Stiegenhaus; (beheizt/ unbeheizt);;0,317;;0,00;
+37;IDu;ID03;Treppenläufe;(beheizt/ beheizt);;2,674;;0,00;
+38;AA;IW;IW-LB 22;(beheizt/ beheizt);;0,246;;11,74;
+39;AA;IW;IW-STB 18;(beheizt/ beheizt);;13,333;;21,77;
+40;AA;IW01;Innenwand Wohnung;(beheizt/ beheizt);;0,494;;106,83;
+41;AA;IW02;Innenwand Wohnung Bad verfliest;(beheizt/ beheizt);;0,471;;50,60;
+42;IW;IW03;Innenwand zwischen KIWA und Gang;(unbeheizt/ unbeheizt);;0,420;;0,00;
+43;DU;OAD01;Balkon mit 6cm Kies (thermisch entkoppelt);Außenluftbereich;;2,591;;0,00;
+44;DU;OAD02;Balkon Verlängerung der Terrassen;Außenluftbereich;;0,077;;0,00;
+45;DU;OAD03;Balkon mit 11cm Kies (thermisch entkoppelt);Außenluftbereich;;2,433;;0,00;
+46;AF;OL01;Oberlichten;;;0,810;1,00;1,00;1
+47;AA;SW01;Schachtwand;(beheizt/ Schacht);;0,724;;21,56;
+48;AA;TW01;Trennwand Wohnung-Wohnung-STB;(beheizt/ beheizt);;0,717;;82,75;
+49;WBW;TW01a;Trennwand Wohnung mit VS für Küche - STB;(beheizt/ beheizt);;0,442;;0,00;
+50;AA;TW02;Trennwand leicht Wohnung;(beheizt/ beheizt);;0,246;;29,33;
+51;AA;VS01;Vorsatzschale WC;(beheizt/ Schacht);;0,369;;18,35;
+52;AA;VS02;Vorsatzschale (Installationswand);(beheizt/ Schacht);;0,656;;7,46;
+53;AA;VS03;Vorsatzschale (Installationswand);(beheizt/ Schacht);;0,745;;0,00;

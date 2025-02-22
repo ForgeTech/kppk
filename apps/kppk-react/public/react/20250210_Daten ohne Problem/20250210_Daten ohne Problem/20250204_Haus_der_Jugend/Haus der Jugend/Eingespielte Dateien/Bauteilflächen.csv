@@ -1,0 +1,55 @@
+﻿;;;;;;W/m²K;m²;m²;Stk
+LfdNr;Bauteiltyp;Bauteilkürzel;Bauteilbezeichnung;Bauteilbeschreibung;Status;U-Wert;FlächeBauteilEinzel;FlächeBauteilGesamt;StückGesamt
+1;AD;AD;AD Terrassen / Balkon ;;;0,137;;824,39;
+2;AD;AD;Dach DG;;;0,126;;1 215,93;
+3;AF;0005;Fenster ;Fenster ;;0,830;9,00;45,00;5
+4;AF;0007;Fenster ;Fenster ;;0,830;1,63;1,63;1
+5;AF;0012;Fenster ;Fenster ;;0,830;34,53;34,53;1
+6;AF;0017;Fenster ;Fenster ;;0,830;9,73;87,57;9
+7;AF;0018;Fenster ;Fenster ;;0,830;7,08;276,12;39
+8;AF;0019;Fenster ;Fenster ;;0,830;12,25;367,50;30
+9;AF;0020;Fenster ;Fenster ;;0,830;9,27;46,35;5
+10;AF;0021;Fenster ;Fenster ;;0,830;9,10;45,50;5
+11;AF;0022;Fenster ;Fenster ;;0,830;11,04;55,20;5
+12;AF;0023;Fenster ;Fenster ;;0,830;3,57;107,10;30
+13;AF;0024;Fenster ;Fenster ;;0,830;12,08;48,32;4
+14;AF;0025;Fenster ;Fenster ;;0,830;3,26;130,40;40
+15;AF;0026;Fenster ;Fenster ;;0,830;5,75;5,75;1
+16;AF;0029;Fenster ;Fenster ;;0,830;9,88;88,92;9
+17;AF;0030;Fenster ;Fenster ;;0,830;10,56;52,80;5
+18;AF;0033;Fenster ;Fenster ;;0,830;6,58;32,90;5
+19;AF;0034;Fenster ;Fenster ;;0,830;1,32;26,40;20
+20;AF;0037;Fenster ;Fenster ;;0,830;22,43;0,00;0
+21;AF;0044;Fenster ;Fenster ;;0,830;47,19;47,19;1
+22;AF;0046;Fenster ;Fenster ;;0,830;16,07;16,07;1
+23;AF;0047;Fenster ;Fenster ;;0,830;49,93;49,93;1
+24;AF;0049;Fenster ;Fenster ;;0,830;8,35;8,35;1
+25;AF;0050;Fenster ;Fenster ;;0,830;33,21;33,21;1
+26;AF;0051;Fenster ;Fenster ;;0,830;36,44;36,44;1
+27;AF;0052;Fenster ;Fenster ;;0,830;48,40;48,40;1
+28;AF;0053;Fenster ;Fenster ;;0,830;15,86;15,86;1
+29;AF;0055;Fenster ;Fenster ;;0,830;72,09;72,09;1
+30;AF;0056;Fenster ;Fenster ;;0,830;9,44;18,88;2
+31;AF;0057;Fenster ;Fenster ;;0,830;24,92;99,68;4
+32;AF;0063;Fenster ;Fenster ;;0,830;7,47;0,00;0
+33;AF;0064;Fenster ;Fenster ;;0,830;4,30;0,00;0
+34;AF;0065;Fenster ;Fenster ;;0,830;1,92;0,00;0
+35;AF;0066;Fenster ;Fenster ;;0,830;29,14;0,00;0
+36;AF;0067;Fenster ;Fenster ;;0,830;9,27;0,00;0
+37;AF;0068;Fenster ;Fenster ;;0,830;7,47;0,00;0
+38;AF;0069;Fenster ;Fenster ;;0,830;29,20;58,40;2
+39;AF;0070;Fenster ;Fenster ;;0,830;7,47;7,47;1
+40;AF;0071;Fenster ;Fenster ;;0,830;22,43;22,43;1
+41;AF;0072;Fenster ;Fenster ;;0,830;4,30;4,30;1
+42;AF;0073;Fenster ;Fenster ;;0,830;1,92;1,92;1
+43;AF;0074;Fenster ;Fenster ;;0,830;29,14;29,14;1
+44;AW;AW01;AW Altbau Saniert ;;S;0,189;;1 913,88;
+45;AW;AW02;AW Altbau Saniert EG ;;S;0,183;;282,62;
+46;AW;AW10;AW Neubau (Aussenwand -awmhhi02a-00);;;0,102;;908,26;
+47;DGKd;EB;Decke gegen Keller ;;S;0,199;;2 040,36;
+48;EW;EW;AW Altbau EG Erdanliegend ;;B;1,605;;158,45;
+49;EW;EW;AW Altbau Erdanliegend ;;B;1,605;;29,97;
+50;WBW;AW01;AW Altbau Feuermauer ;;B;1,408;;109,67;
+51;WBW;AW02;AW Altbau  EG Feuermauer ;;B;1,121;;31,08;
+52;WggG;WggG;AW Altbau an Garage;;B;1,408;;146,55;
+53;WggG;WggG;AW Altbau EG an Garage;;B;1,121;;142,89;

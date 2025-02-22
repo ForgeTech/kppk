@@ -1,0 +1,49 @@
+﻿;;;;;;W/m²K;m²;m²;Stk
+LfdNr;Bauteiltyp;Bauteilkürzel;Bauteilbezeichnung;Bauteilbeschreibung;Status;U-Wert;FlächeBauteilEinzel;FlächeBauteilGesamt;StückGesamt
+1;DF;0001;Dachfenster;Dachfenster;;0,740;0,72;8,64;12
+2;AF;0002;Fenster;Fenster;;0,740;2,64;345,84;131
+3;AF;0003;Fenster;Fenster;;0,740;4,66;23,30;5
+4;AF;0004;Fenster;Fenster;;0,740;7,55;22,65;3
+5;AF;0005;Fenster;Fenster;;0,740;7,82;15,64;2
+6;AF;0006;Fenster;Fenster;;0,740;4,48;22,40;5
+7;STBv;0007;Pfosten-Riegel-Fassade ;Pfosten -Riegel-Fassade;;0,740;6,48;12,96;2
+8;STBv;0008;Pfosten-Riegel-Fassade ;Pfosten-Riegel-Fassade;;0,740;4,92;4,92;1
+9;STBv;0009;Pfosten-Riegel-Fassade ;Pfosten-Riegel-Fassade ;;0,740;5,92;23,68;4
+10;STBv;0010;Pfosten-Riegel-Fassade ;Pfosten-Riegel-Fassade;;0,740;4,45;4,45;1
+11;STBv;0011;Pfosten-Riegel-Fassade ;Pfosten-Riegel-Fassade ;;0,740;4,46;4,46;1
+12;AT;0012;Fenstertür;Fenstertür;;0,740;8,13;24,39;3
+13;AT;0013;Fenstertür;Fenstertür;;0,740;5,30;15,90;3
+14;AT;0014;Fenstertür;Fenstertür;;0,740;9,39;131,46;14
+15;AT;0015;Fenstertür;Fenstertür;;0,740;7,55;90,60;12
+16;AT;0016;Fenstertür;Fenstertür;;0,740;5,60;16,80;3
+17;AT;0017;Fenstertür;Fenstertür;;0,740;8,68;26,04;3
+18;AT;0018;Fenstertür;Fenstertür;;0,740;7,59;22,77;3
+19;AT;0019;Fenstertür;Fenstertür;;0,740;8,48;25,44;3
+20;AT;0020;Fenstertür;Fenstertür;;0,740;5,51;16,53;3
+21;STBh;0021;Lichtkuppel ;Lichtkuppel;;1,120;3,98;11,94;3
+22;AT;0022;Türen g. Müllraum;;;2,500;4,14;8,28;2
+23;WBDu;B1;Innendecke  ;;;0,430;;2.934,41;
+24;DGT;B2;Fußboden EG zur Garage ;;;0,137;;1.391,52;
+25;DD;B3;Decke ü. Überfahrt ;;;0,168;;78,69;
+26;DGUo;B4;Decke ü.Müll ;;;0,203;;72,70;
+27;DU;B5;Garten g. Garage ;;;0,122;;168,32;
+28;EBKu;B6;Keller Fußbodenplatte;;;5,882;;5.328,26;
+29;UE;B7;Fußboden Müllraum;;;0,165;;0,00;
+30;AD;D1;Hauptdach, Sattel-Dachaufbau, Dachneigung;;;0,119;;1.557,87;
+31;IW;IW01a;Innengangwand tragend, R60;zimmerseitig Sichtqualität mit Installations-VS;;0,496;;0,00;
+32;IW;IW01b;Innengangwand tragend, R60;zimmerseitig Sichtqualität, E-Installat. senkt. eingefräst;;0,890;;0,00;
+33;IW;IW02;Innengangwand tragend, R60, zweiseitig (Schlafzimmer- und Wo;Sichtqualität, E-Installat. senkrecht eingebohrt;;0,915;;0,00;
+34;WBW;IW03;Wohnungstrennwand tragend, REI60 o. Installations-VS;;;0,228;;0,00;
+35;WBW;IW04;Wohnungstrennwand tragend, REI60 mit einseit. E-Install.-VS;gangseit. im Wohnungsverband;;0,188;;0,00;
+36;WBW;IW05;Wohnungstrennwand tragend, REI60 mit beidseit. E-Install.-VS;beidseits (Küche-Küche);;0,160;;0,00;
+37;IW;IW06;Innenwand nichttragend o. Installations-VS;;;0,475;;0,00;
+38;IW;IW07;Liftschachtwand R60;;;0,884;;0,00;
+39;WGU;IW08;Wohnungstrennwand zu Müll STB;;;0,206;;35,99;
+40;AF;PN01;Prüfnormmaß_Fenster;;;0,710;1,82;0,00;0
+41;AT;PN02;Prüfnormmaß_Fenstertür;;;0,660;3,23;0,00;0
+42;DF;PN03;Prüfnormmaß_Dachfenster;;;0,710;1,82;0,00;0
+43;AW;W1.1;Massivholz Außenwand;Holzweichfaserplatte, Holzfassade hinterlüftet, REI 60 ;;0,129;;2.007,73;
+44;AW;W1.2;Massivholz Außenwand;Var.Gifsfaserplatte, Holzfassade hinterlüftet, REI 60 ;;0,138;;0,00;
+45;EWu;W1a;STB-Sockelbereich EG von W1, 15cm über FOK reichend;;;0,195;;264,61;
+46;AW;W2;Garagenaußenwand;;;0,320;;1.170,46;
+47;AW;W3;Wand zu Überfahrt;;;0,163;;52,46;
