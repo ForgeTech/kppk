@@ -51,7 +51,7 @@ export class KppkReactNavigationComponent {
 
   protected translationsS = toSignal(
     this.$translate.get_translations$({
-      "tooltip_install": "home",
+      "tooltip_install": "pwa",
       "label_install": "pwa",
       "route_home": "route",
       "label_manual": "general",
