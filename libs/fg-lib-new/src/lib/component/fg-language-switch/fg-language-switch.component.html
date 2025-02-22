@@ -1,5 +1,5 @@
 <mat-select
-  [value]="selected_langS()"
+  [value]="selected_lang_idS()"
   (selectionChange)="on_change($event)"
   class="fg-language-switch"
 >
@@ -18,7 +18,7 @@
     </ng-container>
   </mat-select-trigger>
   @for (lang of input_available_langsS(); track lang.id) {
-    <mat-option [value]="lang">   
+    <mat-option [value]="lang.id">   
       <img
         class="fg-language-switch-flag-icon mr-2 inline-block w-[25px]"
         alt="{{ lang.label }}"
