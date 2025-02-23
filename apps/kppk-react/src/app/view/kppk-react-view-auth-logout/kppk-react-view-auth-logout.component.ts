@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  FG_AUTH_LOCAL_EVENT_LOGOUT,
+  FG_AUTH_EVENT_LOGOUT,
   FgAuthLocalMachineActorService,
   FgButtonBackNavigationComponent,
   KppkFormlyModule,
@@ -88,7 +88,7 @@ export class KppkReactViewAuthLogoutComponent {
 
   protected logout(event?: Event) {
     event?.preventDefault();
-    const event_to_dispatch: FG_AUTH_LOCAL_EVENT_LOGOUT = {
+    const event_to_dispatch: FG_AUTH_EVENT_LOGOUT = {
       type: 'fg.auth.event.logout'
     };
     this.$actor_auth.send(event_to_dispatch);

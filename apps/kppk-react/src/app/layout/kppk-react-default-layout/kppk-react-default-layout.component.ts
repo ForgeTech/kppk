@@ -90,8 +90,8 @@ export class KppkReactDefaultLayoutComponent {
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   onScroll(event: Event) {
-    console.log('>>>>SCROLL_WINDOW_EVENT>>>>>>')
-    console.log(event);
+    // console.log('>>>>SCROLL_WINDOW_EVENT>>>>>>')
+    // console.log(event);
     const offset = this.window?.screenY;
     this.offsetS.set(offset);
   }
@@ -104,10 +104,10 @@ export class KppkReactDefaultLayoutComponent {
     height += this.adminC()?.$element_ref.nativeElement.offsetHeight;
     // height += this.headerC()?.$element_ref.nativeElement.offsetHeight;
     const top = height - offset;
-    console.log('>>>>TOP>>>>>>')
-    console.log( top );
-    console.log('>>>>OFFSET>>>>>>')
-    console.log( top );
+    // console.log('>>>>TOP>>>>>>')
+    // console.log( top );
+    // console.log('>>>>OFFSET>>>>>>')
+    // console.log( top );
     return top <= 0 ? 0 : top;
   });
   /** Flags if layout is bigger then medium */
