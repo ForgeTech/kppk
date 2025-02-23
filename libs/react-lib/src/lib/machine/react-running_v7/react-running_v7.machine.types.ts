@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ActorSystem } from 'xstate';
 import { fg_auth_local_auth_cookie_parser } from './../fg-auth-local/fg-auth-local.machine.types'
 import { fg_event_parser } from '@kppk/fg-lib-new';
+import { react_view_calculation_parser } from '../../types';
 
 
 export const assign_active_url_param_parser = z.object({
@@ -30,6 +31,9 @@ export type REACT_RUNNING_GUARD_INPUT = z.infer<typeof react_running_guard_input
 
 export const react_running_event_calculation_start_parser = fg_event_parser.extend({
   type: z.literal("react.running.event.calculation.start"),
+  data: z.object({
+    calculation: react_view_calculation_parser
+  })
 });
 export type REACT_RUNNING_EVENT_CALCULATION_START = z.infer<typeof react_running_event_calculation_start_parser>;
 

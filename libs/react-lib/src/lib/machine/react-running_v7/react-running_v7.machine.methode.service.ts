@@ -11,11 +11,12 @@ import {
   REACT_RUNNING_GUARD_INPUT,
   REACT_RUNNING_EVENT_SELECT_ACTIVE_VIEW,
   ASSIGN_ACTIVE_URL_PARAM,
-  assign_active_url_param_parser
+  assign_active_url_param_parser,
+  react_running_event_calculation_start_parser
 } from './react-running_v7.machine.types';
-import { fg_auth_local_emitted_authorized_parser, fg_auth_local_emitted_unauthorized_parser } from '../fg-auth-local';
+import { fg_auth_emitted_authorized_parser, fg_auth_emitted_unauthorized_parser } from '../fg-auth-local';
 import { FG_NAVIGATION_EVENT_BLOCK, fg_navigation_event_block_parser, FG_NAVIGATION_EVENT_ENABLE, fg_navigation_event_enable, fg_navigation_event_navigate, FG_NAVIGATION_EVENT_NAVIGATE, FgNavigationMachineMethodeService } from '../fg-navigation';
-import { fg_router_emitted_start_parser } from '../fg-router/fg-router.machine.service';
+import { fg_router_emitted_end_parser, fg_router_emitted_start_parser } from '../fg-router/fg-router.machine.service';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -33,7 +34,7 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_auth_cookie_set({ context, event }: REACT_RUNNING_ACTION_INPUT) {
-    const parsed_event = fg_auth_local_emitted_authorized_parser.parse(event);
+    const parsed_event = fg_auth_emitted_authorized_parser.parse(event);
     const result = this.$immer.produce( context, draft => {
       draft.auth_cookie = parsed_event.data.auth_cookie;
     });
@@ -42,7 +43,7 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_auth_cookie_unset({ context, event }: REACT_RUNNING_ACTION_INPUT) {
-    const parsed_event = fg_auth_local_emitted_unauthorized_parser.parse(event);
+    const parsed_event = fg_auth_emitted_unauthorized_parser.parse(event);
     const result = this.$immer.produce( context, draft => {
         draft.auth_cookie = undefined;
     });
@@ -51,8 +52,9 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
 
   @boundMethod
   public assign_calculation_set({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
+    const parsed_event = react_running_event_calculation_start_parser.parse(event);
     return this.$immer.produce( context, draft => {
-      throw 'NEEDS_IMPLEMENTATION';
+      context.calculation = parsed_event.data.calculation;
     });
   };
 
@@ -93,17 +95,8 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
   @boundMethod
   public raise_react_running_select_active_view({ context, event }: REACT_RUNNING_ACTION_INPUT, params: ASSIGN_ACTIVE_URL_PARAM | undefined) {
     let url = ''
-    if( params ) {
-      const parsed_param = assign_active_url_param_parser.parse(params);
-      url = parsed_param.url
-    }
-    else if( event ) {
-      const parsed_event = fg_router_emitted_start_parser.parse(event);
-      url = parsed_event.data.url
-    }
-    else {
-      throw new Error('ERROR: NO VALID INPUT');
-    }
+    const parsed_param = assign_active_url_param_parser.parse(params);
+    url = parsed_param.url
     return react_running_event_select_active_view_parser.parse({ type: 'react.running.select_active_view', data: {
       url
     }} as REACT_RUNNING_EVENT_SELECT_ACTIVE_VIEW);
@@ -118,7 +111,8 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
   @boundMethod
   public guard_url_matches({ context, event }: REACT_RUNNING_GUARD_INPUT, param: ASSIGN_ACTIVE_URL_PARAM ) {
     const parsed_param = assign_active_url_param_parser.parse(param);
-    const result = event?.data?.url === '/'.concat(parsed_param.url);
+    const parsed_event = react_running_event_select_active_view_parser.parse(event);
+    const result = parsed_event.data?.url.startsWith(parsed_param.url) ? true : false;
     return result;
   }
 
@@ -157,68 +151,11 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
     const result = this.guard_is_authorized( input ) && this.guard_url_matches(input, param);
     return result;
   }
-
-  
-  // @boundMethod
-  // public action_navigation_redirect({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   // this.$router.navigateByUrl( context.actived_url );
-  // };
-  // @boundMethod
-  // public send_to_spinner_show_event({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   // return fg_spinner_event_show_parser.parse({ type: 'fg.spinner.event.show' })
-  //   return fg_spinner_event_hide_parser.parse({ type: 'fg.spinner.event.hide', data: { force: true} })
-  // };
-  // @boundMethod
-  // public send_to_spinner_hide_event({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   return fg_spinner_event_hide_parser.parse({ type: 'fg.spinner.event.hide', data: { force: true} })
-  // };
-
-
-  // @boundMethod
-  // public raise_navigation_internal_start({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   return fg_navigation_internal_start_parser.parse({ type: 'fg.navigation.internal.start'});
-  // };
-
-  // @boundMethod
-  // public raise_navigation_internal_ready({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   console.log('raise_navigation_internal_ready')
-  //   console.log(context)
-  //   return fg_navigation_internal_ready_parser.parse({ type: 'fg.navigation.internal.ready'});
-  // };
-
-  // @boundMethod
-  // public raise_navigation_internal_end({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   return fg_navigation_internal_end_parser.parse({ type: 'fg.navigation.internal.end'});
-  // };
-
-  // @boundMethod
-  // public assign_target_url({ context, event }: REACT_RUNNING_ACTION_INPUT ) {
-  //   const parsed_event = fg_router_emitted_start_parser.parse(event)
-  //   return this.$immer.produce( context, draft => {
-  //     draft.target_url = parsed_event.data.url;
-  //   });
-  // };
-
-  // @boundMethod
-  // public assign_active_url({ context, event }: REACT_RUNNING_ACTION_INPUT, param: ASSIGN_ACTIVE_URL_PARAM) {
-  //   const parsed_param = assign_active_url_param_parser.parse(param);
-  //   return this.$immer.produce( context, draft => {
-  //     draft.actived_url = parsed_param.url;
-  //   })
-  // };
-  // @boundMethod
-  // public assign_active_url_to_target_url({ context, event }: REACT_RUNNING_ACTION_INPUT) {
-  //   return this.$immer.produce( context, draft => {
-  //     draft.target_url = context.actived_url;
-  //   })
-  // };
-
-  // @boundMethod
-  // public guard_target_matches_active_url({ context, event }: REACT_RUNNING_GUARD_INPUT ) {
-  //   console.log('GUARD_TARGET_MATCHES_ACTIVE_URL')
-  //   console.log(context.target_url)
-  //   console.log(context.actived_url)
-  //   return context.target_url === context.actived_url ? true : false;
-  // }
-
+  @boundMethod
+  public guard_target_url_unequal_curret_url(input: REACT_RUNNING_GUARD_INPUT ) {
+    const current_url = this.$router.url;
+    const parsed_event = fg_router_emitted_start_parser.parse(input.event);
+    const result = current_url !== parsed_event.data.url;
+    return result;
+  }
 }
