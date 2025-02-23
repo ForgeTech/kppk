@@ -1,11 +1,11 @@
 import {
   FG_AUTH_LOCAL_CONTEXT,
   fg_auth_local_context_parser,
-  FG_AUTH_LOCAL_EMITTED_AUTHORIZED,
+  FG_AUTH_EMITTED_AUTHORIZED,
   FG_AUTH_EVENT_LOGIN,
-  FG_AUTH_LOCAL_EVENT_LOGOUT,
+  FG_AUTH_EVENT_LOGOUT,
   FG_AUTH_LOCAL_EVENT_STOP,
-  FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED,
+  FG_AUTH_EMITTED_UNAUTHORIZED,
 } from './fg-auth-local.machine.types';
 import { Injectable, inject } from '@angular/core';
 import { FgBaseService } from '@kppk/fg-lib-new';
@@ -28,9 +28,9 @@ export class FgAuthLocalMachineService extends FgBaseService {
           context: {} as FG_AUTH_LOCAL_CONTEXT,
           events: {} as
             | FG_AUTH_EVENT_LOGIN
-            | FG_AUTH_LOCAL_EVENT_LOGOUT
-            | FG_AUTH_LOCAL_EMITTED_AUTHORIZED
-            | FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED
+            | FG_AUTH_EVENT_LOGOUT
+            | FG_AUTH_EMITTED_AUTHORIZED
+            | FG_AUTH_EMITTED_UNAUTHORIZED
             | FG_AUTH_LOCAL_EVENT_STOP
         },
         actions: {

@@ -52,33 +52,29 @@ export type FG_AUTH_EVENT_LOGIN = z.infer<typeof fg_auth_event_login_parser>;
 export const fg_auth_event_logout_parser = z.object({
   type: z.literal('fg.auth.event.logout'),
 });
-export type FG_AUTH_LOCAL_EVENT_LOGOUT = z.infer<typeof fg_auth_event_logout_parser
+export type FG_AUTH_EVENT_LOGOUT = z.infer<typeof fg_auth_event_logout_parser
 >;
 
-export const fg_auth_local_emitted_authorized_parser = z.object({
+export const fg_auth_emitted_authorized_parser = z.object({
   type: z.literal('fg.auth.emitted.authorized'),
   data: z.object({
     auth_cookie: fg_auth_local_auth_cookie_parser,
   }),
 });
-export type FG_AUTH_LOCAL_EMITTED_AUTHORIZED = z.infer<
-  typeof fg_auth_local_emitted_authorized_parser
+export type FG_AUTH_EMITTED_AUTHORIZED = z.infer<
+  typeof fg_auth_emitted_authorized_parser
 >;
 
-export const fg_auth_local_emitted_unauthorized_parser = z.object({
+export const fg_auth_emitted_unauthorized_parser = z.object({
   type: z.literal('fg.auth.emitted.unauthorized'),
   data: z.object({
     auth_cookie: z.undefined()
   }).default({ auth_cookie: undefined }),
 });
-export type FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED = z.infer<
-  typeof fg_auth_local_emitted_unauthorized_parser
->;
+export type FG_AUTH_EMITTED_UNAUTHORIZED = z.infer<typeof fg_auth_emitted_unauthorized_parser>;
 
-export const fg_auth_emitted_parser = fg_auth_local_emitted_authorized_parser.or(fg_auth_local_emitted_unauthorized_parser)
-export type FG_AUTH_LOCAL_EMITTED = z.infer<
-  typeof fg_auth_emitted_parser
->;
+export const fg_auth_emitted_parser = fg_auth_emitted_authorized_parser.or(fg_auth_emitted_unauthorized_parser)
+export type FG_AUTH_EMITTED = z.infer<typeof fg_auth_emitted_parser>;
 
 export const fg_auth_local_event_stop_parser = z.object({
   type: z.literal('fg.auth.event.stop'),

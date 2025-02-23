@@ -2,12 +2,12 @@ import {
   fg_auth_local_auth_cookie_parser,
   FG_AUTH_LOCAL_CONTEXT,
   fg_auth_local_context_parser,
-  fg_auth_local_emitted_authorized_parser,
+  fg_auth_emitted_authorized_parser,
   fg_auth_event_login_parser,
-  fg_auth_local_emitted_unauthorized_parser,
+  fg_auth_emitted_unauthorized_parser,
   fg_auth_local_salt_file_content_parser,
-  FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED,
-  FG_AUTH_LOCAL_EMITTED_AUTHORIZED,
+  FG_AUTH_EMITTED_UNAUTHORIZED,
+  FG_AUTH_EMITTED_AUTHORIZED,
 } from './fg-auth-local.machine.types';
 import { catchError, map, firstValueFrom, tap } from 'rxjs';
 import { FgStorageNgxCookieService } from '@kppk/fg-lib-new';
@@ -97,60 +97,41 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public emit_unauthorized_event({ context, event }: FgAuthLocalV1Params) {
-    const result = fg_auth_local_emitted_unauthorized_parser.parse({
+    const result = fg_auth_emitted_unauthorized_parser.parse({
       type: 'fg.auth.emitted.unauthorized',
-    } as FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED);
+    } as FG_AUTH_EMITTED_UNAUTHORIZED);
     return result;
   }
 
   @boundMethod
   public emit_authorized_event({ context, event }: FgAuthLocalV1Params) {
-    const result = fg_auth_local_emitted_authorized_parser.parse({
+    const result = fg_auth_emitted_authorized_parser.parse({
       type: 'fg.auth.emitted.authorized',
       data: {
         auth_cookie: context.auth_cookie,
       },
-    } as FG_AUTH_LOCAL_EMITTED_AUTHORIZED);
+    } as FG_AUTH_EMITTED_AUTHORIZED);
     return result;
   }
 
   @boundMethod
   public send_authorized_event_to({ context }: FgAuthLocalV1Params) {
-    const result = fg_auth_local_emitted_authorized_parser.parse({
+    const result = fg_auth_emitted_authorized_parser.parse({
       type: 'fg.auth.emitted.authorized',
       data: {
         auth_cookie: context.auth_cookie,
       },
-    } as FG_AUTH_LOCAL_EMITTED_AUTHORIZED);
+    } as FG_AUTH_EMITTED_AUTHORIZED);
     return result;
   }
 
   @boundMethod
   public send_unauthorized_event_to({ context }: FgAuthLocalV1Params) {
-    const result = fg_auth_local_emitted_unauthorized_parser.parse({
+    const result = fg_auth_emitted_unauthorized_parser.parse({
       type: 'fg.auth.emitted.unauthorized',
-    } as FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED);
+    } as FG_AUTH_EMITTED_UNAUTHORIZED);
     return result;
   }
-
-  // @boundMethod
-  // public emit_authorized_event_to({ context }: FgAuthLocalV1Params) {
-  //   const result = fg_auth_local_emitted_authorized_parser.parse({
-  //     type: 'fg.auth.emitted.authorized',
-  //     data: {
-  //       auth_cookie: context.auth_cookie,
-  //     },
-  //   } as FG_AUTH_LOCAL_EMITTED_AUTHORIZED);
-  //   return result;
-  // }
-
-  // @boundMethod
-  // public emit_unauthorized_event_to({ context }: FgAuthLocalV1Params) {
-  //   const result = fg_auth_local_emitted_unauthorized_parser.parse({
-  //     type: 'fg.auth.emitted.unauthorized',
-  //   } as FG_AUTH_LOCAL_EMITTED_UNAUTHORIZED);
-  //   return result;
-  // }
 
   @boundMethod
   public escalate_auth_local_key_error({ context }: FgAuthLocalV1Params) {
@@ -329,6 +310,7 @@ export class FgAuthLocalMachineMethodeService extends FgBaseService {
             expires: this.$time.getCookieExpirationDate(
               value.profile.cookie_life_time
             ),
+            path: '/'
           };
           this.$cookie.setItem(context.auth_cookie_storage_key, value, options);
         }),
