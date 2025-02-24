@@ -4,6 +4,7 @@ import { fg_event_parser } from '@kppk/fg-lib-new';
 
 
 export const fg_navigation_context_parser = z.object({
+  // current_url: z.string().default(''),
   actived_url: z.string().default(''),
   target_url: z.string().default(''),
 });

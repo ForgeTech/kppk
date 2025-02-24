@@ -20,6 +20,7 @@ import {
 } from './fg-navigation.machine.types';
 import { Router } from '@angular/router';
 import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
+// import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class FgNavigationMachineMethodeService extends FgBaseService {
   protected $common = inject(FgMachineUtilsMethodeService);
   protected $immer = inject(FgImmutableService);
   protected $router = inject(Router);
+  // protected $location = inject(Location);
 
   @boundMethod
   public action_navigation_redirect_to_target_url({ context, event }: FG_NAVIGATION_ACTION_INPUT ) {
@@ -38,6 +40,14 @@ export class FgNavigationMachineMethodeService extends FgBaseService {
     // return result;
     this.$router.navigate([context.target_url])
   };
+
+  // @boundMethod
+  // public assign_current_url({ context, event }: FG_NAVIGATION_ACTION_INPUT ) {
+  //   const result = this.$immer.produce( context, draft => {
+  //     draft.current_url = this.$location.path();
+  //   });
+  //   return result;
+  // };
 
   @boundMethod
   public assign_active_url({ context, event }: FG_NAVIGATION_ACTION_INPUT ) {

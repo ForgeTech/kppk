@@ -45,6 +45,7 @@ export class FgNavigationMachineService extends FgBaseService {
       },
       actions: {
         action_navigation_redirect_to_target_url: this.$methode.action_navigation_redirect_to_target_url,
+        // assign_current_url: this.$xstate.assign(this.$methode.assign_current_url),
         assign_active_url: this.$xstate.assign(this.$methode.assign_active_url),
         assign_target_url: this.$xstate.assign(this.$methode.assign_target_url),
         send_navigation_emitted_ended: this.$xstate.emit(this.$methode.send_navigation_emitted_ended),
@@ -64,9 +65,6 @@ export class FgNavigationMachineService extends FgBaseService {
       context: fg_navigation_context_parser.parse( context ?? {}),
       id: "FG_NAVIGATION",
       type: "parallel",
-      // entry: {
-      //   type: "assign_current_url_to_active_url",
-      // },
       states: {
         SETTINGS: {
           initial: "ENABLED",
@@ -77,6 +75,9 @@ export class FgNavigationMachineService extends FgBaseService {
             "fg.navigation.event.navigate": [
               {
                 actions: [
+                  // {
+                  //   type: "assign_current_url",
+                  // },
                   {
                     type: "assign_target_url",
                   },
@@ -95,8 +96,6 @@ export class FgNavigationMachineService extends FgBaseService {
                 guard: {
                   type: "guard_navigation_is_idel",
                 },
-                description:
-                  "Receiving a 'navigate' event while in 'idel' state should start the navigation process according to the current settings",
               },
               {
                 actions: [
@@ -128,8 +127,6 @@ export class FgNavigationMachineService extends FgBaseService {
                     log_event: true
                   }
                 }],
-                description:
-                  "This is an unexpected navigation event and shouldn't appear. Inspect what is trying to interrupt navigation before it is finished",
               },
             ],
             "fg.navigation.event.disable": {

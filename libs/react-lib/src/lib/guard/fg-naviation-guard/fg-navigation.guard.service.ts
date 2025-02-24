@@ -149,7 +149,9 @@ export class FgNavigationGuard implements CanActivate, CanDeactivate<any> {
           // allow navigation
           return true;
         } 
-        // else if( snapshot.matches({'NAVIGATION': 'REDIRECT'}) ) {
+        // else if( snapshot.matches({'NAVIGATION': {
+        //   'RUNNING': 'REDIRECT'
+        // }}) ) {
         //   return this.$url_serializer.parse( snapshot.context.actived_url );
         // }
         else {
@@ -164,15 +166,21 @@ export class FgNavigationGuard implements CanActivate, CanDeactivate<any> {
         return merge(
           this.resolve_navigation_for_router_enabled$,
           // this.disallow_navigation_for_router_disabled$,
-        )
+        ).pipe(tap( value=>{
+          console.log('CAN_ACTIVATE');
+          console.log(value)
+        }))
     }
 
     public canDeactivate(component: Component, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot): MaybeAsync<GuardResult> {
         return merge(
           // this.resolve_navigation_for_router_enabled$,
-          // this.disallow_navigation_for_router_disabled$,
-          // this.resolve_for_navigation_for_router_blocked$(component, currentRoute, currentState, nextState),
-        )
+          this.disallow_navigation_for_router_disabled$,
+          this.resolve_for_navigation_for_router_blocked$(component, currentRoute, currentState, nextState),
+        ).pipe(tap( value=>{
+          console.log('CAN_DEACTIVATE');
+          console.log(value)
+        }))
     }
 
     protected send_permission_request_answer_event(accept_or_declined: boolean) {
