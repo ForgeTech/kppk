@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { HOST_ROUTES, KppkReactNavigationGuard } from '@kppk/react-lib';
+import { FgNavigationGuard, HOST_ROUTES } from '@kppk/react-lib';
 
 export const append_routes_with_default_guards = function( routes: Route[]): Route[] {
   // routes.forEach( route => {
@@ -10,11 +10,11 @@ export const append_routes_with_default_guards = function( routes: Route[]): Rou
   //       if(route.canActivate === undefined) {
   //         route.canActivate = [];
   //       }
-  //       route.canActivate.push(KppkReactNavigationGuard);
+  //       route.canActivate.push(FgNavigationGuard);
   //       if(route.canDeactivate === undefined) {
   //         route.canDeactivate = [];
   //       }
-  //       route.canDeactivate.push(KppkReactNavigationGuard)
+  //       route.canDeactivate.push(FgNavigationGuard)
   //     }
   //   }
   // });
@@ -67,14 +67,14 @@ export const app_routes: Route[] = append_routes_with_default_guards([
     ],
   },
   {
-    path: HOST_ROUTES.AUTH_LOGIN,
+    path: HOST_ROUTES.AUTH,
     loadComponent: () =>
       import(
         './layout/kppk-react-view-auth-layout-router-outlet/kppk-react-view-auth-layout-router-outlet.component'
       ).then((m) => m.KppkReactViewAuthLayoutRouterOutletComponent),
       children: [
         {
-          path: HOST_ROUTES.ROOT,
+          path: HOST_ROUTES.AUTH_LOGIN,
           pathMatch: 'prefix',
           loadComponent: () =>
             import(
@@ -90,12 +90,20 @@ export const app_routes: Route[] = append_routes_with_default_guards([
             ).then((m) => m.KppkReactViewAuthPasswordForgotComponent),
         },
         {
-          path: HOST_ROUTES.AUTH_PASSWORD_RESET,
+          path: HOST_ROUTES.AUTH_PASSWORD_CHANGE,
           pathMatch: 'prefix',
           loadComponent: () =>
             import(
               './view/kppk-react-view-auth-password-change/kppk-react-view-auth-password-change.component'
             ).then((m) => m.KppkReactViewAuthPasswordChangeComponent),
+        },
+        {
+          path: HOST_ROUTES.AUTH_PASSWORD_RESET,
+          pathMatch: 'prefix',
+          loadComponent: () =>
+            import(
+              './view/kppk-react-view-auth-password-reset/kppk-react-view-auth-password-reset.component'
+            ).then((m) => m.KppkReactViewAuthPasswordResetComponent),
         },
         {
           path: HOST_ROUTES.AUTH_LOGOUT,
@@ -104,11 +112,16 @@ export const app_routes: Route[] = append_routes_with_default_guards([
             import(
               './view/kppk-react-view-auth-logout/kppk-react-view-auth-logout.component'
             ).then((m) => m.KppkReactViewAuthLogoutComponent),
-        }
+        },
+        {
+          path: HOST_ROUTES.WILDCARD,
+          pathMatch: 'prefix',
+          redirectTo: [HOST_ROUTES.AUTH_LOGIN].join('/')
+        },
       ]
   },
   {
     path: HOST_ROUTES.WILDCARD,
-    redirectTo: HOST_ROUTES.AUTH_LOGIN,
+    redirectTo: [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/'),
   },
 ]);
