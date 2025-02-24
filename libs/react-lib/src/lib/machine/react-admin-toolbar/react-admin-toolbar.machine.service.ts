@@ -5,9 +5,15 @@ import { ReactAdminToolbarMachineMethodeService } from './react-admin-toolbar.ma
 import {
   REACT_ADMIN_TOOLBAR_CONTEXT,
   react_admin_toolbar_context_parser,
+  REACT_ADMIN_TOOLBAR_EVENT_AUTH_TOGGLE,
+  REACT_ADMIN_TOOLBAR_EVENT_REFRESH,
+  REACT_ADMIN_TOOLBAR_EVENT_STOPPED,
+  REACT_ADMIN_TOOLBAR_EVENT_TEST_CALCULATION_TOGGLE,
+  REACT_ADMIN_TOOLBAR_EVENT_X_STATE_TOGGLE,
 } from './react-admin-toolbar.machine.types';
 import { FgBaseService } from '@kppk/fg-lib-new';
 import { parent_context_event_input } from '../machine.utils';
+import { FG_AUTH_EMITTED_AUTHORIZED, FG_AUTH_EMITTED_UNAUTHORIZED } from '../fg-auth-local';
 
 @Injectable({
   providedIn: 'root',
@@ -23,11 +29,13 @@ export class ReactAdminToolbarService extends FgBaseService {
       types: {
         context: {} as REACT_ADMIN_TOOLBAR_CONTEXT,
         events: {} as
-          | { type: "fg.auth.local.event.logout" }
-          | { type: "react.admin_toolbox.event.stopped" }
-          | { type: "react.admin_toolbox.event.x_state.toggle" }
-          | { type: "react.admin_toolbox.event.test_calculation.toggle" }
-          | { type: "react.admin_toolbox.event.refresh" },
+          | FG_AUTH_EMITTED_AUTHORIZED
+          | FG_AUTH_EMITTED_UNAUTHORIZED
+          | REACT_ADMIN_TOOLBAR_EVENT_STOPPED
+          | REACT_ADMIN_TOOLBAR_EVENT_X_STATE_TOGGLE
+          | REACT_ADMIN_TOOLBAR_EVENT_AUTH_TOGGLE
+          | REACT_ADMIN_TOOLBAR_EVENT_TEST_CALCULATION_TOGGLE
+          | REACT_ADMIN_TOOLBAR_EVENT_REFRESH
       },
       actions: {
         assign_admin_data: this.$xstate.assign(this.$methode.assign_admin_data)
@@ -70,12 +78,40 @@ export class ReactAdminToolbarService extends FgBaseService {
           type: "parallel",
           initial: "TEST_CALCULATION",
           states: {
+            AUTHORIZATION: {
+              initial: "OFF",
+              states: {
+                OFF: {
+                  on: {
+                    "react.admin_toolbox.event.auth.toggle": {
+                      target: "ON",
+                    },
+                    "fg.auth.emitted.authorized": {
+                      target: "ON",
+                    },
+                  },
+                },
+                ON: {
+                  on: {
+                    "react.admin_toolbox.event.auth.toggle": {
+                      target: "OFF",
+                    },
+                    "fg.auth.emitted.unauthorized": {
+                      target: "OFF",
+                    },
+                  },
+                },
+              },
+            },
             TEST_CALCULATION: {
               initial: "OFF",
               states: {
                 OFF: {
                   on: {
                     "react.admin_toolbox.event.test_calculation.toggle": {
+                      target: "ON",
+                    },
+                    "fg.auth.emitted.authorized": {
                       target: "ON",
                     },
                   },
@@ -85,7 +121,7 @@ export class ReactAdminToolbarService extends FgBaseService {
                     "react.admin_toolbox.event.test_calculation.toggle": {
                       target: "OFF",
                     },
-                    "fg.auth.local.event.logout": {
+                    "fg.auth.emitted.unauthorized": {
                       target: "OFF",
                     },
                   },
@@ -105,28 +141,6 @@ export class ReactAdminToolbarService extends FgBaseService {
                 ON: {
                   on: {
                     "react.admin_toolbox.event.x_state.toggle": {
-                      target: "OFF",
-                    },
-                  },
-                },
-              },
-            },
-            AUTHORIZATION: {
-              initial: "OFF",
-              states: {
-                OFF: {
-                  on: {
-                    "react.admin_toolbox.event.test_calculation.toggle": {
-                      target: "ON",
-                    },
-                  },
-                },
-                ON: {
-                  on: {
-                    "react.admin_toolbox.event.test_calculation.toggle": {
-                      target: "OFF",
-                    },
-                    "fg.auth.local.event.logout": {
                       target: "OFF",
                     },
                   },
