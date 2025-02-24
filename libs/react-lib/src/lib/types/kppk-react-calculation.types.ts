@@ -63,9 +63,7 @@ export const react_view_calculation_parser = form_values_parser.extend({
     })
     .optional(),
 });
-export type REACT_VIEW_CALCULATION = z.infer<
-  typeof react_view_calculation_parser
->;
+export type REACT_VIEW_CALCULATION = z.infer<typeof react_view_calculation_parser>;
 
 export const react_view_calculation_context_parser = z.object({
   form_defaults: form_values_parser,
@@ -73,17 +71,13 @@ export const react_view_calculation_context_parser = z.object({
   data: react_init_load_from_remote_data_parser,
 });
 
-export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<
-  typeof react_view_calculation_context_parser
->;
+export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<typeof react_view_calculation_context_parser>;
 
 export const react_view_calculation_input_parser = z.object({
   context: react_view_calculation_context_parser,
   event: z.any(),
 });
-export type REACT_VIEW_CALCULATION_INPUT = z.infer<
-  typeof react_view_calculation_input_parser
->;
+export type REACT_VIEW_CALCULATION_INPUT = z.infer<typeof react_view_calculation_input_parser>;
 
 export const react_view_calculation_result_parser = z.object({
   common: form_common_value_parser,
@@ -101,6 +95,4 @@ export const react_view_calculation_result_parser = z.object({
   co2_creation: unit_kilogram_co2_parser,
 });
 
-export type REACT_VIEW_CALCULATION_RESULT = z.infer<
-  typeof react_view_calculation_result_parser
->;
+export type REACT_VIEW_CALCULATION_RESULT = z.infer<typeof react_view_calculation_result_parser>;
