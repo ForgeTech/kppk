@@ -61,20 +61,19 @@ export class ReactViewHomeMainMachineActorService
     // this.ACTOR = 
     this.$source.state$.pipe(
       takeUntilDestroyed(),
-      // filter( () => {
-      //   return this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING) ? true : false;
-      // }),
-      // switchMap( _ => from(this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)).pipe(
-      //   tap( snapshot => console.log(snapshot)),
-      //   map( snapshot => this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)),
-      //   tap( actor => console.log(actor)),
-      // )),
+      filter( () => {
+        return this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING) ? true : false;
+      }),
+      switchMap( _ => from(this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)).pipe(
+        //tap( snapshot => console.log(snapshot)),
+        map( snapshot => this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)),
+        //tap( actor => console.log(actor)),
+      )),
     ).subscribe({
       next: source_actor => {
-        // const actor = source_actor.system.get(REACT_ACTOR_ENUM.REACT_VIEW_HOME) as Actor<typeof this.machine> | undefined;  
-        const actor = undefined as Actor<typeof this.machine> | undefined;  
+        const actor = source_actor.system.get(REACT_ACTOR_ENUM.REACT_VIEW_HOME) as Actor<typeof this.machine> | undefined;
+        this.ACTOR.next( actor );
         if( actor ) {
-          this.ACTOR.next( actor );
           // Push actor snapshot to state-signal
           this.STATE$.next( actor.getSnapshot() );
           this.state_subscription = actor.subscribe( snapshot => {
