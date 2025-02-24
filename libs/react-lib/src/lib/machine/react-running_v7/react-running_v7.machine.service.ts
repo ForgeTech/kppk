@@ -18,6 +18,7 @@ import { HOST_ROUTES, REACT_ACTOR_ENUM } from '../../enum';
 import { ReactViewCalculationMachineService } from '../react-view-calculation';
 import { ReactViewHomeMachineService } from '../react-view-home';
 import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
+import { react_calculation_materials_file_data, REACT_VIEW_CALCULATION_CONTEXT, react_view_calculation_context_parser } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class ReactRunningV7MachineService extends FgBaseService {
 
   // protected assign_context_from_system = ({ context, event, system }: { context: ReactAdminToolbarV1Context, event: any, system: ActorSystem<any> }) => {
   //   const result = this.$immer.produce( context, draft => {
-  public get_machine(context?: Partial<REACT_RUNNING_CONTEXT>) {
+  public get_machine() {
 
       return this.$xstate.setup({
       types: {
@@ -72,25 +73,25 @@ export class ReactRunningV7MachineService extends FgBaseService {
         send_to_navigation: this.$xstate.forwardTo(REACT_ACTOR_ENUM.REACT_NAVIGATION)
       },
       actors: {
-        // actor_calculation: this.$machine_calc.get_machine(),
-        actor_calculation: this.$xstate.createMachine({}),
+        actor_calculation: this.$machine_calc.get_machine(),
         actor_home: this.$machine_home.get_machine(),
         // actor_home: this.$xstate.createMachine({}),
         actor_navigation: this.$machine_navigation.get_machine(),
         actor_router:  this.$machine_router.getMachine(),
       },
       guards: {
+        guard_is_authorized: this.$methode.guard_is_authorized,
         guard_view_calculation: this.$methode.guard_view_calculation,
         guard_view_data_protection: this.$methode.guard_view_data_protection,
+        guard_view_home: this.$methode.guard_view_home,
         guard_view_imprint: this.$methode.guard_view_imprint,
-        guard_is_authorized: this.$methode.guard_is_authorized,
         guard_view_login: this.$methode.guard_view_login,
         guard_view_logout: this.$methode.guard_view_logout,
       },
     }).createMachine({
       context: ({input}) =>{
         console.log( input );
-        const result = react_running_context_parser.parse( input ?? context ?? {});
+        const result = react_running_context_parser.parse( input ?? {});
         return result;
       },
       id: "REACT_RUNNING_V7",
@@ -197,6 +198,15 @@ export class ReactRunningV7MachineService extends FgBaseService {
               {
                 target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED",
                 guard: {
+                  type: "guard_view_home",
+                  params: {
+                    url: '/' + [HOST_ROUTES.HOME].join('/')
+                  }
+                },
+              },
+              {
+                target: "#REACT_RUNNING_V7.ACTIVE_VIEW.AUTHORIZED",
+                guard: {
                   type: "guard_is_authorized",
                 },
               },
@@ -224,8 +234,10 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: {
-                        url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/')
+                      params: ({ context, event })=>{
+                        return {
+                          url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGIN].join('/')
+                        }
                       }
                     }
                   ]
@@ -234,8 +246,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: {
-                        url: '/' + [HOST_ROUTES.IMPRINT].join('/')
+                      params: ({ context, event })=>{
+                        return { url: '/' + [HOST_ROUTES.IMPRINT].join('/') };
                       }
                     }
                   ]
@@ -244,8 +256,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: {
-                        url: '/' + [HOST_ROUTES.DATA_PROTECTION].join('/')
+                      params: ({ context, event })=>{
+                        return { url: '/' + [HOST_ROUTES.DATA_PROTECTION].join('/') };
                       }
                     }
                   ]
@@ -259,8 +271,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: {
-                        url: '/' + [HOST_ROUTES.HOME].join('/')
+                      params: ({ context, event })=>{
+                        return { url: '/' + [HOST_ROUTES.HOME].join('/') };
                       }
                     }
                   ],
@@ -288,7 +300,7 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: () => {
+                      params: ({ context, event })=>{
                         return { url: '/' + [HOST_ROUTES.CALC].join('/') };
                       }
                     },
@@ -307,7 +319,13 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   invoke: {
                     id: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
                     systemId: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
-                    input: {},
+                    input: ({ context, event}) => {
+                      const input_calculation = {
+                        calculation: context.calculation
+                      }
+                      const result = react_view_calculation_context_parser.parse(input_calculation);
+                      return result;
+                    },
                     src: "actor_calculation",
                   },
                 },
@@ -315,8 +333,8 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: {
-                        url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/')
+                      params: ({ context, event }) => {
+                        return { url: '/' + [HOST_ROUTES.AUTH, HOST_ROUTES.AUTH_LOGOUT].join('/') };
                       }
                     }
                   ]
@@ -341,7 +359,7 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   params: {
                     message: 'ROUTER_START',
                     log_context: true,
-                    log_event: true
+                  log_event: true
                   }
                 }
               ],

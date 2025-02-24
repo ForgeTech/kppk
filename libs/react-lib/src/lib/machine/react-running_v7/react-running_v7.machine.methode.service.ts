@@ -135,6 +135,12 @@ export class ReactRunningV7MachineMethodeService extends FgBaseService {
   }
 
   @boundMethod
+  public guard_view_home(input: REACT_RUNNING_GUARD_INPUT,  param: ASSIGN_ACTIVE_URL_PARAM ) {
+    const result = this.guard_is_authorized( input ) && this.guard_url_matches(input, param);
+    return result;
+  }
+
+  @boundMethod
   public guard_view_imprint(input: REACT_RUNNING_GUARD_INPUT,  param: ASSIGN_ACTIVE_URL_PARAM ) {
     const result = this.guard_url_matches(input, param);
     return result;
