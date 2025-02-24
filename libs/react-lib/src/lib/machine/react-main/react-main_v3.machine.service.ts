@@ -179,9 +179,9 @@ export class ReactMainV3MachineService extends FgBaseService {
                     onDone: {
                       target: "DONE",
                       actions: {
-                        type: "log_info",
+                        type: "log_warn",
                         params: {
-                          message: 'ACTOR_REACT_RUNNING_ERROR'
+                          message: 'ACTOR_REACT_RUNNING_DONE'
                         }
                       },
                     },
@@ -190,7 +190,7 @@ export class ReactMainV3MachineService extends FgBaseService {
                       actions: {
                         type: "log_error",
                         params: {
-                          message: 'ACTOR_REACT_RUNNING_ERROR'
+                          message: 'ACTOR_REACT_RUNNING_ERROR',
                         }
                       },
                     },
