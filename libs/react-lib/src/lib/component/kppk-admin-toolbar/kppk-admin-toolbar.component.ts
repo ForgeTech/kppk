@@ -4,6 +4,7 @@ import {
   ElementRef,
   ViewEncapsulation,
   computed,
+  effect,
   inject,
   input,
 } from '@angular/core';
@@ -17,10 +18,14 @@ import {
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import {
+  fg_auth_emitted_parser,
+  FgAuthLocalMachineActorService,
+  REACT_RUNNING_EVENT_CALCULATION_START,
+  react_running_event_calculation_start_parser,
   ReactAdminToolbarMachineActorService,
-  ReactInitMachineActorService,
+  ReactRunningV7MachineActorService,
 } from '../../machine';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FgTranslate } from '@kppk/fg-lib-new';
 import { FgXstateService } from '../../service';
 
@@ -54,6 +59,8 @@ import { FgXstateService } from '../../service';
 })
 export class KppkAdminToolbarComponent {
   protected $actor_admin_toolbar = inject(ReactAdminToolbarMachineActorService);
+  protected $actor_auth = inject(FgAuthLocalMachineActorService);
+  protected $actor_running = inject(ReactRunningV7MachineActorService);
   protected $translate = inject(FgTranslate);
   protected $xstate = inject(FgXstateService);
   public $element_ref = inject(ElementRef);
@@ -75,81 +82,68 @@ export class KppkAdminToolbarComponent {
     { initialValue: undefined }
   );
 
+  constructor() {
+    this.$actor_auth.event$.pipe(takeUntilDestroyed()).subscribe({
+      next: event => {
+        const parsed_event = fg_auth_emitted_parser.parse(event);
+        this.$actor_admin_toolbar.send( parsed_event )
+      }
+    })
+    this.$actor_auth.state$.pipe(takeUntilDestroyed()).subscribe({
+      next: snapshot => {
+        console.log('SNAPSHOT ADMIN TOOLBAR')
+        console.log(snapshot)
+      }
+    });
+    this.$actor_admin_toolbar.start();
+  }
+
   protected admin_toolbar_disabledS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches('RUNNING')
-    ? false
-    : true;
+    return this.$actor_admin_toolbar.stateS()?.matches('RUNNING') ? false : true;
   });
   protected admin_toolbar_errorS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches('ERROR')
-    ? true
-    : false;
+    return this.$actor_admin_toolbar.stateS()?.matches('ERROR');
   });
 
   protected authorization_is_onS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'AUTHORIZATION': 'ON'}})
-      ? true
-      : false;
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'AUTHORIZATION': 'ON'}});
   });
 
   protected test_calculation_is_onS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'TEST_CALCULATION': 'ON'}})
-      ? true
-      : false;
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'TEST_CALCULATION': 'ON'}});
   });
 
   protected xstate_is_onS = computed(() => {
-    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'X_STATE': 'ON'}})
-      ? true
-      : false;
+    return this.$actor_admin_toolbar.stateS()?.matches({ 'RUNNING': {'X_STATE': 'ON'}});
   });
 
-  constructor() {
-    this.$actor_admin_toolbar.start();
-    this.$actor_admin_toolbar.state$.subscribe({
-      next: value => {
-        console.log('FARK_FARK_FARK');
-        console.log( value )
-      }
-    })
-    // effect( () => {
-    //   if( this.authorization_is_onS() ){
-    //     console.log('AUTHORIZATION: ON')
-    //   } else {
-    //     console.log('AUTHORIZATION: OFF')
-    //   }
-    // });
-    // effect( () => {
-    //     if( this.test_calculation_is_onS() ){
-    //       console.log('TEST_CALCULATION: ON')
-    //     } else {
-    //       console.log('TEST_CALCULATION: OFF')
-    //     }
-    // });
-    // effect(() => {
-    //   if (this.xstate_is_onS()) {
-    //     this.$xstate.start();
-    //   } else {
-    //     this.$xstate.stop();
-    //   }
-    // });
-  }
-
-  protected toggle_authorization(event: MatSlideToggleChange) {
-    this.$actor_admin_toolbar.send({
-      type: 'react.admin_toolbox.event.x_state.toggle',
-    });
+  protected authorization_stateE = effect( () => {
     if( this.authorization_is_onS() ){
       console.log('AUTHORIZATION: ON')
     } else {
       console.log('AUTHORIZATION: OFF')
     }
-  }
+  })
 
-  protected toggle_xstate(event: MatSlideToggleChange) {
-    this.$actor_admin_toolbar.send({
-      type: 'react.admin_toolbox.event.x_state.toggle',
-    });
+  protected test_calculation_stateE = effect( () => {
+    if (this.test_calculation_is_onS() ) {
+      const calculation = this.$actor_admin_toolbar?.stateS()?.context.debug_culculation_v1;
+      console.log('CALCULATION: ON');
+      if(calculation) {
+        const event_to_dispatch = react_running_event_calculation_start_parser.parse({
+          type: 'react.running.event.calculation.start',
+          data: {
+            calculation
+          }
+        });
+        this.$actor_running?.send(event_to_dispatch);
+      }
+    } else {
+      console.log('CALCULATION: OFF');
+    }
+  })
+
+  protected xstate_stateE = effect( () => {
     if( this.xstate_is_onS() ){
       console.log('XSTATE: ON');
       this.$xstate.start();
@@ -157,17 +151,24 @@ export class KppkAdminToolbarComponent {
       console.log('XSTATE: OFF')
       this.$xstate.stop();
     }
+  })
+
+  protected toggle_authorization(event: MatSlideToggleChange) {
+    this.$actor_admin_toolbar.send({
+      type: 'react.admin_toolbox.event.auth.toggle',
+    });
   }
 
   protected toggle_test_calculation(event: MatSlideToggleChange) {
     this.$actor_admin_toolbar?.send({
       type: 'react.admin_toolbox.event.test_calculation.toggle',
     });
-    // if (this.xstate_is_onS()) {
-    //   this.$xstate.start();
-    // } else {
-    //   this.$xstate.stop();
-    // }
+  }
+
+  protected toggle_xstate(event: MatSlideToggleChange) {
+    this.$actor_admin_toolbar.send({
+      type: 'react.admin_toolbox.event.x_state.toggle',
+    });
   }
 
   protected refresh_admin_toolbar(event: Event) {
