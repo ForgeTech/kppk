@@ -1,7 +1,7 @@
 import { inject, Injectable, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
-import { BehaviorSubject, map, shareReplay, Subject } from 'rxjs';
+import { BehaviorSubject, filter, from, map, shareReplay, Subject, switchMap, tap } from 'rxjs';
 import {
   Actor,
   ActorOptions,
@@ -13,18 +13,18 @@ import {
 import { FgXstateService } from '../../service/fg-xstate.service';
 import { ReactMainV3MachineActorService } from '../react-main';
 import { REACT_ACTOR_ENUM } from '../../enum';
-import { FgAuthLocalMachineService } from './fg-auth-local.machine.service';
+import { ReactCalculationMaterialService } from './react-view-calculation-material.machine.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FgAuthLocalMainMachineActorService
+export class ReactViewCalculationMaterialMainMachineActorService
   extends FgBaseService
   implements OnDestroy
 {
   protected $env = inject(FgEnvironmentService);
   protected $xstate = inject(FgXstateService);
-  protected $machine = inject(FgAuthLocalMachineService);
+  protected $machine = inject(ReactCalculationMaterialService);
   protected $source = inject(ReactMainV3MachineActorService);
 
   protected machine = this.$machine.get_machine();
@@ -60,12 +60,17 @@ export class FgAuthLocalMainMachineActorService
     // this.ACTOR = 
     this.$source.state$.pipe(
       takeUntilDestroyed(),
-      map( () => {
-        return this.$source.actor;
-      })
+      filter( () => {
+        return this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING) ? true : false;
+      }),
+      switchMap( _ => from(this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)).pipe(
+        //tap( snapshot => console.log(snapshot)),
+        map( snapshot => this.$source.actor.system.get(REACT_ACTOR_ENUM.REACT_RUNNING)),
+        //tap( actor => console.log(actor)),
+      )),
     ).subscribe({
       next: source_actor => {
-        const actor =  source_actor.system.get(REACT_ACTOR_ENUM.FG_AUTH) as Actor<typeof this.machine> | undefined;
+        const actor = source_actor.system.get(REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION) as Actor<typeof this.machine> | undefined;
         this.ACTOR.next( actor );
         if( actor ) {
           // Push actor snapshot to state-signal

@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { FgXstateService } from '../../service';
 import { ReactViewCalculationMachineMethodeService } from './react-view-calculation.machine.methode.service';
 import {
+  REACT_CALCULATION_MATERIALS_FILE_DATA,
   REACT_VIEW_CALCULATION_CONTEXT,
   react_view_calculation_context_parser,
 } from '../../types';
@@ -37,181 +38,81 @@ export class ReactViewCalculationMachineService extends FgBaseService {
             | { type: 'fg.form.excavation_pit.event.update' }
             | { type: 'fg.form.heating_system.event.update' }
             | { type: 'react.view.calculation_materials.event.change_oi3' }
-            | {
-                type: 'react.view.calculation_materials.event.change_aufbauten';
-              }
-            | {
-                type: 'react.view.calculation_materials.event.change_material_type';
-              }
-            | {
-                type: 'react.view.calculation_materials.event.change_bauteilflaechen';
-              }
-            | {
-                type: 'react.view.calculation_materials.event.change_window_calculation';
-              }
-            | {
-                type: 'react.view.calculation_materials.event.change_concrete_calculation';
-              }
-            | {
-                type: 'react.view.calculation_materials.event.change_material_calculation';
-              }
+            | { type: 'react.view.calculation_materials.event.change_aufbauten' }
+            | { type: 'react.view.calculation_materials.event.change_material_type' }
+            | { type: 'react.view.calculation_materials.event.change_bauteilflaechen' }
+            | { type: 'react.view.calculation_materials.event.change_window_calculation' }
+            | { type: 'react.view.calculation_materials.event.change_concrete_calculation' }
+            | { type: 'react.view.calculation_materials.event.change_material_calculation' }
             | { type: 'fg.form.internal.update' },
         },
-
         actors: {
           actor_transform_file_inputs: this.$calculation_material.get_machine(),
-          actor_merge_bauteilflaechen_aufbauten: this.$xstate.fromPromise(
-            this.$methode.actor_merge_bauteilflaechen_aufbauten
-          ),
-          actor_merge_arich_oi3: this.$xstate.fromPromise(
-            this.$methode.actor_merge_arich_oi3
-          ),
-          actor_prepare_material_types: this.$xstate.fromPromise(
-            this.$methode.actor_prepare_material_types
-          ),
-          actor_material_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_material_calculation
-          ),
-          actor_concrete_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_concrete_calculation
-          ),
-          actor_window_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_window_calculation
-          ),
-          actor_container_village_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_container_village_calculation
-          ),
-          actor_construction_site_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_construction_site_calculation
-          ),
-          actor_demolish_disposal_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_demolish_disposal_calculation
-          ),
-          actor_excavation_pit_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_excavation_pit_calculation
-          ),
-          actor_heating_system_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_heating_system_calculation
-          ),
-          actor_result_calculation: this.$xstate.fromPromise(
-            this.$methode.actor_result_calculation
-          ),
+          actor_merge_bauteilflaechen_aufbauten: this.$xstate.fromPromise( this.$methode.actor_merge_bauteilflaechen_aufbauten ),
+          actor_merge_arich_oi3: this.$xstate.fromPromise( this.$methode.actor_merge_arich_oi3 ),
+          actor_prepare_material_types: this.$xstate.fromPromise( this.$methode.actor_prepare_material_types ),
+          actor_material_calculation: this.$xstate.fromPromise( this.$methode.actor_material_calculation ),
+          actor_concrete_calculation: this.$xstate.fromPromise( this.$methode.actor_concrete_calculation ),
+          actor_window_calculation: this.$xstate.fromPromise( this.$methode.actor_window_calculation ),
+          actor_container_village_calculation: this.$xstate.fromPromise( this.$methode.actor_container_village_calculation ),
+          actor_construction_site_calculation: this.$xstate.fromPromise( this.$methode.actor_construction_site_calculation ),
+          actor_demolish_disposal_calculation: this.$xstate.fromPromise( this.$methode.actor_demolish_disposal_calculation ),
+          actor_excavation_pit_calculation: this.$xstate.fromPromise( this.$methode.actor_excavation_pit_calculation ),
+          actor_heating_system_calculation: this.$xstate.fromPromise( this.$methode.actor_heating_system_calculation ),
+          actor_result_calculation: this.$xstate.fromPromise( this.$methode.actor_result_calculation ),
         },
         actions: {
           // assign_form_data: this.$xstate.assign(this.assign_form_data),
-          assign_transformed_file_inputs: this.$xstate.assign(
-            this.$methode.assign_transformed_file_inputs
-          ),
-          assign_change_aufbauten: this.$xstate.assign(
-            this.$methode.assign_change_aufbauten
-          ),
-          assign_change_bauteilflaechen: this.$xstate.assign(
-            this.$methode.assign_change_bauteilflaechen
-          ),
-          assign_change_oi3: this.$xstate.assign(
-            this.$methode.assign_change_oi3
-          ),
-          assign_change_material_type: this.$xstate.assign(
-            this.$methode.assign_change_material_type
-          ),
-          assign_merged_bauteilflaechen_aufbauten: this.$xstate.assign(
-            this.$methode.assign_merged_bauteilflaechen_aufbauten
-          ),
-          assign_prepare_material_types: this.$xstate.assign(
-            this.$methode.assign_prepare_material_types
-          ),
-          assign_merge_arich_oi3: this.$xstate.assign(
-            this.$methode.assign_merge_arich_oi3
-          ),
-          assign_material_calculation_result: this.$xstate.assign(
-            this.$methode.assign_material_calculation_result
-          ),
-          assign_concrete_calculation_result: this.$xstate.assign(
-            this.$methode.assign_concrete_calculation_result
-          ),
-          assign_window_calculation_result: this.$xstate.assign(
-            this.$methode.assign_window_calculation_result
-          ),
-          assign_change_material_calculation: this.$xstate.assign(
-            this.$methode.assign_change_material_calculation
-          ),
-          assign_change_window_calculation: this.$xstate.assign(
-            this.$methode.assign_change_window_calculation
-          ),
-          assign_change_concrete_calculation: this.$xstate.assign(
-            this.$methode.assign_change_concrete_calculation
-          ),
-          assign_container_village_calculation_result: this.$xstate.assign(
-            this.$methode.assign_container_village_calculation_result
-          ),
-          assign_construction_site_calculation_result: this.$xstate.assign(
-            this.$methode.assign_construction_site_calculation_result
-          ),
-          assign_demolish_disposal_calculation_result: this.$xstate.assign(
-            this.$methode.assign_demolish_disposal_calculation_result
-          ),
-          assign_excavation_pit_calculation_result: this.$xstate.assign(
-            this.$methode.assign_excavation_pit_calculation_result
-          ),
-          assign_heating_system_calculation_result: this.$xstate.assign(
-            this.$methode.assign_heating_system_calculation_result
-          ),
+          assign_transformed_file_inputs: this.$xstate.assign( this.$methode.assign_transformed_file_inputs ),
+          assign_change_aufbauten: this.$xstate.assign( this.$methode.assign_change_aufbauten ),
+          assign_change_bauteilflaechen: this.$xstate.assign( this.$methode.assign_change_bauteilflaechen ),
+          assign_change_oi3: this.$xstate.assign( this.$methode.assign_change_oi3 ),
+          assign_change_material_type: this.$xstate.assign( this.$methode.assign_change_material_type ),
+          assign_merged_bauteilflaechen_aufbauten: this.$xstate.assign( this.$methode.assign_merged_bauteilflaechen_aufbauten ),
+          assign_prepare_material_types: this.$xstate.assign( this.$methode.assign_prepare_material_types ),
+          assign_merge_arich_oi3: this.$xstate.assign( this.$methode.assign_merge_arich_oi3 ),
+          assign_material_calculation_result: this.$xstate.assign( this.$methode.assign_material_calculation_result ),
+          assign_concrete_calculation_result: this.$xstate.assign( this.$methode.assign_concrete_calculation_result ),
+          assign_window_calculation_result: this.$xstate.assign( this.$methode.assign_window_calculation_result ),
+          assign_change_material_calculation: this.$xstate.assign( this.$methode.assign_change_material_calculation ),
+          assign_change_window_calculation: this.$xstate.assign( this.$methode.assign_change_window_calculation ),
+          assign_change_concrete_calculation: this.$xstate.assign( this.$methode.assign_change_concrete_calculation ),
+          assign_container_village_calculation_result: this.$xstate.assign( this.$methode.assign_container_village_calculation_result ),
+          assign_construction_site_calculation_result: this.$xstate.assign( this.$methode.assign_construction_site_calculation_result ),
+          assign_demolish_disposal_calculation_result: this.$xstate.assign( this.$methode.assign_demolish_disposal_calculation_result ),
+          assign_excavation_pit_calculation_result: this.$xstate.assign( this.$methode.assign_excavation_pit_calculation_result ),
+          assign_heating_system_calculation_result: this.$xstate.assign( this.$methode.assign_heating_system_calculation_result ),
           // raise_form_internal_update: raise(this.raise_form_internal_update),
-          assign_step_selection_form_data: this.$xstate.assign(
-            this.$methode.assign_step_selection_form_data
-          ),
-          assign_container_village_form_data: this.$xstate.assign(
-            this.$methode.assign_container_village_form_data
-          ),
-          assign_construciton_form_data: this.$xstate.assign(
-            this.$methode.assign_construciton_form_data
-          ),
-          assign_demolish_disposal_form_data: this.$xstate.assign(
-            this.$methode.assign_demolish_disposal_form_data
-          ),
-          assign_excavation_pit_form_data: this.$xstate.assign(
-            this.$methode.assign_excavation_pit_form_data
-          ),
-          assign_heating_system_form_data: this.$xstate.assign(
-            this.$methode.assign_heating_system_form_data
-          ),
-          assign_common_form_data: this.$xstate.assign(
-            this.$methode.assign_common_form_data
-          ),
-          assign_result_calculation_result: this.$xstate.assign(
-            this.$methode.assign_result_calculation_result
-          ),
-          raise_form_internal_update: this.$xstate.raise(
-            this.$methode.raise_form_internal_update
-          ),
+          assign_step_selection_form_data: this.$xstate.assign( this.$methode.assign_step_selection_form_data ),
+          assign_container_village_form_data: this.$xstate.assign( this.$methode.assign_container_village_form_data ),
+          assign_construciton_form_data: this.$xstate.assign( this.$methode.assign_construciton_form_data ),
+          assign_demolish_disposal_form_data: this.$xstate.assign( this.$methode.assign_demolish_disposal_form_data ),
+          assign_excavation_pit_form_data: this.$xstate.assign( this.$methode.assign_excavation_pit_form_data ),
+          assign_heating_system_form_data: this.$xstate.assign( this.$methode.assign_heating_system_form_data ),
+          assign_common_form_data: this.$xstate.assign( this.$methode.assign_common_form_data ),
+          assign_result_calculation_result: this.$xstate.assign( this.$methode.assign_result_calculation_result ),
+          raise_form_internal_update: this.$xstate.raise( this.$methode.raise_form_internal_update ),
         },
         guards: {
-          guard_merge_bauteilflaechen_aufbauten_data_exists:
-            this.$methode.guard_merge_bauteilflaechen_aufbauten_data_exists,
-          guard_merge_arich_oi3_data_exists:
-            this.$methode.guard_merge_arich_oi3_data_exists,
-          guard_materials_with_type_data_exists:
-            this.$methode.guard_materials_with_type_data_exists,
-          guard_material_calculation_data_exist:
-            this.$methode.guard_material_calculation_data_exist,
-          guard_concrete_calculation_data_exist:
-            this.$methode.guard_concrete_calculation_data_exist,
-          guard_window_calculation_data_exist:
-            this.$methode.guard_window_calculation_data_exist,
-          guard_container_village_selected:
-            this.$methode.guard_container_village_selected,
-          guard_construction_site_selected:
-            this.$methode.guard_construction_site_selected,
-          guard_demolish_disposal_selected:
-            this.$methode.guard_demolish_disposal_selected,
-          guard_excavation_pit_selected:
-            this.$methode.guard_excavation_pit_selected,
-          guard_heating_system_selected:
-            this.$methode.guard_heating_system_selected,
+          guard_merge_bauteilflaechen_aufbauten_data_exists: this.$methode.guard_merge_bauteilflaechen_aufbauten_data_exists,
+          guard_merge_arich_oi3_data_exists: this.$methode.guard_merge_arich_oi3_data_exists,
+          guard_materials_with_type_data_exists: this.$methode.guard_materials_with_type_data_exists,
+          guard_material_calculation_data_exist: this.$methode.guard_material_calculation_data_exist,
+          guard_concrete_calculation_data_exist: this.$methode.guard_concrete_calculation_data_exist,
+          guard_window_calculation_data_exist: this.$methode.guard_window_calculation_data_exist,
+          guard_container_village_selected: this.$methode.guard_container_village_selected,
+          guard_construction_site_selected: this.$methode.guard_construction_site_selected,
+          guard_demolish_disposal_selected: this.$methode.guard_demolish_disposal_selected,
+          guard_excavation_pit_selected: this.$methode.guard_excavation_pit_selected,
+          guard_heating_system_selected: this.$methode.guard_heating_system_selected,
         },
       })
       .createMachine({
-        context: react_view_calculation_context_parser.parse(context ?? {}),
+        // context: react_view_calculation_context_parser.parse(context ?? {}),
+        context: ( {input}) => {
+          const result = react_view_calculation_context_parser.parse( input );
+          return result;
+        },
         id: 'REACT_VIEW_CALCULATION',
         type: 'parallel',
         states: {
@@ -275,7 +176,7 @@ export class ReactViewCalculationMachineService extends FgBaseService {
               TRANSFORM_FILE_INPUTS: {
                 invoke: {
                   id: 'actor_transform_file_inputs',
-                  input: parent_context_event_input,
+                  input: this.$methode.actor_material_calculation_input,
                   onDone: {
                     target: 'MERGE_BAUTEILFLAECHEN_AUFBAUTEN',
                     actions: {

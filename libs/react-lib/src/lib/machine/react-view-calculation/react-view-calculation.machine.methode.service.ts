@@ -59,6 +59,7 @@ import {
   form_material_context_results_parser,
   form_window_context_parser,
   form_window_context_results_parser,
+  react_calculation_materials_file_data,
   REACT_VIEW_CALCULATION_CONTEXT,
   REACT_VIEW_CALCULATION_INPUT,
 } from '../../types';
@@ -241,11 +242,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     return result;
   };
 
-  public actor_material_calculation = async ({
-    input,
-  }: {
-    input: REACT_VIEW_CALCULATION_INPUT;
-  }) => {
+  public actor_material_calculation = async ({ input }: { input: REACT_VIEW_CALCULATION_INPUT }) => {
     const form = form_material_context_parser.parse(
       input.context.calculation?.form_material
     );
@@ -256,6 +253,16 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return form_material_context_results_parser.parse(result);
   };
+
+  public actor_material_calculation_input = ({ context }: REACT_VIEW_CALCULATION_INPUT) => {
+    const input = react_calculation_materials_file_data.parse({
+      file_aufbauten: context.calculation?.file_aufbauten,
+      file_bauteilflaechen: context.calculation?.file_bauteilflaechen,
+      file_oi3: context.calculation?.file_oi3,
+    });
+    return input;
+  }
+
   public actor_concrete_calculation = async ({
     input,
   }: {
@@ -282,6 +289,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     add_number_units(result.gwp_total, result.gwp_transport);
     return form_concrete_context_results_parser.parse(result);
   };
+
   public actor_window_calculation = async ({
     input,
   }: {
@@ -315,6 +323,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     }
     return result;
   };
+
   public actor_construction_site_calculation = async ({
     input,
   }: {
@@ -332,6 +341,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     }
     return result;
   };
+
   public actor_demolish_disposal_calculation = async ({
     input,
   }: {
@@ -349,6 +359,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     }
     return result;
   };
+
   public actor_excavation_pit_calculation = async ({
     input,
   }: {
@@ -422,6 +433,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_step_selection_form_data = ({
     context,
     event,
@@ -434,6 +446,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_container_village_form_data = ({
     context,
     event,
@@ -457,6 +470,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_construciton_form_data = ({
     context,
     event,
@@ -482,6 +496,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_demolish_disposal_form_data = ({
     context,
     event,
@@ -506,6 +521,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_excavation_pit_form_data = ({
     context,
     event,
@@ -571,6 +587,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_aufbauten = ({
     context,
     event,
@@ -588,6 +605,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_bauteilflaechen = ({
     context,
     event,
@@ -606,6 +624,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_oi3 = ({
     context,
     event,
@@ -622,6 +641,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_merged_bauteilflaechen_aufbauten = ({
     context,
     event,
@@ -633,6 +653,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_prepare_material_types = ({
     context,
     event,
@@ -649,6 +670,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_merge_arich_oi3 = ({
     context,
     event,
@@ -660,6 +682,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_material_calculation_result = ({
     context,
     event,
@@ -671,6 +694,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_concrete_calculation_result = ({
     context,
     event,
@@ -682,6 +706,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_window_calculation_result = ({
     context,
     event,
@@ -693,6 +718,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_material_calculation = ({
     context,
     event,
@@ -715,6 +741,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_window_calculation = ({
     context,
     event,
@@ -747,6 +774,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_concrete_calculation = ({
     context,
     event,
@@ -763,6 +791,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_container_village_calculation_result = ({
     context,
     event,
@@ -777,6 +806,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_construction_site_calculation_result = ({
     context,
     event,
@@ -791,6 +821,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_demolish_disposal_calculation_result = ({
     context,
     event,
@@ -805,6 +836,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_excavation_pit_calculation_result = ({
     context,
     event,
@@ -834,6 +866,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     });
     return result;
   };
+
   public assign_change_material_type = ({
     context,
     event,
@@ -867,24 +900,28 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     const result = context.calculation ? true : false;
     return result;
   };
+
   public guard_construction_site_form_is_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
     const result = context.calculation ? true : false;
     return result;
   };
+
   public guard_demolish_disposal_form_is_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
     const result = context.calculation ? true : false;
     return result;
   };
+
   public guard_excavation_pit_form_is_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
     const result = context.calculation ? true : false;
     return result;
   };
+
   public guard_merge_bauteilflaechen_aufbauten_data_exists = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -894,12 +931,14 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_merge_arich_oi3_data_exists = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
     const result = context.calculation?.actor_merge_arich_oi3 ? true : false;
     return result;
   };
+
   public guard_materials_with_type_data_exists = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -908,6 +947,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_material_calculation_data_exist = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -916,6 +956,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_concrete_calculation_data_exist = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -924,6 +965,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_window_calculation_data_exist = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -932,6 +974,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_container_village_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -941,6 +984,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_construction_site_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -950,6 +994,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_demolish_disposal_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -959,6 +1004,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_excavation_pit_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -967,6 +1013,7 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
       : false;
     return result;
   };
+
   public guard_heating_system_selected = ({
     context,
   }: REACT_VIEW_CALCULATION_INPUT) => {
@@ -1011,16 +1058,19 @@ export class ReactViewCalculationMachineMethodeService extends FgBaseService {
     const result = unit_kilogram_co2_parser.parse({ value });
     return result;
   }
+
   public calculate_gwp_oeko(mass: UNIT_KG, gwp_oeko: UNIT_KGCO2_KG) {
     const value = mass.value * gwp_oeko.value;
     const result = unit_kilogram_co2_parser.parse({ value });
     return result;
   }
+
   public calculate_mass(area: UNIT_M2, area_based_mass: UNIT_KG_M2) {
     const value = area.value * area_based_mass.value;
     const result = unit_kilogram_parser.parse({ value });
     return result;
   }
+
   public calculate_volumn(mass: UNIT_KG, density: UNIT_KG_M3) {
     try {
       const value = mass.value / density.value;

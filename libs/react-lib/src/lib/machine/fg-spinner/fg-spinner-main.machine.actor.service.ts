@@ -64,8 +64,8 @@ export class FgSpinnerMainMachineActorService
     ).subscribe({
       next: source_actor => {
         const actor =  source_actor.system.get(REACT_ACTOR_ENUM.FG_SPINNER) as Actor<typeof this.machine> | undefined;
+        this.ACTOR.next( actor );
         if( actor ) {
-          this.ACTOR.next( actor );
           // Push actor snapshot to state-signal
           this.STATE$.next( actor.getSnapshot() );
           this.state_subscription = actor.subscribe( snapshot => {
