@@ -18,28 +18,29 @@ import { HOST_ROUTES, REACT_ACTOR_ENUM } from '../../enum';
 import { ReactViewCalculationMachineService } from '../react-view-calculation';
 import { ReactViewHomeMachineService } from '../react-view-home';
 import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
-import { react_calculation_materials_file_data, REACT_VIEW_CALCULATION_CONTEXT, react_view_calculation_context_parser } from '../../types';
+import { react_view_calculation_context_parser } from '../../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReactRunningV7MachineService extends FgBaseService {
+  // protected $machine_init = inject(ReactInitMachineService);
   protected $common = inject(FgMachineUtilsMethodeService);
-  protected $methode = inject(ReactRunningV7MachineMethodeService);
-  protected $router = inject(Router);
-  protected $xstate = inject(FgXstateService);
-  protected $router_machine = inject(FgRouterMachineService);
+  protected $machine_calc = inject(ReactViewCalculationMachineService);
+  protected $machine_home = inject(ReactViewHomeMachineService);
   protected $machine_navigation = inject(FgNavigationMachineService);
   protected $machine_router = inject(FgRouterMachineService);
-  protected $machine_home = inject(ReactViewHomeMachineService);
-  protected $machine_calc = inject(ReactViewCalculationMachineService);
+  protected $methode = inject(ReactRunningV7MachineMethodeService);
+  protected $methode_navigation = inject(FgNavigationMachineMethodeService);
+  protected $router = inject(Router);
+  protected $router_machine = inject(FgRouterMachineService);
+  protected $xstate = inject(FgXstateService);
   protected HOST_ROUTES = HOST_ROUTES;
 
   // protected assign_context_from_system = ({ context, event, system }: { context: ReactAdminToolbarV1Context, event: any, system: ActorSystem<any> }) => {
   //   const result = this.$immer.produce( context, draft => {
   public get_machine() {
-
-      return this.$xstate.setup({
+    return this.$xstate.setup({
       types: {
         context: {} as REACT_RUNNING_CONTEXT,
         input: {} as Partial<REACT_RUNNING_CONTEXT>,
@@ -61,10 +62,12 @@ export class ReactRunningV7MachineService extends FgBaseService {
       actions: {
         assign_auth_cookie_set: this.$xstate.assign(this.$methode.assign_auth_cookie_set),
         assign_auth_cookie_unset: this.$xstate.assign(this.$methode.assign_auth_cookie_unset),
+        assign_calculation_data_loaded: this.$xstate.assign(this.$methode.assign_calculation_data_loaded),
         assign_calculation_set: this.$xstate.assign(this.$methode.assign_calculation_set),
         assign_calculation_unset: this.$xstate.assign(this.$methode.assign_calculation_unset),
-        log_info: this.$common.log_info,
+        assign_navigation_active: this.$xstate.assign(this.$methode.assign_navigation_active),
         log_error: this.$common.log_error,
+        log_info: this.$common.log_info,
         raise_initial_navigation: this.$xstate.raise(this.$methode.raise_initial_navigation),
         raise_navigation_block: this.$xstate.raise(this.$methode.raise_navigation_block),
         raise_navigation_enable: this.$xstate.raise(this.$methode.raise_navigation_enable),
@@ -73,14 +76,21 @@ export class ReactRunningV7MachineService extends FgBaseService {
         send_to_navigation: this.$xstate.forwardTo(REACT_ACTOR_ENUM.REACT_NAVIGATION)
       },
       actors: {
-        actor_calculation: this.$machine_calc.get_machine(),
         actor_home: this.$machine_home.get_machine(),
-        // actor_home: this.$xstate.createMachine({}),
-        actor_navigation: this.$machine_navigation.get_machine(),
+        actor_navigation: this.$machine_navigation.get_machine().provide({
+          actions: {
+            send_navigation_emitted_ended: this.$xstate.sendParent(this.$methode_navigation.send_navigation_emitted_ended),
+            send_navigation_emitted_started: this.$xstate.sendParent(this.$methode_navigation.send_navigation_emitted_started),
+          }
+        }),
         actor_router:  this.$machine_router.getMachine(),
+        actor_view_calculation_load_data: this.$xstate.fromPromise(this.$methode.actor_view_calculation_load_data),
+        actor_view_calculation: this.$machine_calc.get_machine(),
       },
       guards: {
+        guard_calculation_data_loaded: this.$methode.guard_calculation_data_loaded,
         guard_is_authorized: this.$methode.guard_is_authorized,
+        guard_navigation_is_active: this.$methode.guard_navigation_is_active,
         guard_view_calculation: this.$methode.guard_view_calculation,
         guard_view_data_protection: this.$methode.guard_view_data_protection,
         guard_view_home: this.$methode.guard_view_home,
@@ -297,36 +307,67 @@ export class ReactRunningV7MachineService extends FgBaseService {
                   },
                 },
                 CALCULATION: {
+                  initial: "PENDING",
                   entry: [
                     {
                       type: "raise_navigation_navigate",
-                      params: ({ context, event })=>{
+                      params: ({ context, event }) => {
                         return { url: '/' + [HOST_ROUTES.CALC].join('/') };
                       }
                     },
-                    {
-                      type: "raise_navigation_block",
-                    }
+                    // {
+                    //   type: "raise_navigation_block",
+                    // },
                   ],
                   exit: [
-                    {
-                      type: "assign_calculation_unset",
-                    },
-                    {
-                      type: "raise_navigation_enable",
-                    },
+                    // {
+                    //   type: "assign_calculation_unset",
+                    // },
+                    // {
+                    //   type: "raise_navigation_enable",
+                    // },
                   ],
-                  invoke: {
-                    id: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
-                    systemId: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
-                    input: ({ context, event}) => {
-                      const input_calculation = {
-                        calculation: context.calculation
-                      }
-                      const result = react_view_calculation_context_parser.parse(input_calculation);
-                      return result;
+                  states: {
+                    PENDING: {
+                      always: [
+                        {
+                          target: "RUN",
+                          guard: {
+                            type: "guard_calculation_data_loaded",
+                          },
+                        },
+                        {
+                          target: "LOAD_CALCULATION_DATA",
+                        },
+                      ],
                     },
-                    src: "actor_calculation",
+                    LOAD_CALCULATION_DATA: {
+                      invoke: {
+                        id: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION_LOAD,
+                        systemId: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION_LOAD,
+                        onDone: {
+                          target: "RUN",
+                          actions: [
+                            {
+                              type: 'assign_calculation_data_loaded',
+                            }
+                          ]
+                        },
+                        src: "actor_view_calculation_load_data",
+                      },
+                    },
+                    RUN: {
+                      invoke: {
+                      id: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
+                        systemId: REACT_ACTOR_ENUM.REACT_VIEW_CALCULATION,
+                        input: ({ context }) => {
+                          console.log( context );
+                          const result = react_view_calculation_context_parser.parse(context);
+                          return result;
+                        },
+                        src: "actor_view_calculation",
+                      },
+                    },
                   },
                 },
                 LOGOUT: {
@@ -345,25 +386,59 @@ export class ReactRunningV7MachineService extends FgBaseService {
         },
         ROUTER: {
           on: {
-            "fg.router.emitted.start": {
-              actions: [
-                {
-                  type: "raise_react_running_select_active_view",
-                  params: ({ event }:{event:any}) => {
-                    const parsed_event = fg_router_emitted_start_parser.parse(event);
-                    return { url: parsed_event.data.url };
-                  }
+            // "fg.router.emitted.start": {
+            //   actions: [
+            //     {
+            //       type: "raise_react_running_select_active_view",
+            //       params: ({ event }:{event:any}) => {
+            //         const parsed_event = fg_router_emitted_start_parser.parse(event);
+            //         return { url: parsed_event.data.url };
+            //       }
+            //     },
+            //     {
+            //       type: "log_error",
+            //       params: {
+            //         message: 'ROUTER_START',
+            //         log_context: true,
+            //       log_event: true
+            //       }
+            //     }
+            //   ],
+            // },
+            "fg.router.emitted.start": [
+              {
+                actions: [
+                  {
+                    type: "log_info",
+                  },
+                  {
+                    type: "raise_navigation_navigate",
+                    params: ({ event }:{event:any}) => {
+                      const parsed_event = fg_router_emitted_start_parser.parse(event);
+                      return { url: parsed_event.data.url };
+                    }
+                  },
+                ],
+                guard: {
+                  type: "guard_navigation_is_active",
+                  // type: "guard_target_url_matches_current_url",
                 },
-                {
-                  type: "log_error",
-                  params: {
-                    message: 'ROUTER_START',
-                    log_context: true,
-                  log_event: true
-                  }
-                }
-              ],
-            },
+              },
+              {
+                actions: [
+                  {
+                    type: "log_info",
+                  },
+                  {
+                    type: "raise_react_running_select_active_view",
+                    params: ({ context, event }) => {
+                      const parsed_event = fg_router_emitted_start_parser.parse(event);
+                      return { url: parsed_event.data.url };
+                    }
+                  },
+                ],
+              },
+            ],
             "fg.router.emitted.end": {
               actions: [
                 {
@@ -399,14 +474,44 @@ export class ReactRunningV7MachineService extends FgBaseService {
         NAVIGATION: {
           on: {
             "fg.navigation.emitted.started": {
-              actions: {
-                type: "log_info",
-              },
+              actions: [
+                {
+                  type: "log_error",
+                  params: () => {
+                    return {
+                      message: 'NAVIGATION_EMITTED_STARTED'
+                    }
+                  }
+                },
+                {
+                  type: "assign_navigation_active",
+                  params: () => {
+                    return {
+                      active_navigation: true
+                    };
+                  }
+                }
+              ],
             },
             "fg.navigation.emitted.ended": {
-              actions: {
-                type: "log_info",
-              },
+              actions: [
+                {
+                  type: "log_error",
+                  params: () => {
+                    return {
+                      message: 'NAVIGATION_EMITTED_ENDED'
+                    }
+                  }
+                },
+                {
+                  type: "assign_navigation_active",
+                  params: () => {
+                    return {
+                      active_navigation: false
+                    };
+                  }
+                }
+              ],
             },
             "fg.navigation.event.*": {
               actions: [
