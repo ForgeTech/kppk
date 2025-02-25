@@ -47,6 +47,7 @@ export enum REACT_ACTOR_ENUM {
   REACT_ADMIN_TOOLBAR = 'react_admin_toolbar',
   REACT_NAVIGATION = 'react_navigation',
   REACT_VIEW_HOME = 'react_view_home',
+  REACT_VIEW_CALCULATION_LOAD = 'react_view_calculation_load_data',
   REACT_VIEW_CALCULATION = 'react_view_calculation',
 }
 
