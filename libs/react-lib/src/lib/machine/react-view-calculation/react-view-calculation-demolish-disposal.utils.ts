@@ -38,7 +38,7 @@ import {
 } from '../../types/kppk-react-truck.types';
 import {
   FG_FORM_DEMOLISH_DISPOSAL_CONTEXT,
-  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  REACT_CALCULATION_DATA,
 } from '../../types';
 
 export const calculate_weight_capacity_from_truck_usage = (
@@ -179,7 +179,7 @@ export const get_section_result = (
 
 export const calculate_demolish_disposal_results = (
   form_demolish_disposal: FG_FORM_DEMOLISH_DISPOSAL_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+  data: REACT_CALCULATION_DATA
 ): any => {
   const truck_data = truck_data_parser.parse(
     data.truck.filter((item) => item.category.includes('demolish_disposal'))

@@ -1,6 +1,6 @@
 import {
   FG_FORM_HEATING_SYSTEM_CONTEXT,
-  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  REACT_CALCULATION_DATA,
 } from '../../types';
 import {
   FORM_HEATING_SYSTEM_DATA,
@@ -46,7 +46,7 @@ export const form_heating_system_calculate_dynamic_model_values = (
 
 export const calculate_heating_system_results = (
   form_heating_system: FG_FORM_HEATING_SYSTEM_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+  data: REACT_CALCULATION_DATA
 ): FORM_HEATING_SYSTEM_RESULT => {
   const result: FORM_HEATING_SYSTEM_RESULT = {
     calc_usage_co2: calculate_usage_co2(

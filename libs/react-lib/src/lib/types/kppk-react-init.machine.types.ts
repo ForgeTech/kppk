@@ -71,7 +71,7 @@ export const calculation_parser = z.object({
 });
 export type CALCULATION = z.infer<typeof calculation_parser>;
 
-export const react_init_load_from_remote_data_parser = z.object({
+export const react_calculation_data_parser = z.object({
   concrete_types: concrete_data_parser,
   container_disposal: container_disposal_parser,
   container_village: container_village_energy_data_parser,
@@ -82,12 +82,12 @@ export const react_init_load_from_remote_data_parser = z.object({
   window_glass: window_glass_data_parser,
 });
 
-export type REACT_INIT_LOAD_FROM_REMOTE_DATA = z.infer<
-  typeof react_init_load_from_remote_data_parser
+export type REACT_CALCULATION_DATA = z.infer<
+  typeof react_calculation_data_parser
 >;
 
 export const react_init_load_from_remote_parser = z.object({
-  common: react_init_load_from_remote_data_parser,
+  common: react_calculation_data_parser,
   form_defaults: form_values_parser,
 });
 export type REACT_INIT_LOAD_FROM_REMOTE = z.infer<typeof react_init_load_from_remote_parser>;

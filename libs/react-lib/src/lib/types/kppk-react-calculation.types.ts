@@ -20,7 +20,7 @@ import {
   form_common_value_parser,
   form_values_parser,
 } from './kppk-react-form.types';
-import { react_init_load_from_remote_data_parser } from './kppk-react-init.machine.types';
+import { react_calculation_data_parser } from './kppk-react-init.machine.types';
 
 export const react_view_calculation_parser = form_values_parser.extend({
   file_aufbauten: z.object({ data: z.array(z.any()) }),
@@ -66,9 +66,9 @@ export const react_view_calculation_parser = form_values_parser.extend({
 export type REACT_VIEW_CALCULATION = z.infer<typeof react_view_calculation_parser>;
 
 export const react_view_calculation_context_parser = z.object({
-  form_defaults: form_values_parser,
   calculation: react_view_calculation_parser,
-  data: react_init_load_from_remote_data_parser,
+  data: react_calculation_data_parser,
+  form_defaults: form_values_parser,
 });
 
 export type REACT_VIEW_CALCULATION_CONTEXT = z.infer<typeof react_view_calculation_context_parser>;

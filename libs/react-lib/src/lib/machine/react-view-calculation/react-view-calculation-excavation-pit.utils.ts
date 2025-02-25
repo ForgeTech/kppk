@@ -4,7 +4,7 @@ import {
 } from '../../enum';
 import {
   FG_FORM_EXCAVATION_PIT_CONTEXT,
-  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  REACT_CALCULATION_DATA,
 } from '../../types';
 import {
   RESULT_EXCAVATION_PIT,
@@ -277,7 +277,7 @@ export const calculate_shotcrete_co2_nail_volumen = (
 
 export const calculate_excavation_pit_results = (
   form_excavation_pit: FG_FORM_EXCAVATION_PIT_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+  data: REACT_CALCULATION_DATA
 ): RESULT_EXCAVATION_PIT => {
   const common_truck = truck_data_item_parser.parse(
     data.truck.find((item) => item.category.includes('common'))

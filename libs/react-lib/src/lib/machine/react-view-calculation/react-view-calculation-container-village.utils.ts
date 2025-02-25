@@ -1,6 +1,6 @@
 import {
   FG_FORM_CONTAINER_VILLAGE_CONTEXT,
-  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  REACT_CALCULATION_DATA,
 } from '../../types';
 import {
   container_village_energy_result_item,
@@ -119,7 +119,7 @@ export const calculate_distance_co2 = (
 
 export const calculate_container_village_results = (
   form_container_village: FG_FORM_CONTAINER_VILLAGE_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+  data: REACT_CALCULATION_DATA
 ): CONTAINER_VILLAGE_RESULT => {
   const result = container_village_result_parser.parse({});
   const container_count = unit_pieces_parser.parse({});

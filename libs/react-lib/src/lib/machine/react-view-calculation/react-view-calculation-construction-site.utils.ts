@@ -6,7 +6,7 @@ import {
 import {
   add_number_units,
   FG_FORM_CONSTRUCTION_SITE_CONTEXT,
-  REACT_INIT_LOAD_FROM_REMOTE_DATA,
+  REACT_CALCULATION_DATA,
   RESULT_CONSTRUCTION_SITE,
   result_construction_site_parser,
   UNIT_GCO2_KM,
@@ -127,7 +127,7 @@ export const calculate_energy_usage_estimate = () => {
 
 export const calculate_construction_site_results = (
   form_construction_site: FG_FORM_CONSTRUCTION_SITE_CONTEXT,
-  data: REACT_INIT_LOAD_FROM_REMOTE_DATA
+  data: REACT_CALCULATION_DATA
 ): RESULT_CONSTRUCTION_SITE => {
   const result = result_construction_site_parser.parse({});
 
