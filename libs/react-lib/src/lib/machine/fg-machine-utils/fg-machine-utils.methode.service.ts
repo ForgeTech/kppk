@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { boundMethod } from 'autobind-decorator';
 import { 
@@ -12,12 +12,15 @@ import {
   LOG_OPTIONS,
 } from './fg-machine-utils.machine.types';
 import { fg_spinner_event_hide_parser, FG_SPINNER_EVENT_OPTION, fg_spinner_event_option_parser, fg_spinner_event_show_parser } from '../fg-spinner';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin, Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class FgMachineUtilsMethodeService extends FgBaseService {
+  protected $http = inject(HttpClient);
 
   @boundMethod
   public raise_spinner_event_show(input: ANY_ACTION_INPUT, params?: FG_SPINNER_EVENT_OPTION) {
@@ -29,6 +32,15 @@ export class FgMachineUtilsMethodeService extends FgBaseService {
   public raise_spinner_event_hide(input: ANY_ACTION_INPUT, params?: FG_SPINNER_EVENT_OPTION) {
     const data = fg_spinner_event_option_parser.parse(params);
     return fg_spinner_event_hide_parser.parse({ data });
+  }
+
+  @boundMethod  
+  public load_object(to_load: Record<string, string>) {
+    const resources: Record<string, Observable<any>> = {};
+    Object.keys(to_load).forEach((key) => {
+        resources[key] = this.$http.get(to_load[key]);
+    });
+    return forkJoin(resources);
   }
 
   @boundMethod
