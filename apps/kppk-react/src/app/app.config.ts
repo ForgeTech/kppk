@@ -46,6 +46,8 @@ import {
   ReactMainV3MachineActorService,
   ReactRunningV7MachineActorService,
   ReactRunningV7MainMachineActorService,
+  ReactViewCalculationMachineActorService,
+  ReactViewCalculationMainMachineActorService,
   ReactViewHomeMachineActorService,
   ReactViewHomeMainMachineActorService,
   TranslocoHttpLoader,
@@ -78,9 +80,9 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withPreloading(PreloadAllModules),
       withDisabledInitialNavigation(),
-      // withRouterConfig({
-      //   onSameUrlNavigation: 'ignore'
-      // }),
+      withRouterConfig({
+         onSameUrlNavigation: 'ignore'
+      }),
       // Provides debug output
       withDebugTracing(),
     ),
@@ -107,7 +109,7 @@ export const appConfig: ApplicationConfig = {
     { provide: ReactRunningV7MachineActorService, useClass: ReactRunningV7MainMachineActorService},
     { provide: FgAuthLocalMachineActorService, useClass: FgAuthLocalMainMachineActorService},
     { provide: ReactViewHomeMachineActorService, useClass: ReactViewHomeMainMachineActorService},
-   
+    { provide: ReactViewCalculationMachineActorService, useClass: ReactViewCalculationMainMachineActorService},
     { provide: FgNavigationMachineActorService, useClass: FgNavigationMainMachineActorService}
   ],
 };
