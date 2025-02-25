@@ -9,10 +9,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
+import { map } from 'rxjs';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-materials-oi3-row',
@@ -21,11 +22,11 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   template: `
     <div
       [ngClass]="{
-    'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
-    'valid': form_status_s() === 'VALID',
-    'pending': form_status_s() === 'PENDING',
-    'disabled': form_status_s() === 'DISABLED',
-  }"
+        'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
+        'valid': form_status_s() === 'VALID',
+        'pending': form_status_s() === 'PENDING',
+        'disabled': form_status_s() === 'DISABLED',
+      }"
     >
       <formly-form
         [form]="form"
@@ -42,11 +43,20 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('general', 'calc')],
 })
 export class KppkReactMaterialsOi3RowComponent {
   protected $utils = inject(KppkReactFieldsUtils);
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translations$ = this.$translate.get_translations$({
+    "name": "calc",
+    "area": "calc",
+    "oi3": "calc",
+    "penrt": "calc",
+    "gwp": "calc",
+    "gwp_biogenic": "calc",
+    "ap": "calc",
+    "gwp_total": "calc",
+  });
 
   public row = input<any>();
   public options = input<any>();
@@ -76,8 +86,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.name'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['name'])
+                ),                
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -94,8 +106,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.area'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['area'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -112,8 +126,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.oi3'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['oi3'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -130,8 +146,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.penrt'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['penrt'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -148,8 +166,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.gwp'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -166,9 +186,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.gwp_biogenic'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp_biogenic'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -185,8 +206,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.ap'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['ap'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -203,9 +226,10 @@ export class KppkReactMaterialsOi3RowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.gwp_total'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp_total'])
+                ), 
+                'props.unit': this.$utils.provide_unit,  
               },
             },
           ],

@@ -1,14 +1,15 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { TranslocoService } from '@jsverse/transloco';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
+import { map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactFieldsUtils extends FgBaseService {
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
   protected focus_root_parent_path_key_s = signal<undefined | number | string>(
     undefined
   );
@@ -19,16 +20,28 @@ export class KppkReactFieldsUtils extends FgBaseService {
         [additionalProperties: string]: any;
       }
     >
-  ): any => {
-    let result = '';
-
+  ) => {
+    const to_load: Record<string, string> = {};
+    let unit: string;
     if (field.key) {
       const key = field.key.toString().replace('.value', '');
-      let unit = field.model[key as keyof typeof field.model]?.unit;
+      unit = field.model[key as keyof typeof field.model]?.unit;
       unit = unit ? unit : 'none';
-      result = unit; //this.$translate.translate('calc.' + unit);
+      to_load[unit] = 'units';
+      // console.log('UNIT: ', unit);
+      //this.$translate.translate('calc.' + unit);
     }
-    return result;
+    return this.$translate.get_translations$(to_load).pipe(
+      // tap( trans => {
+      //   console.log('TRANS: ')
+      //   console.log(trans);
+      // }),
+      map( trans => trans[unit]),
+      // tap( value => {
+      //   console.log('TRANS2: ')
+      //   console.log(value);
+      // }),
+    )
   };
 
   public provide_focus = (

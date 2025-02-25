@@ -5,19 +5,18 @@ import {
   inject,
   input,
   output,
-  signal,
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule, WINDOW_PART_TYPE_ENUM } from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest, map, shareReplay, startWith } from 'rxjs';
+import { combineLatest, map, shareReplay } from 'rxjs';
 import { FormlySelectOption } from '@ngx-formly/core/select';
 import { unit_id_parser } from '@kppk/react-lib';
 import { FormGroup } from '@angular/forms';
 import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 export const container_window_part_type_select_options = [
   { label: WINDOW_PART_TYPE_ENUM.none, value: WINDOW_PART_TYPE_ENUM.none },
@@ -33,11 +32,11 @@ export const container_window_part_type_select_options = [
     <!-- <pre>{{ form_state_change() | json }}</pre> -->
     <div
       [ngClass]="{
-    'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
-    'valid': form_status_s() === 'VALID',
-    'pending': form_status_s() === 'PENDING',
-    'disabled': form_status_s() === 'DISABLED',
-  }"
+        'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
+        'valid': form_status_s() === 'VALID',
+        'pending': form_status_s() === 'PENDING',
+        'disabled': form_status_s() === 'DISABLED',
+      }"
     >
       <formly-form
         [form]="form"
@@ -54,11 +53,26 @@ export const container_window_part_type_select_options = [
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('general', 'calc')],
 })
 export class KppkReactMaterialsWindowRowComponent {
   protected $utils = inject(KppkReactFieldsUtils);
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translations$ = this.$translate.get_translations$({
+    "name": "calc",
+    "window_part_type": "calc",
+    "window_part_type_glass": "calc",
+    "window_part_type_frame": "calc",
+    "window_part_type_enum_none": "calc",
+    "window_part_type_enum_glass": "calc",
+    "window_part_type_enum_frame": "calc",
+    "distance": "calc",
+    "shipments": "calc",
+    "co2_transport": "calc",
+    "gwp": "calc",
+    "area": "calc",
+    "mass": "calc",
+    "volumn": "calc",
+  });
 
   public row = input<any>();
   public options = input<any>();
@@ -90,16 +104,11 @@ export class KppkReactMaterialsWindowRowComponent {
     return this.context_s().data?.window_frame;
   });
 
-  protected window_part_type_options$ = combineLatest([
-    this.$translate.langChanges$.pipe(
-      startWith(this.$translate.getActiveLang())
-    ),
-  ]).pipe(
-    map((values) => {
-      const [lang] = values;
-      const result = container_window_part_type_select_options!.map((item) => {
+  protected window_part_type_options$ = this.translations$.pipe(
+    map( trans => {
+      const result = container_window_part_type_select_options.map( item => {
         const option: FormlySelectOption = {
-          label: this.$translate.translate('calc.' + item.label),
+          label: trans[item.label],
           value: item.value,
         };
         return option;
@@ -110,13 +119,11 @@ export class KppkReactMaterialsWindowRowComponent {
   );
 
   protected glass_type_options$ = combineLatest([
-    this.$translate.langChanges$.pipe(
-      startWith(this.$translate.getActiveLang())
-    ),
+    this.translations$, 
     toObservable(this.glass_types_s),
   ]).pipe(
-    map((values) => {
-      const [lang, glass] = values;
+    map( values => {
+      const [trans, glass] = values;
       const result = glass!.map((item: any) => {
         const option: FormlySelectOption = {
           label: item.name.value,
@@ -130,13 +137,11 @@ export class KppkReactMaterialsWindowRowComponent {
   );
 
   protected frame_type_options$ = combineLatest([
-    this.$translate.langChanges$.pipe(
-      startWith(this.$translate.getActiveLang())
-    ),
+    this.translations$, 
     toObservable(this.frame_types_s),
   ]).pipe(
-    map((values) => {
-      const [lang, frames] = values;
+    map( values => {
+      const [trans, frames] = values;
       const result = frames!.map((item: any) => {
         const option: FormlySelectOption = {
           label: item.name.value,
@@ -171,8 +176,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.name'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['name'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -189,10 +196,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.window_part_type'
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['window_part_type'])
                 ),
-                'props.unit': this.$utils.provide_unit,
+                'props.unit': this.$utils.provide_unit,  
                 'props.options': this.window_part_type_options$,
               },
             },
@@ -210,10 +217,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.window_part_type_glass'
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['window_part_type_glass'])
                 ),
-                'props.unit': this.$utils.provide_unit,
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const result = !(
                     field.model['window_part_type'].value ===
@@ -238,10 +245,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.window_part_type_frame'
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['window_part_type_frame'])
                 ),
-                'props.unit': this.$utils.provide_unit,
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   return !(
                     field.model['window_part_type'].value ===
@@ -267,8 +274,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.distance'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['distance'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -292,9 +301,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.shipments'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['shipments'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -318,9 +328,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.co2_transport'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['co2_transport'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -344,8 +355,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.gwp'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['gwp'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -370,8 +383,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.area'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['area'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -395,8 +410,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.mass'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['mass'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;
@@ -421,8 +438,10 @@ export class KppkReactMaterialsWindowRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.volumn'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map(trans => trans['volumn'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
                 hide: (field) => {
                   const value = field.model['window_part_type'].value;
                   const result = value === WINDOW_PART_TYPE_ENUM.none;

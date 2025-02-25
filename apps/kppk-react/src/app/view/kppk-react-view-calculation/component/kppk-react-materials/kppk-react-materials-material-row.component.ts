@@ -10,10 +10,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { map } from 'rxjs';
 @Component({
   selector: 'kppk-react-materials-material-row',
 
@@ -21,11 +22,11 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   template: `
     <div
       [ngClass]="{
-    'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
-    'valid': form_status_s() === 'VALID',
-    'pending': form_status_s() === 'PENDING',
-    'disabled': form_status_s() === 'DISABLED',
-  }"
+        'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
+        'valid': form_status_s() === 'VALID',
+        'pending': form_status_s() === 'PENDING',
+        'disabled': form_status_s() === 'DISABLED',
+      }"
     >
       <formly-form
         [form]="form"
@@ -42,11 +43,21 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('general', 'calc')],
 })
 export class KppkReactMaterialsMaterialRowComponent {
   protected $utils = inject(KppkReactFieldsUtils);
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translations$ = this.$translate.get_translations$({
+    "name": "calc",
+    "distance": "calc",
+    "shipments": "calc",
+    "co2_transport": "calc",
+    "mass": "calc",
+    "volumn": "calc",
+    "density": "calc",
+    "gwp": "calc",
+    "area": "calc",
+  });
 
   public row = input<any>();
   public options = input<any>();
@@ -86,8 +97,10 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label': this.$translate.selectTranslate('calc.name'),
-                    'props.unit': this.$utils.provide_unit,
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['name'])
+                    ),  
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -106,9 +119,10 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label':
-                      this.$translate.selectTranslate('calc.distance'),
-                    'props.unit': this.$utils.provide_unit,
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['distance'])
+                    ),   
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -128,9 +142,12 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label':
-                      this.$translate.selectTranslate('calc.shipments'),
-                    'props.unit': this.$utils.provide_unit,
+                    // 'props.label':
+                    // this.$translate.selectTranslate('calc.shipments'),
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['shipments'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -150,9 +167,12 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label':
-                      this.$translate.selectTranslate('calc.co2_transport'),
-                    'props.unit': this.$utils.provide_unit,
+                    // 'props.label':
+                      // this.$translate.selectTranslate('calc.co2_transport'),
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['co2_transport'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -172,8 +192,11 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label': this.$translate.selectTranslate('calc.mass'),
-                    'props.unit': this.$utils.provide_unit,
+                    // 'props.label': this.$translate.selectTranslate('calc.mass'),
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['mass'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -193,9 +216,10 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label':
-                      this.$translate.selectTranslate('calc.volumn'),
-                    'props.unit': this.$utils.provide_unit,
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['volumn'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -215,9 +239,10 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label':
-                      this.$translate.selectTranslate('calc.density'),
-                    'props.unit': this.$utils.provide_unit,
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['name'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 {
@@ -237,8 +262,11 @@ export class KppkReactMaterialsMaterialRowComponent {
                     debounce: { default: 500 },
                   },
                   expressions: {
-                    'props.label': this.$translate.selectTranslate('calc.gwp'),
-                    'props.unit': this.$utils.provide_unit,
+                    // 'props.label': this.$translate.selectTranslate('calc.gwp'),
+                    'props.label': this.translations$.pipe(
+                      map( trans => trans['name'])
+                    ), 
+                    'props.unit': this.$utils.provide_unit,  
                   },
                 },
                 // {
@@ -258,8 +286,10 @@ export class KppkReactMaterialsMaterialRowComponent {
                 //     debounce: { default: 500 },
                 //   },
                 //   expressions: {
-                //     'props.label': this.$translate.selectTranslate('calc.area'),
-                //     'props.unit': this.$utils.provide_unit,
+                //    'props.label': this.translations$.pipe(
+                //      map( trans => trans['area'])
+                //    ), 
+                //     'props.unit': this.$utils.provide_unit,  
                 //   }
                 // },
               ],

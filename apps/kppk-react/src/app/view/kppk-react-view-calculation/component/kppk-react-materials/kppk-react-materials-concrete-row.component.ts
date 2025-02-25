@@ -10,15 +10,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { KppkFormlyModule } from '@kppk/react-lib';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
-import { combineLatest, map, shareReplay, startWith } from 'rxjs';
+import { combineLatest, map, shareReplay } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
-// import { ReactViewCalculationV1Snapshot } from '../../../machine/react-view-calculation/react-view-calculation.machine';
 import { FormlySelectOption } from '@ngx-formly/core/select';
 import { unit_id_parser } from '@kppk/react-lib';
 import { AnyStateMachine, SnapshotFrom } from 'xstate';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-materials-concrete-row',
@@ -28,11 +27,11 @@ import { AnyStateMachine, SnapshotFrom } from 'xstate';
     <!-- <pre>{{ options() | json }}</pre> -->
     <div
       [ngClass]="{
-    'invalid bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
-    'valid': form_status_s() === 'VALID',
-    'pending': form_status_s() === 'PENDING',
-    'disabled': form_status_s() === 'DISABLED',
-  }"
+        'invalid bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
+        'valid': form_status_s() === 'VALID',
+        'pending': form_status_s() === 'PENDING',
+        'disabled': form_status_s() === 'DISABLED',
+      }"
     >
       <formly-form
         [form]="form"
@@ -49,11 +48,23 @@ import { AnyStateMachine, SnapshotFrom } from 'xstate';
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('general', 'calc')],
 })
 export class KppkReactMaterialsConcreteRowComponent {
   protected $utils = inject(KppkReactFieldsUtils);
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translations$ = this.$translate.get_translations$({
+    "default": "calc",
+    "name": "calc",
+    "distance": "calc",
+    "shipments": "calc",
+    "co2_transport": "calc",
+    "gwp_oeko_id": "calc",
+    "gwp": "calc",
+    "gwp_oeko": "calc",
+    "mass": "calc",
+    "volumn": "calc",
+    "density": "calc",
+  });
 
   public row = input<any>();
   public options = input.required<FormlyFormOptions>();
@@ -83,13 +94,11 @@ export class KppkReactMaterialsConcreteRowComponent {
   });
 
   protected concrete_type_options$ = combineLatest([
-    this.$translate.langChanges$.pipe(
-      startWith(this.$translate.getActiveLang())
-    ),
+    this.translations$,
     toObservable(this.concrete_types_s),
   ]).pipe(
     map((values) => {
-      const [lang, glass] = values;
+      const [trans, glass] = values;
       const result = glass!.map((item: any) => {
         const option: FormlySelectOption = {
           label: item.name.value,
@@ -98,7 +107,7 @@ export class KppkReactMaterialsConcreteRowComponent {
         return option;
       });
       result.unshift({
-        label: this.$translate.translate('calc.default'),
+        label: trans['default'],
         value: undefined,
       });
       return result;
@@ -128,8 +137,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.name'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['name'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -147,8 +158,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.distance'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['distance'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -167,9 +180,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.shipments'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['shipments'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -188,9 +202,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.co2_transport'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['co2_transport'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -208,9 +223,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label':
-                  this.$translate.selectTranslate('calc.gwp_oeko_id'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp_oeko_id'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
                 'props.options': this.concrete_type_options$,
                 // 'props.hintStart': ( field ) => {
                 //   let result = '';
@@ -243,8 +259,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.gwp_oeko'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp_oeko'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
                 // 'props.options': this.concrete_type_options$
               },
               // expressions: {
@@ -269,8 +287,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.mass'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['mass'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -289,8 +309,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.volumn'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['volumn'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -309,8 +331,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.density'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['density'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -329,8 +353,10 @@ export class KppkReactMaterialsConcreteRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.gwp'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map( trans => trans['gwp'])
+                ),   
+                'props.unit': this.$utils.provide_unit,  
               },
             },
           ],

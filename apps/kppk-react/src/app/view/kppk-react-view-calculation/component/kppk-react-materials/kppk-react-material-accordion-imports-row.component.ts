@@ -16,7 +16,6 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
 
   imports: [CommonModule, KppkFormlyModule],
   template: `
-    sfdsafds
     <div>{{ row()?.length }}</div>
   `,
   styles: `
@@ -26,7 +25,6 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('general', 'calc')],
 })
 export class KppkReactMaterialsFooterRowComponent {
   protected $utils = inject(KppkReactFieldsUtils);

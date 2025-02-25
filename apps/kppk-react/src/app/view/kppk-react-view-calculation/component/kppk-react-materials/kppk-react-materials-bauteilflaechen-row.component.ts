@@ -13,6 +13,8 @@ import { provideTranslocoScope, TranslocoService } from '@jsverse/transloco';
 import { FormGroup } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.service';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'kppk-react-materials-bauteilflaechen-row',
@@ -21,11 +23,11 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
   template: `
     <div
       [ngClass]="{
-    'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
-    'valid': form_status_s() === 'VALID',
-    'pending': form_status_s() === 'PENDING',
-    'disabled': form_status_s() === 'DISABLED',
-  }"
+        'bg-red-50 border-red-300 border-2': form_status_s() === 'INVALID',
+        'valid': form_status_s() === 'VALID',
+        'pending': form_status_s() === 'PENDING',
+        'disabled': form_status_s() === 'DISABLED',
+      }"
     >
       <formly-form
         [form]="form"
@@ -46,7 +48,12 @@ import { KppkReactFieldsUtils } from '../../service/kppk-react-fields-utils.serv
 })
 export class KppkReactMaterialsBauteilflaechenRowComponent {
   protected $utils = inject(KppkReactFieldsUtils);
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translations$ = this.$translate.get_translations$({
+    "short_id": "calc",
+    "name": "calc",
+    "area_sum": "calc",
+  });
 
   public row = input<any>();
   public options = input<any>();
@@ -76,8 +83,10 @@ export class KppkReactMaterialsBauteilflaechenRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.short_id'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map((trans) => trans['short_id'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -94,8 +103,10 @@ export class KppkReactMaterialsBauteilflaechenRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.name'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map((trans) => trans['name'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
               },
             },
             {
@@ -113,8 +124,10 @@ export class KppkReactMaterialsBauteilflaechenRowComponent {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate('calc.area_sum'),
-                'props.unit': this.$utils.provide_unit,
+                'props.label': this.translations$.pipe(
+                  map((trans) => trans['area_sum'])
+                ),
+                'props.unit': this.$utils.provide_unit,  
               },
             },
           ],

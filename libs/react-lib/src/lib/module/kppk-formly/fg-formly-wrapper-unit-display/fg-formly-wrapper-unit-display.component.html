@@ -12,7 +12,7 @@
   <div class="flex flex-row gap-4 unit-tooltip-container">
     @if(props['unit']) {
     <div class="unit">
-      <span>{{ 'calc.' + props['unit'] }}</span>
+      <span>{{ props['unit'] | async }}</span>
     </div>
     } @if(props['edited']) {
     <div
@@ -25,7 +25,7 @@
         tabindex="0"
         color="primary"
         aria-hidden="false"
-        matTooltip="{{ 'rcalc.resetToDefault' }}"
+        [matTooltip]="props['tooltip_reset']"
       >
         undo
       </mat-icon>

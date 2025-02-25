@@ -26,7 +26,7 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
-        'props.unit': this.$utils.provide_unit,
+        'props.unit': this.$utils.provide_unit,  
         'props.onFocus': this.$utils.set_focus,
       },
     },
@@ -44,7 +44,7 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
-        'props.unit': this.$utils.provide_unit,
+        'props.unit': this.$utils.provide_unit,  
       },
     },
     {
@@ -61,7 +61,7 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
-        'props.unit': this.$utils.provide_unit,
+        'props.unit': this.$utils.provide_unit,  
       },
     },
   ];
