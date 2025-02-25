@@ -3,7 +3,7 @@ import { ReactInitMachineMethodeService } from './react-init.machine.methode.ser
 import { FgXstateService } from '../../service';
 import { parent_context_event_input } from '../machine.utils';
 import { FgBaseService } from '@kppk/fg-lib-new';
-import { REACT_INIT_CONTEXT } from '../../types';
+import { REACT_INIT_CONTEXT, react_init_context_parser } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class ReactInitMachineService extends FgBaseService {
   protected $methode = inject(ReactInitMachineMethodeService);
   protected $xstate = inject(FgXstateService);
 
-  public get_machine(context?: REACT_INIT_CONTEXT) {
+  public get_machine() {
     return this.$xstate
       .setup({
         types: {
@@ -21,57 +21,29 @@ export class ReactInitMachineService extends FgBaseService {
           context: {} as REACT_INIT_CONTEXT,
         },
         actions: {
-          assign_load_from_local_result: this.$xstate.assign(
-            this.$methode.assign_load_from_local_result
-          ),
-          assign_load_from_remote_result: this.$xstate.assign(
-            this.$methode.assign_load_from_remote_result
-          ),
-          assign_load_from_url_from_route_result: this.$xstate.assign(
-            this.$methode.assign_load_from_url_from_route_result
-          ),
-          assign_load_url_from_params_result: this.$xstate.assign(
-            this.$methode.assign_load_url_from_params_result
-          ),
-          assign_react_init_input: this.$xstate.assign(
-            this.$methode.assign_react_init_input
-          ),
-          assign_result_data: this.$xstate.assign(
-            this.$methode.assign_result_data
-          ),
-          escalate_load_from_local_error:
-            this.$methode.escalate_load_from_local_error,
-          escalate_load_from_remote_error:
-            this.$methode.escalate_load_from_remote_error,
-          escalate_result_validate_error:
-            this.$methode.escalate_result_validate_error,
+          assign_load_from_local_result: this.$xstate.assign( this.$methode.assign_load_from_local_result ),
+          assign_load_from_remote_result: this.$xstate.assign( this.$methode.assign_load_from_remote_result ),
+          assign_load_from_url_from_route_result: this.$xstate.assign( this.$methode.assign_load_from_url_from_route_result ),
+          assign_load_url_from_params_result: this.$xstate.assign( this.$methode.assign_load_url_from_params_result ),
+          assign_react_init_input: this.$xstate.assign( this.$methode.assign_react_init_input ),
+          assign_result_data: this.$xstate.assign( this.$methode.assign_result_data ),
+          escalate_load_from_local_error: this.$methode.escalate_load_from_local_error,
+          escalate_load_from_remote_error: this.$methode.escalate_load_from_remote_error,
+          escalate_result_validate_error: this.$methode.escalate_result_validate_error,
         },
         actors: {
-          actor_load_from_local: this.$xstate.fromPromise(
-            this.$methode.actor_load_from_local
-          ),
-          actor_load_from_remote: this.$xstate.fromPromise(
-            this.$methode.actor_load_from_remote
-          ),
-          actor_merge_result: this.$xstate.fromPromise(
-            this.$methode.actor_merge_result
-          ),
-          actor_validate_load_from_local: this.$xstate.fromPromise(
-            this.$methode.actor_validate_load_from_local
-          ),
-          actor_validate_load_from_remote: this.$xstate.fromPromise(
-            this.$methode.actor_validate_load_from_remote
-          ),
-          actor_validate_result: this.$xstate.fromPromise(
-            this.$methode.actor_validate_result
-          ),
+          actor_load_from_local: this.$xstate.fromPromise( this.$methode.actor_load_from_local ),
+          actor_load_from_remote: this.$xstate.fromPromise( this.$methode.actor_load_from_remote ),
+          actor_merge_result: this.$xstate.fromPromise( this.$methode.actor_merge_result ),
+          actor_validate_load_from_local: this.$xstate.fromPromise( this.$methode.actor_validate_load_from_local ),
+          actor_validate_load_from_remote: this.$xstate.fromPromise( this.$methode.actor_validate_load_from_remote ),
+          actor_validate_result: this.$xstate.fromPromise( this.$methode.actor_validate_result ),
         },
       })
       .createMachine({
-        // context: this.$methode.react_init_input_context,
         id: 'REACT_INIT_V2',
-        entry: {
-          type: 'assign_react_init_input',
+        context: () => {
+          return react_init_context_parser.parse({})
         },
         output: ({ context }: { context: REACT_INIT_CONTEXT }) => {
           console.log('FIND OUT WHY NOT PARSING ANYMORE');
@@ -81,6 +53,9 @@ export class ReactInitMachineService extends FgBaseService {
           //   console.log( error );
           // }
           return context;
+        },
+        entry: {
+          type: 'assign_react_init_input',
         },
         initial: 'LOAD',
         states: {

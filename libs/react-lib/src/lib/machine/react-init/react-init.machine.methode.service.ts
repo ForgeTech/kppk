@@ -1,21 +1,21 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FgImmutableService } from '../../service/fg-immutable.service';
 import { DOCUMENT } from '@angular/common';
-import { firstValueFrom, forkJoin, Observable } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 import { boundMethod } from 'autobind-decorator';
 import { FgBaseService, FgStorageService } from '@kppk/fg-lib-new';
 import {
   REACT_INIT_CONTEXT,
   react_init_load_from_remote_parser,
 } from '../../types';
+import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReactInitMachineMethodeService extends FgBaseService {
   protected $immer = inject(FgImmutableService);
-  protected $http = inject(HttpClient);
+  protected $common = inject(FgMachineUtilsMethodeService);
   protected $storage = inject(FgStorageService);
   protected $document = inject(DOCUMENT);
 
@@ -176,7 +176,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
 
   @boundMethod
   public async actor_load_from_remote({ input }: { input: any }) {
-    const common$ = this.load_object({
+    const common$ = this.$common.load_object({
       concrete_types: './react/data/august2024/common/concrete_types.json',
       //construction_site_energy_usage: './react/data/august2024/common/construction_site_energy_usage.json',
       container_disposal:
@@ -190,7 +190,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
       window_glass: './react/data/august2024/common/window_glass.json',
     });
 
-    const form_defaults$ = this.load_object({
+    const form_defaults$ = this.$common.load_object({
       form_common: './react/data/august2024/form_default/form_common.json',
       form_construction_site:
         './react/data/august2024/form_default/form_construction_site.json',
@@ -244,12 +244,4 @@ export class ReactInitMachineMethodeService extends FgBaseService {
     return input;
   }
 
-  @boundMethod  
-  private load_object(to_load: Record<string, string>) {
-    const resources: Record<string, Observable<any>> = {};
-    const sources = Object.keys(to_load).forEach((key) => {
-        resources[key] = this.$http.get(to_load[key]);
-    });
-    return forkJoin(resources);
-  }
 }
