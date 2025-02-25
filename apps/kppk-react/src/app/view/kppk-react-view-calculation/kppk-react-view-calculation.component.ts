@@ -31,6 +31,8 @@ import { KppkReactExcavationPitFields } from './service/kppk-react-excavation-pi
 import { KppkReactHeatingSystemFields } from './service/kppk-react-heating-system.fields.service';
 import { KppkReactMaterialsComponent } from './component/kppk-react-materials/kppk-react-materials.component';
 import { FormlyFormOptions } from '@ngx-formly/core';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [
@@ -50,13 +52,34 @@ import { FormlyFormOptions } from '@ngx-formly/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewCalculationComponent {
-  protected $log = inject(NGXLogger);
-  protected $fb = inject(FormBuilder);
   protected $active_route = inject(ActivatedRoute);
-  protected $actor_view_calculation = inject(
-    ReactViewCalculationMachineActorService
-  );
   protected $actor_auth = inject(FgAuthLocalMachineActorService);
+  protected $actor_view_calculation = inject(ReactViewCalculationMachineActorService);
+  protected $fb = inject(FormBuilder);
+  protected $log = inject(NGXLogger);
+  protected $translate = inject(FgTranslate);
+
+  protected translationsS = toSignal(
+    this.$translate.get_translations$({
+      "headline": "calc",
+      "headline_common": "calc",
+      "alt_section_material": "calc",
+      "alt_section_construction_site": "calc",
+      "alt_section_container_village": "calc",
+      "alt_section_demolish_disposal": "calc",
+      "alt_section_excavation_pit": "calc",
+      "alt_section_heating_system": "calc",
+      "alt_section_co2": "calc",
+      "material": "calc",
+      "use_in_calculation": "calc",
+      "construction_site": "calc",
+      "container_village": "calc",
+      "demolish_disposal": "calc",
+      "excavation_pit": "calc",
+      "heating_system": "calc",
+      "calculation_result": "calc",
+    }), {initialValue: undefined}
+  );
 
   protected $fields_common = inject(KppkReactCommonFields);
   protected form_common = new FormGroup({});
@@ -184,6 +207,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_construction_site_form_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.construction_site.event.update',
@@ -196,6 +220,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_container_village_form_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.container_village.event.update',
@@ -208,6 +233,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_demolish_disposal_form_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.demolish_disposal.event.update',
@@ -220,6 +246,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_excavation_pit_form_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.excavation_pit.event.update',
@@ -232,6 +259,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_heating_system_form_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.heating_system.event.update',
@@ -244,6 +272,7 @@ export class KppkReactViewCalculationComponent {
     };
     this.send_event_to_calculation_machine(event_to_dispatch);
   }
+
   protected handle_form_step_selection_change_event(event: any) {
     const event_to_dispatch = {
       type: 'fg.form.step_selection.event.update',
