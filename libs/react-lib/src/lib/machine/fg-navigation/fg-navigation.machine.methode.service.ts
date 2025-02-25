@@ -20,7 +20,6 @@ import {
 } from './fg-navigation.machine.types';
 import { Router } from '@angular/router';
 import { FgMachineUtilsMethodeService } from '../fg-machine-utils';
-// import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
