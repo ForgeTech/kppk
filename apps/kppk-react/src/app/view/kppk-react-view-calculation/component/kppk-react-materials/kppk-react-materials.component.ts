@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  inject,
   input,
   output,
   ViewEncapsulation,
@@ -27,6 +28,8 @@ import {
   KppkWarnBoxResetComponent,
   REACT_VIEW_CALCULATION,
 } from '@kppk/react-lib';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kppk-react-materials',
@@ -54,6 +57,24 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class KppkReactMaterialsComponent {
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "step_edit_imports_headline": "calc",
+    "step_edit_imports_helptext": "calc",
+    "step_edit_types_headline": "calc",
+    "step_edit_types_helptext": "calc",
+    "step_edit_calculation_headline": "calc",
+    "step_edit_calculation_helptext": "calc",
+    "transformed_aufbauten": "calc",
+    "transformed_bauteilflaechen": "calc",
+    "transformed_oi3": "calc",
+    "material_type": "calc",
+    "type_material": "calc",
+    "type_concrete": "calc",
+    "type_window": "calc",
+  });
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+
   public transformed_materials_data_s = input.required<REACT_VIEW_CALCULATION>({
     alias: 'transformed_materials_data',
   });

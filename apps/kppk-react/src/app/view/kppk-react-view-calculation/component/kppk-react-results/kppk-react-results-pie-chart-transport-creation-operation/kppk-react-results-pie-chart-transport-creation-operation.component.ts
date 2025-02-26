@@ -47,7 +47,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                   </div>
                 </ng-template>
               </ngx-charts-pie-chart>
-              <table class="table-legend absolute bottom-0 right-0 w-[150px]">
+              <table class="table-legend absolute -bottom-[32px] right-0 w-[150px]">
                 <tr
                   class="text-xs"
                   [ngStyle]="{

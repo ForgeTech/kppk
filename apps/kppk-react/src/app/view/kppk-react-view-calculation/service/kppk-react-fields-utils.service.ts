@@ -1,9 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,19 +27,9 @@ export class KppkReactFieldsUtils extends FgBaseService {
       unit = field.model[key as keyof typeof field.model]?.unit;
       unit = unit ? unit : 'none';
       to_load[unit] = 'units';
-      // console.log('UNIT: ', unit);
-      //this.$translate.translate('calc.' + unit);
     }
     return this.$translate.get_translations$(to_load).pipe(
-      // tap( trans => {
-      //   console.log('TRANS: ')
-      //   console.log(trans);
-      // }),
       map( trans => trans[unit]),
-      // tap( value => {
-      //   console.log('TRANS2: ')
-      //   console.log(value);
-      // }),
     )
   };
 

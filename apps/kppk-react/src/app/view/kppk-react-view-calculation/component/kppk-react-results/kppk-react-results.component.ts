@@ -24,8 +24,21 @@ import { toSignal } from '@angular/core/rxjs-interop';
     KppkReactResultsMaterialsComponent,
     KppkReactResultsOverviewComponent,
   ],
-  templateUrl: './kppk-react-results.component.html',
-  styleUrl: './kppk-react-results.component.scss',
+  template: `
+  @let t = translationS();
+  <div class="result_content">
+    <mat-tab-group animationDuration="1000ms">
+      <mat-tab class="p-8" label="{{ t?.overview }}">
+        <kppk-react-results-overview [results]="results_s()" />
+      </mat-tab>
+    
+      <mat-tab class="p-8" label="{{ t?.material }}">
+        <kppk-react-results-materials [results]="results_s()" />
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  `,
+  styles: ``,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [provideTranslocoScope('calc')],

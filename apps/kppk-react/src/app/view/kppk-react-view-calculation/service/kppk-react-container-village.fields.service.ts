@@ -1,18 +1,43 @@
 import { inject, Injectable } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 import { KppkReactConstructionSiteFields } from './kppk-react-constructions-site.fields.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactContainerVillageFields extends FgBaseService {
   protected $construction_site = inject(KppkReactConstructionSiteFields);
-  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "container_village_transport_distance": "calc",
+    "energy_usage_power_type": "calc",
+    "office_container": "calc",
+    "office_container_amount": "calc",
+    "office_container_usage": "calc",
+    "meeting_container": "calc",
+    "meeting_container_amount": "calc",
+    "meeting_container_usage": "calc",
+    "sanitary_container": "calc",
+    "sanitary_container_amount": "calc",
+    "sanitary_container_usage": "calc",
+    "residency_container": "calc",
+    "residency_container_amount": "calc",
+    "residency_container_usage": "calc",
+    "repository_container": "calc",
+    "repository_container_amount": "calc",
+    "repository_container_usage": "calc",
+    "first_aid_container": "calc",
+    "first_aid_container_amount": "calc",
+    "first_aid_container_usage": "calc",
+    "container_village_settings": "calc",
+    "container_village_containers": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
 
   public container_village_settings_fields: FormlyFieldConfig[] = [
     // {
@@ -53,9 +78,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.container_village_transport_distance'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['container_village_transport_distance'])
+        ),  
         'props.unit': this.$utils.provide_unit,
       },
     },
@@ -72,12 +97,11 @@ export class KppkReactContainerVillageFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.energy_usage_power_type'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['energy_usage_power_type'])
+        ),  
         'props.unit': this.$utils.provide_unit,
-        'props.options': this.$translate.langChanges$.pipe(
-          startWith(this.$translate.getActiveLang()),
+        'props.options': this.translation$.pipe(
           map(() => this.$construction_site.energy_usage_power_type_options())
         ),
       },
@@ -92,7 +116,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'office',
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.office_container'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['office_container'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
@@ -112,9 +138,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.office_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['office_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -133,9 +159,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.office_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['office_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -146,9 +172,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.meeting_container'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['meeting_container'])
+        ),  
       },
       fieldGroup: [
         {
@@ -166,9 +192,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.meeting_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['meeting_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -187,9 +213,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.meeting_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['meeting_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -198,9 +224,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'sanitary',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.sanitary_container'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['sanitary_container'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
@@ -220,9 +246,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.sanitary_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['sanitary_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -241,9 +267,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.sanitary_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['sanitary_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -252,9 +278,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'residency',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.residency_container'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['residency_container'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
@@ -274,9 +300,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.residency_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['residency_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -295,9 +321,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.residency_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['residency_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -306,9 +332,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'repository',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.repository_container'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['repository_container'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
@@ -328,9 +354,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.repository_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['repository_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -349,9 +375,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.repository_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['repository_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -360,9 +386,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'first_aid',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.first_aid_container'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['first_aid_container'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-col',
       wrappers: ['section-h4'],
@@ -382,9 +408,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.first_aid_container_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['first_aid_container_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -403,9 +429,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.first_aid_container_usage'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['first_aid_container_usage'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -420,9 +446,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'setting',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.container_village_settings'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['container_village_settings'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h3'],
@@ -431,9 +457,9 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'container',
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.container_village_containers'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['container_village_containers'])
+        ),  
       },
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h3'],

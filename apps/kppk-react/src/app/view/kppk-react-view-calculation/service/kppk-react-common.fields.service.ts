@@ -1,14 +1,22 @@
 import { inject, Injectable } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactCommonFields extends FgBaseService {
-  protected $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "project_name": "calc",
+    "project_number": "calc",
+    "project_part": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+
   protected $utils = inject(KppkReactFieldsUtils);
 
   public fields: FormlyFieldConfig[] = [
@@ -18,7 +26,7 @@ export class KppkReactCommonFields extends FgBaseService {
       wrappers: ['unit', 'form-field'],
       props: {
         required: false,
-        label: this.$translate.translate('calc.project_name'),
+        // label: this.$translate.translate('calc.project_name'),
         type: 'string',
       },
       modelOptions: {
@@ -26,6 +34,9 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
+        'props.label': this.translation$.pipe(
+          map( trans => trans['project_name'])
+        ),     
         'props.unit': this.$utils.provide_unit,  
         'props.onFocus': this.$utils.set_focus,
       },
@@ -36,7 +47,7 @@ export class KppkReactCommonFields extends FgBaseService {
       wrappers: ['unit', 'form-field'],
       props: {
         required: false,
-        label: this.$translate.translate('calc.project_number'),
+        // label: this.$translate.translate('calc.project_number'),
         type: 'string',
       },
       modelOptions: {
@@ -44,6 +55,9 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
+        'props.label': this.translation$.pipe(
+          map( trans => trans['project_number'])
+        ),  
         'props.unit': this.$utils.provide_unit,  
       },
     },
@@ -53,7 +67,6 @@ export class KppkReactCommonFields extends FgBaseService {
       wrappers: ['unit', 'form-field'],
       props: {
         required: false,
-        label: this.$translate.translate('calc.project_part'),
         type: 'string',
       },
       modelOptions: {
@@ -61,6 +74,9 @@ export class KppkReactCommonFields extends FgBaseService {
         debounce: { default: 500 },
       },
       expressions: {
+        'props.label': this.translation$.pipe(
+          map( trans => trans['project_part'])
+        ),  
         'props.unit': this.$utils.provide_unit,  
       },
     },

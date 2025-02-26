@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
 import { map, startWith } from 'rxjs';
@@ -11,34 +10,70 @@ import {
   POWER_SUPPLY_CALCULATION_TYPE_ENUM,
   POWER_SUPPLY_POWER_TYPE_ENUM,
 } from '@kppk/react-lib';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactConstructionSiteFields extends FgBaseService {
-  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "april_energy_usage": "calc",
+    "august_energy_usage": "calc",
+    "austria_common_energy_mix": "calc",
+    "austria_green_power_mix": "calc",
+    "building_construction": "calc",
+    "custom": "calc",
+    "december_energy_usage": "calc",
+    "energy_usage_calculation_type": "calc",
+    "energy_usage_custom": "calc",
+    "energy_usage_headline": "calc",
+    "energy_usage_power_type": "calc",
+    "energy_usage_settings": "calc",
+    "energy_usage_values": "calc",
+    "estimate": "calc",
+    "exact_entry": "calc",
+    "february_energy_usage": "calc",
+    "fuel_oil_usage": "calc",
+    "gross_floor_area": "calc",
+    "heating_supply_calculation_type": "calc",
+    "heating_supply_energy_usage_custom": "calc",
+    "heating_supply_gross_floor_area": "calc",
+    "heating_supply_headline": "calc",
+    "heating_supply_settings": "calc",
+    "heating_supply_values": "calc",
+    "january_energy_usage": "calc",
+    "july_energy_usage": "calc",
+    "june_energy_usage": "calc",
+    "march_energy_usage": "calc",
+    "may_energy_usage": "calc",
+    "november_energy_usage": "calc",
+    "october_energy_usage": "calc",
+    "operation_period": "calc",
+    "prefabricated_house": "calc",
+    "september_energy_usage": "calc",
+    "year_energy_usage_add_btn_label": "calc",
+    "year_energy_usage_delete_btn_tooltip": "calc",
+    "year_energy_usage_row": "calc",
+    "year_energy_usage": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
 
   protected power_supply_calculation_type_enum =
     POWER_SUPPLY_CALCULATION_TYPE_ENUM;
   protected power_supply_calculation_options = () => {
     return [
       {
-        label: this.$translate.translate(
-          'calc.' + this.power_supply_calculation_type_enum.estimate
-        ),
+        label: this.translationS()?.[this.power_supply_calculation_type_enum.estimate],
         value: this.power_supply_calculation_type_enum.estimate,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.power_supply_calculation_type_enum.exact_entry
-        ),
+        label: this.translationS()?.[this.power_supply_calculation_type_enum.estimate],
         value: this.power_supply_calculation_type_enum.exact_entry,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.power_supply_calculation_type_enum.custom
-        ),
+        label: this.translationS()?.[this.power_supply_calculation_type_enum.custom],
         value: this.power_supply_calculation_type_enum.custom,
       },
     ];
@@ -48,15 +83,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
   public energy_usage_power_type_options = () => {
     return [
       {
-        label: this.$translate.translate(
-          'calc.' + this.power_supply_power_type_enum.austria_common_energy_mix
-        ),
+        label: this.translationS()?.[this.power_supply_power_type_enum.austria_common_energy_mix],
         value: this.power_supply_power_type_enum.austria_common_energy_mix,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.power_supply_power_type_enum.austria_green_power_mix
-        ),
+        label: this.translationS()?.[this.power_supply_power_type_enum.austria_green_power_mix],
         value: this.power_supply_power_type_enum.austria_green_power_mix,
       },
     ];
@@ -67,21 +98,15 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
   protected heat_supply_calculation_options = () => {
     return [
       {
-        label: this.$translate.translate(
-          'calc.' + this.heat_supply_calculation_options_enum.estimate
-        ),
+        label: this.translationS()?.[this.heat_supply_calculation_options_enum.estimate],
         value: this.heat_supply_calculation_options_enum.estimate,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.heat_supply_calculation_options_enum.custom
-        ),
+        label: this.translationS()?.[this.heat_supply_calculation_options_enum.custom],
         value: this.heat_supply_calculation_options_enum.custom,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.heat_supply_calculation_options_enum.exact_entry
-        ),
+        label: this.translationS()?.[this.heat_supply_calculation_options_enum.exact_entry],
         value: this.heat_supply_calculation_options_enum.exact_entry,
       },
     ];
@@ -91,15 +116,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
   protected build_type_options = () => {
     return [
       {
-        label: this.$translate.translate(
-          'calc.' + this.build_type_enum.building_construction
-        ),
+        label: this.translationS()?.[this.build_type_enum.building_construction],
         value: this.build_type_enum.building_construction,
       },
       {
-        label: this.$translate.translate(
-          'calc.' + this.build_type_enum.prefabricated_house
-        ),
+        label: this.translationS()?.[this.build_type_enum.prefabricated_house],
         value: this.build_type_enum.prefabricated_house,
       },
     ];
@@ -113,9 +134,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           fieldGroupClassName: 'flex flex-row gap-2',
           wrappers: ['section-h4'],
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.energy_usage_settings'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['energy_usage_settings'])
+            ),  
           },
           fieldGroup: [
             {
@@ -131,12 +152,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.energy_usage_power_type'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['energy_usage_power_type'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
-                'props.options': this.$translate.langChanges$.pipe(
-                  startWith(this.$translate.getActiveLang()),
+                'props.options': this.translation$.pipe(
                   map(() => this.energy_usage_power_type_options())
                 ),
               },
@@ -176,12 +196,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.energy_usage_calculation_type'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['energy_usage_calculation_type'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
-                'props.options': this.$translate.langChanges$.pipe(
-                  startWith(this.$translate.getActiveLang()),
+                'props.options': this.translation$.pipe(
                   map(() => this.power_supply_calculation_options())
                 ),
               },
@@ -306,9 +325,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.january_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['january_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -326,9 +345,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.february_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['february_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -346,9 +365,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.march_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['march_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -366,9 +385,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.april_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['april_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -386,9 +405,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.may_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['may_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -406,9 +425,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.june_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['june_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -431,9 +450,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.july_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['july_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -451,9 +470,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.august_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['august_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -463,7 +482,6 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
             wrappers: ['unit', 'form-field'],
             props: {
               required: true,
-              label: this.$translate.translate('calc.september_energy_usage'),
               type: 'number',
               unit: 'kWh',
               min: 0,
@@ -473,9 +491,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.september_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['september_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -493,9 +511,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.october_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['october_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -513,9 +531,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.november_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['november_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -533,9 +551,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.december_energy_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['december_energy_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -552,9 +570,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           fieldGroupClassName: 'flex flex-row gap-2',
           wrappers: ['section-h4'],
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.energy_usage_values'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['energy_usage_values'])
+            ),  
             hide: this.power_supply_hide_equal_calculation_type_exact_entry,
           },
           fieldGroup: [
@@ -573,9 +591,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.operation_period'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['operation_period'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
                 hide: this.power_supply_hide_equal_calculation_type_exact_entry,
               },
@@ -594,9 +612,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.gross_floor_area'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['gross_floor_area'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
                 hide: this.hide_unequal_calculation_type_estimate,
               },
@@ -607,7 +625,6 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               wrappers: ['unit', 'form-field'],
               props: {
                 required: true,
-                label: this.$translate.translate('calc.energy_usage_custom'),
                 type: 'number',
                 unit: 'kWh/month',
                 min: 0,
@@ -617,9 +634,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.energy_usage_custom'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['energy_usage_custom'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
                 hide: this.hide_unequal_calculation_type_custom,
               },
@@ -638,18 +655,18 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           wrappers: ['section-h4'],
           type: 'energy-usage-yearly-array',
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.year_energy_usage'
-            ),
-            'props.row-label': this.$translate.selectTranslate(
-              'calc.year_energy_usage_row'
-            ),
-            'props.delete-btn-tooltip': this.$translate.selectTranslate(
-              'calc.year_energy_usage_delete_btn_tooltip'
-            ),
-            'props.add-btn-label': this.$translate.selectTranslate(
-              'calc.year_energy_usage_add_btn_label'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage'])
+            ),  
+            'props.row-label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_row'])
+            ),  
+            'props.delete-btn-tooltip': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_delete_btn_tooltip'])
+            ),  
+            'props.add-btn-label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_add_btn_label'])
+            ),  
             hide: this.power_supply_hide_unequal_calculation_type_exact_entry,
           },
           fieldArray: {
@@ -703,9 +720,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           fieldGroupClassName: 'flex flex-row gap-2',
           wrappers: ['section-h4'],
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.heating_supply_settings'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['heating_supply_settings'])
+            ),  
           },
           fieldGroup: [
             {
@@ -721,12 +738,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.energy_usage_power_type'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['energy_usage_power_type'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
-                'props.options': this.$translate.langChanges$.pipe(
-                  startWith(this.$translate.getActiveLang()),
+                'props.options': this.translation$.pipe(
                   map(() => this.energy_usage_power_type_options())
                 ),
               },
@@ -744,12 +760,11 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 debounce: { default: 500 },
               },
               expressions: {
-                'props.label': this.$translate.selectTranslate(
-                  'calc.heating_supply_calculation_type'
-                ),
+                'props.label': this.translation$.pipe(
+                  map( trans => trans['heating_supply_calculation_type'])
+                ),  
                 'props.unit': this.$utils.provide_unit,
-                'props.options': this.$translate.langChanges$.pipe(
-                  startWith(this.$translate.getActiveLang()),
+                'props.options': this.translation$.pipe(
                   map(() => this.heat_supply_calculation_options())
                 ),
               },
@@ -766,9 +781,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         fieldGroupClassName: 'flex flex-row gap-2',
         wrappers: ['section-h4'],
         expressions: {
-          'props.label': this.$translate.selectTranslate(
-            'calc.heating_supply_values'
-          ),
+          'props.label': this.translation$.pipe(
+            map( trans => trans['heating_supply_values'])
+          ),  
         },
         fieldGroup: [
           {
@@ -785,9 +800,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.operation_period'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['operation_period'])
+              ),  
               'props.unit': this.$utils.provide_unit,
               hide: this.heating_supply_hide_equal_calculation_type_exact_entry,
             },
@@ -806,9 +821,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.heating_supply_energy_usage_custom'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['heating_supply_energy_usage_custom'])
+              ),  
               'props.unit': this.$utils.provide_unit,
               hide: this.heating_supply_enable_on_calculation_type_custom,
             },
@@ -827,9 +842,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.heating_supply_gross_floor_area'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['heating_supply_gross_floor_area'])
+              ),  
               'props.unit': this.$utils.provide_unit,
               hide: this.heating_supply_enable_on_calculation_type_estimate,
             },
@@ -848,9 +863,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               debounce: { default: 500 },
             },
             expressions: {
-              'props.label': this.$translate.selectTranslate(
-                'calc.fuel_oil_usage'
-              ),
+              'props.label': this.translation$.pipe(
+                map( trans => trans['fuel_oil_usage'])
+              ),  
               'props.unit': this.$utils.provide_unit,
             },
           },
@@ -868,17 +883,17 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           type: 'energy-usage-yearly-array',
           wrappers: ['section-h4'],
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.year_energy_usage'
+            'props.label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage'])
             ),
-            'props.row-label': this.$translate.selectTranslate(
-              'calc.year_energy_usage_row'
+            'props.row-label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_row'])
             ),
-            'props.delete-btn-tooltip': this.$translate.selectTranslate(
-              'calc.year_energy_usage_delete_btn_tooltip'
+            'props.delete-btn-tooltip': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_delete_btn_tooltip'])
             ),
-            'props.add-btn-label': this.$translate.selectTranslate(
-              'calc.year_energy_usage_add_btn_label'
+            'props.add-btn-label': this.translation$.pipe(
+              map( trans => trans['year_energy_usage_add_btn_label'])
             ),
             hide: this.heating_supply_hide_unequal_calculation_type_exact_entry,
           },
@@ -895,9 +910,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         fieldGroupClassName: 'flex flex-col gap-2',
         wrappers: ['section-h3'],
         expressions: {
-          'props.label': this.$translate.selectTranslate(
-            'calc.energy_usage_headline'
-          ),
+          'props.label': this.translation$.pipe(
+            map( trans => trans['energy_usage_headline'])
+          ),  
         },
         fieldGroup: [
           ...this.construction_site_energy_usage_settings(),
@@ -910,9 +925,9 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         fieldGroupClassName: 'flex flex-col gap-2',
         wrappers: ['section-h3'],
         expressions: {
-          'props.label': this.$translate.selectTranslate(
-            'calc.heating_supply_headline'
-          ),
+          'props.label': this.translation$.pipe(
+            map( trans => trans['heating_supply_headline'])
+          ),  
         },
         fieldGroup: [
           ...this.construction_site_heating_supply_settings(),

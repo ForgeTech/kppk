@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   inject,
+  ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -49,6 +50,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   selector: 'kppk-react-view-calculation',
   templateUrl: './kppk-react-view-calculation.component.html',
   styleUrl: './kppk-react-view-calculation.component.scss',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewCalculationComponent {

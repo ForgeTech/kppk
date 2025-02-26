@@ -1,25 +1,96 @@
 import { inject, Injectable } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactDemolishDisposalFields extends FgBaseService {
-  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    '10_cubic_meter_container': "calc",
+    'roll_off_container': "calc",
+    "concrete": "calc",
+    "concrete_volume": "calc",
+    "concrete_transport": "calc",
+    "concrete_distance": "calc",
+    "steel": "calc",
+    "steel_volume": "calc",
+    "steel_transport": "calc",
+    "steel_distance": "calc",
+    "brick": "calc",
+    "brick_volume": "calc",
+    "brick_transport": "calc",
+    "brick_distance": "calc",
+    "plasterboard": "calc",
+    "plasterboard_volume": "calc",
+    "plasterboard_transport": "calc",
+    "plasterboard_distance": "calc",
+    "glass": "calc",
+    "glass_volume": "calc",
+    "glass_transport": "calc",
+    "glass_distance": "calc",
+    "rubble": "calc",
+    "rubble_volume": "calc",
+    "rubble_transport": "calc",
+    "rubble_distance": "calc",
+    "eps": "calc",
+    "eps_volume": "calc",
+    "eps_transport": "calc",
+    "eps_distance": "calc",
+    "xps": "calc",
+    "xps_volume": "calc",
+    "xps_transport": "calc",
+    "xps_distance": "calc",
+    "glass_wool": "calc",
+    "glass_wool_volume": "calc",
+    "glass_wool_transport": "calc",
+    "glass_wool_distance": "calc",
+    "rock_wool": "calc",
+    "rock_wool_volume": "calc",
+    "rock_wool_transport": "calc",
+    "rock_wool_distance": "calc",
+    "wood_fibre": "calc",
+    "wood_fibre_volume": "calc",
+    "wood_fibre_transport": "calc",
+    "wood_fibre_distance": "calc",
+    "wood": "calc",
+    "wood_volume": "calc",
+    "wood_transport": "calc",
+    "wood_distance": "calc",
+    "wood_massive": "calc",
+    "wood_massive_volume": "calc",
+    "wood_massive_transport": "calc",
+    "wood_massive_distance": "calc",
+    "wood_material": "calc",
+    "wood_material_volume": "calc",
+    "wood_material_transport": "calc",
+    "wood_material_distance": "calc",
+    "wood_latch": "calc",
+    "wood_latch_volume": "calc",
+    "wood_latch_transport": "calc",
+    "wood_latch_distance": "calc",
+    "demolish_disposal_distance": "calc",
+    "demolish_disposal_usage": "calc",
+    "demolish_disposal_settings": "calc",
+    "material": "calc",
+    "insulation": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
 
   protected container_select_options = () => {
+    const trans = this.translationS();
     return [
       {
-        label: this.$translate.translate('calc.' + '10_cubic_meter_container'),
+        label: trans?.['10_cubic_meter_container'],
         value: '10_cubic_meter_container',
       },
       {
-        label: this.$translate.translate('calc.' + 'roll_off_container'),
+        label: trans?.['roll_off_container'],
         value: 'roll_off_container',
       },
     ];
@@ -31,14 +102,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.concrete'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['concrete'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -49,9 +121,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.concrete_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['concrete_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -59,22 +131,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.concrete_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['concrete_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -83,7 +151,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 50,
           props: {
             required: true,
             type: 'number',
@@ -95,9 +162,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.concrete_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['concrete_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -111,14 +178,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.steel'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['steel'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -129,7 +197,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.steel_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['steel_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -137,22 +207,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.steel_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['steel_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -161,7 +227,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 15,
           props: {
             required: true,
             type: 'number',
@@ -173,9 +238,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.steel_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['steel_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -189,14 +254,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.brick'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['brick'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -207,7 +273,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.brick_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['brick_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -215,23 +283,19 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.brick_transport'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['brick_transport'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -240,7 +304,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -252,9 +315,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.brick_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['brick_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -268,14 +331,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.plasterboard'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['plasterboard'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -286,9 +350,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.plasterboard_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['plasterboard_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -296,20 +360,17 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.plasterboard_transport'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['plasterboard_transport'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -317,7 +378,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -329,9 +389,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.plasterboard_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['plasterboard_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -345,14 +405,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.glass'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['glass'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 2,
           props: {
             required: true,
             type: 'number',
@@ -363,7 +424,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.glass_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -371,23 +434,19 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_transport'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_transport'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -396,7 +455,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -408,9 +466,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -424,14 +482,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.rubble'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['rubble'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 15,
           props: {
             required: true,
             type: 'number',
@@ -442,8 +501,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label':
-              this.$translate.selectTranslate('calc.rubble_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rubble_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -451,7 +511,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
           },
@@ -460,12 +519,11 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_transport'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rubble_transport'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -474,7 +532,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 36,
           props: {
             required: true,
             type: 'number',
@@ -486,9 +543,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.rubble_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rubble_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -502,14 +559,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.eps'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['eps'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -520,7 +578,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.eps_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['eps_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -528,22 +588,19 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label':
-              this.$translate.selectTranslate('calc.eps_transport'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['eps_transport'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -552,7 +609,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -564,7 +620,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.eps_distance'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['eps_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -578,14 +636,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.xps'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['xps'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -596,7 +655,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.xps_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['xps_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -604,21 +665,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label':
-              this.$translate.selectTranslate('calc.xps_transport'),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['xps_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -627,7 +685,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -639,7 +696,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.xps_distance'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['xps_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -653,14 +712,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.glass_wool'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['glass_wool'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -671,9 +731,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_wool_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_wool_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -681,22 +741,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_wool_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_wool_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -705,7 +761,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -717,9 +772,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.glass_wool_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['glass_wool_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -733,14 +788,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.rock_wool'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['rock_wool'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -751,9 +807,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.rock_wool_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rock_wool_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -761,22 +817,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.rock_wool_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rock_wool_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -785,7 +837,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -797,9 +848,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.rock_wool_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['rock_wool_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -813,14 +864,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.wood_fibre'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['wood_fibre'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -831,9 +883,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_fibre_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_fibre_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -841,22 +893,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_fibre_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_fibre_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -865,7 +913,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -877,9 +924,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_fibre_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_fibre_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -893,14 +940,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.wood'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['wood'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 3,
           props: {
             required: true,
             type: 'number',
@@ -911,7 +959,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.wood_volume'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -919,22 +969,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -943,7 +989,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -955,8 +1000,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label':
-              this.$translate.selectTranslate('calc.wood_distance'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -970,14 +1016,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.wood_massive'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['wood_massive'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -988,9 +1035,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_massive_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_massive_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -998,22 +1045,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_massive_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_massive_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -1022,7 +1065,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -1033,9 +1075,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_massive_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_massive_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -1049,14 +1091,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.wood_material'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['wood_material'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -1067,9 +1110,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_material_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_material_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -1077,22 +1120,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_material_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_material_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -1101,7 +1140,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -1113,9 +1151,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_material_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_material_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -1129,14 +1167,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.wood_latch'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['wood_latch'])
+        ),  
       },
       fieldGroup: [
         {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 10,
           props: {
             required: true,
             type: 'number',
@@ -1147,9 +1186,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_latch_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_latch_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -1157,22 +1196,18 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'container.value',
           type: 'select',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: '10_cubic_meter_container',
           props: {
             required: true,
-
-            //  options: this.container_select_options
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_latch_transport'
-            ),
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_latch_transport'])
+            ),  
+            'props.options': this.translation$.pipe(
               map(() => this.container_select_options())
             ),
           },
@@ -1181,7 +1216,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
           key: 'distance.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 100,
           props: {
             required: true,
             type: 'number',
@@ -1193,9 +1227,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.wood_latch_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['wood_latch_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -1245,16 +1279,15 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       key: 'distance.value',
       type: 'input',
       wrappers: ['form-field'],
-      // defaultValue: 50,
       props: {
         required: true,
         type: 'number',
         min: 0,
       },
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.demolish_disposal_distance'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['demolish_disposal_distance'])
+        ),  
         'props.unit': this.$utils.provide_unit,
       },
     },
@@ -1262,7 +1295,6 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       key: 'usage.value',
       type: 'input',
       wrappers: ['unit', 'form-field'],
-      // defaultValue: 80,
       props: {
         required: true,
         type: 'number',
@@ -1270,9 +1302,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
         max: 100,
       },
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.demolish_disposal_usage'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['demolish_disposal_usage'])
+        ),  
         'props.unit': this.$utils.provide_unit,
       },
     },
@@ -1284,9 +1316,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row flex-wrap gap-2',
       wrappers: ['section-h3'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.demolish_disposal_settings'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['demolish_disposal_settings'])
+        ),  
       },
       fieldGroup: this.demolish_disposal_fields_settings,
     },
@@ -1295,7 +1327,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row flex-wrap',
       wrappers: ['section-h3'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.material'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['material'])
+        ),  
       },
       fieldGroup: this.demolish_disposal_fields_material,
     },
@@ -1304,7 +1338,9 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row flex-wrap',
       wrappers: ['section-h3'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.insulation'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['insulation'])
+        ),  
       },
       fieldGroup: this.demolish_disposal_fields_insulation,
     },

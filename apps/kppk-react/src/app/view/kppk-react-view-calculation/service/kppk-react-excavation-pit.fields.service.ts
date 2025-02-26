@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { FgBaseService } from '@kppk/fg-lib-new';
-import { TranslocoService } from '@jsverse/transloco';
+import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { startWith } from 'rxjs';
 import { map } from 'rxjs';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
@@ -11,37 +9,76 @@ import {
   JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM,
   JET_BLASTING_PROCESS_TYPE_ENUM,
 } from '@kppk/react-lib';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KppkReactExcavationPitFields extends FgBaseService {
-  protected $translate = inject(TranslocoService);
   protected $utils = inject(KppkReactFieldsUtils);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "jet_blasting_process_cylinder_shape_enum.full_circle": "calc",
+    "jet_blasting_process_cylinder_shape_enum.half_circle": "calc",
+    "jet_blasting_process_cylinder_shape_enum.quater_circle": "calc",
+    "jet_blasting_process_type_enum.process_type_cylinder": "calc",
+    "jet_blasting_process_type_enum.process_type_cuboid": "calc",
+    "excavation_pit_security_methode_enum.escarpment": "calc",
+    "excavation_pit_security_methode_enum.foundation_pile": "calc",
+    "excavation_pit_security_methode_enum.jet_blasting": "calc",
+    "excavation_pit_security_methode_enum.sheet_pile_wall": "calc",
+    "excavation_pit_security_methode_enum.shotcrete": "calc",
+    "excavation_pit_security_settings": "calc",
+    "excavation_pit_security_distance": "calc",
+    "excavation_pit_security_depth": "calc",
+    "excavation_pit_security_linear_meter": "calc",
+    "excavation_pit_security_methode": "calc",
+    "building_gap": "calc",
+    "jet_blasting_process_cylinder": "calc",
+    "jet_blasting_process_diameter": "calc",
+    "jet_blasting_process_cylinder_shape": "calc",
+    "jet_blasting_process_cuboid": "calc",
+    "jet_blasting_process_cuboid_length": "calc",
+    "jet_blasting_process_cuboid_width": "calc",
+    "jet_blasting_process": "calc",
+    "jet_blasting_process_amount": "calc",
+    "escarpment": "calc",
+    "escarpment_tilt": "calc",
+    "sheet_pile_wall": "calc",
+    "sheet_pile_wall_mass_unit_area": "calc",
+    "shotcrete": "calc",
+    "shotcrete_thickness": "calc",
+    "shotcrete_escarpment_tilt": "calc",
+    "shotcrete_nail_count": "calc",
+    "shotcrete_nail_length": "calc",
+    "shotcrete_nail_diameter": "calc",
+    "hide_unequal_foundation_pile_process": "calc",
+    "foundation_pile_diameter": "calc",
+    "foundation_pile_amount": "calc",
+    "excavation_settings": "calc",
+    "excavation_distance": "calc",
+    "excavation_volume": "calc",
+    "excavation": "calc",
+    "excavation_pit_security": "calc",
+  });
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+  
 
   protected jet_blasting_process_cylinder_shape_enum =
     JET_BLASTING_PROCESS_CYLINDER_SHAPE_ENUM;
   protected jet_blasting_process_cylinder_shape_options = () => {
+    const trans = this.translationS();
     return [
       {
-        label: this.$translate.translate(
-          'calc.jet_blasting_process_cylinder_shape_enum.' +
-            this.jet_blasting_process_cylinder_shape_enum.full_circle
-        ),
+        label: trans?.['jet_blasting_process_cylinder_shape_enum.full_circle'],
         value: this.jet_blasting_process_cylinder_shape_enum.full_circle,
       },
       {
-        label: this.$translate.translate(
-          'calc.jet_blasting_process_cylinder_shape_enum.' +
-            this.jet_blasting_process_cylinder_shape_enum.half_circle
-        ),
+        label: trans?.['jet_blasting_process_cylinder_shape_enum.half_circle'],
         value: this.jet_blasting_process_cylinder_shape_enum.half_circle,
       },
       {
-        label: this.$translate.translate(
-          'calc.jet_blasting_process_cylinder_shape_enum.' +
-            this.jet_blasting_process_cylinder_shape_enum.quater_circle
-        ),
+        label: trans?.['jet_blasting_process_cylinder_shape_enum.quater_circle'],
         value: this.jet_blasting_process_cylinder_shape_enum.quater_circle,
       },
     ];
@@ -49,19 +86,14 @@ export class KppkReactExcavationPitFields extends FgBaseService {
 
   protected jet_blasting_process_type_enum = JET_BLASTING_PROCESS_TYPE_ENUM;
   protected jet_blasting_process_type_options = () => {
+    const trans = this.translationS();
     return [
       {
-        label: this.$translate.translate(
-          'calc.jet_blasting_process_type_enum.' +
-            this.jet_blasting_process_type_enum.process_type_cylinder
-        ),
+        label: trans?.['jet_blasting_process_type_enum.process_type_cylinder'],
         value: this.jet_blasting_process_type_enum.process_type_cylinder,
       },
       {
-        label: this.$translate.translate(
-          'calc.jet_blasting_process_type_enum.' +
-            this.jet_blasting_process_type_enum.process_type_cuboid
-        ),
+        label: trans?.['jet_blasting_process_type_enum.process_type_cuboid'],
         value: this.jet_blasting_process_type_enum.process_type_cuboid,
       },
     ];
@@ -70,40 +102,26 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected excavation_pit_security_methode_enum =
     EXCAVATION_PIT_SECURITY_METHODE_ENUM;
   protected excavation_pit_process_type_options = () => {
+    const trans = this.translationS();
     return [
       {
-        label: this.$translate.translate(
-          'calc.excavation_pit_security_methode_enum.' +
-            this.excavation_pit_security_methode_enum.escarpment
-        ),
+        label: trans?.['excavation_pit_security_methode_enum.escarpment'],
         value: this.excavation_pit_security_methode_enum.escarpment,
       },
       {
-        label: this.$translate.translate(
-          'calc.excavation_pit_security_methode_enum.' +
-            this.excavation_pit_security_methode_enum.foundation_pile
-        ),
+        label: trans?.['excavation_pit_security_methode_enum.foundation_pile'],
         value: this.excavation_pit_security_methode_enum.foundation_pile,
       },
       {
-        label: this.$translate.translate(
-          'calc.excavation_pit_security_methode_enum.' +
-            this.excavation_pit_security_methode_enum.jet_blasting
-        ),
+        label: trans?.['excavation_pit_security_methode_enum.jet_blasting'],
         value: this.excavation_pit_security_methode_enum.jet_blasting,
       },
       {
-        label: this.$translate.translate(
-          'calc.excavation_pit_security_methode_enum.' +
-            this.excavation_pit_security_methode_enum.sheet_pile_wall
-        ),
+        label: trans?.['excavation_pit_security_methode_enum.sheet_pile_wall'],
         value: this.excavation_pit_security_methode_enum.sheet_pile_wall,
       },
       {
-        label: this.$translate.translate(
-          'calc.excavation_pit_security_methode_enum.' +
-            this.excavation_pit_security_methode_enum.shotcrete
-        ),
+        label: trans?.['excavation_pit_security_methode_enum.shotcrete'],
         value: this.excavation_pit_security_methode_enum.shotcrete,
       },
     ];
@@ -115,9 +133,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.excavation_pit_security_settings'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['excavation_pit_security_settings'])
+        ),  
       },
       fieldGroup: [
         {
@@ -135,9 +153,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_pit_security_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_pit_security_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -155,9 +173,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_pit_security_depth'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_pit_security_depth'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -175,9 +193,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_pit_security_linear_meter'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_pit_security_linear_meter'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -194,12 +212,11 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_pit_security_methode'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_pit_security_methode'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.excavation_pit_process_type_options())
             ),
           },
@@ -208,20 +225,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
           key: 'building_gap.value',
           type: 'checkbox',
           wrappers: ['unit'],
-          // defaultValue: 50,
           props: {
             color: 'primary',
-            // required: true,
-            // type: 'number',
-            // unit: 'km',
-            // min: 0,
           },
           modelOptions: {
             updateOn: 'blur',
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate('calc.building_gap'),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['building_gap'])
+            ),  
           },
         },
       ],
@@ -235,7 +249,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.excavation_pit_security.methode.value !==
@@ -250,7 +263,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.jet_blasting_process.process_type.value !==
@@ -265,7 +277,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.jet_blasting_process.process_type.value !==
@@ -277,11 +288,10 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     {
       key: 'jet_blasting_process_cylinder',
       fieldGroupClassName: 'flex flex-row gap-2',
-      // wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.jet_blasting_process_cylinder'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['jet_blasting_process_cylinder'])
+        ),  
         hide: this.hide_unequal_jet_blasting_process_type_cylinder,
       },
       fieldGroup: [
@@ -299,9 +309,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.jet_blasting_process_diameter'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['jet_blasting_process_diameter'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -318,12 +328,11 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.jet_blasting_process_cylinder_shape'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['jet_blasting_process_cylinder_shape'])
+            ),  
             'props.unit': this.$utils.provide_unit,
-            'props.options': this.$translate.langChanges$.pipe(
-              startWith(this.$translate.getActiveLang()),
+            'props.options': this.translation$.pipe(
               map(() => this.jet_blasting_process_cylinder_shape_options())
             ),
           },
@@ -336,11 +345,10 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     {
       key: 'jet_blasting_process_cuboid',
       fieldGroupClassName: 'flex flex-row gap-2',
-      // wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.jet_blasting_process_cuboid'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['jet_blasting_process_cuboid'])
+        ),  
         hide: this.hide_unequal_jet_blasting_process_type_cuboid,
       },
       fieldGroup: [
@@ -358,9 +366,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.jet_blasting_process_cuboid_length'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['jet_blasting_process_cuboid_length'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -380,9 +388,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.jet_blasting_process_cuboid_width'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['jet_blasting_process_cuboid_width'])
+            ),  
             'props.unit': this.$utils.provide_unit,
             'props.disabled': (field: FormlyFieldConfig) => {
               console.log('field.options?.formState');
@@ -401,9 +409,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.jet_blasting_process'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['jet_blasting_process'])
+        ),  
         hide: this.hide_unequal_jet_blasting_process,
       },
       fieldGroup: [
@@ -421,9 +429,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.jet_blasting_process_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['jet_blasting_process_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -461,7 +469,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.excavation_pit_security.methode.value !==
@@ -475,7 +482,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.escarpment'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['escarpment'])
+        ),  
         hide: this.hide_unequal_escarpment_process,
       },
       fieldGroup: [
@@ -494,9 +503,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.escarpment_tilt'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['escarpment_tilt'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -511,7 +520,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.excavation_pit_security.methode.value !==
@@ -525,7 +533,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.sheet_pile_wall'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['sheet_pile_wall'])
+        ),  
         hide: this.hide_unequal_sheet_pile_wall_process,
       },
       fieldGroup: [
@@ -543,9 +553,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.sheet_pile_wall_mass_unit_area'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['sheet_pile_wall_mass_unit_area'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -560,7 +570,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.excavation_pit_security.methode.value !==
@@ -574,7 +583,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.shotcrete'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['shotcrete'])
+        ),  
         hide: this.hide_unequal_shotcrete_process,
       },
       fieldGroup: [
@@ -594,9 +605,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.shotcrete_thickness'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['shotcrete_thickness'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -615,9 +626,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.shotcrete_escarpment_tilt'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['shotcrete_escarpment_tilt'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -635,9 +646,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.shotcrete_nail_count'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['shotcrete_nail_count'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -656,9 +667,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.shotcrete_nail_length'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['shotcrete_nail_length'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -677,9 +688,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.shotcrete_nail_diameter'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['shotcrete_nail_diameter'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -694,7 +705,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       }
     >
   ): boolean => {
-    // field.model
     const root_model = this.$utils.get_root_parent(field).model;
     const result =
       root_model.excavation_pit_security.methode.value !==
@@ -708,8 +718,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.foundation_pile'),
-        hide: this.hide_unequal_foundation_pile_process,
+        'props.label': this.translation$.pipe(
+          map( trans => trans['hide_unequal_foundation_pile_process'])
+        ),  
       },
       fieldGroup: [
         {
@@ -726,9 +737,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.foundation_pile_diameter'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['foundation_pile_diameter'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -746,9 +757,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.foundation_pile_amount'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['foundation_pile_amount'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -762,9 +773,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h4'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.excavation_settings'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['excavation_settings'])
+        ),  
       },
       fieldGroup: [
         {
@@ -782,9 +793,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_distance'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_distance'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -792,7 +803,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
           key: 'volume.value',
           type: 'input',
           wrappers: ['unit', 'form-field'],
-          // defaultValue: 450,
           props: {
             required: true,
             type: 'number',
@@ -803,9 +813,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             debounce: { default: 500 },
           },
           expressions: {
-            'props.label': this.$translate.selectTranslate(
-              'calc.excavation_volume'
-            ),
+            'props.label': this.translation$.pipe(
+              map( trans => trans['excavation_volume'])
+            ),  
             'props.unit': this.$utils.provide_unit,
           },
         },
@@ -815,22 +825,22 @@ export class KppkReactExcavationPitFields extends FgBaseService {
 
   public excavation_pit_fields: FormlyFieldConfig[] = [
     {
-      // key: 'excavation',
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h3'],
       expressions: {
-        'props.label': this.$translate.selectTranslate('calc.excavation'),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['excavation'])
+        ),  
       },
       fieldGroup: [...this.excavation_fields],
     },
     {
-      // key: 'excavation',
       fieldGroupClassName: 'flex flex-row gap-2',
       wrappers: ['section-h3'],
       expressions: {
-        'props.label': this.$translate.selectTranslate(
-          'calc.excavation_pit_security'
-        ),
+        'props.label': this.translation$.pipe(
+          map( trans => trans['excavation_pit_security'])
+        ),  
       },
       fieldGroup: [
         {
@@ -838,20 +848,12 @@ export class KppkReactExcavationPitFields extends FgBaseService {
           fieldGroup: [
             ...this.excavation_pit_security_fields,
             ...this.jet_blasting_process_fields,
-            // ...this.jet_blasting_process_cylinder_fields,
-            // ...this.jet_blasting_process_cuboid_fields,
             ...this.escarpment_fields,
             ...this.sheet_pile_wall_fields,
             ...this.shotcrete_fields,
             ...this.foundation_pile_fields,
           ],
         },
-        // {
-        //   fieldGroupClassName: 'flex flex-row flex-wrap gap-2',
-        //   fieldGroup: [
-        //     ...this.excavation_fields,
-        //   ]
-        // }
       ],
     },
   ];

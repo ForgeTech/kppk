@@ -18,7 +18,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kppk-react-results-material-top-grouped-bar-chart',
-
   imports: [
     CommonModule,
     TranslocoModule,
@@ -58,7 +57,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
             </div>
           </ng-template>
         </ngx-charts-bar-horizontal-2d>
-        <table class="table-legend absolute bottom-[60px] right-[10px]">
+        <table class="table-legend absolute bottom-[30px] right-[10px] w-[150px] font-bold text-white">
           <tr
             class="text-xs"
             [ngStyle]="{ 'background-color': this.$colors.concrete }"

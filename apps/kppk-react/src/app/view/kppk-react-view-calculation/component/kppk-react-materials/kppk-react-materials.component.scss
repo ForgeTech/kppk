@@ -26,13 +26,11 @@ cdk-virtual-scroll-viewport {
   input[type='number'] {
     width: 100px !important;
     text-align: right;
-    /* Chrome, Safari, Edge, Opera */
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-    /* Firefox */
     -moz-appearance: textfield;
   }
   .unit-tooltip-wrapper {
@@ -41,13 +39,6 @@ cdk-virtual-scroll-viewport {
   .unit-tooltip-wrapper.editable {
     background-color: rgb(233, 247, 214);
   }
-  // .unit-tooltip-wrapper.readonly {
-  // background-color: rgb(156, 156, 156);
-  // }
-  // .unit-tooltip-wrapper.disabled {
-  //   // background-color: rgb(156, 156, 156);
-  //   opacity: 0.5;
-  // }
 
   .invalid {
     .unit-tooltip-wrapper,
@@ -56,6 +47,4 @@ cdk-virtual-scroll-viewport {
       background-color: transparent;
     }
   }
-  // input[readonly="true"] {
-  // }
 }

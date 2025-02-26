@@ -41,6 +41,22 @@
   }
 }
 
+.calculation_content.prose {
+  h1, h2, h3, h4, h5, h6 {
+    // background-color: red;
+    margin-top: 0;
+  }
+  table th {
+    padding-bottom: 0;
+    h1, h2, h3, h4, h5, h6 {
+      // background-color: greenyellow;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+  }
+}
+
 // .mat-vertical-content {
 //   padding: 0 0 24px 0 !important;
 

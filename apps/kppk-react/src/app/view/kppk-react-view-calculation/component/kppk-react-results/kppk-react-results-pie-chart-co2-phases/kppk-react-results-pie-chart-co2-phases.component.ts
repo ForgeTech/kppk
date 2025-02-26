@@ -47,7 +47,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                   </div>
                 </ng-template>
               </ngx-charts-pie-chart>
-              <table class="table-legend absolute bottom-0 right-0 w-[150px]">
+              <table class="table-legend absolute -bottom-[32px] right-0 w-[150px]">
               @for( item of this.graph_data_s().data; track $index; let i = $index ) {
                   <tr
                     class="text-xs"
@@ -85,14 +85,14 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
   protected $colors = inject(KppkReactCalcViewColorsService);
   protected $translate = inject(FgTranslate);
   protected translation$ = this.$translate.get_translations$({
-    "container_village": "calc",
-    "material": "calc",
     "construction_site": "calc",
+    "container_village": "calc",
     "demolish_disposal": "calc",
     "excavation_pit": "calc",
+    "headline_co2_phase": "calc",
     "heating_system": "calc",
     "kgCo2": "units",
-    "headline_co2_phase": "units",
+    "material": "calc",
   })
   protected translationS = toSignal(this.translation$, {initialValue: undefined});  
 
