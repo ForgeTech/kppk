@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated
 })
-export class KppkReactViewAuthLogoutComponent {
+export class KppkReactViewAuthLogoutComponent implements AfterViewInit {
   protected HOST_ROUTES = HOST_ROUTES;
   protected $translate = inject(FgTranslate);
   protected $actor_auth = inject(FgAuthLocalMachineActorService);
@@ -81,9 +81,9 @@ export class KppkReactViewAuthLogoutComponent {
     ), 
     { initialValue: true }
   );
-
-  constructor() {
-      this.logout();
+  
+  public ngAfterViewInit(): void {
+    this.logout();
   }
 
   protected logout(event?: Event) {
