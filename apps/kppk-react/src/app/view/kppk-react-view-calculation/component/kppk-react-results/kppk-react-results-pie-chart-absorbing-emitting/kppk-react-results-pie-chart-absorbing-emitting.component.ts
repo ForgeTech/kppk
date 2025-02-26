@@ -7,21 +7,22 @@ import {
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { RESULT_MATERIAL_TOP_5 } from '../kppk-react-results-overview/kppk-react-results-overview.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-results-pie-chart-absorbing-emitting',
-
-  imports: [CommonModule, TranslocoModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule],
   template: `
+    @let t = translationS();
     <table class="table-result table">
       <thead>
         <tr>
           <th colspan="2">
-            <h2>Top5 Vergleich emittierende und aufnehmende Materialien</h2>
+            <h2>{{ t?.headline_compare_top_emittig_and_absorbing }}</h2>
           </th>
         </tr>
       </thead>
@@ -39,8 +40,9 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
                   <div class="flex flex-col items-center justify-center p-4">
                     <span class="text-base">{{ model.series }}</span>
                     <span class="text-sm">{{ model.name }}</span>
-                    <span class="text-xs"
-                      >{{ model.value | number : '1.2-2' }} kgCo²</span
+                    <span class="text-xs">
+                      {{ model.value | number : '1.2-2' }} {{ t?.kgCo2 }}
+                    </span
                     >
                   </div>
                 </ng-template>
@@ -52,7 +54,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
                     'background-color': this.color_scheme.domain[0]
                   }"
                 >
-                  <td>Aufnahme</td>
+                  <td>{{ t?.absorbing }}</td>
                 </tr>
 
                 <tr></tr>
@@ -62,7 +64,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
                     'background-color': this.color_scheme.domain[1]
                   }"
                 >
-                  <td>Abgabe</td>
+                  <td>{{ t?.emitting }}</td>
                 </tr>
 
                 <tr></tr>
@@ -77,7 +79,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
           <td class="text-right">
             {{ item.value | number : '1.2-2' }}
             <span class="unit inline-block w-[75px] text-left">{{
-              'calc.kgCo2'
+              t?.kgCo2
             }}</span>
           </td>
         </tr>
@@ -88,10 +90,18 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
   styles: [],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('calc')],
 })
 export class KppkReactResultsPieChartAbsorbingEmittingComponent {
   protected $colors = inject(KppkReactCalcViewColorsService);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "kgCo2": "units",
+    "headline_compare_top_emittig_and_absorbing": "calc",
+    "absorbing": "calc",
+    "emitting": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+
   public data_s = input.required<RESULT_MATERIAL_TOP_5>();
 
   public color_scheme: any = {
@@ -99,16 +109,13 @@ export class KppkReactResultsPieChartAbsorbingEmittingComponent {
   };
 
   protected result_abso_emit_pie_s = computed(() => {
-    // const trans_gwp = this.$translate.translate('calc.co2_transport')
-    // const trans_gwp_oeko = this.$translate.translate('calc.co2_transport')
-    // const trans_co2_transport = this.$translate.translate('calc.co2_transport')
     const results_chart = [
       {
-        name: 'Aufnahme',
+        name: this.translationS()?.absorbing,
         value: this.data_s().absorbing.sum.value,
       },
       {
-        name: 'Abgabe',
+        name: this.translationS()?.emitting,
         value: this.data_s().emitting.sum.value,
       },
     ];

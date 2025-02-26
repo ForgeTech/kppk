@@ -7,22 +7,23 @@ import {
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-results-pie-chart-co2-phases',
-
-  imports: [CommonModule, TranslocoModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule],
   template: `
+    @let t = translationS();
     <table class="table-result table">
       <thead>
         <tr>
           <th colspan="2">
-            <h2>CO₂ Phasen</h2>
+            <h2>{{ t?.headline_co2_phase}}</h2>
           </th>
         </tr>
       </thead>
@@ -68,7 +69,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
           <td class="text-right">
             {{ item.value | number : '1.2-2' }}
             <span class="unit inline-block w-[75px] text-left">{{
-              'calc.kgCo2'
+              t?.kgCo2
             }}</span>
           </td>
         </tr>
@@ -79,15 +80,27 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
   styles: [],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('calc')],
 })
 export class KppkReactResultsPieChartCo2PhasesComponent {
   protected $colors = inject(KppkReactCalcViewColorsService);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "container_village": "calc",
+    "material": "calc",
+    "construction_site": "calc",
+    "demolish_disposal": "calc",
+    "excavation_pit": "calc",
+    "heating_system": "calc",
+    "kgCo2": "units",
+    "headline_co2_phase": "units",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});  
 
   public data_s = input.required<REACT_VIEW_CALCULATION>();
   public material_s = input.required<KPPK_REACT_RESULTS_MATERIAL_SUMS>();
 
   protected graph_data_s = computed(() => {
+    const t = this.translationS();
     const color_scheme: any = {
       domain: [],
     };
@@ -100,7 +113,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
       this.material_s().co2_sum_transport.value
     ) {
       results_chart.push({
-        name: 'Materialien',
+        name: t?.material,
         value:
           this.material_s().co2_sum.value +
           this.material_s().co2_sum_transport.value, //this.data_s().absorbing.sum.value
@@ -109,7 +122,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
     }
     if (this.data_s().form_construction_site.value.results.co2_supply.value) {
       results_chart.push({
-        name: 'Baustelle',
+        name: t?.construction_site,
         value:
           this.data_s().form_construction_site.value.results.co2_supply.value,
       });
@@ -117,7 +130,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
     }
     if (this.data_s().form_container_village.value.results.sum_co2.value) {
       results_chart.push({
-        name: 'Container Dorf',
+        name: t?.container_village,
         value: this.data_s().form_container_village.value.results.sum_co2.value,
       });
       color_scheme.domain.push(this.$colors.container_village);
@@ -127,7 +140,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
         .value
     ) {
       results_chart.push({
-        name: 'Abbruch',
+        name: t?.demolish_disposal,
         value:
           this.data_s().form_demolish_disposal.value.results.consumption_co2_sum
             .value,
@@ -143,14 +156,14 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
         .co2_transport.value;
     if (form_excavation_pit_value) {
       results_chart.push({
-        name: 'Baugrube',
+        name: t?.excavation_pit,
         value: form_excavation_pit_value,
       });
       color_scheme.domain.push(this.$colors.excavation_pit);
     }
     if (this.data_s().form_heating_system.value.results.calc_usage_co2.value) {
       results_chart.push({
-        name: 'Gebäudebetrieb',
+        name: t?.heating_system,
         value:
           this.data_s().form_heating_system.value.results.calc_usage_co2.value *
           1000,

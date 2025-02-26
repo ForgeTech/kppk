@@ -3,6 +3,7 @@ import {
   Component,
   ViewEncapsulation,
   computed,
+  inject,
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,6 +24,8 @@ import { KppkReactResultsPieChartAbsorbingEmittingComponent } from '../kppk-reac
 import { z } from 'zod';
 import { KppkReactResultsPieChartCo2PhasesComponent } from '../kppk-react-results-pie-chart-co2-phases/kppk-react-results-pie-chart-co2-phases.component';
 import { KppkReactResultsPieChartTransportCreationOperationComponent } from '../kppk-react-results-pie-chart-transport-creation-operation/kppk-react-results-pie-chart-transport-creation-operation.component';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 export const materials_top5_parser = z.object({
   absorbing: z.object({
@@ -60,9 +63,16 @@ export type RESULT_MATERIAL_TOP_5 = z.infer<typeof materials_top5_parser>;
   styleUrl: './kppk-react-results-overview.component.scss',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('calc')],
+  providers: [ provideTranslocoScope('calc')]
 })
 export class KppkReactResultsOverviewComponent {
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    "materials_top_absorbing": "calc",
+    "materials_top_emitting": "calc",
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+  
   public results_s = input.required<REACT_VIEW_CALCULATION>({
     alias: 'results',
   });

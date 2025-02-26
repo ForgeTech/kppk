@@ -1,34 +1,10 @@
-<ng-container>
-  <mat-tab-group animationDuration="1000ms">
-    <mat-tab class="p-8" label="{{ 'calc.overview' }}">
-      <kppk-react-results-overview [results]="results_s()" />
-    </mat-tab>
+@let t = translationS();
+<mat-tab-group animationDuration="1000ms">
+  <mat-tab class="p-8" label="{{ t?.overview }}">
+    <kppk-react-results-overview [results]="results_s()" />
+  </mat-tab>
 
-    <mat-tab class="p-8" label="{{ 'calc.material' }}">
-      <kppk-react-results-materials [results]="results_s()" />
-    </mat-tab>
-    <!--     
-        <mat-tab class="p-8" label="{{ t('calc.construction_site') }}">
-            <kppk-react-results-construction-site [results]="results()"/>
-        </mat-tab>
-    
-        <mat-tab class="p-8" label="{{ t('calc.container_village') }}">
-            <kppk-react-results-container-village [results]="results()"/>
-        </mat-tab>
-    
-        <mat-tab class="p-8" label="{{ t('calc.demolish_disposal') }}">
-            <kppk-react-results-demolish-disposal [results]="results()"/>
-        </mat-tab>
-    
-        <mat-tab class="p-8" label="{{ t('calc.use_in_calculation') }}">
-            <kppk-react-results-excavation-pit [results]="results()"/>
-        </mat-tab> -->
-
-    <!-- <mat-tab class="p-8" label="heating-system">
-            <kppk-react-results-heating-system [results]="results()"/>
-        </mat-tab> -->
-  </mat-tab-group>
-  <!-- <pre>
-        {{ results() | json}}
-      </pre> -->
-</ng-container>
+  <mat-tab class="p-8" label="{{ t?.material }}">
+    <kppk-react-results-materials [results]="results_s()" />
+  </mat-tab>
+</mat-tab-group>

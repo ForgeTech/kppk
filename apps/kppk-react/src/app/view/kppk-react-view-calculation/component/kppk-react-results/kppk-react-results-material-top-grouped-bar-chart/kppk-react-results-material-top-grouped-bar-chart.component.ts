@@ -5,6 +5,7 @@ import {
   computed,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
@@ -12,6 +13,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-results-materials-table/kppk-react-results-material-table.component';
 import { FORM_MATERIALS_RESULT } from '@kppk/react-lib';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kppk-react-results-material-top-grouped-bar-chart',
@@ -23,19 +26,23 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     NgxChartsModule,
   ],
   template: `
+    @let t = translationS();
     <div class="flex flex-col">
-      <kppk-react-results-material-table class="w-full" [results]="data_s()">
+      <kppk-react-results-material-table 
+        class="w-full" 
+        [results]="data_s()"
+      >
         <ng-content></ng-content>
       </kppk-react-results-material-table>
       <div class="relative h-72">
         <ngx-charts-bar-horizontal-2d
           [results]="chart_data_s()"
-          [customColors]="custom_colors"
+          [customColors]="custom_colorsS()"
           [xAxis]="showXAxis"
           [showXAxisLabel]="showXAxisLabel"
           [showYAxisLabel]="showYAxisLabel"
           [xAxis]="showXAxis"
-          [xAxisTickFormatting]="axis_kgco2_formatting"
+          [xAxisTickFormatting]="axis_kgco2_formattingS()"
           [yAxis]="showYAxis"
           [legend]="false"
           [groupPadding]="4"
@@ -56,7 +63,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
             class="text-xs"
             [ngStyle]="{ 'background-color': this.$colors.concrete }"
           >
-            <td>GWP</td>
+            <td>{{ t?.gwp }}</td>
           </tr>
 
           <tr></tr>
@@ -64,7 +71,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
             class="text-xs"
             [ngStyle]="{ 'background-color': this.$colors.concrete_oeko }"
           >
-            <td>GWP Öko</td>
+            <td>{{ t?.gwp_oeko }}</td>
           </tr>
 
           <tr></tr>
@@ -72,7 +79,7 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
             class="text-xs"
             [ngStyle]="{ 'background-color': this.$colors.transport }"
           >
-            <td>CO₂ Transport</td>
+            <td>{{ t?.co2_transport }}</td>
           </tr>
 
           <tr></tr>
@@ -86,39 +93,51 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
   providers: [provideTranslocoScope('calc')],
 })
 export class KppkReactResultsMaterialTopGroupedBarChartComponent {
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    'kgCo2':'units',
+    'gwp':'calc',
+    'gwp_oeko':'calc',
+    'co2_transport':'calc',
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+  
   protected $colors = inject(KppkReactCalcViewColorsService);
-  public custom_colors = [
+  public custom_colorsS = computed( () => {
+    const t = this.translationS();
+    return [
     {
-      name: 'GWP',
+      name: t?.gwp,
       value: this.$colors.concrete,
     },
     {
-      name: 'GWP Öko',
+      name: t?.gwp_oeko,
       value: this.$colors.concrete_oeko,
     },
     {
-      name: 'CO₂ Transport',
+      name: t?.co2_transport,
       value: this.$colors.transport,
     },
-  ];
+  ]});
 
   public data_s = input.required<FORM_MATERIALS_RESULT>({ alias: 'data' });
 
   public chart_data_s = computed(() => {
+    const t = this.translationS();
     return this.data_s().map((item: any) => {
       return {
         name: item.name.value,
         series: [
           {
-            name: 'GWP',
+            name: t?.gwp,
             value: item.gwp.value,
           },
           {
-            name: 'GWP Öko',
+            name: t?.gwp_oeko,
             value: item.gwp_oeko.type === 'number' ? item.gwp_oeko.value : 0,
           },
           {
-            name: 'CO₂ Transport',
+            name: t?.co2_transport,
             value: item.co2_transport.value,
           },
         ],
@@ -132,16 +151,16 @@ export class KppkReactResultsMaterialTopGroupedBarChartComponent {
   protected showLegend = true;
   protected legendPosition = 'below';
   protected showXAxisLabel = true;
-  protected yAxisLabel = 'Country';
   protected showYAxisLabel = true;
-  protected xAxisLabel = 'Population';
 
-  public axis_kgco2_formatting = (value: any) => {
-    let result: any = '0';
-    if (value !== 0) {
-      result = value + ' kgCO₂';
+  public axis_kgco2_formattingS = computed( () => {
+    const t = this.translationS();
+    return (value: any) => {
+      let result: any = '0';
+      if (t && value !== 0) {
+        result = value + ' ' + t.kgCo2;
+      }
+      return result;
     }
-    // console.log('>>>>>>>>>>>FARRRKKK>>>>>>>>>>', result);
-    return result;
-  };
+  });
 }

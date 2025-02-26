@@ -1,3 +1,4 @@
+@let t = translationS();
 <table class="table">
   <thead>
     <tr>
@@ -8,16 +9,16 @@
     <tr>
       <th class="id text-center"></th>
       <th class="name text-center">
-        <span class="content">{{ 'calc.name' }}</span>
+        <span class="content">{{ t?.name }}</span>
       </th>
       <th class="co2_transport text-center">
-        <span class="content">{{ 'calc.co2_transport' }}</span>
+        <span class="content">{{ t?.co2_transport }}</span>
       </th>
       <th class="gwp text-center">
-        <span class="content">{{ 'calc.gwp' }}</span>
+        <span class="content">{{ t?.gwp }}</span>
       </th>
       <th class="gwp_oeko text-center">
-        <span class="content">{{ 'calc.gwp_oeko' }}</span>
+        <span class="content">{{ t?.gwp_oeko }}</span>
       </th>
     </tr>
   </thead>
@@ -39,20 +40,20 @@
       <td class="co2_transport text-right">
         <span class="content">
           {{ row.co2_transport.value | number : '1.2-2' }}
-          <span class="unit">{{ 'calc.' + row.co2_transport.unit }}</span>
+          <span class="unit">{{ t?.[row.co2_transport.unit] }}</span>
         </span>
       </td>
       <td class="gwp text-right">
         <span class="content">
           {{ row.gwp.value | number : '1.2-2' }}
-          <span class="unit">{{ 'calc.' + row.gwp.unit }}</span>
+          <span class="unit">{{ t?.[row.gwp.unit] }}</span>
         </span>
       </td>
       @if(row.gwp_oeko.type === 'number') {
       <td class="gwp_oeko text-right">
         <span class="content">
           {{ row.gwp_oeko.value | number : '1.2-2' }}
-          <span class="unit">{{ 'calc.' + row.gwp_oeko.unit }}</span>
+          <span class="unit">{{ t?.[row.gwp_oeko.unit] }}</span>
         </span>
       </td>
       } @else {

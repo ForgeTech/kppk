@@ -7,22 +7,23 @@ import {
   input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
 import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material-sums/kppk-react-results-material-sums.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-results-pie-chart-transport-creation-operation',
-
-  imports: [CommonModule, TranslocoModule, NgxChartsModule],
+  imports: [CommonModule, NgxChartsModule],
   template: `
+    @let t = translationS();
     <table class="table-result table">
       <thead>
         <tr>
           <th colspan="2">
-            <h2>Anfallendes CO₂ Transport-Erzeugung-Betrieb</h2>
+            <h2>{{ t?.headline_transport_creation_operation }}</h2>
           </th>
         </tr>
       </thead>
@@ -53,7 +54,7 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
                     'background-color': this.color_scheme.domain[0]
                   }"
                 >
-                  <td>Transport</td>
+                  <td>{{ t?.headline_transport }}</td>
                 </tr>
 
                 <tr></tr>
@@ -63,7 +64,7 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
                     'background-color': this.color_scheme.domain[1]
                   }"
                 >
-                  <td>Erzeugung</td>
+                  <td>{{ t?.headline_creation }}</td>
                 </tr>
 
                 <tr></tr>
@@ -73,7 +74,7 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
                     'background-color': this.color_scheme.domain[2]
                   }"
                 >
-                  <td>Gebäudebetrieb</td>
+                  <td>{{ t?.heating_system }}</td>
                 </tr>
 
                 <tr></tr>
@@ -81,14 +82,13 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
             </div>
           </td>
         </tr>
-        @for( item of this.result_transport_creation_operation_pie_s(); track
-        $index; let i = $index ) {
+        @for( item of this.result_transport_creation_operation_pie_s(); track $index; let i = $index ) {
         <tr>
           <td class="text-left">{{ item.name }}</td>
           <td class="text-right">
             {{ item.value | number : '1.2-2' }}
             <span class="unit inline-block w-[75px] text-left">{{
-              'calc.kgCo2'
+            t?.kgCo2
             }}</span>
           </td>
         </tr>
@@ -99,12 +99,19 @@ import { KPPK_REACT_RESULTS_MATERIAL_SUMS } from '../kppk-react-results-material
   styles: [],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('calc')],
 })
 export class KppkReactResultsPieChartTransportCreationOperationComponent {
   public data_s = input.required<REACT_VIEW_CALCULATION>();
   public material_s = input.required<KPPK_REACT_RESULTS_MATERIAL_SUMS>();
-
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    'headline_transport_creation_operation': 'calc',
+    'headline_transport': 'calc',
+    'heating_system': 'calc',
+    'headline_creation': 'calc',
+    'kgCo2': 'units',
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
   protected $colors = inject(KppkReactCalcViewColorsService);
   public color_scheme: any = {
     domain: [

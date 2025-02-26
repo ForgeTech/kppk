@@ -8,16 +8,13 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import {
-  provideTranslocoScope,
-  TranslocoModule,
-  TranslocoService,
-} from '@jsverse/transloco';
 import { ResizeHorizontalGraphDirective } from './kppk-graph-line-height.directive';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-results-materials-table/kppk-react-results-material-table.component';
 import { REACT_VIEW_CALCULATION } from '@kppk/react-lib';
 import { form_materials_result_parser } from '@kppk/react-lib';
 import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc-view-colors.service';
+import { FgTranslate } from '@kppk/fg-lib-new';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'kppk-react-results-materials',
@@ -26,33 +23,42 @@ import { KppkReactCalcViewColorsService } from '../../../service/kppk-react-calc
     CommonModule,
     NgxChartsModule,
     // ResizeHorizontalGraphDirective,
-    TranslocoModule,
     KppkReactResultsMaterialTableComponent,
   ],
   templateUrl: './kppk-react-results-materials.component.html',
   styleUrl: './kppk-react-results-materials.component.scss',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [provideTranslocoScope('calc')],
 })
 export class KppkReactResultsMaterialsComponent {
-  public $translate = inject(TranslocoService);
+  // public $translate = inject(TranslocoService);
+  protected $translate = inject(FgTranslate);
+  protected translation$ = this.$translate.get_translations$({
+    'kgCo2':'units',
+    'gwp':'calc',
+    'gwp_oeko':'calc',
+    'co2_transport':'calc',
+  })
+  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+
   protected $colors = inject(KppkReactCalcViewColorsService);
 
-  public custom_colors = [
+  public custom_colorsS = computed( () => { 
+    const t = this.translationS();
+    return [
     {
-      name: 'GWP',
+      name: t?.gwp,
       value: this.$colors.concrete,
     },
     {
-      name: 'GWP Öko',
+      name: t?.gwp_oeko,
       value: this.$colors.concrete_oeko,
     },
     {
-      name: 'CO₂ Transport',
+      name: t?.co2_transport,
       value: this.$colors.transport,
     },
-  ];
+  ]});
 
   public results_s = input.required<REACT_VIEW_CALCULATION>({
     alias: 'results',
@@ -78,23 +84,21 @@ export class KppkReactResultsMaterialsComponent {
   });
 
   protected result_chart_s = computed(() => {
-    const trans_gwp = this.$translate.translate('calc.co2_transport');
-    const trans_gwp_oeko = this.$translate.translate('calc.co2_transport');
-    const trans_co2_transport = this.$translate.translate('calc.co2_transport');
+    const t = this.translationS();
     const results_chart = this.materials_s().map((item) => {
       return {
         name: item.name.value,
         series: [
           {
-            name: 'GWP',
+            name: t?.gwp,
             value: item.gwp.value,
           },
           {
-            name: 'GWP ÖKO',
+            name: t?.gwp_oeko,
             value: item.gwp_oeko.type === 'number' ? item.gwp_oeko.value : 0,
           },
           {
-            name: 'CO₂ Transport',
+            name: t?.co2_transport,
             value: item.co2_transport.value,
           },
         ],
@@ -112,7 +116,7 @@ export class KppkReactResultsMaterialsComponent {
   public axis_kgco2_formatting = (value: any) => {
     let result: any = '0';
     if (value !== 0) {
-      result = value + ' kgCO₂';
+      result = value + this.translationS()?.kgCo2;
     }
     // console.log('>>>>>>>>>>>FARRRKKK>>>>>>>>>>', result);
     return result;

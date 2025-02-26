@@ -1,37 +1,38 @@
 <!-- <pre>{{ form() | json }}</pre> -->
+@let t = translationS();
 <table class="table-result table">
   <thead>
     <tr>
       <th colspan="2">
-        <h2>{{ 'calc.container_village' }}</h2>
+        <h2>{{ t?.container_village }}</h2>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>{{ 'calc.container_co2' }}</td>
+      <td>{{ t?.container_co2 }}</td>
       <td class="text-right">
         {{ form().results.container_co2.value | number : '1.2-2' }}
         <span class="unit inline-block w-[75px] text-left">{{
-          'calc.' + form().results.container_co2.unit
+          t?.[form().results.container_co2.unit]
         }}</span>
       </td>
     </tr>
     <tr>
-      <td>{{ 'calc.distance_co2' }}</td>
+      <td>{{ t?.distance_co2 }}</td>
       <td class="text-right">
         {{ form().results.distance_co2.value | number : '1.2-2' }}
         <span class="unit inline-block w-[75px] text-left">{{
-          'calc.' + form().results.distance_co2.unit
+          t?.[form().results.distance_co2.unit]
         }}</span>
       </td>
     </tr>
     <tr class="sum-divider">
-      <td>{{ 'calc.sum_co2' }}</td>
+      <td>{{ t?.sum_co2 }}</td>
       <td class="text-right">
         {{ form().results.sum_co2.value | number : '1.2-2' }}
         <span class="unit inline-block w-[75px] text-left">{{
-          'calc.' + form().results.sum_co2.unit
+          t?.[form().results.sum_co2.unit]
         }}</span>
       </td>
     </tr>
