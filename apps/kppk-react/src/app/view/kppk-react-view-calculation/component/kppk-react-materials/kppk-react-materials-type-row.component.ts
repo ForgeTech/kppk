@@ -17,7 +17,6 @@ import { FgTranslate } from '@kppk/fg-lib-new';
 
 @Component({
   selector: 'kppk-react-materials-type-row',
-
   imports: [CommonModule, KppkFormlyModule],
   template: `
     <div
