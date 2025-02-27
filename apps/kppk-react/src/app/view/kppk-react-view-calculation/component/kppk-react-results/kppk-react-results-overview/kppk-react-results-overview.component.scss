@@ -48,15 +48,15 @@ td {
   .result-grid {
     display: grid;
     // background-color: red;
-    gap: 14px;
+    gap: 1rem 4rem;
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
       'sum sum sum cc cc cc'
       'emi emi emi cc cc cc'
       'emi emi emi cv cv cv'
-      'emi emi emi dd dd dd'
+      'abs abs abs dd dd dd'
       'abs abs abs ep ep ep'
-      'abs abs abs hs hs hs'
+      'pca pca pca  hs hs hs'
       'pca pca pca ph ph ph'
       'op  op  op ph ph ph';
   }
