@@ -5,6 +5,7 @@
 @use './styles/kppk-fonts.scss' as kppk_fonts;
 @use './styles/mat-input-filled-high-density-fix.scss' as mat_form_field_override;
 @use './styles/mat-light-theme.scss' as mat_light_theme;
+@use './styles/fg-layout-print-outlet.scss' as fg-layout-print-outlet;
 @use 'material-icons/iconfont/material-icons.css' as material_icons;
 
 @tailwind base;

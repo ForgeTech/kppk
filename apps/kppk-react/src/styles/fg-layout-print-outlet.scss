@@ -1,0 +1,29 @@
+@media print {
+    .is-printing {
+        .page-content  {
+            display: none;
+        }
+    }
+}
+.is-printing {
+    .print-content  {
+        display: block;
+    }
+}
+.is-printing {
+    overflow: hidden;
+}
+.is-printing .print-content {
+    display: block;
+    // width: auto;
+    // min-width: 210mm;
+    // max-width: 297mm;
+}
+
+.page {
+    margin: 0 auto;
+    border: 1px solid green;
+    width: auto;
+    min-width: 210mm;
+    max-width: 297mm;
+}
