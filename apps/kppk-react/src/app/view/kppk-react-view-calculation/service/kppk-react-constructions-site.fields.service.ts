@@ -483,7 +483,6 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
             props: {
               required: true,
               type: 'number',
-              unit: 'kWh',
               min: 0,
             },
             modelOptions: {
@@ -626,7 +625,6 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
               props: {
                 required: true,
                 type: 'number',
-                unit: 'kWh/month',
                 min: 0,
               },
               modelOptions: {
