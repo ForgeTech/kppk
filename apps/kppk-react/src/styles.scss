@@ -27,3 +27,30 @@ article {
         break-inside: avoid;
     }
 }
+
+.result_content {
+    // background-color: red;
+    table {
+        // background-color: greenyellow;
+        .id {
+            // width: 50px;
+            text-align: center;
+            // background-color: yellow;
+        }
+
+        .name, .co2_transport, .gwp, .gwp_oeko  {
+            // background-color: yellow;
+            width: 25%;
+        }
+
+
+
+        .unit {
+            // background-color: yellow;
+            display: inline-block;
+            width: 75px;
+            text-align: left;
+        }
+    }
+      
+}
