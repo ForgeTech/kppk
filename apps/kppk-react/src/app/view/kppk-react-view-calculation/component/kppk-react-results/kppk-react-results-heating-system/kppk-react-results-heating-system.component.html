@@ -17,7 +17,7 @@
       <td>{{ t?.heating_system_system_co2_year }}</td>
       <td class="text-right">
         {{ form().system_co2_year.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().system_co2_year.unit]
         }}</span>
       </td>
@@ -26,7 +26,7 @@
       <td>{{ t?.heating_system_calc_usage }}</td>
       <td class="text-right">
         {{ form().calc_usage.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().calc_usage.unit]
         }}</span>
       </td>
@@ -35,7 +35,7 @@
       <td>{{ t?.heating_system_system_co2_usage }}</td>
       <td class="text-right">
         {{ form().results.calc_usage_co2.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.calc_usage_co2.unit]
         }}</span>
       </td>

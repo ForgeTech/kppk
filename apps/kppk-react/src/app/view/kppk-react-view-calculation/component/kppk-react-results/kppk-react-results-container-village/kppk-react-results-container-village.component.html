@@ -13,7 +13,7 @@
       <td>{{ t?.container_co2 }}</td>
       <td class="text-right">
         {{ form().results.container_co2.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.container_co2.unit]
         }}</span>
       </td>
@@ -22,7 +22,7 @@
       <td>{{ t?.distance_co2 }}</td>
       <td class="text-right">
         {{ form().results.distance_co2.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.distance_co2.unit]
         }}</span>
       </td>
@@ -31,7 +31,7 @@
       <td>{{ t?.sum_co2 }}</td>
       <td class="text-right">
         {{ form().results.sum_co2.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.sum_co2.unit]
         }}</span>
       </td>

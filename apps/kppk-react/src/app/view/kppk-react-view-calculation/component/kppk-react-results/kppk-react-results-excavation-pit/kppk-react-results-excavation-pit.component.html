@@ -10,13 +10,13 @@
   </thead>
   <tbody>
     <tr>
-      <th colspan="2">{{ t?.excavation }}</th>
+      <th colspan="2"><h3>{{ t?.excavation }}</h3></th>
     </tr>
     <tr>
       <td>{{ t?.volumn }}</td>
       <td class="text-right">
         {{ form().excavation.volume.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().excavation.volume.unit]
         }}</span>
       </td>
@@ -25,7 +25,7 @@
       <td>{{ t?.distance }}</td>
       <td class="text-right">
         {{ form().excavation.distance.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().excavation.distance.unit]
         }}</span>
       </td>
@@ -34,13 +34,13 @@
       <td>{{ t?.co2_transport }}</td>
       <td class="text-right">
         {{ form().results.excavation.co2_transport.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.excavation.co2_transport.unit]
         }}</span>
       </td>
     </tr>
     <tr>
-      <th colspan="2">{{ t?.excavation_pit_security }}</th>
+      <th colspan="2"><h3>{{ t?.excavation_pit_security }}</h3></th>
     </tr>
     <tr>
       <td>{{ t?.excavation_pit_security_methode }}</td>
@@ -56,7 +56,7 @@
       <td>{{ t?.excavation_pit_security_depth }}</td>
       <td class="text-right">
         {{ form().excavation_pit_security.depth.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().excavation_pit_security.depth.unit]
         }}</span>
       </td>
@@ -67,7 +67,7 @@
         {{
           form().excavation_pit_security.linear_meter.value | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().excavation_pit_security.linear_meter.unit]
         }}</span>
       </td>
@@ -79,7 +79,7 @@
           form().results.excavation_pit_security.co2_creation.value
             | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.excavation_pit_security.co2_creation.unit]
         }}</span>
       </td>
@@ -88,7 +88,7 @@
       <td>{{ t?.distance }}</td>
       <td class="text-right">
         {{ form().excavation_pit_security.distance.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().excavation_pit_security.distance.unit]
         }}</span>
       </td>
@@ -100,7 +100,7 @@
           form().results.excavation_pit_security.co2_transport.value
             | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.excavation_pit_security.co2_transport.unit]
         }}</span>
       </td>

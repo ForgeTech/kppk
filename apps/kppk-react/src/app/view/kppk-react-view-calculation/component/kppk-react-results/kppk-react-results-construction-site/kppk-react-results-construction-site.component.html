@@ -14,7 +14,7 @@
             <td>{{ t?.' + form().building_type.value }}</td>
         </tr> -->
     <tr>
-      <th colspan="2">{{ t?.energy_usage_headline }}</th>
+      <th colspan="2"><h3>{{ t?.energy_usage_headline }}</h3></th>
     </tr>
     <tr>
       <td>{{ t?.energy_usage_power_type }}</td>
@@ -28,7 +28,7 @@
       <td>{{ t?.power_usage }}</td>
       <td class="text-right">
         {{ form().results.power_supply.energy_usage.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.power_supply.energy_usage.unit]
         }}</span>
       </td>
@@ -37,14 +37,14 @@
       <td>{{ t?.power_co2 }}</td>
       <td class="text-right">
         {{ form().results.co2_power_supply.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.co2_power_supply.unit]
         }}</span>
       </td>
     </tr>
 
     <tr>
-      <th colspan="2">{{ t?.heating_supply }}</th>
+      <th colspan="2"><h3>{{ t?.heating_supply }}</h3></th>
     </tr>
     <tr>
       <td>{{ t?.energy_usage_power_type }}</td>
@@ -60,7 +60,7 @@
         {{
           form().results.heating_supply.energy_usage.value | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.heating_supply.energy_usage.unit]
         }}</span>
       </td>
@@ -72,7 +72,7 @@
           form().results.heating_supply.co2_energy_usage.value
             | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.heating_supply.co2_energy_usage.unit]
         }}</span>
       </td>
@@ -83,7 +83,7 @@
         {{
           form().results.heating_supply.fuel_oil_usage.value | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.heating_supply.fuel_oil_usage.unit]
         }}</span>
       </td>
@@ -95,7 +95,7 @@
           form().results.heating_supply.co2_fuel_oil_usage.value
             | number : '1.2-2'
         }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.heating_supply.co2_fuel_oil_usage.unit]
         }}</span>
       </td>
@@ -109,7 +109,7 @@
       <td>{{ t?.power_supply_co2 }}</td>
       <td class="text-right">
         {{ form().results.co2_power_supply.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.co2_power_supply.unit]
         }}</span>
       </td>
@@ -118,7 +118,7 @@
       <td>{{ t?.heating_supply_co2 }}</td>
       <td class="text-right">
         {{ form().results.co2_heating_supply.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.co2_heating_supply.unit]
         }}</span>
       </td>
@@ -132,7 +132,7 @@
       <td>{{ t?.sum_co2 }}</td>
       <td class="text-right">
         {{ form().results.co2_supply.value | number : '1.2-2' }}
-        <span class="unit inline-block w-[75px] text-left">{{
+        <span class="unit">{{
           t?.[form().results.co2_supply.unit]
         }}</span>
       </td>
