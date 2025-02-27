@@ -6,7 +6,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'kppk-react-placeholder',
+  selector: 'fg-placeholder',
   imports: [CommonModule],
   template: `
     <div
@@ -23,4 +23,4 @@ import { CommonModule } from '@angular/common';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlaceholderComponent {}
+export class FgPlaceholderComponent {}

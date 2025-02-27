@@ -1,18 +1,15 @@
 import {
   ComponentFixture,
-  fakeAsync,
   TestBed,
-  tick,
 } from '@angular/core/testing';
-import { KppkReactComponent } from './layout-print-outlet.component';
-import { PlaceholderComponent } from './placeholder.component';
+import { FgLayoutPrintOutletComponent } from './fg-layout-print-outlet.component';
+import { PlaceholderComponent } from '../../component/fg-placeholder/fg-placeholder.component';
 import { Router, RouterModule } from '@angular/router';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
-import exp from 'constants';
 
-describe('KppkReactComponent', () => {
+describe('FgLayoutPrintOutletComponent', () => {
   let router: Router;
-  let fixture: ComponentFixture<KppkReactComponent>;
+  let fixture: ComponentFixture<FgLayoutPrintOutletComponent>;
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
@@ -24,28 +21,24 @@ describe('KppkReactComponent', () => {
             component: PlaceholderComponent,
           },
         ]),
-        KppkReactComponent,
+        FgLayoutPrintOutletComponent,
       ],
       providers: [provideExperimentalZonelessChangeDetection()],
     }).compileComponents();
     router = TestBed.inject(Router);
-    fixture = TestBed.createComponent(KppkReactComponent);
+    fixture = TestBed.createComponent(FgLayoutPrintOutletComponent);
     await fixture.whenStable();
   });
 
   describe('>> class"', () => {
-    it('should create the app', () => {
+    it('should create the component', () => {
       expect(fixture.componentInstance).toBeTruthy();
-    });
-
-    it(`should have as title 'react-host'`, () => {
-      expect(fixture.componentInstance.title).toEqual('react-host');
     });
   });
 
   describe('>> template"', () => {
     beforeEach(async () => {
-      // fixture = TestBed.createComponent(KppkReactComponent);
+      // fixture = TestBed.createComponent(FgLayoutPrintOutletComponent);
       router.navigate(['']);
       await fixture.whenStable();
     });

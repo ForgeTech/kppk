@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   imports: [RouterModule, NgClass],
-  selector: 'kppk-react-layout-print-outlet',
+  selector: 'fg-layout-print-outlet',
   template: `
     <section
       class="page-content"
@@ -31,7 +31,6 @@ import { RouterModule } from '@angular/router';
   styles: ``,
   encapsulation: ViewEncapsulation.None,
 })
-export class KppkReactComponent {
-  public title = 'react-host';
+export class FgLayoutPrintOutletComponent {
   protected print_outlet_activatedS = signal(false);
 }
