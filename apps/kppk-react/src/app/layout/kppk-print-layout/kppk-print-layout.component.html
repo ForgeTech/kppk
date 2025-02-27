@@ -1,0 +1,60 @@
+
+<table id="print-target" class="print-layout-table">
+  <thead>
+    <tr class="print-content-row">
+      <td class="print-content-cell">
+        <div class="print-header-space"></div>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="print-content-row">
+      <td class="print-content-cell">
+      <div class="print-content">
+        <!-- <router-outlet></router-outlet> -->
+         TEST
+          <ng-content></ng-content>
+      </div>
+  </td></tr></tbody>
+  <tfoot>
+    <tr class="print-content-row">
+      <td class="print-content-cell">
+        <div class="print-footer-space"></div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div
+  #printHeader
+  class="print-header flex flex-row items-center justify-between"
+>
+  <div class="print-header-left">
+    <!-- <ng-content /> -->
+    <img
+      class="print-logo-kppk"
+      alt="dfdf"
+      src="{{ image_kppk }}"
+    />
+  </div>
+  <div class="flex-auto"></div>
+  <div class="print-header-right">
+    <img
+      class="print-logo"
+      alt="sdfsdf"
+      src="{{ img_logo }}"
+    />
+  </div>
+</div>
+
+<div
+  #printFooter
+  class="print-footer flex flex-row items-center justify-center"
+>
+  <div class="print-kppk-ppt-footer">
+    <div class="print-kppk-ppt-small print-rose-energy-price">{{ 'rresult.note-numbers-are-rounded' }} {{ 'rresult.energy-prices-footer-note' }}</div>
+    <div class="print-kppk-ppt-small">A-1060 Wien, Gumpendorfer Straße 132/1/9</div>
+    <div class="print-kppk-ppt-small">Tel: +43 (0)1/535 21 23; Fax: +43 (0)1/535 21 23 30; E-Mail: office&#64;kppk.at</div>
+    <div class="print-kppk-ppt-small underline">www.kppk.at</div>
+  </div>
+</div>

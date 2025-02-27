@@ -1,0 +1,129 @@
+@media print {
+  @page {
+    size: 'A4';
+    // margin: 75px 20mm 55px 20mm;
+  }
+}
+
+.print-layout-table {
+  .print-content-row,
+  .print-content-cell {
+    background-color: white !important;
+  }
+  table:not(.table-amort) {
+     background-color: red;
+    & > thead > tr > th {
+      background-color: white;
+    }
+    & > tbody > tr > th,
+    & > tbody > tr > td {
+      background-color: white;
+    }
+  }
+  table th.table-headline {
+    padding: 5px;
+  }
+}
+
+.page {
+  padding: 0 15px !important;
+  // height: 1400px;
+  // border: 1px solid red;
+  // background-color: red;
+  border: 1px solid green;
+}
+
+.print-header,
+.print-header-space {
+  height: 100px;
+  border: 2px solid red;
+  background-color: white !important;
+  margin-bottom: 10px;
+}
+
+// .print-footer,
+// .print-footer-space {
+//   height: 65px;
+// }
+
+.print-footer,
+.print-footer-space {
+  border: 2px solid orange;
+  height: 55px;
+  width: 100%;
+  padding: 0 10px;
+  background-color: white !important;
+}
+
+.print-header {
+  position: fixed;
+  top: 0;
+  .print-header-left {
+    position: relative;
+    top: -80px;
+    .print-logo-kppk {
+      position: absolute;
+      top: 20px;
+      left: 15px;
+      width: 201px;
+      height: 95px;
+    }
+    .print-logo-kppk-build {
+      position: absolute;
+      top: 110px;
+      left: 15px;
+      height: 32px;
+    }
+  }
+  .print-header-right {
+    position: relative;
+    top: -20px;
+    .print-logo {
+      width: 199px;
+      height: 49px;
+    }
+  }
+}
+
+.print-footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.print-footer,
+.print-header {
+  right: 0;
+  left: 0;
+}
+
+.print-kppk-address,
+.print-kppk-contact,
+.print-kppk-business {
+  padding: 0 15px;
+  height: 55px;
+  font-size: 12px;
+  line-height: 17px;
+
+}
+
+.print-kppk-ppt-footer {
+  // margin: 0 auto;
+  width: 750px;
+  color: #7f7f7f;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+  .print-rose-energy-price {
+    font-style: italic;
+  }
+  .print-kppk-ppt-big {
+    font-size: 10px;
+    line-height: 16px;
+  }
+  .print-kppk-ppt-small {
+    font-size: 6px;
+    line-height: 10px;
+  }
+  .underline {
+    text-decoration: underline;
+  }
+}
