@@ -1,0 +1,130 @@
+<kppk-print-layout>
+  <div class="page page-cover-sheet">
+    <div class="avoid-page-break-inside">
+      <div class="print-result-headline-wrapper">
+        <h1 class="page-headline">{{ 'rcalc.calc-result-headline' }}</h1>
+      </div>
+      <img class="print-logo" alt="'img-alt_rose-logo'" src="{{ print_cover }}" />
+      <div class="print-project-headline-wrapper avoid-page-break-inside">
+        <!-- <h2 *ngIf="printData.common.projectName">{{ 'rcalc.projectName' }} {{ printData.common.projectName }}</h2>
+        <h2 *ngIf="printData.common.projectNumber">{{ 'rcalc.projectNumber' }} {{ printData.common.projectNumber }}</h2>
+        <h2 *ngIf="printData.common.projectPart">{{ 'rcalc.projectPart' }} {{ printData.common.projectPart }}</h2> -->
+      </div>
+    </div>
+    <div class="print-project-headline-wrapper avoid-page-break-inside">
+      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-content' }}</div>
+      <h2>{{ 'rcalc.print-headline-base-data' }}</h2>
+      <h2>{{ 'rcalc.print-headline-system-compare' }}</h2>
+      <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+      <h2>{{ 'rcalc.print-headline-amortisation' }}</h2>
+      <h2>{{ 'rcalc.print-headline-system-data' }}</h2>
+      <h2>{{ 'rcalc.print-headline-results' }}</h2>
+    </div>
+  </div>
+
+  <div #page class="page page-default">
+      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-base-data' }}</div>
+      <div class="flex-column flex">
+      <div class="avoid-page-break-inside flex flex-row">
+        <div class="flex w-1/2 flex-col">
+          <!-- <rose-result-form class="result-content-container"></rose-result-form>
+          <rose-result-calculated class="result-content-container" fxFlex="1 1 50%"></rose-result-calculated>
+          <rose-result-st *ngIf="this.$calc.stUsed$ | async" class="result-content-container"></rose-result-st> -->
+        </div>
+        <div class="flex w-1/2 flex-col">
+          <!-- <rose-energy-costs-table fxFlex="1 1" class="result-content-container"></rose-energy-costs-table>
+          <rose-result-pv fxFlex="1 1" *ngIf="this.$calc.pvUsed$ | async" class="result-content-container"></rose-result-pv> -->
+        </div>
+      </div>
+      <div class="flex flex-row" class="avoid-page-break-inside">
+        <!-- <rose-print-energy-co2-cost-table class="result-content-container" fxFlex="1 1 100%"></rose-print-energy-co2-cost-table> -->
+      </div>
+    </div>
+    <div class="avoid-page-break-inside">
+      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-system-compare' }}</div>
+      <!-- <rose-rose-result-overview-system-table-common></rose-rose-result-overview-system-table-common> -->
+    </div>
+  </div>
+
+  <div #page class="page page-default">
+    <div class="avoid-page-break-inside">
+      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</div>
+      <!-- <rose-stacked-bar-chart [print]="true" class="result-content-container"></rose-stacked-bar-chart> -->
+    </div>
+  </div>
+
+  <div #page class="page page-default">
+    <div class="avoid-page-break-inside">
+      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-amortisation' }}</div>
+      <div class="avoid-page-break-inside">
+        <!-- <rose-rose-result-overview-system-table-amort-line-graph [print]="true">
+        </rose-rose-result-overview-system-table-amort-line-graph> -->
+      </div>
+      <br/><br/>
+      <div class="felx-row flex items-center justify-center">
+        <!-- <rose-line-chart [print]="true" class="line-chart"></rose-line-chart> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- <ng-container *ngIf="( systemsPages$ | async ) as systemPages"> -->
+    <!-- <ng-container *ngFor="let systemPage of systemPages"> -->
+      <div #page class="page page-default">
+        <!-- <ng-container *ngFor="let system of systemPage"> -->
+          <div class="avoid-page-break-inside">
+            <div class="page-headline page-headline-spacer">
+              {{ 'rcalc.print-headline-system-data' }}
+            </div>
+            <!-- <rose-print-result-system [system]="system"></rose-print-result-system> -->
+          </div>
+        <!-- </ng-container> -->
+      </div>
+    <!-- </ng-container> -->
+  <!-- </ng-container> -->
+
+  <ng-container>
+    <div #page class="page page-default">
+      <div class="avoid-page-break-inside">
+        <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cooling' }}</div>
+        <!-- <rose-result-cooling></rose-result-cooling> -->
+        <br/>
+        <!-- <rose-rose-result-overview-system-table-cooling></rose-rose-result-overview-system-table-cooling> -->
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container>
+    <!-- <ng-container *ngFor="let page of $calc.pvResultConfigsSystemsPagedForPrint$ | async; let i = index"> -->
+      <div #page class="page page-default">
+        <!-- <div 
+          *ngIf="i===0"
+          class="avoid-page-break-inside"
+        > -->
+          <div class="page-headline page-headline-spacer">
+            {{ 'rcalc.print-headline-pv-system' }}
+          </div>
+          <div class="avoid-page-break-inside">
+            <!-- <ng-container *ngIf="this.$calc.pvUsed$ | async"> -->
+              <div class="avoid-page-break-inside">
+                <!-- <rose-rose-result-overview-system-table-pv></rose-rose-result-overview-system-table-pv> -->
+              </div>
+            <!-- </ng-container> -->
+            <br/>
+            <!-- <ng-container *ngIf="this.$calc.stUsed$ | async"> -->
+              <!-- <rose-rose-result-overview-system-table-st></rose-rose-result-overview-system-table-st> -->
+            <!-- </ng-container> -->
+          </div>
+          <br/>
+          <br/>
+        <!-- </div> -->
+        <!-- <div class="avoid-page-break-inside" *ngFor="let systemRow of page"> -->
+          <!-- <rose-result-pv-system-self-usage-graphs 
+            [entity]="systemRow"
+            [print]="true" 
+          >
+          </rose-result-pv-system-self-usage-graphs> -->
+        <!-- </div> -->
+      </div>
+    <!-- </ng-container> -->
+  </ng-container>
+</kppk-print-layout>  

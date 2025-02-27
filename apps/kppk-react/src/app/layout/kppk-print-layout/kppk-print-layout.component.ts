@@ -16,8 +16,8 @@ export class KppkPrintLayoutComponent {
   // protected $print: RosePrintService,
   protected $images = inject(KppkPrintLayoutImagesService)
   // public imgBuildPpt = PRINT_IMAGE_BUILD_PPT;
-  public image_kppk = this.$images.print_image_kppk;
-  public img_logo = this.$images.print_image_rose;
+  public image_print_company = this.$images.print_company;
+  public img_print_logo = this.$images.print_logo;
 
   /** CONSTRUCTOR */
   constructor(
