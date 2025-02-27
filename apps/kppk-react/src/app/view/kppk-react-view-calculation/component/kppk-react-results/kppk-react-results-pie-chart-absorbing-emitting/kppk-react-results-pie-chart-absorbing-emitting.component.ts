@@ -47,7 +47,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                   </div>
                 </ng-template>
               </ngx-charts-pie-chart>
-              <table class="table-legend absolute -bottom-[32px] right-0 w-[150px]">
+              <table class="table-legend absolute -bottom-[8px] -right-[5px] w-[150px] font-bold text-white">
                 <tr
                   class="text-xs"
                   [ngStyle]="{
@@ -78,7 +78,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
           <td class="text-left">{{ item.name }}</td>
           <td class="text-right">
             {{ item.value | number : '1.2-2' }}
-            <span class="unit inline-block w-[75px] text-left">{{
+            <span class="unit">{{
               t?.kgCo2
             }}</span>
           </td>
