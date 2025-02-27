@@ -8,21 +8,21 @@ import { RouterModule } from '@angular/router';
   template: `
     <section
       class="page-content"
-      [ngClass]="{
-        invisible: print_outlet_activatedS() === true
-      }"
     >
+      <!-- [ngClass]="{
+        invisible: print_outlet_activatedS() === true
+      }" -->
       <router-outlet class="content-outlet" />
     </section>
     <section
       class="print-content"
-      [ngClass]="{
-        invisible: print_outlet_activatedS() === false
-      }"
     >
+      <!-- [ngClass]="{
+        invisible: print_outlet_activatedS() === false
+      }" -->
       <router-outlet
         class="print-outlet"
-        name="print-outlet"
+        name="print_outlet"
         (activate)="print_outlet_activatedS.set(true)"
         (deactivate)="print_outlet_activatedS.set(false)"
       />
