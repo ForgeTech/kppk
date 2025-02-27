@@ -41,7 +41,7 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<
           <td>{{ t?.co2_transport }}</td>
           <td class="text-right">
             {{ data().co2_sum_transport.value | number : '1.2-2' }}
-            <span class="unit inline-block w-[75px] text-left">{{
+            <span class="unit">{{
               t?.[ data().co2_sum_transport.unit]
             }}</span>
           </td>
@@ -50,7 +50,7 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<
           <td>{{ t?.co2_creation }}</td>
           <td class="text-right">
             {{ data().co2_sum.value | number : '1.2-2' }}
-            <span class="unit inline-block w-[75px] text-left">{{
+            <span class="unit">{{
               t?.[ data().co2_sum_transport.unit]
             }}</span>
           </td>
@@ -59,7 +59,7 @@ export type KPPK_REACT_RESULTS_MATERIAL_SUMS = z.infer<
           <td>{{ t?.co2_oeko_creation }}</td>
           <td class="text-right">
             {{ data().co2_sum_oeko.value | number : '1.2-2' }}
-            <span class="unit inline-block w-[75px] text-left">{{
+            <span class="unit">{{
               t?.[ data().co2_sum_transport.unit]
             }}</span>
           </td>
