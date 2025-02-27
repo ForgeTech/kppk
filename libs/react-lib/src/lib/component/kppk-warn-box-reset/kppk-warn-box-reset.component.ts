@@ -18,8 +18,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
       class="border-l-4 border-yellow-500 bg-yellow-100 p-2 text-yellow-700"
       role="alert"
     >
-      <p class="font-bold">{{ t?.caution }}</p>
-      <p>{{ t?.caution_resets_following }}</p>
+      <p>
+        <span class="font-bold">{{ t?.caution }}</span>
+        <br/>
+        <span>{{ t?.caution_resets_following }}</span>
+      </p>
     </div>
   `,
   styles: [],
