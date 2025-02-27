@@ -52,7 +52,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     "shotcrete_nail_count": "calc",
     "shotcrete_nail_length": "calc",
     "shotcrete_nail_diameter": "calc",
-    "hide_unequal_foundation_pile_process": "calc",
+    "foundation_pile": "calc",
     "foundation_pile_diameter": "calc",
     "foundation_pile_amount": "calc",
     "excavation_settings": "calc",
@@ -719,8 +719,9 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
-          map( trans => trans['hide_unequal_foundation_pile_process'])
+          map( trans => trans['foundation_pile'])
         ),  
+        hide: this.hide_unequal_foundation_pile_process,
       },
       fieldGroup: [
         {
