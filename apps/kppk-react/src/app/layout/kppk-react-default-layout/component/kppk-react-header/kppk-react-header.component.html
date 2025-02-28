@@ -21,22 +21,22 @@
         <div class="absolute -top-[12px] right-0">®</div>
       </a>
       <div class="flex-auto"></div>
-      <!-- <a
-        [routerLink]="[route_calc, {
+      <a
+        [routerLink]="[HOST_ROUTES.CALC, {
           outlets: {
-            print_view_outlet: [route_calc_print]
+            print_outlet: [HOST_ROUTES.CALC_PRINT]
           }
         }]"
         class="print-btn"
         mat-mini-fab
         color="primary"
-        [disabled]="this.$pagedjs.print_enabled_s()"
         [matTooltip]="t?.label_print"
         [attr.aria-label]="t?.label_print"
         (click)="print($event)"
-      >
+        >
+        <!-- [disabled]="this.$pagedjs.print_enabled_s()" -->
         <mat-icon>print</mat-icon>
-      </a> -->
+      </a>
       @if( auth_is_authorizedS() ) {
       <a
         mat-icon-button

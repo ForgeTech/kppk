@@ -30,7 +30,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
   ],
   templateUrl: './kppk-react-header.component.html',
   encapsulation: ViewEncapsulation.None,
-  styles: [``],
+  styles: [`
+    header {
+      .mdc-fab {
+        box-shadow: none !important;
+      }
+    }
+  `],
 })
 export class KppkReactHeaderComponent {
   protected $actor_auth = inject(FgAuthLocalMachineActorService);
