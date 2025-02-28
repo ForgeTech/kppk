@@ -72,6 +72,7 @@ export class KppkReactMaterialsWindowRowComponent {
     "area": "calc",
     "mass": "calc",
     "volumn": "calc",
+    "id": "units",
   });
 
   public row = input<any>();
