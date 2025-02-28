@@ -61,16 +61,16 @@
   .print-header-left {
     position: relative;
     top: -80px;
-    .print-logo-kppk {
-      position: absolute;
-      top: 20px;
-      left: 15px;
-      width: 201px;
-      height: 95px;
-    }
-    .print-logo-kppk-build {
-      position: absolute;
-      top: 110px;
+    // .print-logo {
+    //   position: absolute;
+    //   top: 20px;
+    //   left: 15px;
+    //   width: 201px;
+    //   height: 95px;
+    // }
+    .print-logo-company {
+      position: relative;
+      top: 80px;
       left: 15px;
       height: 32px;
     }
@@ -81,6 +81,8 @@
     .print-logo {
       width: 199px;
       height: 49px;
+      position: relative;
+      top: 20px;
     }
   }
 }
@@ -92,7 +94,7 @@
 
 .print-footer,
 .print-header {
-  right: 0;
+  // right: 0;
   left: 0;
 }
 
