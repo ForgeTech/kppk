@@ -2,15 +2,16 @@ import { DestroyRef, inject, Signal, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FgBaseService, FgEnvironmentService } from '@kppk/fg-lib-new';
 import { FgXstateService } from './../service/fg-xstate.service';
-import { Subject } from 'rxjs';
+import { shareReplay, Subject } from 'rxjs';
 import {
-  Actor,
   ActorLogicFrom,
   ActorOptions,
   AnyStateMachine,
   createActor,
   EmittedFrom,
   SnapshotFrom,
+  ActorRefFrom,
+  Actor
 } from 'xstate';
 
 /**
@@ -35,7 +36,7 @@ export abstract class FgMachineActorAbstract<
   });
 
   protected STATE$ = new Subject<SnapshotFrom<T>>();
-  public readonly state$ =  public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
+  public readonly state$ = this.STATE$.asObservable().pipe(shareReplay(1));
   public readonly stateS = toSignal<EmittedFrom<T> | undefined>(this.event$, {
     initialValue: undefined,
   });
@@ -43,23 +44,23 @@ export abstract class FgMachineActorAbstract<
   public readonly id: string;
   public readonly system_id: Signal<string>;
   public readonly machine: T;
-  public readonly actor: Actor<T>;
+  public readonly actor: Actor<T> | undefined;
   public readonly config: ActorOptions<ActorLogicFrom<T>> = {};
 
   public readonly is_runningS = signal(false);
 
   // CONSTRUCTOR
-  constructor(machine: T) {
+  constructor() {
     super();
-    this.id = machine.id;
-    this.system_id = signal(this.id);
-    this.machine = machine;
+    this.machine = this.get_machine();
+    this.id = this.machine.id;
+    this.system_id = signal(this.machine.id);
     // If development mode is enabled set xstate inspector
     if (this.$env.development?.enabled) {
       this.config.inspect = this.$xstate.inspect;
     }
     // Create actor
-    this.actor = createActor(machine, this.config);
+    this.actor = createActor(this.machine, this.config);
     // Push actor snapshot to state-signal
     this.state_subscription = this.actor.subscribe((snapshot) => {
       this.STATE$.next(snapshot);
@@ -71,26 +72,29 @@ export abstract class FgMachineActorAbstract<
     // OnDestroy
     this.$destroy_ref.onDestroy(() => {
       // Stop actor
-      this.actor.stop();
+      this.actor?.stop();
       // Unsubscribe
       this.state_subscription.unsubscribe();
       this.events_subscription.unsubscribe();
     });
   }
 
+  protected abstract get_machine(): T 
+
   public create_from_config(config: ActorOptions<ActorLogicFrom<T>>) {
     if (this.is_runningS()) {
       this.$log?.warn('WARNING: FgMachineAbstract > create_from_with_config');
       this.$log?.warn();
     } else {
+      this.$log?.warn('bla');
     }
   }
   public start() {
-    this.actor.start();
+    this.actor?.start();
     this.is_runningS.set(true);
   }
   public stop() {
-    this.actor.stop();
+    this.actor?.stop();
     this.is_runningS.set(false);
   }
 }
