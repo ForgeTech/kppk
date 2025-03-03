@@ -38,12 +38,6 @@ td {
   padding-left: 5px;
 }
 
-.absorbing {
-  .table-legend {
-    left: 165px !important;
-  }
-}
-
 .lg {
   .result-grid {
     display: grid;
@@ -66,41 +60,4 @@ td {
   flex-direction: column;
   // background-color: red;
   gap: 14px;
-}
-
-.absorbing {
-  grid-area: abs;
-}
-.emitting {
-  grid-area: emi;
-}
-kppk-react-results-pie-chart-co2-phases {
-  grid-area: ph;
-}
-
-kppk-react-results-pie-chart-absorbing-emitting {
-  grid-area: pca;
-}
-kppk-react-results-material-sums {
-  grid-area: sum;
-}
-
-kppk-react-results-construction-site {
-  grid-area: cc;
-}
-
-kppk-react-results-container-village {
-  grid-area: cv;
-}
-kppk-react-results-demolish-disposal {
-  grid-area: dd;
-}
-kppk-react-results-excavation-pit {
-  grid-area: ep;
-}
-kppk-react-results-heating-system {
-  grid-area: hs;
-}
-kppk-react-results-pie-chart-transport-creation-operation {
-  grid-area: op;
 }

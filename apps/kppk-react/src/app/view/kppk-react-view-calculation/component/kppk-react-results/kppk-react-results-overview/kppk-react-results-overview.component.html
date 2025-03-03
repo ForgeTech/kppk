@@ -1,44 +1,48 @@
-@let t = translationS();
-@if ( results_s(); as result) {
+@let r = $results;
+@let t = r.translationS();
+@let results = r.resultsS();
+@let materials_top_5 = $results.materials_top5S();
+@let materials_sums = $results.materials_sumsS();
+@if ( results && materials_top_5 && materials_sums) {
   <div class="result-grid min-h-full w-full">
-    <kppk-react-results-material-sums [data]="materials_sums_s()" />
+    <kppk-react-results-material-sums [data]="materials_sums" />
     <kppk-react-results-material-top-grouped-bar-chart
       class="absorbing"
-      [data]="materials_top5_s().absorbing.items"
+      [data]="materials_top_5.absorbing.items"
     >
       <h2>{{ t?.materials_top_absorbing }}</h2>
     </kppk-react-results-material-top-grouped-bar-chart>
     <kppk-react-results-material-top-grouped-bar-chart
       class="emitting"
-      [data]="materials_top5_s().emitting.items"
+      [data]="materials_top_5.emitting.items"
     >
       <h2>{{ t?.materials_top_emitting }}</h2>
     </kppk-react-results-material-top-grouped-bar-chart>
     <kppk-react-results-pie-chart-absorbing-emitting
-      [data_s]="materials_top5_s()"
+      [data_s]="materials_top_5"
     />
     <kppk-react-results-construction-site
-      [form]="result.form_construction_site.value"
+      [form]="results.form_construction_site.value"
     />
     <kppk-react-results-container-village
-      [form]="result.form_container_village.value"
+      [form]="results.form_container_village.value"
     />
     <kppk-react-results-demolish-disposal
-      [form]="result.form_demolish_disposal.value"
+      [form]="results.form_demolish_disposal.value"
     />
     <kppk-react-results-excavation-pit
-      [form]="result.form_excavation_pit.value"
+      [form]="results.form_excavation_pit.value"
     />
     <kppk-react-results-heating-system
-      [form]="result.form_heating_system.value"
+      [form]="results.form_heating_system.value"
     />
     <kppk-react-results-pie-chart-co2-phases
-      [data_s]="result"
-      [material_s]="materials_sums_s()"
+      [data_s]="results"
+      [material_s]="materials_sums"
     />
     <kppk-react-results-pie-chart-transport-creation-operation
-      [data_s]="result"
-      [material_s]="materials_sums_s()"
+      [data_s]="results"
+      [material_s]="materials_sums"
     />
   </div>
 }
