@@ -19,6 +19,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
   imports: [CommonModule, NgxChartsModule],
   template: `
     @let t = translationS();
+    @let is_printing = input_is_printingS();
     <table class="table-result table">
       <thead>
         <tr>
@@ -52,7 +53,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                   <tr
                     class="text-xs"
                     [ngStyle]="{
-                      'background-color': graph_data_s().color_scheme.domain[i]
+                      'background-color': is_printing ? 'transperant' : graph_data_s().color_scheme.domain[i],
+                      'color': is_printing ? graph_data_s().color_scheme.domain[i] : 'inherit'
                     }"
                   >
                   <td>{{ item.name }}</td>
@@ -98,6 +100,7 @@ export class KppkReactResultsPieChartCo2PhasesComponent {
 
   public data_s = input.required<REACT_VIEW_CALCULATION>();
   public material_s = input.required<KPPK_REACT_RESULTS_MATERIAL_SUMS>();
+  public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
 
   protected graph_data_s = computed(() => {
     const t = this.translationS();

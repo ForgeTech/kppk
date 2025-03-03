@@ -18,6 +18,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
   imports: [CommonModule, NgxChartsModule],
   template: `
     @let t = translationS();
+    @let is_printing = input_is_printingS();
     <table class="table-result table">
       <thead>
         <tr>
@@ -51,7 +52,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                 <tr
                   class="text-xs"
                   [ngStyle]="{
-                    'background-color': this.color_scheme.domain[0]
+                    'background-color': is_printing ? 'transperant' : this.color_scheme.domain[0],
+                    'color': is_printing ? this.color_scheme.domain[0] : 'inherit'                    
                   }"
                 >
                   <td>{{ t?.absorbing }}</td>
@@ -61,7 +63,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                 <tr
                   class="text-xs"
                   [ngStyle]="{
-                    'background-color': this.color_scheme.domain[1]
+                    'background-color': is_printing ? 'transperant' : this.color_scheme.domain[1],
+                    'color': is_printing ? this.color_scheme.domain[1] : 'inherit'                    
                   }"
                 >
                   <td>{{ t?.emitting }}</td>
@@ -103,6 +106,7 @@ export class KppkReactResultsPieChartAbsorbingEmittingComponent {
   protected translationS = toSignal(this.translation$, {initialValue: undefined});
 
   public data_s = input.required<RESULT_MATERIAL_TOP_5>();
+  public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
 
   public color_scheme: any = {
     domain: [this.$colors.absorbing, this.$colors.emitting],

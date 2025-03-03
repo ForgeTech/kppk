@@ -26,6 +26,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   ],
   template: `
     @let t = translationS();
+    @let is_printing = input_is_printingS();
     <div class="flex flex-col">
       <kppk-react-results-material-table 
         class="w-full" 
@@ -60,7 +61,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
         <table class="table-legend absolute bottom-[60px] right-[10px] w-[150px] font-bold text-white">
           <tr
             class="text-xs"
-            [ngStyle]="{ 'background-color': this.$colors.concrete }"
+            [ngStyle]="{ 
+              'background-color': is_printing ? 'transperant' : this.$colors.concrete,
+              'color': is_printing ? this.$colors.concrete : 'inherit'  
+            }"
           >
             <td>{{ t?.gwp }}</td>
           </tr>
@@ -68,7 +72,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <tr></tr>
           <tr
             class="text-xs"
-            [ngStyle]="{ 'background-color': this.$colors.concrete_oeko }"
+            [ngStyle]="{ 
+              'background-color': is_printing ? 'transperant' : this.$colors.concrete_oeko,
+              'color': is_printing ? this.$colors.concrete_oeko : 'inherit'  
+            }"
           >
             <td>{{ t?.gwp_oeko }}</td>
           </tr>
@@ -76,7 +83,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <tr></tr>
           <tr
             class="text-xs"
-            [ngStyle]="{ 'background-color': this.$colors.transport }"
+            [ngStyle]="{ 
+              'background-color': is_printing ? 'transperant' : this.$colors.transport,
+              'color': is_printing ? this.$colors.transport : 'inherit' 
+            }"
           >
             <td>{{ t?.co2_transport }}</td>
           </tr>
@@ -120,6 +130,8 @@ export class KppkReactResultsMaterialTopGroupedBarChartComponent {
   ]});
 
   public data_s = input.required<FORM_MATERIALS_RESULT>({ alias: 'data' });
+  public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
+  
 
   public chart_data_s = computed(() => {
     const t = this.translationS();

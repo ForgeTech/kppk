@@ -1,10 +1,17 @@
-<kppk-print-layout>
+@let r = $results;
+@let t = r.translationS();
+@let results = r.resultsS();
+@let materials_top_5 = $results.materials_top5S();
+@let materials_sums = $results.materials_sumsS();
+@let materials = $results.materialsS();
+<kppk-print-layout class="calculation_content result_content prose max-w-none">
+  @if(results && materials && materials_top_5 && materials_sums) {
   <div class="page page-cover-sheet">
     <div class="avoid-page-break-inside">
       <div class="print-result-headline-wrapper">
         <h1 class="page-headline">{{ 'rcalc.calc-result-headline' }}</h1>
       </div>
-      <img class="print-logo" alt="'img-alt_rose-logo'" src="{{ print_cover }}" />
+      <img class="print-cover" alt="'img-alt_rose-logo'" src="{{ print_cover }}" />
       <div class="print-project-headline-wrapper avoid-page-break-inside">
         <!-- <h2 *ngIf="printData.common.projectName">{{ 'rcalc.projectName' }} {{ printData.common.projectName }}</h2>
         <h2 *ngIf="printData.common.projectNumber">{{ 'rcalc.projectNumber' }} {{ printData.common.projectNumber }}</h2>
@@ -12,7 +19,7 @@
       </div>
     </div>
     <div class="print-project-headline-wrapper avoid-page-break-inside">
-      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-content' }}</div>
+      <h1 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-content' }}</h1>
       <h2>{{ 'rcalc.print-headline-base-data' }}</h2>
       <h2>{{ 'rcalc.print-headline-system-compare' }}</h2>
       <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
@@ -22,109 +29,81 @@
     </div>
   </div>
 
-  <div #page class="page page-default">
-      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-base-data' }}</div>
-      <div class="flex-column flex">
-      <div class="avoid-page-break-inside flex flex-row">
-        <div class="flex w-1/2 flex-col">
-          <!-- <rose-result-form class="result-content-container"></rose-result-form>
-          <rose-result-calculated class="result-content-container" fxFlex="1 1 50%"></rose-result-calculated>
-          <rose-result-st *ngIf="this.$calc.stUsed$ | async" class="result-content-container"></rose-result-st> -->
-        </div>
-        <div class="flex w-1/2 flex-col">
-          <!-- <rose-energy-costs-table fxFlex="1 1" class="result-content-container"></rose-energy-costs-table>
-          <rose-result-pv fxFlex="1 1" *ngIf="this.$calc.pvUsed$ | async" class="result-content-container"></rose-result-pv> -->
-        </div>
-      </div>
-      <div class="flex flex-row" class="avoid-page-break-inside">
-        <!-- <rose-print-energy-co2-cost-table class="result-content-container" fxFlex="1 1 100%"></rose-print-energy-co2-cost-table> -->
-      </div>
-    </div>
-    <div class="avoid-page-break-inside">
-      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-system-compare' }}</div>
-      <!-- <rose-rose-result-overview-system-table-common></rose-rose-result-overview-system-table-common> -->
+
+  <div class="page page-default">
+    <h2 class="page-headline page-headline-spacer">
+      {{ 'rcalc.print-headline-base-data' }}
+    </h2>
+    <div class="avoid-page-break-inside print-result-grid">
+      <kppk-react-results-material-sums [data]="materials_sums" />
+      <kppk-react-results-material-top-grouped-bar-chart
+        class="absorbing"
+        [data]="materials_top_5.absorbing.items"
+        [is_printing]="true"
+      >
+        <h2>{{ t?.materials_top_absorbing }}</h2>
+      </kppk-react-results-material-top-grouped-bar-chart>
+      <kppk-react-results-material-top-grouped-bar-chart
+        class="emitting"
+        [data]="materials_top_5.emitting.items"
+        [is_printing]="true"
+      >
+        <h2>{{ t?.materials_top_emitting }}</h2>
+      </kppk-react-results-material-top-grouped-bar-chart>
+      <kppk-react-results-pie-chart-absorbing-emitting
+        [data_s]="materials_top_5"
+        [is_printing]="true"
+      />
+      <kppk-react-results-construction-site
+        [form]="results.form_construction_site.value"
+      />
+      <kppk-react-results-container-village
+        [form]="results.form_container_village.value"
+      />
+      <kppk-react-results-demolish-disposal
+        [form]="results.form_demolish_disposal.value"
+      />
+      <kppk-react-results-excavation-pit
+        [form]="results.form_excavation_pit.value"
+      />
+      <kppk-react-results-heating-system
+        [form]="results.form_heating_system.value"
+      />
+      <kppk-react-results-pie-chart-co2-phases
+        [data_s]="results"
+        [material_s]="materials_sums"
+      />
+      <kppk-react-results-pie-chart-transport-creation-operation
+        [data_s]="results"
+        [material_s]="materials_sums"
+        [is_printing]="true"
+      />
     </div>
   </div>
 
-  <div #page class="page page-default">
+  <div class="page page-default">
     <div class="avoid-page-break-inside">
-      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</div>
-      <!-- <rose-stacked-bar-chart [print]="true" class="result-content-container"></rose-stacked-bar-chart> -->
+      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+      EMPTY
     </div>
   </div>
 
-  <div #page class="page page-default">
+  <div class="page page-default">
     <div class="avoid-page-break-inside">
-      <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-amortisation' }}</div>
-      <div class="avoid-page-break-inside">
-        <!-- <rose-rose-result-overview-system-table-amort-line-graph [print]="true">
-        </rose-rose-result-overview-system-table-amort-line-graph> -->
-      </div>
-      <br/><br/>
-      <div class="felx-row flex items-center justify-center">
-        <!-- <rose-line-chart [print]="true" class="line-chart"></rose-line-chart> -->
-      </div>
+      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+      <kppk-react-results-material-table [results]="materials"/>
     </div>
   </div>
-
-  <!-- <ng-container *ngIf="( systemsPages$ | async ) as systemPages"> -->
-    <!-- <ng-container *ngFor="let systemPage of systemPages"> -->
-      <div #page class="page page-default">
-        <!-- <ng-container *ngFor="let system of systemPage"> -->
-          <div class="avoid-page-break-inside">
-            <div class="page-headline page-headline-spacer">
-              {{ 'rcalc.print-headline-system-data' }}
-            </div>
-            <!-- <rose-print-result-system [system]="system"></rose-print-result-system> -->
-          </div>
-        <!-- </ng-container> -->
-      </div>
-    <!-- </ng-container> -->
-  <!-- </ng-container> -->
-
-  <ng-container>
-    <div #page class="page page-default">
-      <div class="avoid-page-break-inside">
-        <div class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cooling' }}</div>
-        <!-- <rose-result-cooling></rose-result-cooling> -->
-        <br/>
-        <!-- <rose-rose-result-overview-system-table-cooling></rose-rose-result-overview-system-table-cooling> -->
-      </div>
+  
+  <div class="page page-default">
+    <div class="avoid-page-break-inside">
+      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+      <kppk-react-results-materials-graph 
+        class="inline-block h-full w-full" 
+        [is_printing]="true" 
+      />
     </div>
-  </ng-container>
+  </div>
+}
 
-  <ng-container>
-    <!-- <ng-container *ngFor="let page of $calc.pvResultConfigsSystemsPagedForPrint$ | async; let i = index"> -->
-      <div #page class="page page-default">
-        <!-- <div 
-          *ngIf="i===0"
-          class="avoid-page-break-inside"
-        > -->
-          <div class="page-headline page-headline-spacer">
-            {{ 'rcalc.print-headline-pv-system' }}
-          </div>
-          <div class="avoid-page-break-inside">
-            <!-- <ng-container *ngIf="this.$calc.pvUsed$ | async"> -->
-              <div class="avoid-page-break-inside">
-                <!-- <rose-rose-result-overview-system-table-pv></rose-rose-result-overview-system-table-pv> -->
-              </div>
-            <!-- </ng-container> -->
-            <br/>
-            <!-- <ng-container *ngIf="this.$calc.stUsed$ | async"> -->
-              <!-- <rose-rose-result-overview-system-table-st></rose-rose-result-overview-system-table-st> -->
-            <!-- </ng-container> -->
-          </div>
-          <br/>
-          <br/>
-        <!-- </div> -->
-        <!-- <div class="avoid-page-break-inside" *ngFor="let systemRow of page"> -->
-          <!-- <rose-result-pv-system-self-usage-graphs 
-            [entity]="systemRow"
-            [print]="true" 
-          >
-          </rose-result-pv-system-self-usage-graphs> -->
-        <!-- </div> -->
-      </div>
-    <!-- </ng-container> -->
-  </ng-container>
 </kppk-print-layout>  

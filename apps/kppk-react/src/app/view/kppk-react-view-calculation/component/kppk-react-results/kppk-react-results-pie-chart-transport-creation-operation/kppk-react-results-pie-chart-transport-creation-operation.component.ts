@@ -19,6 +19,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
   imports: [CommonModule, NgxChartsModule],
   template: `
     @let t = translationS();
+    @let is_printing = input_is_printingS();
     <table class="table-result table">
       <thead>
         <tr>
@@ -51,7 +52,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                 <tr
                   class="text-xs"
                   [ngStyle]="{
-                    'background-color': this.color_scheme.domain[0]
+                    'background-color': is_printing ? 'transperant' : this.color_scheme.domain[0],
+                    'color': is_printing ? this.color_scheme.domain[0] : 'inherit'                    
                   }"
                 >
                   <td>{{ t?.headline_transport }}</td>
@@ -61,7 +63,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                 <tr
                   class="text-xs"
                   [ngStyle]="{
-                    'background-color': this.color_scheme.domain[1]
+                    'background-color': is_printing ? 'transperant' : this.color_scheme.domain[1],
+                    'color': is_printing ? this.color_scheme.domain[1] : 'inherit'                    
                   }"
                 >
                   <td>{{ t?.headline_creation }}</td>
@@ -71,7 +74,8 @@ import { FgTranslate } from '@kppk/fg-lib-new';
                 <tr
                   class="text-xs"
                   [ngStyle]="{
-                    'background-color': this.color_scheme.domain[2]
+                    'background-color': is_printing ? 'transperant' : this.color_scheme.domain[2],
+                    'color': is_printing ? this.color_scheme.domain[2] : 'inherit'
                   }"
                 >
                   <td>{{ t?.heating_system }}</td>
@@ -103,6 +107,7 @@ import { FgTranslate } from '@kppk/fg-lib-new';
 export class KppkReactResultsPieChartTransportCreationOperationComponent {
   public data_s = input.required<REACT_VIEW_CALCULATION>();
   public material_s = input.required<KPPK_REACT_RESULTS_MATERIAL_SUMS>();
+  public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
   protected $translate = inject(FgTranslate);
   protected translation$ = this.$translate.get_translations$({
     'headline_transport_creation_operation': 'calc',
