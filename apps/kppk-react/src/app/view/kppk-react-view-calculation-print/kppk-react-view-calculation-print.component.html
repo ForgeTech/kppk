@@ -1,109 +1,250 @@
 @let r = $results;
 @let t = r.translationS();
-@let results = r.resultsS();
-@let materials_top_5 = $results.materials_top5S();
-@let materials_sums = $results.materials_sumsS();
-@let materials = $results.materialsS();
-<kppk-print-layout class="calculation_content result_content prose max-w-none">
-  @if(results && materials && materials_top_5 && materials_sums) {
+
+<kppk-print-layout class="prose max-w-none">
+ 
+  <!-- @if( r.form_common_valuesS(); as form_common_values ) {
   <div class="page page-cover-sheet">
     <div class="avoid-page-break-inside">
-      <div class="print-result-headline-wrapper">
-        <h1 class="page-headline">{{ 'rcalc.calc-result-headline' }}</h1>
-      </div>
+      
       <img class="print-cover" alt="'img-alt_rose-logo'" src="{{ print_cover }}" />
+      <h1 class="text-center">{{ t?.headline }}</h1>
       <div class="print-project-headline-wrapper avoid-page-break-inside">
-        <!-- <h2 *ngIf="printData.common.projectName">{{ 'rcalc.projectName' }} {{ printData.common.projectName }}</h2>
-        <h2 *ngIf="printData.common.projectNumber">{{ 'rcalc.projectNumber' }} {{ printData.common.projectNumber }}</h2>
-        <h2 *ngIf="printData.common.projectPart">{{ 'rcalc.projectPart' }} {{ printData.common.projectPart }}</h2> -->
+          @if(form_common_values.project_name.value; as project_name){
+            <p class="text-xl"><span class="font-bold">{{ t?.project_name }}: </span>{{ project_name }}</p>
+          }
+          @if(form_common_values.project_number.value; as project_number){
+            <p class="text-xl"><span class="font-bold">{{ t?.project_number }}: </span>{{ project_number}}</p>
+          }
+          @if(form_common_values.project_part.value; as project_part){
+            <p class="text-xl"><span class="font-bold">{{ t?.project_part }}: </span>{{ project_part }}</p>
+          }
+        </div>
       </div>
     </div>
-    <div class="print-project-headline-wrapper avoid-page-break-inside">
-      <h1 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-content' }}</h1>
-      <h2>{{ 'rcalc.print-headline-base-data' }}</h2>
-      <h2>{{ 'rcalc.print-headline-system-compare' }}</h2>
-      <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
-      <h2>{{ 'rcalc.print-headline-amortisation' }}</h2>
-      <h2>{{ 'rcalc.print-headline-system-data' }}</h2>
-      <h2>{{ 'rcalc.print-headline-results' }}</h2>
-    </div>
-  </div>
+  } -->
 
-
-  <div class="page page-default">
-    <h2 class="page-headline page-headline-spacer">
-      {{ 'rcalc.print-headline-base-data' }}
-    </h2>
-    <div class="avoid-page-break-inside print-result-grid">
-      <kppk-react-results-material-sums [data]="materials_sums" />
-      <kppk-react-results-material-top-grouped-bar-chart
-        class="absorbing"
-        [data]="materials_top_5.absorbing.items"
-        [is_printing]="true"
-      >
-        <h2>{{ t?.materials_top_absorbing }}</h2>
-      </kppk-react-results-material-top-grouped-bar-chart>
-      <kppk-react-results-material-top-grouped-bar-chart
-        class="emitting"
-        [data]="materials_top_5.emitting.items"
-        [is_printing]="true"
-      >
-        <h2>{{ t?.materials_top_emitting }}</h2>
-      </kppk-react-results-material-top-grouped-bar-chart>
-      <kppk-react-results-pie-chart-absorbing-emitting
-        [data_s]="materials_top_5"
-        [is_printing]="true"
-      />
-      <kppk-react-results-construction-site
-        [form]="results.form_construction_site.value"
-      />
-      <kppk-react-results-container-village
-        [form]="results.form_container_village.value"
-      />
-      <kppk-react-results-demolish-disposal
-        [form]="results.form_demolish_disposal.value"
-      />
-      <kppk-react-results-excavation-pit
-        [form]="results.form_excavation_pit.value"
-      />
-      <kppk-react-results-heating-system
-        [form]="results.form_heating_system.value"
-      />
-      <kppk-react-results-pie-chart-co2-phases
-        [data_s]="results"
-        [material_s]="materials_sums"
-      />
-      <kppk-react-results-pie-chart-transport-creation-operation
-        [data_s]="results"
-        [material_s]="materials_sums"
-        [is_printing]="true"
-      />
-    </div>
-  </div>
-
-  <div class="page page-default">
+  <!-- <div class="page page-default material_table_page">
     <div class="avoid-page-break-inside">
-      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
-      EMPTY
-    </div>
-  </div>
+      <h1>{{ t?.table_of_contents }}:</h1>
+      <ul>
+        <li>
+          <h2>{{ t?.step_edit_calculation_headline }}</h2>
+          <ul>
+            <li>
+              <h3>{{ t?.material }}</h3>
+              <ul>
+                <li><h4>{{ t?.type_material }}</h4></li>
+                <li><h4>{{ t?.type_concrete }}</h4></li>
+                <li><h4>{{ t?.type_window }}</h4></li>
+              </ul>
+            </li>
 
-  <div class="page page-default">
-    <div class="avoid-page-break-inside">
-      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
-      <kppk-react-results-material-table [results]="materials"/>
+            <li>
+              <h3>{{ t?.construction_site }}</h3>
+            </li>
+
+            <li>
+              <h3>{{ t?.container_village }}</h3>
+            </li>
+
+            <li>
+              <h3>{{ t?.demolish_disposal }}</h3>
+            </li>
+
+            <li>
+              <h3>{{ t?.excavation_pit }}</h3>
+            </li>
+
+            <li>
+              <h3>{{ t?.heating_system }}</h3>
+            </li>
+
+          </ul>
+        </li>
+      </ul>
     </div>
-  </div>
+  </div> -->
+
+    <!-- <div class="page page-default material_table_page">
+      <div class="avoid-page-break-inside">
+        <h2>{{ t?.step_edit_calculation_headline }}</h2>
+        <h3>{{ t?.material }}</h3>
+        <h4>{{ t?.headline_transport }}</h4>
+        <h5>{{ t?.type_material }}</h5>
+        @if(r.material_rowsS(); as material_rows) {
+          <app-kppk-react-view-calculation-print-unit-value-table 
+            [data]="material_rows"
+            [translations]="t"
+          />
+        }
+      </div>
+    </div> -->
+
+    <!-- <div class="page page-default material_table_page">
+      <div class="avoid-page-break-inside">
+        <h5>{{ t?.type_concrete }}</h5>
+        @if(r.concrete_rowsS(); as concrete_rows) {
+          <app-kppk-react-view-calculation-print-unit-value-table 
+            [data]="concrete_rows"
+            [translations]="t"
+          />
+        }
+      </div>
+    </div> -->
+
+    <!-- <div class="page page-default material_table_page">
+      <div class="avoid-page-break-inside">
+        <h5>{{ t?.type_window }}</h5>
+        @if(r.window_glass_rowsS(); as window_glass_rows) {
+          <app-kppk-react-view-calculation-print-unit-value-table 
+            [data]="window_glass_rows"
+            [translations]="t"
+          />
+        }
+      </div>
+    </div> -->
+
+    <!-- <div class="page page-default material_table_page">
+      <div class="avoid-page-break-inside">
+        @if(r.window_frame_rowsS(); as frame_rows) {
+          <app-kppk-react-view-calculation-print-unit-value-table 
+            [data]="frame_rows"
+            [translations]="t"
+          />
+        }
+      </div>
+    </div> -->
+
+
+
+  @if(r.form_construction_siteS(); as data) {
+    <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <kppk-react-view-calculation-print-form_construction_site [data]="data" />
+      </div>
+    </div>
+  }
+
+  <!-- @if(r.form_container_villageS(); as data) {
+    <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <pre>{{ data | json}}</pre>
+        
+      </div>
+    </div>
+  } -->
+
+  <!-- @if(r.form_demolish_disposalS(); as data) {
+    <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <pre>{{ data | json}}</pre>
+        
+      </div>
+    </div>
+  } -->
+
+  <!-- @if(r.form_excavation_pitS(); as data) {
+    <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <pre>{{ data | json}}</pre>
+        
+      </div>
+    </div>
+  } -->
+
+  <!-- @if(r.form_heating_systemS(); as data) {
+    <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <pre>{{ data | json}}</pre>
+        
+      </div>
+    </div>
+  } -->
+
+  <!-- @let calculation = r.calculationS();
+  @let materials_top_5 = $results.materials_top5S();
+  @let materials_sums = $results.materials_sumsS();
+  @let materials = $results.materialsS();
+  @if(calculation && materials && materials_top_5 && materials_sums) {
+    <div class="page page-default result_content">
+      <div class="avoid-page-break-inside print-result-grid">
+        <h2 class="page-headline page-headline-spacer">
+          {{ 'rcalc.print-headline-base-data' }}
+        </h2>
+        <kppk-react-results-material-sums [data]="materials_sums" />
+        <kppk-react-results-material-top-grouped-bar-chart
+          class="absorbing"
+          [data]="materials_top_5.absorbing.items"
+          [is_printing]="true"
+        >
+          <h2>{{ t?.materials_top_absorbing }}</h2>
+        </kppk-react-results-material-top-grouped-bar-chart>
+        <kppk-react-results-material-top-grouped-bar-chart
+          class="emitting"
+          [data]="materials_top_5.emitting.items"
+          [is_printing]="true"
+        >
+          <h2>{{ t?.materials_top_emitting }}</h2>
+        </kppk-react-results-material-top-grouped-bar-chart>
+        <kppk-react-results-pie-chart-absorbing-emitting
+          [data_s]="materials_top_5"
+          [is_printing]="true"
+        />
+        <kppk-react-results-construction-site
+          [form]="calculation.form_construction_site.value"
+        />
+        <kppk-react-results-container-village
+          [form]="calculation.form_container_village.value"
+        />
+        <kppk-react-results-demolish-disposal
+          [form]="calculation.form_demolish_disposal.value"
+        />
+        <kppk-react-results-excavation-pit
+          [form]="calculation.form_excavation_pit.value"
+        />
+        <kppk-react-results-heating-system
+          [form]="calculation.form_heating_system.value"
+        />
+        <kppk-react-results-pie-chart-co2-phases
+          [data_s]="calculation"
+          [material_s]="materials_sums"
+          [is_printing]="true"
+        />
+        <kppk-react-results-pie-chart-transport-creation-operation
+          [data_s]="calculation"
+          [material_s]="materials_sums"
+          [is_printing]="true"
+        />
+      </div>
+    </div> -->
+
+    <!-- <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <kppk-react-results-material-table 
+          #table_materials
+          [results]="materials"
+          [is_printing]="true"
+        />
+      </div>
+    </div> -->
   
-  <div class="page page-default">
-    <div class="avoid-page-break-inside">
-      <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
-      <kppk-react-results-materials-graph 
-        class="inline-block h-full w-full" 
-        [is_printing]="true" 
-      />
-    </div>
-  </div>
-}
+    <!-- <div class="page page-default">
+      <div class="avoid-page-break-inside">
+        <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+        <kppk-react-results-materials-graph 
+          class="inline-block h-full w-full" 
+          [is_printing]="true"
+          [height]="table_materials.$element_ref.nativeElement.offsetHeight"
+        />
+      </div>
+    </div> -->
+  }
 
 </kppk-print-layout>  

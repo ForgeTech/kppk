@@ -17,6 +17,13 @@ import { KppkReactResultsPieChartTransportCreationOperationComponent } from '../
 import { KppkReactResultsOverviewComponent } from '../kppk-react-view-calculation/component/kppk-react-results/kppk-react-results-overview/kppk-react-results-overview.component';
 import { KppkReactResultsMaterialTableComponent } from '../kppk-react-view-calculation/component/kppk-react-results/kppk-react-results-materials-table/kppk-react-results-material-table.component';
 import { KppkReactResultsMaterialsGraphComponent } from '../kppk-react-view-calculation/component/kppk-react-results/kppk-react-results-materials-graph/kppk-react-results-materials-graph.component';
+import { KppkReactViewCalculationPrintUnitValueTableComponent } from './component/kppk-react-view-calculation-print-unit-value-table.component';
+import { KppkReactResultsService } from '../kppk-react-view-calculation/component/kppk-react-results/kppk-react-results.service';
+import { KppkReactViewCalculationPrintFormConstructionSiteComponent } from './component/kppk-react-view-calculation-print-form_construction_site.component';
+import { KppkReactViewCalculationPrintFormHeatingSystemComponent } from './component/kppk-react-view-calculation-print-form_heating_system.component';
+import { KppkReactViewCalculationPrintFormContainerVillageComponent } from './component/kppk-react-view-calculation-print-form_container_village.component';
+import { KppkReactViewCalculationPrintFormDemolishDisposalComponent } from './component/kppk-react-view-calculation-print-form_demolish_disposal.component';
+import { KppkReactViewCalculationPrintFormExcavationPitComponent } from './component/kppk-react-view-calculation-print-form_excavation_pit.component';
 
 @Component({
   selector: 'kppk-react-view-calculation-print',
@@ -36,13 +43,21 @@ import { KppkReactResultsMaterialsGraphComponent } from '../kppk-react-view-calc
     KppkReactResultsPieChartTransportCreationOperationComponent,
     KppkReactResultsMaterialTableComponent,
     KppkReactResultsMaterialsGraphComponent,
+    KppkReactViewCalculationPrintUnitValueTableComponent,
+    KppkReactViewCalculationPrintFormConstructionSiteComponent,
+    KppkReactViewCalculationPrintFormContainerVillageComponent,
+    KppkReactViewCalculationPrintFormDemolishDisposalComponent,
+    KppkReactViewCalculationPrintFormExcavationPitComponent,
+    KppkReactViewCalculationPrintFormHeatingSystemComponent,
+    KppkReactViewCalculationPrintFormHeatingSystemComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './kppk-react-view-calculation-print.component.html',
   styleUrls: ['./kppk-react-view-calculation-print.component.scss']
 })
-export class KppkReactViewCalculationPrintComponent extends KppkReactResultsOverviewComponent {
+export class KppkReactViewCalculationPrintComponent {
+  protected $results = inject(KppkReactResultsService);
   protected $images = inject(KppkPrintLayoutImagesService);
   protected $actor_view_calculation = inject(ReactViewCalculationMachineActorService);
   // public dataIsReady: boolean = false;
@@ -57,7 +72,7 @@ export class KppkReactViewCalculationPrintComponent extends KppkReactResultsOver
     // public $component: FgComponentBaseService,
     // protected $printImg: RosePrintImagesService
   ) {
-    super()
+  // super()
   //   this.imgROSECover = this.$printImg.printImageRoseCoverPagePpt;
   //   const app: RoseApplicationInterface = this.$component.$data.app as RoseApplicationInterface;
   //   if( app.user.calculation !== undefined )
