@@ -1,20 +1,25 @@
 {
-  "project_name": {
-    "edited": false,
-    "type": "string",
-    "unit": "",
-    "value": "Alseggerstraße 35"
-  },
-  "project_number": {
-    "edited": false,
-    "type": "string",
-    "unit": "",
-    "value": "2023-045"
-  },
-  "project_part": {
-    "edited": false,
-    "type": "string",
-    "unit": "",
-    "value": "Neubau"
+  "error": [],
+  "name": "common",
+  "valid": true,
+  "value": {
+    "project_name": {
+      "edited": false,
+      "type": "string",
+      "unit": "",
+      "value": "Alseggerstraße 35"
+    },
+    "project_number": {
+      "edited": false,
+      "type": "string",
+      "unit": "",
+      "value": "2023-045"
+    },
+    "project_part": {
+      "edited": false,
+      "type": "string",
+      "unit": "",
+      "value": "Neubau"
+    }
   }
 }
