@@ -31,6 +31,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
       <kppk-react-results-material-table 
         class="w-full" 
         [results]="data_s()"
+        [is_printing]="is_printing"
       >
         <ng-content></ng-content>
       </kppk-react-results-material-table>

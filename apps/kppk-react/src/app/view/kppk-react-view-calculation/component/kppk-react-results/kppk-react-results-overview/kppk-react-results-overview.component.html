@@ -1,9 +1,9 @@
 @let r = $results;
 @let t = r.translationS();
-@let results = r.resultsS();
+@let calculation = r.calculationS();
 @let materials_top_5 = $results.materials_top5S();
 @let materials_sums = $results.materials_sumsS();
-@if ( results && materials_top_5 && materials_sums) {
+@if ( calculation && materials_top_5 && materials_sums) {
   <div class="result-grid min-h-full w-full">
     <kppk-react-results-material-sums [data]="materials_sums" />
     <kppk-react-results-material-top-grouped-bar-chart
@@ -22,26 +22,26 @@
       [data_s]="materials_top_5"
     />
     <kppk-react-results-construction-site
-      [form]="results.form_construction_site.value"
+      [form]="calculation.form_construction_site.value"
     />
     <kppk-react-results-container-village
-      [form]="results.form_container_village.value"
+      [form]="calculation.form_container_village.value"
     />
     <kppk-react-results-demolish-disposal
-      [form]="results.form_demolish_disposal.value"
+      [form]="calculation.form_demolish_disposal.value"
     />
     <kppk-react-results-excavation-pit
-      [form]="results.form_excavation_pit.value"
+      [form]="calculation.form_excavation_pit.value"
     />
     <kppk-react-results-heating-system
-      [form]="results.form_heating_system.value"
+      [form]="calculation.form_heating_system.value"
     />
     <kppk-react-results-pie-chart-co2-phases
-      [data_s]="results"
+      [data_s]="calculation"
       [material_s]="materials_sums"
     />
     <kppk-react-results-pie-chart-transport-creation-operation
-      [data_s]="results"
+      [data_s]="calculation"
       [material_s]="materials_sums"
     />
   </div>

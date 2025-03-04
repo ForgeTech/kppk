@@ -27,6 +27,7 @@ import { KppkReactResultsService } from '../kppk-react-results.service';
   @let t = r.translationS();
   @let colors = r.$colors;
   @let result_chart = r.result_chartS();
+  @let data = input_dataS();
   @let custom_colors = r.custom_colorsS();
   @let axis_kgco2_formatting = r.axis_kgco2_formattingS();
   @let is_printing = input_is_printingS();
@@ -101,5 +102,6 @@ export class KppkReactResultsMaterialsGraphComponent {
   protected $results = inject(KppkReactResultsService);
   public input_heightS = input<number>(500, {alias: 'height'});
   public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
+  public input_dataS = input<any>([], {alias: 'data'});
 
 }

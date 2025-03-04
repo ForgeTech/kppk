@@ -1,4 +1,5 @@
 @let t = translationS();
+@let is_printing = input_is_printingS();
 <table class="table">
   <thead>
     <tr>
@@ -26,9 +27,12 @@
     @for ( row of rows_s(); track idx; let idx = $index) {
     <tr
       [ngClass]="{
-        'bg-lime-100': row.gwp.value < 0,
-        'bg-yellow-100': row.gwp.value >= 0 && row.gwp.value <= 5,
-        'bg-red-100': row.gwp.value > 5
+        'bg-lime-100': is_printing === false && row.gwp.value < 0,
+        'bg-yellow-100': is_printing === false && row.gwp.value >= 0 && row.gwp.value <= 5,
+        'bg-red-100': is_printing === false && row.gwp.value > 5,
+        'text-lime-900': is_printing === true && row.gwp.value < 0,
+        'text-yellow-700': is_printing === true && row.gwp.value >= 0 && row.gwp.value <= 5,
+        'text-red-900': is_printing === true && row.gwp.value > 5,
       }"
     >
       <td class="id">

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   ViewEncapsulation,
   inject,
   input,
@@ -29,6 +30,7 @@ export class KppkReactResultsMaterialTableComponent {
     "kgCo2": "units",
   })
   protected translationS = toSignal(this.translation$, {initialValue: undefined});
-
+  public $element_ref = inject(ElementRef);
   public rows_s = input.required<FORM_MATERIALS_RESULT>({ alias: 'results' });
+  public input_is_printingS = input<boolean>(false, {alias: 'is_printing'});
 }

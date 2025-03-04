@@ -9,10 +9,14 @@
 @if(materials && result_chart && custom_colors){
   <div class="flex flex-col lg:grid lg:grid-cols-6 lg:gap-4">
     <div class="col-span-6 overflow-auto lg:col-span-3">
-      <kppk-react-results-material-table [results]="materials" />
+      <kppk-react-results-material-table #table_materials [results]="materials" />
     </div>
-    <div class="graph-materials relative col-span-6 lg:col-span-3">
-      <kppk-react-results-materials-graph class="inline-block h-full" />
+    <div class="graph-materials relative col-span-6 overflow-hidden lg:col-span-3">
+      <kppk-react-results-materials-graph 
+        class="inline-block h-full w-full" 
+        [height]="table_materials.$element_ref.nativeElement.offsetHeight + 100"
+        [data]="result_chart"
+      />
     </div>
   </div>
 }
