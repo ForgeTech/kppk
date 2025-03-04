@@ -6,6 +6,7 @@
 @use './styles/mat-input-filled-high-density-fix.scss' as mat_form_field_override;
 @use './styles/mat-light-theme.scss' as mat_light_theme;
 @use './styles/fg-layout-print-outlet.scss' as fg-layout-print-outlet;
+@use './styles/react-result-content.scss' as react-result-content;
 @use 'material-icons/iconfont/material-icons.css' as material_icons;
 
 @tailwind base;
@@ -27,31 +28,4 @@ article {
     table {
         break-inside: avoid;
     }
-}
-
-.result_content {
-    // background-color: red;
-    table {
-        // background-color: greenyellow;
-        .id {
-            // width: 50px;
-            text-align: center;
-            // background-color: yellow;
-        }
-
-        .name, .co2_transport, .gwp, .gwp_oeko  {
-            // background-color: yellow;
-            width: 25%;
-        }
-
-
-
-        .unit {
-            // background-color: yellow;
-            display: inline-block;
-            width: 75px;
-            text-align: left;
-        }
-    }
-      
 }
