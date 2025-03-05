@@ -23,8 +23,8 @@ import { KppkReactViewCalculationPrintFormConstructionSiteYearComponent } from '
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
-  public $translate = inject(FgTranslate);
   public input_dataS = input<FG_FORM_CONSTRUCTION_SITE_CONTEXT | undefined>(undefined, {alias: 'data'});
+  protected $translate = inject(FgTranslate);
   protected translations$ = this.$translate.get_translations$({
     "calculation_type": "calc",
     "energy_usage_build_type": "calc",
@@ -45,6 +45,11 @@ export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
     "exact_entry": "calc",
     "fuel_oil_usage": "calc",
     "custom": "calc",
+    "m2": "units",
+    "l": "units",
+    "month": "units",
+    "MWh/month": "units",
+    "kWh/month": "units",
   });
   protected translationsS = toSignal(this.translations$, {initialValue: undefined});
   public calculation_type_enum =  CALCULATION_TYPE_ENUM;

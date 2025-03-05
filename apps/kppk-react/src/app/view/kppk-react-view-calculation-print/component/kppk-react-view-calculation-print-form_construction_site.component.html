@@ -13,17 +13,17 @@
         <td>{{ t?.energy_usage_power_type }}</td>
         <td>
           {{ get_power_type_translation(data.energy_usage_settings.energy_usage_power_type.value)}}
-          <span class="unit">{{ data.energy_usage_settings.energy_usage_power_type.unit }}</span>
+          <!-- <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_power_type.unit] }}</span> -->
         </td>
         <!-- <td>{{ t?.energy_usage_build_type }}</td>
         <td>
           {{ data.energy_usage_settings.energy_usage_build_type.value }}
-          <span class="unit">{{ data.energy_usage_settings.energy_usage_build_type.unit }}</span>
+          <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_build_type.unit] }}</span>
         </td> -->
         <td>{{ t?.energy_usage_calculation_type }}</td>
         <td>
           {{ get_calculation_type_translation(data.energy_usage_settings.energy_usage_calculation_type.value) }}
-          <span class="unit">{{ data.energy_usage_settings.energy_usage_calculation_type.unit }}</span>
+          <!-- <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_calculation_type.unit] }}</span> -->
         </td>
       </tr>
 
@@ -44,19 +44,19 @@
           <td>{{ t?.operation_period }}</td>
           <td class="text-right">
             {{ data.energy_usage_values.operation_period.value }}
-            <span class="unit">{{ data.energy_usage_values.operation_period.unit }}</span>
+            <span class="unit">{{ t?.[data.energy_usage_values.operation_period.unit] }}</span>
           </td>
           <td>{{ t?.gross_floor_area }}</td>
           <td class="text-right">
             {{ data.energy_usage_values.gross_floor_area.value }}
-            <span class="unit">{{ data.energy_usage_values.gross_floor_area.unit }}</span>
+            <span class="unit">{{ t?.[data.energy_usage_values.gross_floor_area.unit] }}</span>
           </td>
         }
         @else {
           <td>{{ t?.energy_usage_custom }}</td>
           <td class="text-right">
             {{ data.energy_usage_values.energy_usage_custom.value }}
-            <span class="unit">{{ data.energy_usage_values.energy_usage_custom.unit }}</span>
+            <span class="unit">{{ t?.[data.energy_usage_values.energy_usage_custom.unit] }}</span>
           </td>
         }
       </tr>
@@ -80,12 +80,12 @@
         <td>{{ t?.energy_usage_power_type }}</td>
         <td>
           {{ get_power_type_translation(data.heating_supply_settings.energy_usage_power_type.value) }}
-          <span class="unit">{{ data.heating_supply_settings.energy_usage_power_type.unit }}</span>
+          <!-- <span class="unit">{{ t?.[data.heating_supply_settings.energy_usage_power_type.unit] }}</span> -->
         </td>
         <td>{{ t?.energy_usage_calculation_type }}</td>
         <td>
           {{ get_calculation_type_translation(data.heating_supply_settings.calculation_type.value) }}
-          <span class="unit">{{ data.heating_supply_settings.calculation_type.unit }}</span>
+          <!-- <span class="unit">{{ t?.[data.heating_supply_settings.calculation_type.unit] }}</span> -->
         </td>
       </tr>
 
@@ -102,25 +102,25 @@
         <td>{{ t?.operation_period }}</td>
         <td class="text-right">
           {{ data.heating_supply_values.operation_period.value }}
-          <span class="unit">{{ data.heating_supply_values.operation_period.unit }}</span>
+          <span class="unit">{{ t?.[data.heating_supply_values.operation_period.unit] }}</span>
         </td>
         <td>{{ t?.gross_floor_area }}</td>
         <td class="text-right">
           {{ data.heating_supply_values.gross_floor_area.value }}
-          <span class="unit">{{ data.heating_supply_values.gross_floor_area.unit }}</span>
+          <span class="unit">{{ t?.[data.heating_supply_values.gross_floor_area.unit] }}</span>
         </td>
       }
       @else if(calculation_type_heating === calculation_type_enum.custom) {
         <td>{{ t?.energy_usage_custom }}</td>
         <td class="text-right">
           {{ data.heating_supply_values.energy_usage_custom.value }}
-          <span class="unit">{{ data.heating_supply_values.energy_usage_custom.unit }}</span>
+          <span class="unit">{{ t?.[data.heating_supply_values.energy_usage_custom.unit] }}</span>
         </td>
       }
       <td>{{ t?.fuel_oil_usage }}</td>
       <td class="text-right">
         {{ data.heating_supply_values.fuel_oil_usage.value }}
-        <span class="unit">{{ data.heating_supply_values.fuel_oil_usage.unit }}</span>
+        <span class="unit">{{ t?.[data.heating_supply_values.fuel_oil_usage.unit] }}</span>
       </td>
     </tr>
   </table>

@@ -54,12 +54,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <th class="text-align">{{ t?.december_energy_usage }}</th>
         </tr>
         <tr>
-          <td class="text-right">{{ year.july_energy_usage.value }} <span class="unit">{{ year.july_energy_usage.unit }}</span></td>
-          <td class="text-right">{{ year.august_energy_usage.value }} <span class="unit">{{ year.august_energy_usage.unit }}</span></td>
-          <td class="text-right">{{ year.september_energy_usage.value }} <span class="unit">{{ year.september_energy_usage.unit }}</span></td>
-          <td class="text-right">{{ year.october_energy_usage.value }} <span class="unit">{{ year.october_energy_usage.unit }}</span></td>
-          <td class="text-right">{{ year.november_energy_usage.value }} <span class="unit">{{ year.november_energy_usage.unit }}</span></td>
-          <td class="text-right">{{ year.december_energy_usage.value }} <span class="unit">{{ year.december_energy_usage.unit }}</span></td>
+          <td class="text-right">{{ year.july_energy_usage.value }} <span class="unit">{{ t?.[year.july_energy_usage.unit] }}</span></td>
+          <td class="text-right">{{ year.august_energy_usage.value }} <span class="unit">{{ t?.[year.august_energy_usage.unit] }}</span></td>
+          <td class="text-right">{{ year.september_energy_usage.value }} <span class="unit">{{ t?.[year.september_energy_usage.unit] }}</span></td>
+          <td class="text-right">{{ year.october_energy_usage.value }} <span class="unit">{{ t?.[year.october_energy_usage.unit] }}</span></td>
+          <td class="text-right">{{ year.november_energy_usage.value }} <span class="unit">{{ t?.[year.november_energy_usage.unit] }}</span></td>
+          <td class="text-right">{{ year.december_energy_usage.value }} <span class="unit">{{ t?.[year.december_energy_usage.unit] }}</span></td>
         </tr>
       }
     </table>
@@ -87,6 +87,7 @@ export class KppkReactViewCalculationPrintFormConstructionSiteYearComponent {
     "september_energy_usage": "calc",
     "year_energy_usage": "calc",
     "year": "calc",
+    "kWh": "calc",
   });
   protected translationsS = toSignal(this.translations$, {initialValue: undefined});
 }
