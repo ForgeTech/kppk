@@ -6,50 +6,18 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FG_FORM_CONSTRUCTION_SITE_CONTEXT } from '@kppk/react-lib';
+import { FG_FORM_CONSTRUCTION_SITE_CONTEXT, CALCULATION_TYPE_ENUM, POWER_SUPPLY_POWER_TYPE_ENUM } from '@kppk/react-lib';
 import { FgTranslate } from '@kppk/fg-lib-new';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { KppkReactViewCalculationPrintFormConstructionSiteYearComponent } from './kppk-react-view-calculation-print-form_construction_site_year.component';
 
 @Component({
   selector: 'kppk-react-view-calculation-print-form_construction_site',
-  imports: [CommonModule],
-  template: `
-    @let t = translationsS();
-    @let data = input_dataS()?.value;
-    @if(data) {
-      <table class="table">
-        <tbody>
-          <tr>
-            <td colspan="1">{{ t?.energy_usage_settings }}<td>
-          </tr>
-          @let energy_usage_power_type = data.energy_usage_settings.energy_usage_power_type;
-          <tr>
-            <td>{{ t?.energy_usage_power_type }}</td>
-            <td>
-              {{ energy_usage_power_type.value }}
-              <span class="unit">{{ energy_usage_power_type.unit }}</span>
-            </td>
-          </tr>
-          @let energy_usage_build_type = data.energy_usage_settings.energy_usage_build_type;
-          <tr>
-            <td>{{ t?.energy_usage_build_type }}</td>
-            <td>
-              {{ energy_usage_build_type.value }}
-              <span class="unit">{{ energy_usage_build_type.unit }}</span>
-            </td>
-          </tr>
-          @let energy_usage_calculation_type = data.energy_usage_settings.energy_usage_calculation_type;
-          <tr>
-            <td>{{ t?.energy_usage_calculation_type }}</td>
-            <td>
-              {{ energy_usage_calculation_type.value }}
-              <span class="unit">{{ energy_usage_calculation_type.unit }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    }
-  `,
+  imports: [
+    CommonModule,
+    KppkReactViewCalculationPrintFormConstructionSiteYearComponent
+  ],
+  templateUrl: 'kppk-react-view-calculation-print-form_construction_site.component.html',
   styles: [``],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,27 +26,48 @@ export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
   public $translate = inject(FgTranslate);
   public input_dataS = input<FG_FORM_CONSTRUCTION_SITE_CONTEXT | undefined>(undefined, {alias: 'data'});
   protected translations$ = this.$translate.get_translations$({
-    "energy_usage_settings": "calc",
-    "energy_usage_power_type": "calc",
+    "calculation_type": "calc",
     "energy_usage_build_type": "calc",
     "energy_usage_calculation_type": "calc",
-    "energy_usage_values": "calc",
-    "operation_period": "calc",
-    "gross_floor_area": "calc",
     "energy_usage_custom": "calc",
-    "year_energy_usage": "calc",
-    "january_energy_usage": "calc",
-    "february_energy_usage": "calc",
-    "march_energy_usage": "calc",
-    "april_energy_usage": "calc",
-    "may_energy_usage": "calc",
-    "june_energy_usage": "calc",
-    "july_energy_usage": "calc",
-    "august_energy_usage": "calc",
-    "september_energy_usage": "calc",
-    "october_energy_usage": "calc",
-    "november_energy_usage": "calc",
-    "december_energy_usage": "calc",
+    "energy_usage_headline": "calc",
+    "energy_usage_power_type": "calc",
+    "energy_usage_settings": "calc",
+    "energy_usage_values": "calc",
+    "gross_floor_area": "calc",
+    "heating_supply_settings": "calc",
+    "heating_supply_values": "calc",
+    "heating_supply": "calc",
+    "operation_period": "calc",
+    "austria_common_energy_mix": "calc",
+    "austria_green_power_mix": "calc",
+    "estimate": "calc",
+    "exact_entry": "calc",
+    "fuel_oil_usage": "calc",
+    "custom": "calc",
   });
   protected translationsS = toSignal(this.translations$, {initialValue: undefined});
+  public calculation_type_enum =  CALCULATION_TYPE_ENUM;
+  public power_type_enum =  POWER_SUPPLY_POWER_TYPE_ENUM;
+
+  get_power_type_translation( power_type: POWER_SUPPLY_POWER_TYPE_ENUM ): string {
+    const trans = this.translationsS();
+    const result = trans?.[ power_type as keyof typeof trans] ?? 'missing_translation';
+    return result;
+  } 
+  get_calculation_type_translation( calculation_type: CALCULATION_TYPE_ENUM ): string {
+    const trans = this.translationsS();
+    const result = trans?.[ calculation_type as keyof typeof trans] ?? 'missing_translation';
+    return result;
+  } 
+  get_column_number( calculation_type: CALCULATION_TYPE_ENUM ): number {
+    let result = 2;
+    if(calculation_type === this.calculation_type_enum.custom) {
+      result = 4;
+    }
+    else if(calculation_type === this.calculation_type_enum.estimate) {
+      result = 6;
+    }
+    return result;
+  } 
 }
