@@ -26,7 +26,11 @@ export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
   public input_dataS = input<FG_FORM_CONSTRUCTION_SITE_CONTEXT | undefined>(undefined, {alias: 'data'});
   protected $translate = inject(FgTranslate);
   protected translations$ = this.$translate.get_translations$({
+    "austria_common_energy_mix": "calc",
+    "austria_green_power_mix": "calc",
     "calculation_type": "calc",
+    "construction_site": "calc",
+    "custom": "calc",
     "energy_usage_build_type": "calc",
     "energy_usage_calculation_type": "calc",
     "energy_usage_custom": "calc",
@@ -34,22 +38,19 @@ export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
     "energy_usage_power_type": "calc",
     "energy_usage_settings": "calc",
     "energy_usage_values": "calc",
+    "estimate": "calc",
+    "exact_entry": "calc",
+    "fuel_oil_usage": "calc",
     "gross_floor_area": "calc",
     "heating_supply_settings": "calc",
     "heating_supply_values": "calc",
     "heating_supply": "calc",
-    "operation_period": "calc",
-    "austria_common_energy_mix": "calc",
-    "austria_green_power_mix": "calc",
-    "estimate": "calc",
-    "exact_entry": "calc",
-    "fuel_oil_usage": "calc",
-    "custom": "calc",
-    "m2": "units",
+    "kWh/month": "units",
     "l": "units",
+    "m2": "units",
     "month": "units",
     "MWh/month": "units",
-    "kWh/month": "units",
+    "operation_period": "calc",
   });
   protected translationsS = toSignal(this.translations$, {initialValue: undefined});
   public calculation_type_enum =  CALCULATION_TYPE_ENUM;

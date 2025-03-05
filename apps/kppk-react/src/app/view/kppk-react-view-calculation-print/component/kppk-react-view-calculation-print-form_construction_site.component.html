@@ -1,6 +1,7 @@
 @let t = translationsS();
 @let data = input_dataS()?.value;
 @if(data) {
+  <h2>{{ t?.construction_site }}</h2>
   <table class="table">
     <tbody>
       <tr>
@@ -13,7 +14,7 @@
         <td>{{ t?.energy_usage_power_type }}</td>
         <td>
           {{ get_power_type_translation(data.energy_usage_settings.energy_usage_power_type.value)}}
-          <!-- <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_power_type.unit] }}</span> -->
+          <span class="unit"></span>
         </td>
         <!-- <td>{{ t?.energy_usage_build_type }}</td>
         <td>
@@ -23,7 +24,7 @@
         <td>{{ t?.energy_usage_calculation_type }}</td>
         <td>
           {{ get_calculation_type_translation(data.energy_usage_settings.energy_usage_calculation_type.value) }}
-          <!-- <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_calculation_type.unit] }}</span> -->
+          <span class="unit"></span>
         </td>
       </tr>
 
@@ -80,12 +81,12 @@
         <td>{{ t?.energy_usage_power_type }}</td>
         <td>
           {{ get_power_type_translation(data.heating_supply_settings.energy_usage_power_type.value) }}
-          <!-- <span class="unit">{{ t?.[data.heating_supply_settings.energy_usage_power_type.unit] }}</span> -->
+          <span class="unit"></span>
         </td>
         <td>{{ t?.energy_usage_calculation_type }}</td>
         <td>
           {{ get_calculation_type_translation(data.heating_supply_settings.calculation_type.value) }}
-          <!-- <span class="unit">{{ t?.[data.heating_supply_settings.calculation_type.unit] }}</span> -->
+          <span class="unit"></span>
         </td>
       </tr>
 
