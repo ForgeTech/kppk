@@ -89,11 +89,12 @@ export const applyEditsToTarget = <T>(
   return draft;
 };
 
-export const unit_general_parser = editable_unit_base.extend({
+export const unit_general_parser = z.object({
+  type: z.any(),
   value: z.any(),
   unit: z.any(),
 });
-export type UNIT_GENERAL = z.infer<typeof unit_string_parser>;
+export type UNIT_GENERAL = z.infer<typeof unit_general_parser>;
 
 export const unit_string_parser = string_type_unit_base.extend({
   value: z.string().default(''),

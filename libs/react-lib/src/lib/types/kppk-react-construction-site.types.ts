@@ -13,32 +13,20 @@ import {
 } from './kppk-react-unit.types';
 import {
   BUILD_TYPE_ENUM,
-  HEAT_SUPPLY_CALCULATION_TYPE_ENUM,
-  POWER_SUPPLY_CALCULATION_TYPE_ENUM,
+  CALCULATION_TYPE_ENUM,
   POWER_SUPPLY_POWER_TYPE_ENUM,
 } from '../enum';
 
-export const construction_site_energy_usage_calculation_type_enum_parser =
+export const construction_site_calculation_type_enum_parser =
   z.object({
     value: z
-      .nativeEnum(POWER_SUPPLY_CALCULATION_TYPE_ENUM)
-      .default(POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry),
-    unit: z.literal('').default(''),
-  });
-export type construction_site_energy_usage_calculation_type_enum = z.infer<
-  typeof construction_site_energy_usage_calculation_type_enum_parser
->;
-
-export const construction_site_heating_supply_calculation_type_enum_parser =
-  z.object({
-    value: z
-      .nativeEnum(HEAT_SUPPLY_CALCULATION_TYPE_ENUM)
-      .default(HEAT_SUPPLY_CALCULATION_TYPE_ENUM.estimate),
+      .nativeEnum(CALCULATION_TYPE_ENUM)
+      .default(CALCULATION_TYPE_ENUM.estimate),
     unit: z.literal('').default(''),
   });
 
-export type construction_site_heating_supply_calculation_type_enum = z.infer<
-  typeof construction_site_heating_supply_calculation_type_enum_parser
+export type CONSTRUCTION_SITE_HEATING_SUPPLY_CALCULATION_TYPE_ENUM = z.infer<
+  typeof construction_site_calculation_type_enum_parser
 >;
 
 export const construction_site_build_type_enum_parser = z.object({
@@ -158,7 +146,7 @@ export const form_construction_site_parser = z.object({
         .optional()
         .default({}),
       energy_usage_calculation_type:
-        construction_site_energy_usage_calculation_type_enum_parser
+      construction_site_calculation_type_enum_parser
           .optional()
           .default({}),
     })
@@ -188,7 +176,7 @@ export const form_construction_site_parser = z.object({
           .optional()
           .default({}),
       calculation_type:
-        construction_site_heating_supply_calculation_type_enum_parser
+        construction_site_calculation_type_enum_parser
           .optional()
           .default({}),
     })
