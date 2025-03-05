@@ -13,7 +13,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
   protected $construction_site = inject(KppkReactConstructionSiteFields);
   protected $utils = inject(KppkReactFieldsUtils);
   protected $translate = inject(FgTranslate);
-  protected translation$ = this.$translate.get_translations$({
+  public translation$ = this.$translate.get_translations$({
     "container_village_transport_distance": "calc",
     "energy_usage_power_type": "calc",
     "office_container": "calc",
@@ -37,7 +37,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     "container_village_settings": "calc",
     "container_village_containers": "calc",
   })
-  protected translationS = toSignal(this.translation$, {initialValue: undefined});
+  public translationS = toSignal(this.translation$, {initialValue: undefined});
 
   public container_village_settings_fields: FormlyFieldConfig[] = [
     // {
@@ -45,7 +45,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     //   expressions: {
     //     "props.label": this.$translate.translate('calc.transport_container_village'),
     //   },
-    //   fieldGroupClassName: "flex flex-row gap-2",
+    //   fieldGroupClassName: "flex flex-row gap-2 flex-wrap",
     // wrappers: ['section-h4'],
     //   fieldGroup: [{
     //     key: 'amount',
@@ -66,7 +66,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
     {
       key: 'distance.value',
       type: 'input',
-      wrappers: ['form-field'],
+      wrappers: ['unit', 'form-field'],
       // defaultValue: 50,
       props: {
         required: true,
@@ -450,7 +450,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
           map( trans => trans['container_village_settings'])
         ),  
       },
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h3'],
       fieldGroup: [...this.container_village_settings_fields],
     },
@@ -461,7 +461,7 @@ export class KppkReactContainerVillageFields extends FgBaseService {
           map( trans => trans['container_village_containers'])
         ),  
       },
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h3'],
       fieldGroup: [...this.container_village_container_fields],
     },
