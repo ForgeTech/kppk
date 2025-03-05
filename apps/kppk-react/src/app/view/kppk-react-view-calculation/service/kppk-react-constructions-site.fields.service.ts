@@ -2,12 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import { FgBaseService, FgTranslate } from '@kppk/fg-lib-new';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { FormlyFieldProps } from '@ngx-formly/material/form-field';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 import { KppkReactFieldsUtils } from './kppk-react-fields-utils.service';
 import {
   BUILD_TYPE_ENUM,
-  HEAT_SUPPLY_CALCULATION_TYPE_ENUM,
-  POWER_SUPPLY_CALCULATION_TYPE_ENUM,
+  CALCULATION_TYPE_ENUM,
   POWER_SUPPLY_POWER_TYPE_ENUM,
 } from '@kppk/react-lib';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -60,21 +59,19 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
   })
   protected translationS = toSignal(this.translation$, {initialValue: undefined});
 
-  protected power_supply_calculation_type_enum =
-    POWER_SUPPLY_CALCULATION_TYPE_ENUM;
-  protected power_supply_calculation_options = () => {
+  protected calculation_type_options = () => {
     return [
       {
-        label: this.translationS()?.[this.power_supply_calculation_type_enum.estimate],
-        value: this.power_supply_calculation_type_enum.estimate,
+        label: this.translationS()?.[CALCULATION_TYPE_ENUM.estimate],
+        value: CALCULATION_TYPE_ENUM.estimate,
       },
       {
-        label: this.translationS()?.[this.power_supply_calculation_type_enum.estimate],
-        value: this.power_supply_calculation_type_enum.exact_entry,
+        label: this.translationS()?.[CALCULATION_TYPE_ENUM.exact_entry],
+        value: CALCULATION_TYPE_ENUM.exact_entry,
       },
       {
-        label: this.translationS()?.[this.power_supply_calculation_type_enum.custom],
-        value: this.power_supply_calculation_type_enum.custom,
+        label: this.translationS()?.[CALCULATION_TYPE_ENUM.custom],
+        value: CALCULATION_TYPE_ENUM.custom,
       },
     ];
   };
@@ -93,24 +90,24 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     ];
   };
 
-  protected heat_supply_calculation_options_enum =
-    HEAT_SUPPLY_CALCULATION_TYPE_ENUM;
-  protected heat_supply_calculation_options = () => {
-    return [
-      {
-        label: this.translationS()?.[this.heat_supply_calculation_options_enum.estimate],
-        value: this.heat_supply_calculation_options_enum.estimate,
-      },
-      {
-        label: this.translationS()?.[this.heat_supply_calculation_options_enum.custom],
-        value: this.heat_supply_calculation_options_enum.custom,
-      },
-      {
-        label: this.translationS()?.[this.heat_supply_calculation_options_enum.exact_entry],
-        value: this.heat_supply_calculation_options_enum.exact_entry,
-      },
-    ];
-  };
+  // protected heat_supply_calculation_options_enum =
+  //   HEAT_SUPPLY_CALCULATION_TYPE_ENUM;
+  // protected heat_supply_calculation_options = () => {
+  //   return [
+  //     {
+  //       label: this.translationS()?.[this.heat_supply_calculation_options_enum.estimate],
+  //       value: this.heat_supply_calculation_options_enum.estimate,
+  //     },
+  //     {
+  //       label: this.translationS()?.[this.heat_supply_calculation_options_enum.custom],
+  //       value: this.heat_supply_calculation_options_enum.custom,
+  //     },
+  //     {
+  //       label: this.translationS()?.[this.heat_supply_calculation_options_enum.exact_entry],
+  //       value: this.heat_supply_calculation_options_enum.exact_entry,
+  //     },
+  //   ];
+  // };
 
   protected build_type_enum = BUILD_TYPE_ENUM;
   protected build_type_options = () => {
@@ -201,7 +198,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 ),  
                 'props.unit': this.$utils.provide_unit,
                 'props.options': this.translation$.pipe(
-                  map(() => this.power_supply_calculation_options())
+                  map(() => this.calculation_type_options())
                 ),
               },
             },
@@ -218,17 +215,14 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    // if(!root_model || !root_model.energy_usage_settings.energy_usage_calculation_type) {
-    //   console.log( root_model )
-    //   throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR')
-    // }
-    const result =
-      root_model.energy_usage_settings.energy_usage_calculation_type.value !==
-      POWER_SUPPLY_CALCULATION_TYPE_ENUM.estimate;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result =root_model.energy_usage_settings.energy_usage_calculation_type.value !== CALCULATION_TYPE_ENUM.estimate;
+    }       
     return result;
   };
 
-  protected power_supply_hide_equal_calculation_type_exact_entry = (
+  protected hide_equal_calculation_type_exact_entry = (
     field: FormlyFieldConfig<
       FormlyFieldProps & {
         [additionalProperties: string]: any;
@@ -236,17 +230,44 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    // if(!root_model || !root_model.energy_usage_settings.energy_usage_calculation_type) {
-    //   console.log( root_model )
-    //   throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR')
-    // }
-    const result =
-      root_model.energy_usage_settings.energy_usage_calculation_type.value ===
-      POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.energy_usage_settings.energy_usage_calculation_type.value === CALCULATION_TYPE_ENUM.exact_entry;
+    }     
     return result;
   };
 
-  protected power_supply_hide_unequal_calculation_type_exact_entry = (
+  // protected power_supply_hide_unequal_calculation_type_exact_entry = (
+  //   field: FormlyFieldConfig<
+  //     FormlyFieldProps & {
+  //       [additionalProperties: string]: any;
+  //     }
+  //   >
+  // ): boolean => {
+  //   const result =
+  //     !this.power_supply_hide_equal_calculation_type_exact_entry(field);
+  //   return result;
+  // };
+
+  // protected heating_supply_hide_equal_calculation_type_exact_entry = (
+  //   field: FormlyFieldConfig<
+  //     FormlyFieldProps & {
+  //       [additionalProperties: string]: any;
+  //     }
+  //   >
+  // ): boolean => {
+  //   const root_model = this.$utils.get_root_parent(field).model;
+  //   if(!root_model || !root_model.energy_usage_settings.energy_usage_calculation_type) {
+  //     console.log( root_model )
+  //     throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR')
+  //   }
+  //   const result =
+  //     root_model.heating_supply_settings.calculation_type.value ===
+  //     CALCULATION_TYPE_ENUM.exact_entry;
+  //   return result;
+  // };
+
+  protected hide_unequal_calculation_type_exact_entry = (
     field: FormlyFieldConfig<
       FormlyFieldProps & {
         [additionalProperties: string]: any;
@@ -254,37 +275,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const result =
-      !this.power_supply_hide_equal_calculation_type_exact_entry(field);
-    return result;
-  };
-
-  protected heating_supply_hide_equal_calculation_type_exact_entry = (
-    field: FormlyFieldConfig<
-      FormlyFieldProps & {
-        [additionalProperties: string]: any;
-      }
-    >
-  ): boolean => {
-    const root_model = this.$utils.get_root_parent(field).model;
-    // if(!root_model || !root_model.energy_usage_settings.energy_usage_calculation_type) {
-    //   console.log( root_model )
-    //   throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR')
-    // }
-    const result =
-      root_model.heating_supply_settings.calculation_type.value ===
-      POWER_SUPPLY_CALCULATION_TYPE_ENUM.exact_entry;
-    return result;
-  };
-
-  protected heating_supply_hide_unequal_calculation_type_exact_entry = (
-    field: FormlyFieldConfig<
-      FormlyFieldProps & {
-        [additionalProperties: string]: any;
-      }
-    >
-  ): boolean => {
-    const result =
-      !this.heating_supply_hide_equal_calculation_type_exact_entry(field);
+      !this.hide_equal_calculation_type_exact_entry(field);
     return result;
   };
 
@@ -296,18 +287,15 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    // if(!root_model || !root_model.energy_usage_settings.energy_usage_calculation_type) {
-    //   console.log( root_model )
-    //   throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR')
-    // }
-    const result =
-      root_model.energy_usage_settings.energy_usage_calculation_type.value !==
-      POWER_SUPPLY_CALCULATION_TYPE_ENUM.custom;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result =    root_model.energy_usage_settings.energy_usage_calculation_type.value !== CALCULATION_TYPE_ENUM.custom;
+    }
     return result;
   };
 
   protected construction_site_year_fields: () => FormlyFieldConfig[] = () => {
-    return [
+    const result: FormlyFieldConfig[] = [
       {
         fieldGroupClassName: 'flex flex-row gap-2 energy-year-usage',
         fieldGroup: [
@@ -559,11 +547,13 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         ],
       },
     ];
+    return result;
   };
 
   protected construction_site_energy_usage_values: () => FormlyFieldConfig[] =
     () => {
-      return [
+      const result: FormlyFieldConfig[]  = 
+      [
         {
           key: 'energy_usage_values',
           fieldGroupClassName: 'flex flex-row gap-2',
@@ -572,7 +562,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
             'props.label': this.translation$.pipe(
               map( trans => trans['energy_usage_values'])
             ),  
-            hide: this.power_supply_hide_equal_calculation_type_exact_entry,
+            hide: this.hide_equal_calculation_type_exact_entry,
           },
           fieldGroup: [
             {
@@ -594,7 +584,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                   map( trans => trans['operation_period'])
                 ),  
                 'props.unit': this.$utils.provide_unit,
-                hide: this.power_supply_hide_equal_calculation_type_exact_entry,
+                'hide': field => this.hide_equal_calculation_type_exact_entry(field),
               },
             },
             {
@@ -642,14 +632,15 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
           ],
         },
       ];
+      return result;
     };
 
   protected construction_site_energy_usage_energy_usage_year: () => FormlyFieldConfig[] =
     () => {
-      return [
+        const result: FormlyFieldConfig[] = [
         {
           key: 'energy_usage_values.year_energy_usage',
-          fieldGroupClassName: 'flex flex-col gap-2',
+          fieldGroupClassName: 'flex flex-col gap-2 flex-wrap',
           wrappers: ['section-h4'],
           type: 'energy-usage-yearly-array',
           expressions: {
@@ -665,16 +656,22 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
             'props.add-btn-label': this.translation$.pipe(
               map( trans => trans['year_energy_usage_add_btn_label'])
             ),  
-            hide: this.power_supply_hide_unequal_calculation_type_exact_entry,
+            hide: field => {
+              console.log('FARK_FARK_FARK');
+              console.log(field);
+              const result = this.hide_unequal_calculation_type_exact_entry(field);
+              return result; 
+            },
           },
           fieldArray: {
             fieldGroup: [...this.construction_site_year_fields()],
           },
         },
       ];
+      return result;
     };
 
-  protected heating_supply_enable_on_calculation_type_custom = (
+  protected show_on_calculation_type_custom = (
     field: FormlyFieldConfig<
       FormlyFieldProps & {
         [additionalProperties: string]: any;
@@ -682,17 +679,14 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    if (!root_model || !root_model.heating_supply_settings.calculation_type) {
-      console.log(root_model);
-      throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR');
-    }
-    const result =
-      root_model.heating_supply_settings.calculation_type.value ===
-      HEAT_SUPPLY_CALCULATION_TYPE_ENUM.custom;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.heating_supply_settings.calculation_type.value === CALCULATION_TYPE_ENUM.custom;
+    }       
     return !result;
   };
 
-  protected heating_supply_enable_on_calculation_type_estimate = (
+  protected enable_on_calculation_type_estimate = (
     field: FormlyFieldConfig<
       FormlyFieldProps & {
         [additionalProperties: string]: any;
@@ -700,13 +694,10 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    if (!root_model || !root_model.heating_supply_settings.calculation_type) {
-      console.log(root_model);
-      throw new Error('CONSTRUCTION_SITE_FIELD_EXPRESSION_ERROR');
-    }
-    const result =
-      root_model.heating_supply_settings.calculation_type.value ===
-      HEAT_SUPPLY_CALCULATION_TYPE_ENUM.estimate;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.heating_supply_settings.calculation_type.value === CALCULATION_TYPE_ENUM.estimate;
+    } 
     return !result;
   };
 
@@ -763,7 +754,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 ),  
                 'props.unit': this.$utils.provide_unit,
                 'props.options': this.translation$.pipe(
-                  map(() => this.heat_supply_calculation_options())
+                  map(() => this.calculation_type_options())
                 ),
               },
             },
@@ -773,7 +764,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
     };
 
   protected construction_site_heating_supply_values = () => {
-    return [
+    const result: FormlyFieldConfig[] = [
       {
         key: 'heating_supply_values',
         fieldGroupClassName: 'flex flex-row gap-2',
@@ -802,7 +793,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 map( trans => trans['operation_period'])
               ),  
               'props.unit': this.$utils.provide_unit,
-              hide: this.heating_supply_hide_equal_calculation_type_exact_entry,
+              hide: this.hide_equal_calculation_type_exact_entry,
             },
           },
           {
@@ -823,7 +814,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 map( trans => trans['heating_supply_energy_usage_custom'])
               ),  
               'props.unit': this.$utils.provide_unit,
-              hide: this.heating_supply_enable_on_calculation_type_custom,
+              hide: this.show_on_calculation_type_custom,
             },
           },
           {
@@ -844,7 +835,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
                 map( trans => trans['heating_supply_gross_floor_area'])
               ),  
               'props.unit': this.$utils.provide_unit,
-              hide: this.heating_supply_enable_on_calculation_type_estimate,
+              hide: this.enable_on_calculation_type_estimate,
             },
           },
           {
@@ -870,14 +861,15 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         ],
       },
     ];
+    return result;
   };
 
   protected construction_site_heating_supply_energy_usage_year: () => FormlyFieldConfig[] =
     () => {
-      return [
+      const result: FormlyFieldConfig[] = [
         {
           key: 'heating_supply_values.year_energy_usage',
-          fieldGroupClassName: 'flex flex-col gap-2',
+          fieldGroupClassName: 'flex flex-col gap-2 flex-wrap',
           type: 'energy-usage-yearly-array',
           wrappers: ['section-h4'],
           expressions: {
@@ -893,19 +885,20 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
             'props.add-btn-label': this.translation$.pipe(
               map( trans => trans['year_energy_usage_add_btn_label'])
             ),
-            hide: this.heating_supply_hide_unequal_calculation_type_exact_entry,
+            hide: this.hide_unequal_calculation_type_exact_entry,
           },
           fieldArray: {
             fieldGroup: [...this.construction_site_year_fields()],
           },
         },
       ];
+      return result;
     };
 
   public fields = () => {
-    return [
+    const result: FormlyFieldConfig[] = [
       {
-        fieldGroupClassName: 'flex flex-col gap-2',
+        fieldGroupClassName: 'flex flex-col gap-2 flex-wrap',
         wrappers: ['section-h3'],
         expressions: {
           'props.label': this.translation$.pipe(
@@ -920,7 +913,7 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         ],
       },
       {
-        fieldGroupClassName: 'flex flex-col gap-2',
+        fieldGroupClassName: 'flex flex-col gap-2 flex-wrap',
         wrappers: ['section-h3'],
         expressions: {
           'props.label': this.translation$.pipe(
@@ -934,5 +927,6 @@ export class KppkReactConstructionSiteFields extends FgBaseService {
         ],
       },
     ];
+    return result;
   };
 }
