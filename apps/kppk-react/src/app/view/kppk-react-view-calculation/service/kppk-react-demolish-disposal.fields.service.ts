@@ -1278,7 +1278,7 @@ export class KppkReactDemolishDisposalFields extends FgBaseService {
     {
       key: 'distance.value',
       type: 'input',
-      wrappers: ['form-field'],
+      wrappers: ['unit', 'form-field'],
       props: {
         required: true,
         type: 'number',
