@@ -130,7 +130,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected excavation_pit_security_fields: FormlyFieldConfig[] = [
     {
       key: 'excavation_pit_security',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -145,7 +145,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
           props: {
             required: true,
             type: 'number',
-            unit: 'km',
             min: 0,
           },
           modelOptions: {
@@ -250,9 +249,10 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.excavation_pit_security.methode.value !==
-      EXCAVATION_PIT_SECURITY_METHODE_ENUM.jet_blasting;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.jet_blasting;
+    }
     return result;
   };
 
@@ -264,9 +264,10 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.jet_blasting_process.process_type.value !==
-      JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cylinder;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.jet_blasting_process.process_type.value !== JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cylinder;
+    } 
     return result;
   };
 
@@ -278,16 +279,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.jet_blasting_process.process_type.value !==
-      JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cuboid;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.jet_blasting_process.process_type.value !== JET_BLASTING_PROCESS_TYPE_ENUM.process_type_cuboid;
+    } 
     return result;
   };
 
   protected jet_blasting_process_cylinder_fields: FormlyFieldConfig[] = [
     {
       key: 'jet_blasting_process_cylinder',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       expressions: {
         'props.label': this.translation$.pipe(
           map( trans => trans['jet_blasting_process_cylinder'])
@@ -344,7 +346,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected jet_blasting_process_cuboid_fields: FormlyFieldConfig[] = [
     {
       key: 'jet_blasting_process_cuboid',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       expressions: {
         'props.label': this.translation$.pipe(
           map( trans => trans['jet_blasting_process_cuboid'])
@@ -380,7 +382,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             required: true,
 
             type: 'number',
-            unit: 'm',
             min: 0,
           },
           modelOptions: {
@@ -406,7 +407,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected jet_blasting_process_fields: FormlyFieldConfig[] = [
     {
       key: 'jet_blasting_process',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -470,16 +471,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.excavation_pit_security.methode.value !==
-      EXCAVATION_PIT_SECURITY_METHODE_ENUM.escarpment;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.escarpment;
+    }       
     return result;
   };
 
   protected escarpment_fields: FormlyFieldConfig[] = [
     {
       key: 'escarpment',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -521,16 +523,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.excavation_pit_security.methode.value !==
-      EXCAVATION_PIT_SECURITY_METHODE_ENUM.sheet_pile_wall;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.sheet_pile_wall;
+    }       
     return result;
   };
 
   protected sheet_pile_wall_fields: FormlyFieldConfig[] = [
     {
       key: 'sheet_pile_wall',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -571,16 +574,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.excavation_pit_security.methode.value !==
-      EXCAVATION_PIT_SECURITY_METHODE_ENUM.shotcrete;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.shotcrete;
+    }   
     return result;
   };
 
   protected shotcrete_fields: FormlyFieldConfig[] = [
     {
       key: 'shotcrete',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -597,7 +601,6 @@ export class KppkReactExcavationPitFields extends FgBaseService {
             required: true,
             label: 'shotcrete_thickness',
             type: 'number',
-            unit: 'm',
             min: 0,
           },
           modelOptions: {
@@ -706,16 +709,17 @@ export class KppkReactExcavationPitFields extends FgBaseService {
     >
   ): boolean => {
     const root_model = this.$utils.get_root_parent(field).model;
-    const result =
-      root_model.excavation_pit_security.methode.value !==
-      EXCAVATION_PIT_SECURITY_METHODE_ENUM.foundation_pile;
+    let result = true;
+    if(Object.keys(root_model).length) {
+      result = root_model.excavation_pit_security.methode.value !== EXCAVATION_PIT_SECURITY_METHODE_ENUM.foundation_pile;
+    }
     return result;
   };
 
   protected foundation_pile_fields: FormlyFieldConfig[] = [
     {
       key: 'foundation_pile',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -771,7 +775,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
   protected excavation_fields: FormlyFieldConfig[] = [
     {
       key: 'excavation',
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h4'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -826,7 +830,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
 
   public excavation_pit_fields: FormlyFieldConfig[] = [
     {
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h3'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -836,7 +840,7 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       fieldGroup: [...this.excavation_fields],
     },
     {
-      fieldGroupClassName: 'flex flex-row gap-2',
+      fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
       wrappers: ['section-h3'],
       expressions: {
         'props.label': this.translation$.pipe(
@@ -845,14 +849,24 @@ export class KppkReactExcavationPitFields extends FgBaseService {
       },
       fieldGroup: [
         {
-          fieldGroupClassName: 'flex flex-row flex-wrap gap-2',
+          fieldGroupClassName: 'flex flex-col gap-2',
           fieldGroup: [
-            ...this.excavation_pit_security_fields,
-            ...this.jet_blasting_process_fields,
-            ...this.escarpment_fields,
-            ...this.sheet_pile_wall_fields,
-            ...this.shotcrete_fields,
-            ...this.foundation_pile_fields,
+            {
+              fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
+              fieldGroup: [
+                ...this.excavation_pit_security_fields,
+              ]
+            },
+            {
+              fieldGroupClassName: 'flex flex-row gap-2 flex-wrap',
+              fieldGroup: [
+                ...this.jet_blasting_process_fields,
+                ...this.escarpment_fields,
+                ...this.sheet_pile_wall_fields,
+                ...this.shotcrete_fields,
+                ...this.foundation_pile_fields,
+              ]
+            }
           ],
         },
       ],
