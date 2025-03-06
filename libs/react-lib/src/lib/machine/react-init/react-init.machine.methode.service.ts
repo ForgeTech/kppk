@@ -200,7 +200,7 @@ export class ReactInitMachineMethodeService extends FgBaseService {
         './react/data/august2024/form_default/form_demolish_disposal.json',
       form_excavation_pit:
         './react/data/august2024/form_default/form_excavation_pit.json',
-      form_rose: './react/data/august2024/form_default/form_rose.json',
+      form_heating_system: './react/data/august2024/form_default/form_heating_system.json',
       form_selection:
         './react/data/august2024/form_default/form_selection.json',
     });
