@@ -1,134 +1,131 @@
 @let t = translationsS();
-@let data = input_dataS()?.value;
-@if(data) {
-  <h2>{{ t?.construction_site }}</h2>
-  <table class="table">
-    <tbody>
-      <tr>
-        <th class="text-lg" colspan="4">{{ t?.energy_usage_headline }}<th>
-      </tr>
-      <tr>
-        <th class="font-bold" colspan="4">{{ t?.energy_usage_settings }}<td>
-      </tr>
-      <tr>
-        <td>{{ t?.energy_usage_power_type }}</td>
-        <td>
-          {{ get_power_type_translation(data.energy_usage_settings.energy_usage_power_type.value)}}
-          <span class="unit"></span>
-        </td>
-        <!-- <td>{{ t?.energy_usage_build_type }}</td>
-        <td>
-          {{ data.energy_usage_settings.energy_usage_build_type.value }}
-          <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_build_type.unit] }}</span>
-        </td> -->
-        <td>{{ t?.energy_usage_calculation_type }}</td>
-        <td>
-          {{ get_calculation_type_translation(data.energy_usage_settings.energy_usage_calculation_type.value) }}
-          <span class="unit"></span>
-        </td>
-      </tr>
-
-    </tbody>
-  </table>
-  
-  @let calculation_type_energy = data.energy_usage_settings.energy_usage_calculation_type.value;
-  @if(
-    calculation_type_energy === calculation_type_enum.estimate
-    || calculation_type_energy === calculation_type_enum.custom
-  ){
-    <table class="table">
-      <tr>
-        <th class="font-bold" [attr.colspan]="calculation_type_energy === calculation_type_enum.custom ? 1 : 2">{{ t?.energy_usage_values }}</th>
-      </tr>
-      <tr>
-        @if(calculation_type_energy === calculation_type_enum.estimate) {
-          <td>{{ t?.operation_period }}</td>
-          <td class="text-right">
-            {{ data.energy_usage_values.operation_period.value }}
-            <span class="unit">{{ t?.[data.energy_usage_values.operation_period.unit] }}</span>
-          </td>
-          <td>{{ t?.gross_floor_area }}</td>
-          <td class="text-right">
-            {{ data.energy_usage_values.gross_floor_area.value }}
-            <span class="unit">{{ t?.[data.energy_usage_values.gross_floor_area.unit] }}</span>
-          </td>
-        }
-        @else {
-          <td>{{ t?.energy_usage_custom }}</td>
-          <td class="text-right">
-            {{ data.energy_usage_values.energy_usage_custom.value }}
-            <span class="unit">{{ t?.[data.energy_usage_values.energy_usage_custom.unit] }}</span>
-          </td>
-        }
-      </tr>
-    </table>
-  }
-
-  @let year_energy_usage_energy = data.energy_usage_values.year_energy_usage;
-  @if(calculation_type_energy === calculation_type_enum.exact_entry){
-  <kppk-react-view-calculation-print-form_construction_site_year [data]="year_energy_usage_energy" />
-  }
-
-  <table class="table">
-    <tbody>
-      <tr>
-        <th class="text-lg" colspan="4">{{ t?.heating_supply }}<th>
-      </tr>
-      <tr>
-        <th class="font-bold" colspan="4">{{ t?.heating_supply_settings }}<td>
-      </tr>
-      <tr>
-        <td>{{ t?.energy_usage_power_type }}</td>
-        <td>
-          {{ get_power_type_translation(data.heating_supply_settings.energy_usage_power_type.value) }}
-          <span class="unit"></span>
-        </td>
-        <td>{{ t?.energy_usage_calculation_type }}</td>
-        <td>
-          {{ get_calculation_type_translation(data.heating_supply_settings.calculation_type.value) }}
-          <span class="unit"></span>
-        </td>
-      </tr>
-
-    </tbody>
-  </table>
-
-  @let calculation_type_heating = data.heating_supply_settings.calculation_type.value;
-  <table class="table">
+@let data = input_dataS().value;
+<h2>{{ t?.construction_site }}</h2>
+<table class="table">
+  <tbody>
     <tr>
-      <th class="font-bold" [attr.colspan]="get_column_number(calculation_type_heating)">{{ t?.heating_supply_values }}</th>
+      <th class="text-lg" colspan="4">{{ t?.energy_usage_headline }}<th>
     </tr>
     <tr>
-      @if(calculation_type_heating === calculation_type_enum.estimate) {
+      <th class="font-bold" colspan="4">{{ t?.energy_usage_settings }}<td>
+    </tr>
+    <tr>
+      <td>{{ t?.energy_usage_power_type }}</td>
+      <td>
+        {{ get_power_type_translation(data.energy_usage_settings.energy_usage_power_type.value)}}
+        <span class="unit"></span>
+      </td>
+      <!-- <td>{{ t?.energy_usage_build_type }}</td>
+      <td>
+        {{ data.energy_usage_settings.energy_usage_build_type.value }}
+        <span class="unit">{{ t?.[data.energy_usage_settings.energy_usage_build_type.unit] }}</span>
+      </td> -->
+      <td>{{ t?.energy_usage_calculation_type }}</td>
+      <td>
+        {{ get_calculation_type_translation(data.energy_usage_settings.energy_usage_calculation_type.value) }}
+        <span class="unit"></span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+@let calculation_type_energy = data.energy_usage_settings.energy_usage_calculation_type.value;
+@if(
+  calculation_type_energy === calculation_type_enum.estimate
+  || calculation_type_energy === calculation_type_enum.custom
+){
+  <table class="table">
+    <tr>
+      <th class="font-bold" [attr.colspan]="calculation_type_energy === calculation_type_enum.custom ? 1 : 2">{{ t?.energy_usage_values }}</th>
+    </tr>
+    <tr>
+      @if(calculation_type_energy === calculation_type_enum.estimate) {
         <td>{{ t?.operation_period }}</td>
         <td class="text-right">
-          {{ data.heating_supply_values.operation_period.value }}
-          <span class="unit">{{ t?.[data.heating_supply_values.operation_period.unit] }}</span>
+          {{ data.energy_usage_values.operation_period.value }}
+          <span class="unit">{{ t?.[data.energy_usage_values.operation_period.unit] }}</span>
         </td>
         <td>{{ t?.gross_floor_area }}</td>
         <td class="text-right">
-          {{ data.heating_supply_values.gross_floor_area.value }}
-          <span class="unit">{{ t?.[data.heating_supply_values.gross_floor_area.unit] }}</span>
+          {{ data.energy_usage_values.gross_floor_area.value }}
+          <span class="unit">{{ t?.[data.energy_usage_values.gross_floor_area.unit] }}</span>
         </td>
       }
-      @else if(calculation_type_heating === calculation_type_enum.custom) {
+      @else {
         <td>{{ t?.energy_usage_custom }}</td>
         <td class="text-right">
-          {{ data.heating_supply_values.energy_usage_custom.value }}
-          <span class="unit">{{ t?.[data.heating_supply_values.energy_usage_custom.unit] }}</span>
+          {{ data.energy_usage_values.energy_usage_custom.value }}
+          <span class="unit">{{ t?.[data.energy_usage_values.energy_usage_custom.unit] }}</span>
         </td>
       }
-      <td>{{ t?.fuel_oil_usage }}</td>
-      <td class="text-right">
-        {{ data.heating_supply_values.fuel_oil_usage.value }}
-        <span class="unit">{{ t?.[data.heating_supply_values.fuel_oil_usage.unit] }}</span>
-      </td>
     </tr>
   </table>
-  
-  @let year_energy_usage_heating = data.heating_supply_values.year_energy_usage;
-  @if( calculation_type_heating === calculation_type_enum.exact_entry ) {
-    <kppk-react-view-calculation-print-form_construction_site_year [data]="year_energy_usage_heating" />
-  }
-  
+}
+
+@let year_energy_usage_energy = data.energy_usage_values.year_energy_usage;
+@if(calculation_type_energy === calculation_type_enum.exact_entry){
+<kppk-react-view-calculation-print-form_construction_site_year [data]="year_energy_usage_energy" />
+}
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="text-lg" colspan="4">{{ t?.heating_supply }}<th>
+    </tr>
+    <tr>
+      <th class="font-bold" colspan="4">{{ t?.heating_supply_settings }}<td>
+    </tr>
+    <tr>
+      <td>{{ t?.energy_usage_power_type }}</td>
+      <td>
+        {{ get_power_type_translation(data.heating_supply_settings.energy_usage_power_type.value) }}
+        <span class="unit"></span>
+      </td>
+      <td>{{ t?.energy_usage_calculation_type }}</td>
+      <td>
+        {{ get_calculation_type_translation(data.heating_supply_settings.calculation_type.value) }}
+        <span class="unit"></span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+@let calculation_type_heating = data.heating_supply_settings.calculation_type.value;
+<table class="table">
+  <tr>
+    <th class="font-bold" [attr.colspan]="get_column_number(calculation_type_heating)">{{ t?.heating_supply_values }}</th>
+  </tr>
+  <tr>
+    @if(calculation_type_heating === calculation_type_enum.estimate) {
+      <td>{{ t?.operation_period }}</td>
+      <td class="text-right">
+        {{ data.heating_supply_values.operation_period.value }}
+        <span class="unit">{{ t?.[data.heating_supply_values.operation_period.unit] }}</span>
+      </td>
+      <td>{{ t?.gross_floor_area }}</td>
+      <td class="text-right">
+        {{ data.heating_supply_values.gross_floor_area.value }}
+        <span class="unit">{{ t?.[data.heating_supply_values.gross_floor_area.unit] }}</span>
+      </td>
+    }
+    @else if(calculation_type_heating === calculation_type_enum.custom) {
+      <td>{{ t?.energy_usage_custom }}</td>
+      <td class="text-right">
+        {{ data.heating_supply_values.energy_usage_custom.value }}
+        <span class="unit">{{ t?.[data.heating_supply_values.energy_usage_custom.unit] }}</span>
+      </td>
+    }
+    <td>{{ t?.fuel_oil_usage }}</td>
+    <td class="text-right">
+      {{ data.heating_supply_values.fuel_oil_usage.value }}
+      <span class="unit">{{ t?.[data.heating_supply_values.fuel_oil_usage.unit] }}</span>
+    </td>
+  </tr>
+</table>
+
+@let year_energy_usage_heating = data.heating_supply_values.year_energy_usage;
+@if( calculation_type_heating === calculation_type_enum.exact_entry ) {
+  <kppk-react-view-calculation-print-form_construction_site_year [data]="year_energy_usage_heating" />
 }

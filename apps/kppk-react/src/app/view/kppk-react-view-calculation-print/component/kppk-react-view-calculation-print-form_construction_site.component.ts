@@ -23,7 +23,6 @@ import { KppkReactViewCalculationPrintFormConstructionSiteYearComponent } from '
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
-  public input_dataS = input<FG_FORM_CONSTRUCTION_SITE_CONTEXT | undefined>(undefined, {alias: 'data'});
   protected $translate = inject(FgTranslate);
   protected translations$ = this.$translate.get_translations$({
     "austria_common_energy_mix": "calc",
@@ -53,20 +52,22 @@ export class KppkReactViewCalculationPrintFormConstructionSiteComponent {
     "operation_period": "calc",
   });
   protected translationsS = toSignal(this.translations$, {initialValue: undefined});
-  public calculation_type_enum =  CALCULATION_TYPE_ENUM;
-  public power_type_enum =  POWER_SUPPLY_POWER_TYPE_ENUM;
+  protected calculation_type_enum = CALCULATION_TYPE_ENUM;
+  protected power_type_enum = POWER_SUPPLY_POWER_TYPE_ENUM;
+  
+  public input_dataS = input.required<FG_FORM_CONSTRUCTION_SITE_CONTEXT>({alias: 'data'});
 
-  get_power_type_translation( power_type: POWER_SUPPLY_POWER_TYPE_ENUM ): string {
+  protected get_power_type_translation( power_type: POWER_SUPPLY_POWER_TYPE_ENUM ): string {
     const trans = this.translationsS();
     const result = trans?.[ power_type as keyof typeof trans] ?? 'missing_translation';
     return result;
   } 
-  get_calculation_type_translation( calculation_type: CALCULATION_TYPE_ENUM ): string {
+  protected get_calculation_type_translation( calculation_type: CALCULATION_TYPE_ENUM ): string {
     const trans = this.translationsS();
     const result = trans?.[ calculation_type as keyof typeof trans] ?? 'missing_translation';
     return result;
   } 
-  get_column_number( calculation_type: CALCULATION_TYPE_ENUM ): number {
+  protected get_column_number(calculation_type: CALCULATION_TYPE_ENUM): number {
     let result = 2;
     if(calculation_type === this.calculation_type_enum.custom) {
       result = 4;

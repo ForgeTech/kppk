@@ -1,9 +1,9 @@
 @let r = $results;
 @let t = r.translationS();
 
-<kppk-print-layout class="prose max-w-none">
+<kppk-print-layout>
  
-  <!-- @if( r.form_common_valuesS(); as form_common_values ) {
+  @if( r.form_common_valuesS(); as form_common_values ) {
   <div class="page page-cover-sheet">
     <div class="avoid-page-break-inside">
       
@@ -22,9 +22,9 @@
         </div>
       </div>
     </div>
-  } -->
+  }
 
-  <!-- <div class="page page-default material_table_page">
+  <div class="page page-default material_table_page">
     <div class="avoid-page-break-inside">
       <h1>{{ t?.table_of_contents }}:</h1>
       <ul>
@@ -64,14 +64,13 @@
         </li>
       </ul>
     </div>
-  </div> -->
+  </div>
 
-    <!-- <div class="page page-default material_table_page">
+    <div class="page page-default material_table_page">
       <div class="avoid-page-break-inside">
         <h2>{{ t?.step_edit_calculation_headline }}</h2>
         <h3>{{ t?.material }}</h3>
-        <h4>{{ t?.headline_transport }}</h4>
-        <h5>{{ t?.type_material }}</h5>
+        <h4>{{ t?.type_material }}</h4>
         @if(r.material_rowsS(); as material_rows) {
           <app-kppk-react-view-calculation-print-unit-value-table 
             [data]="material_rows"
@@ -79,11 +78,11 @@
           />
         }
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="page page-default material_table_page">
+    <div class="page page-default material_table_page">
       <div class="avoid-page-break-inside">
-        <h5>{{ t?.type_concrete }}</h5>
+        <h4>{{ t?.type_concrete }}</h4>
         @if(r.concrete_rowsS(); as concrete_rows) {
           <app-kppk-react-view-calculation-print-unit-value-table 
             [data]="concrete_rows"
@@ -91,11 +90,11 @@
           />
         }
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="page page-default material_table_page">
+    <div class="page page-default material_table_page">
       <div class="avoid-page-break-inside">
-        <h5>{{ t?.type_window }}</h5>
+        <h4>{{ t?.type_window }}</h4>
         @if(r.window_glass_rowsS(); as window_glass_rows) {
           <app-kppk-react-view-calculation-print-unit-value-table 
             [data]="window_glass_rows"
@@ -103,9 +102,9 @@
           />
         }
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="page page-default material_table_page">
+    <div class="page page-default material_table_page">
       <div class="avoid-page-break-inside">
         @if(r.window_frame_rowsS(); as frame_rows) {
           <app-kppk-react-view-calculation-print-unit-value-table 
@@ -114,117 +113,114 @@
           />
         }
       </div>
-    </div> -->
+    </div>
 
-
-
-  @if(r.form_construction_siteS(); as data) {
+  <@if(r.form_construction_siteS(); as data) {
     <div class="page page-default">
       <div class="avoid-page-break-inside">
-        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
         <kppk-react-view-calculation-print-form_construction_site [data]="data" />
       </div>
     </div>
   }
 
-  <!-- @if(r.form_container_villageS(); as data) {
+  @if(r.form_container_villageS(); as data) {
     <div class="page page-default">
       <div class="avoid-page-break-inside">
-        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
-        <pre>{{ data | json}}</pre>
-        
+        <kppk-react-view-calculation-print-form_container_village [data]="data" />
       </div>
     </div>
-  } -->
+  }
 
-  <!-- @if(r.form_demolish_disposalS(); as data) {
+  @if(r.form_demolish_disposalS(); as data) {
     <div class="page page-default">
       <div class="avoid-page-break-inside">
-        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
-        <pre>{{ data | json}}</pre>
-        
+        <kppk-react-view-calculation-print-form_demolish_disposal [data]="data" />
       </div>
     </div>
-  } -->
+  }
 
-  <!-- @if(r.form_excavation_pitS(); as data) {
+  @if(r.form_excavation_pitS(); as data) {
     <div class="page page-default">
       <div class="avoid-page-break-inside">
-        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
-        <pre>{{ data | json}}</pre>
-        
+        <kppk-react-view-calculation-print-form_excavation_pit [data]="data" />
       </div>
     </div>
-  } -->
+  }
 
-  <!-- @if(r.form_heating_systemS(); as data) {
+  @if(r.form_heating_systemS(); as data) {
     <div class="page page-default">
       <div class="avoid-page-break-inside">
-        <h2>{{ 'rcalc.print-headline-cost-compare' }}</h2>
-        <pre>{{ data | json}}</pre>
-        
+        <kppk-react-view-calculation-print-form_heating_system [data]="data" />
       </div>
     </div>
-  } -->
+  }
 
-  <!-- @let calculation = r.calculationS();
+  @let calculation = r.calculationS();
   @let materials_top_5 = $results.materials_top5S();
   @let materials_sums = $results.materials_sumsS();
   @let materials = $results.materialsS();
   @if(calculation && materials && materials_top_5 && materials_sums) {
-    <div class="page page-default result_content">
-      <div class="avoid-page-break-inside print-result-grid">
+    <div class="page page-default result_content break-before">
+      <div class="print-result-grid">
         <h2 class="page-headline page-headline-spacer">
           {{ 'rcalc.print-headline-base-data' }}
         </h2>
-        <kppk-react-results-material-sums [data]="materials_sums" />
+        <kppk-react-results-material-sums class="avoid-page-break-inside" [data]="materials_sums" />
         <kppk-react-results-material-top-grouped-bar-chart
-          class="absorbing"
+          class="absorbing avoid-page-break-inside"
           [data]="materials_top_5.absorbing.items"
           [is_printing]="true"
         >
           <h2>{{ t?.materials_top_absorbing }}</h2>
         </kppk-react-results-material-top-grouped-bar-chart>
         <kppk-react-results-material-top-grouped-bar-chart
-          class="emitting"
+          class="emitting avoid-page-break-inside"
           [data]="materials_top_5.emitting.items"
           [is_printing]="true"
         >
           <h2>{{ t?.materials_top_emitting }}</h2>
         </kppk-react-results-material-top-grouped-bar-chart>
         <kppk-react-results-pie-chart-absorbing-emitting
+          class="avoid-page-break-inside"
           [data_s]="materials_top_5"
           [is_printing]="true"
         />
         <kppk-react-results-construction-site
+          class="avoid-page-break-inside"
           [form]="calculation.form_construction_site.value"
         />
         <kppk-react-results-container-village
+          class="avoid-page-break-inside"
           [form]="calculation.form_container_village.value"
         />
         <kppk-react-results-demolish-disposal
+          class="avoid-page-break-inside"
           [form]="calculation.form_demolish_disposal.value"
         />
         <kppk-react-results-excavation-pit
+          class="avoid-page-break-inside"
           [form]="calculation.form_excavation_pit.value"
         />
         <kppk-react-results-heating-system
+          class="avoid-page-break-inside"
           [form]="calculation.form_heating_system.value"
         />
         <kppk-react-results-pie-chart-co2-phases
+          class="avoid-page-break-inside"
           [data_s]="calculation"
           [material_s]="materials_sums"
           [is_printing]="true"
         />
         <kppk-react-results-pie-chart-transport-creation-operation
+          class="avoid-page-break-inside"
           [data_s]="calculation"
           [material_s]="materials_sums"
           [is_printing]="true"
         />
       </div>
-    </div> -->
+    </div>
 
-    <!-- <div class="page page-default">
+    <div class="page page-default">
       <div class="avoid-page-break-inside">
         <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
         <kppk-react-results-material-table 
@@ -233,18 +229,23 @@
           [is_printing]="true"
         />
       </div>
-    </div> -->
+    </div>
   
-    <!-- <div class="page page-default">
-      <div class="avoid-page-break-inside">
-        <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
-        <kppk-react-results-materials-graph 
-          class="inline-block h-full w-full" 
-          [is_printing]="true"
-          [height]="table_materials.$element_ref.nativeElement.offsetHeight"
-        />
+    @if(r.result_chartS(); as data) {
+      {{ table_materials.$element_ref.nativeElement.offsetHeight }}
+      <div class="page page-default">
+        <div class="avoid-page-break-inside">
+          <h2 class="page-headline page-headline-spacer">{{ 'rcalc.print-headline-cost-compare' }}</h2>
+          <kppk-react-results-materials-graph 
+            class="inline-block h-full w-full" 
+            [is_printing]="true"
+            [height]="table_materials.$element_ref.nativeElement.offsetHeight"
+            [data]="data"
+          />
+        </div>
       </div>
-    </div> -->
+    }
+    
   }
 
 </kppk-print-layout>  
